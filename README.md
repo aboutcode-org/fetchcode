@@ -10,6 +10,6 @@ Then install all the requirements using
 
 # Running Test Suite
 
-To run test suite
+To run test suite:
 `python3 -m pytest`
 
