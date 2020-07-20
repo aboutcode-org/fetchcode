@@ -57,6 +57,7 @@ def fetch_via_vcs(url):
         if scheme in vcs_backend.schemes:
             vcs_type = vcs_name
 
-    vcs.get_backend_for_scheme(scheme).obtain(temp,url=misc.hide_url(url))
+    backend = vcs.get_backend_for_scheme(scheme)
+    backend.obtain(dest=temp, url=misc.hide_url(url))
 
     return VCSResponse(dest_dir=temp, vcs_type=vcs_type, domain=domain)
