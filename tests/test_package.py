@@ -26,52 +26,74 @@ def file_data(file_name):
         return json.loads(data)
 
 
+def match_data(packages, expected_data):
+    data = [dict(p.to_dict()) for p in packages]
+    expected_data_dict = dict(expected_data)
+    expected_data = [dict(expected_data_dict[p]) for p in expected_data_dict]
+    assert expected_data == data
+
+
 @mock.patch("fetchcode.package.get_response")
-def test_packages(mock_get):
+def test_cargo_packages(mock_get):
+    side_effect = [file_data("tests/data/cargo_mock_data.json")]
+    purl = "pkg:cargo/rand"
+    expected_data = file_data("tests/data/cargo.json")
+    mock_get.side_effect = side_effect
+    packages = list(info(purl))
+    match_data(packages, expected_data)
 
-    package_managers = {
-        "cargo": {
-            "side_effect": [file_data("tests/data/cargo_mock_data.json")],
-            "purl": "pkg:cargo/rand",
-            "expected_data": "tests/data/cargo.json",
-        },
-        "npm": {
-            "side_effect": [file_data("tests/data/npm_mock_data.json")],
-            "purl": "pkg:npm/express",
-            "expected_data": "tests/data/npm.json",
-        },
-        "pypi": {
-            "side_effect": [file_data("tests/data/pypi_mock_data.json")],
-            "purl": "pkg:pypi/flask",
-            "expected_data": "tests/data/pypi.json",
-        },
-        "github": {
-            "side_effect": [
-                file_data("tests/data/github_mock_data.json"),
-                file_data("tests/data/github_mock_release_data.json"),
-            ],
-            "purl": "pkg:github/TG1999/fetchcode",
-            "expected_data": "tests/data/github.json",
-        },
-        "bitbucket": {
-            "side_effect": [
-                file_data("tests/data/bitbucket_mock_data.json"),
-                file_data("tests/data/bitbucket_mock_release_data.json"),
-            ],
-            "purl": "pkg:bitbucket/litmis/python-itoolkit",
-            "expected_data": "tests/data/bitbucket.json",
-        },
-        "rubygems": {
-            "side_effect": [file_data("tests/data/rubygems_mock_data.json")],
-            "purl": "pkg:rubygems/rubocop",
-            "expected_data": "tests/data/rubygems.json",
-        },
-    }
 
-    for package_manager in package_managers.values():
-        mock_get.side_effect = package_manager["side_effect"]
-        packages = list(info(package_manager["purl"]))
-        data = [dict(p.to_dict()) for p in packages]
-        expected_data_dict = file_data(package_manager["expected_data"])
-        expected_data = [dict(expected_data_dict[p]) for p in expected_data_dict]
-        assert expected_data == data
+@mock.patch("fetchcode.package.get_response")
+def test_npm_packages(mock_get):
+    side_effect = [file_data("tests/data/npm_mock_data.json")]
+    purl = "pkg:npm/express"
+    expected_data = file_data("tests/data/npm.json")
+    mock_get.side_effect = side_effect
+    packages = list(info(purl))
+    match_data(packages, expected_data)
+
+
+@mock.patch("fetchcode.package.get_response")
+def test_pypi_packages(mock_get):
+    side_effect = [file_data("tests/data/pypi_mock_data.json")]
+    purl = "pkg:pypi/flask"
+    expected_data = file_data("tests/data/pypi.json")
+    mock_get.side_effect = side_effect
+    packages = list(info(purl))
+    match_data(packages, expected_data)
+
+
+@mock.patch("fetchcode.package.get_response")
+def test_github_packages(mock_get):
+    side_effect = [
+        file_data("tests/data/github_mock_data.json"),
+        file_data("tests/data/github_mock_release_data.json"),
+    ]
+    purl = "pkg:github/TG1999/fetchcode"
+    expected_data = file_data("tests/data/github.json")
+    mock_get.side_effect = side_effect
+    packages = list(info(purl))
+    match_data(packages, expected_data)
+
+
+@mock.patch("fetchcode.package.get_response")
+def test_bitbucket_packages(mock_get):
+    side_effect = [
+        file_data("tests/data/bitbucket_mock_data.json"),
+        file_data("tests/data/bitbucket_mock_release_data.json"),
+    ]
+    purl = "pkg:bitbucket/litmis/python-itoolkit"
+    expected_data = file_data("tests/data/bitbucket.json")
+    mock_get.side_effect = side_effect
+    packages = list(info(purl))
+    match_data(packages, expected_data)
+
+
+@mock.patch("fetchcode.package.get_response")
+def test_rubygems_packages(mock_get):
+    side_effect = [file_data("tests/data/rubygems_mock_data.json")]
+    purl = "pkg:rubygems/rubocop"
+    expected_data = file_data("tests/data/rubygems.json")
+    mock_get.side_effect = side_effect
+    packages = list(info(purl))
+    match_data(packages, expected_data)
