@@ -1,0 +1,302 @@
+[
+    {
+      "name": "v3.1.1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v3.1.1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v3.1.1",
+      "commit": {
+        "sha": "1af5ac8449cbb1ce98a0b461a6d9a5ad42a5d248",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/1af5ac8449cbb1ce98a0b461a6d9a5ad42a5d248"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djMuMS4x"
+    },
+    {
+      "name": "v3.1.0",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v3.1.0",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v3.1.0",
+      "commit": {
+        "sha": "c697222cec7b7ef5a122bf9f64eeef5a4ede11f9",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/c697222cec7b7ef5a122bf9f64eeef5a4ede11f9"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djMuMS4w"
+    },
+    {
+      "name": "v3.0.2",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v3.0.2",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v3.0.2",
+      "commit": {
+        "sha": "3f699d09f446a50a1021b5756df8b5c4485a55f0",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/3f699d09f446a50a1021b5756df8b5c4485a55f0"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djMuMC4y"
+    },
+    {
+      "name": "v3.0.1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v3.0.1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v3.0.1",
+      "commit": {
+        "sha": "12dee4a50acd489965a81a3051d6f15e930cd485",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/12dee4a50acd489965a81a3051d6f15e930cd485"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djMuMC4x"
+    },
+    {
+      "name": "v3.0.0",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v3.0.0",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v3.0.0",
+      "commit": {
+        "sha": "fba90b2f52361c2c099e1c2bed043d70b39d1743",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/fba90b2f52361c2c099e1c2bed043d70b39d1743"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djMuMC4w"
+    },
+    {
+      "name": "v2.9.9",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.9",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.9",
+      "commit": {
+        "sha": "fd04833e3e9a1eeacc8e9945d677a4998b18854b",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/fd04833e3e9a1eeacc8e9945d677a4998b18854b"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS45"
+    },
+    {
+      "name": "v2.9.8",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.8",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.8",
+      "commit": {
+        "sha": "a2fc22739372f6290499459f4843b2a9fe14952d",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/a2fc22739372f6290499459f4843b2a9fe14952d"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS44"
+    },
+    {
+      "name": "v2.9.7",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.7",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.7",
+      "commit": {
+        "sha": "f4a832378ee2e65f6319d671161a13e47ed06fb7",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/f4a832378ee2e65f6319d671161a13e47ed06fb7"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS43"
+    },
+    {
+      "name": "v2.9.6",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.6",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.6",
+      "commit": {
+        "sha": "f499e18ee62c28880b187670ffd1f9aefc51dc64",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/f499e18ee62c28880b187670ffd1f9aefc51dc64"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS42"
+    },
+    {
+      "name": "v2.9.5",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.5",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.5",
+      "commit": {
+        "sha": "3be6be88683fe906ea928f17bfcfa24d9607454d",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/3be6be88683fe906ea928f17bfcfa24d9607454d"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS41"
+    },
+    {
+      "name": "v2.9.4",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.4",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.4",
+      "commit": {
+        "sha": "d3bedeef80c03bb3fa486c262980eb108e49a342",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/d3bedeef80c03bb3fa486c262980eb108e49a342"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS40"
+    },
+    {
+      "name": "v2.9.3",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.3",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.3",
+      "commit": {
+        "sha": "3f970b1e156442b869663b22e27aa8f9637c2c9e",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/3f970b1e156442b869663b22e27aa8f9637c2c9e"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS4z"
+    },
+    {
+      "name": "v2.9.2",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.2",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.2",
+      "commit": {
+        "sha": "7e654ef927deed27334b15019254bf3b4be0efb4",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/7e654ef927deed27334b15019254bf3b4be0efb4"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS4y"
+    },
+    {
+      "name": "v2.9.1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.1",
+      "commit": {
+        "sha": "96cf70dcec8fb1dd1908c1a355dc369f8617059f",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/96cf70dcec8fb1dd1908c1a355dc369f8617059f"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS4x"
+    },
+    {
+      "name": "v2.9.0b1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.9.0b1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.9.0b1",
+      "commit": {
+        "sha": "8ca9921f4be2c742926219348a1ef333a9d4304b",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/8ca9921f4be2c742926219348a1ef333a9d4304b"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuOS4wYjE="
+    },
+    {
+      "name": "v2.2.1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.2.1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.2.1",
+      "commit": {
+        "sha": "bd9a0c3e801d916a54ec77228ce1d0801cf7d374",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/bd9a0c3e801d916a54ec77228ce1d0801cf7d374"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMi4x"
+    },
+    {
+      "name": "v2.2.0",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.2.0",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.2.0",
+      "commit": {
+        "sha": "b981c3f912438b037a330a6f804e1935d1176c46",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/b981c3f912438b037a330a6f804e1935d1176c46"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMi4w"
+    },
+    {
+      "name": "v2.1.0",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.1.0",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.1.0",
+      "commit": {
+        "sha": "2d6d9045a4a87331835340d37bd63813c2f9dea6",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/2d6d9045a4a87331835340d37bd63813c2f9dea6"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMS4w"
+    },
+    {
+      "name": "v2.0.1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.0.1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.0.1",
+      "commit": {
+        "sha": "1960ffcf27e14f0f7163a4d541e377509a4092f8",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/1960ffcf27e14f0f7163a4d541e377509a4092f8"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMC4x"
+    },
+    {
+      "name": "v2.0.0",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.0.0",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.0.0",
+      "commit": {
+        "sha": "92e16663ced395af16a988c42cadebf4c738defa",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/92e16663ced395af16a988c42cadebf4c738defa"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMC4w"
+    },
+    {
+      "name": "v2.0.0.rc3",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.0.0.rc3",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.0.0.rc3",
+      "commit": {
+        "sha": "89f9dee91bbb377479681cb2cf22c7994c38ded5",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/89f9dee91bbb377479681cb2cf22c7994c38ded5"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMC4wLnJjMw=="
+    },
+    {
+      "name": "v2.0.0.rc2",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.0.0.rc2",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.0.0.rc2",
+      "commit": {
+        "sha": "eeb6f2734b8ec90956b675a13b23d90be9a8e312",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/eeb6f2734b8ec90956b675a13b23d90be9a8e312"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMC4wLnJjMg=="
+    },
+    {
+      "name": "v2.0.0.rc1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v2.0.0.rc1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v2.0.0.rc1",
+      "commit": {
+        "sha": "7a57e44bece5ad0385e6b84371be33e9674fd6ef",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/7a57e44bece5ad0385e6b84371be33e9674fd6ef"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djIuMC4wLnJjMQ=="
+    },
+    {
+      "name": "v1.6.3",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v1.6.3",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v1.6.3",
+      "commit": {
+        "sha": "2e271bab84ae787df9aa944cebf7ad945401e4c5",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/2e271bab84ae787df9aa944cebf7ad945401e4c5"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djEuNi4z"
+    },
+    {
+      "name": "v1.6.2",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v1.6.2",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v1.6.2",
+      "commit": {
+        "sha": "91b8f0fd6f145468bd2ec573c1d38e23c29d2f3a",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/91b8f0fd6f145468bd2ec573c1d38e23c29d2f3a"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djEuNi4y"
+    },
+    {
+      "name": "v1.6.1",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v1.6.1",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v1.6.1",
+      "commit": {
+        "sha": "10eea0cad9f6e389a54094e6cc77ec585ba9fa8a",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/10eea0cad9f6e389a54094e6cc77ec585ba9fa8a"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djEuNi4x"
+    },
+    {
+      "name": "v1.6.0",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v1.6.0",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v1.6.0",
+      "commit": {
+        "sha": "d0926424ce9c31e240a96f4ef6a3c744c5b42c82",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/d0926424ce9c31e240a96f4ef6a3c744c5b42c82"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djEuNi4w"
+    },
+    {
+      "name": "v1.5.0",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v1.5.0",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v1.5.0",
+      "commit": {
+        "sha": "070f611263154dec7ac000cb86257728d2fb5647",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/070f611263154dec7ac000cb86257728d2fb5647"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djEuNS4w"
+    },
+    {
+      "name": "v1.4.3",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v1.4.3",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v1.4.3",
+      "commit": {
+        "sha": "0844aee2d6b4210d9c68d621e1a243837e167a87",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/0844aee2d6b4210d9c68d621e1a243837e167a87"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djEuNC4z"
+    },
+    {
+      "name": "v1.4.2",
+      "zipball_url": "https://api.github.com/repos/nexB/scancode-toolkit/zipball/v1.4.2",
+      "tarball_url": "https://api.github.com/repos/nexB/scancode-toolkit/tarball/v1.4.2",
+      "commit": {
+        "sha": "0feda39a57f0d121302127411994e63b1db2bfa3",
+        "url": "https://api.github.com/repos/nexB/scancode-toolkit/commits/0feda39a57f0d121302127411994e63b1db2bfa3"
+      },
+      "node_id": "MDM6UmVmMzgzNzMzMzg6djEuNC4y"
+    }
+  ]
