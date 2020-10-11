@@ -91,7 +91,8 @@ def get_cargo_data_from_purl(purl):
     )
     versions = response.get("versions", [])
     for version in versions:
-        version_purl = PackageURL(type=purl.type, name=name, version=version.get("num"))
+        version_purl = PackageURL(
+            type=purl.type, name=name, version=version.get("num"))
         dl_path = version.get("dl_path")
         if dl_path:
             download_url = f"{base_url}/{dl_path}"
@@ -323,6 +324,29 @@ def get_rubygems_data_from_purl(purl):
         api_url=api_url,
         bug_tracking_url=bug_tracking_url,
         code_view_url=code_view_url,
+        declared_license=declared_license,
+        download_url=download_url,
+        **purl.to_dict(),
+    )
+
+
+@router.route("pkg:brew/.*")
+def get_homebrew_data_from_purl(purl):
+    """
+    Generate `Package` object from the `purl` string of rubygems type
+    """
+    purl = PackageURL.from_string(purl)
+    name = purl.name
+    base_path = "https://formulae.brew.sh/api/formula"
+    api_url = f"{base_path}/{name}.json"
+    response = get_response(api_url)
+    declared_license = response.get("license") or None
+    homepage_url = response.get("homepage")
+    version = response.get("versions") or None
+    download_url = response.get("urls")["stable"]["url"]
+    yield Package(
+        homepage_url=homepage_url,
+        api_url=api_url,
         declared_license=declared_license,
         download_url=download_url,
         **purl.to_dict(),
