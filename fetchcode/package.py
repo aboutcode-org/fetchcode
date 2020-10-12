@@ -340,10 +340,14 @@ def get_homebrew_data_from_purl(purl):
     base_path = "https://formulae.brew.sh/api/formula"
     api_url = f"{base_path}/{name}.json"
     response = get_response(api_url)
-    declared_license = response.get("license") or None
+    declared_license = response.get("license")
     homepage_url = response.get("homepage")
-    version = response.get("versions") or None
-    download_url = response.get("urls")["stable"]["url"]
+    version = response.get("versions")
+    download_path = response.get("urls")["stable"]["url"]
+    if download_path:
+        download_url = response.get("urls")["stable"]["url"]
+    else:
+        download_url = None
     yield Package(
         homepage_url=homepage_url,
         api_url=api_url,
