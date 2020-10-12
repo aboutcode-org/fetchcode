@@ -91,8 +91,7 @@ def get_cargo_data_from_purl(purl):
     )
     versions = response.get("versions", [])
     for version in versions:
-        version_purl = PackageURL(
-            type=purl.type, name=name, version=version.get("num"))
+        version_purl = PackageURL(type=purl.type, name=name, version=version.get("num"))
         dl_path = version.get("dl_path")
         if dl_path:
             download_url = f"{base_url}/{dl_path}"
