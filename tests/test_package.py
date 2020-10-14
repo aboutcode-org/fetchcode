@@ -102,7 +102,7 @@ def test_rubygems_packages(mock_get):
 @mock.patch("fetchcode.package.get_response")
 def test_homebrew_packages(mock_get):
     side_effect = [file_data("tests/data/homebrew_mock_data.json")]
-    purl = "pkg:brew/node"
+    purl = "pkg:homebrew/node"
     expected_data = file_data("tests/data/homebrew.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))

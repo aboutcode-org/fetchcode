@@ -1,6 +1,6 @@
 {
     "0": {
-        "type": "brew",
+        "type": "homebrew",
         "namespace": null,
         "name": "node",
         "version": null,
@@ -30,7 +30,7 @@
         "dependencies": [],
         "contains_source_code": null,
         "source_packages": [],
-        "purl": "pkg:brew/node",
+        "purl": "pkg:homebrew/node",
         "repository_homepage_url": null,
         "repository_download_url": null,
         "api_data_url": null

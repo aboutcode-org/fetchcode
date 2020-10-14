@@ -329,7 +329,7 @@ def get_rubygems_data_from_purl(purl):
     )
 
 
-@router.route("pkg:brew/.*")
+@router.route("pkg:homebrew/.*")
 def get_homebrew_data_from_purl(purl):
     """
     Generate `Package` object from the `purl` string of rubygems type
