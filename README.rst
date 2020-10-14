@@ -6,16 +6,19 @@ It is a library to reliably fetch code via HTTP, FTP and version control systems
 Installation
 ############
 Clone the repo using 
-`git clone https://github.com/nexB/fetchcode`
+
+:code:`git clone https://github.com/nexB/fetchcode`
 
 Then install all the requirements using 
-`pip3 install -r requirements.txt`
+
+:code:`pip3 install -r requirements.txt`
 
 Running test suite
 ##################
 
 To run test suite
-`python3 -m pytest`
+
+:code:`python3 -m pytest`
 
 Usage of API to fetch HTTP/S and FTP URLs
 #########################################
