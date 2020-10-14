@@ -341,12 +341,10 @@ def get_homebrew_data_from_purl(purl):
     response = get_response(api_url)
     declared_license = response.get("license")
     homepage_url = response.get("homepage")
-    version = response.get("versions")
-    download_path = response.get("urls")["stable"]["url"]
-    if download_path:
-        download_url = response.get("urls")["stable"]["url"]
-    else:
-        download_url = None
+    version = response.get("versions")["stable"]
+    urls = response.get("urls") or {{}}
+    stable_url = urls.get("stable") or {}
+    download_url = stable_url.get("url")
     yield Package(
         homepage_url=homepage_url,
         api_url=api_url,
