@@ -1,0 +1,13 @@
+include *.txt
+recursive-include fetchcode *.APACHE
+recursive-include fetchcode *.BSD
+recursive-include fetchcode *.LICENSE
+recursive-include fetchcode *.cfg
+recursive-include fetchcode *.exe
+recursive-include fetchcode *.pem
+recursive-include fetchcode *.pyi
+recursive-include fetchcode *.rst
+recursive-include fetchcode *.txt
+recursive-include fetchcode *.typed
+recursive-include tests *.json
+recursive-include tests *.py
