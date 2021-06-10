@@ -25,213 +25,40 @@ from fetchcode.vcs.pip._internal.vcs import vcs
 def obtain(dest, url):
     pass
 
-
+@pytest.mark.parametrize(
+    "url, vcs_type, domain",
+    [
+        pytest.param("git+http://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_http"),
+        pytest.param("git://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git"),
+        pytest.param("git+https://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_https"),
+        pytest.param("git+ssh://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_ssh"),
+        pytest.param("git+file://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_file"),
+        pytest.param("git+git://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_git"),
+        pytest.param("bzr+http://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_http"),
+        pytest.param("bzr+https://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_https"),
+        pytest.param("bzr://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr"),
+        pytest.param("bzr+ssh://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_ssh"),
+        pytest.param("bzr+ftp://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_ftp"),
+        pytest.param("bzr+sftp://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_sftp"),
+        pytest.param("bzr+lp://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_lp"),
+        pytest.param("hg://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg"),
+        pytest.param("hg+file://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_file"),
+        pytest.param("hg+http://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_http"),
+        pytest.param("hg+https://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_https"),
+        pytest.param("hg+ssh://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_ssh"),
+        pytest.param("hg+static-http://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_static_http"),
+        pytest.param("svn://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn"),
+        pytest.param("svn+http://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn_http"),
+        pytest.param("svn+https://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn_https"),
+        pytest.param("svn+svn://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn_svn")
+    ],
+)
 @mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_git_http_url_returns_a_response(mock_backend):
+def test_fetch_via_vcs_returns_response(mock_backend, url, vcs_type, domain):
     mock_backend.return_value.obtain = obtain
-    url = "git+http://github.com/jamesor/mongoose-versioner"
     response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_git_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_git_https_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+https://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_git_ssh_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+ssh://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_git_file_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+file://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_git_ssh_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+git://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_bzr_http_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "bzr+http://gitlab.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "bzr"
-    assert response.domain == "gitlab.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_bzr_https_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "bzr+https://gitlab.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "bzr"
-    assert response.domain == "gitlab.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_bzr_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "bzr://gitlab.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "bzr"
-    assert response.domain == "gitlab.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_bzr_ssh_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "bzr+ssh://gitlab.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "bzr"
-    assert response.domain == "gitlab.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_bzr_ftp_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "bzr+ftp://gitlab.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "bzr"
-    assert response.domain == "gitlab.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_bzr_sftp_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "bzr+sftp://gitlab.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "bzr"
-    assert response.domain == "gitlab.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_bzr_lp_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "bzr+lp://gitlab.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "bzr"
-    assert response.domain == "gitlab.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_hg_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "hg://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "hg"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_hg_file_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "hg+file://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "hg"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_hg_http_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "hg+http://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "hg"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_hg_https_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "hg+https://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "hg"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_hg_ssh_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "hg+ssh://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "hg"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_hg_static_http_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "hg+static-http://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "hg"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_svn_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "svn://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "svn"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_svn_http_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "svn+http://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "svn"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_svn_https_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "svn+https://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "svn"
-    assert response.domain == "bitbucket.com"
-
-
-@mock.patch("fetchcode.vcs.vcs.get_backend_for_scheme")
-def test_fetch_with_svn_svn_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "svn+svn://bitbucket.com/jamesor/mongoose-versioner"
-    response = fetch_via_vcs(url=url)
-    assert response.vcs_type == "svn"
-    assert response.domain == "bitbucket.com"
-
+    assert response.vcs_type == vcs_type
+    assert response.domain == domain
 
 def test_fetch_with_invalid_scheme():
     invalid_urls = [
