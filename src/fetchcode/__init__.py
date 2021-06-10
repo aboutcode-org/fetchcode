@@ -44,11 +44,11 @@ def fetch_http(url, location):
     saving the content in a file at `location`
     """
     r = requests.get(url)
-    with open(location, 'wb') as f:
+    with open(location, "wb") as f:
         f.write(r.content)
 
-    content_type = r.headers.get('content-type')
-    size = r.headers.get('content-length')
+    content_type = r.headers.get("content-type")
+    size = r.headers.get("content-length")
     size = int(size) if size else None
 
     resp = Response(location=location, content_type=content_type, size=size, url=url)
@@ -79,8 +79,8 @@ def fetch_ftp(url, location):
         content_type = None
 
     ftp.cwd(dir)
-    file = 'RETR {}'.format(file)
-    with open(location, 'wb') as f:
+    file = "RETR {}".format(file)
+    with open(location, "wb") as f:
         ftp.retrbinary(file, f.write)
     ftp.close()
 
@@ -99,9 +99,9 @@ def fetch(url):
     url_parts = urlparse(url)
     scheme = url_parts.scheme
 
-    fetchers = {'ftp': fetch_ftp, 'http': fetch_http, 'https': fetch_http}
+    fetchers = {"ftp": fetch_ftp, "http": fetch_http, "https": fetch_http}
 
     if scheme in fetchers:
         return fetchers.get(scheme)(url, location)
 
-    raise Exception('Not a supported/known scheme.')
+    raise Exception("Not a supported/known scheme.")
