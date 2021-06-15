@@ -4,11 +4,6 @@ import sys
 from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urllib_parse
 from fetchcode.vcs.pip._vendor.six.moves.urllib import request as urllib_request
 
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import Optional, Text, Union
-
 
 def get_url_scheme(url):
     # type: (Union[str, Text]) -> Optional[Text]

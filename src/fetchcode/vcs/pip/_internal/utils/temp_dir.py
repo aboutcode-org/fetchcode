@@ -10,12 +10,6 @@ from contextlib import contextmanager
 from fetchcode.vcs.pip._vendor.contextlib2 import ExitStack
 
 from fetchcode.vcs.pip._internal.utils.misc import enum, rmtree
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import Any, Dict, Iterator, Optional, TypeVar, Union
-
-    _T = TypeVar('_T', bound='TempDirectory')
 
 
 logger = logging.getLogger(__name__)

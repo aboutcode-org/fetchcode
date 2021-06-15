@@ -1,7 +1,3 @@
-# The following comment should be removed at some point in the future.
-# mypy: strict-optional=False
-# mypy: disallow-untyped-defs=False
-
 from __future__ import absolute_import
 
 import contextlib
@@ -28,36 +24,19 @@ from fetchcode.vcs.pip._vendor.six.moves.urllib.parse import unquote as urllib_u
 
 from pip import __version__
 from fetchcode.vcs.pip._internal.exceptions import CommandError
-from fetchcode.vcs.pip._internal.locations import (
-    get_major_minor_version,
-    site_packages,
-    user_site,
-)
+
 from fetchcode.vcs.pip._internal.utils.compat import (
     WINDOWS,
     expanduser,
     stdlib_pkgs,
     str_to_display,
 )
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING, cast
-from fetchcode.vcs.pip._internal.utils.virtualenv import (
-    running_under_virtualenv,
-    virtualenv_no_global,
-)
+
 
 if PY2:
     from io import BytesIO as StringIO
 else:
     from io import StringIO
-
-if MYPY_CHECK_RUNNING:
-    from typing import (
-        Any, AnyStr, Container, Iterable, Iterator, List, Optional, Text,
-        Tuple, Union,
-    )
-    from fetchcode.vcs.pip._vendor.pkg_resources import Distribution
-
-    VersionInfo = Tuple[int, int, int]
 
 
 __all__ = ['rmtree', 'display_path', 'backup_dir',
@@ -71,37 +50,6 @@ __all__ = ['rmtree', 'display_path', 'backup_dir',
 
 logger = logging.getLogger(__name__)
 
-
-def get_pip_version():
-    # type: () -> str
-    pip_pkg_dir = os.path.join(os.path.dirname(__file__), "..", "..")
-    pip_pkg_dir = os.path.abspath(pip_pkg_dir)
-
-    return (
-        'pip {} from {} (python {})'.format(
-            __version__, pip_pkg_dir, get_major_minor_version(),
-        )
-    )
-
-
-def normalize_version_info(py_version_info):
-    # type: (Tuple[int, ...]) -> Tuple[int, int, int]
-    """
-    Convert a tuple of ints representing a Python version to one of length
-    three.
-
-    :param py_version_info: a tuple of ints representing a Python version,
-        or None to specify no version. The tuple can have any length.
-
-    :return: a tuple of length three if `py_version_info` is non-None.
-        Otherwise, return `py_version_info` unchanged (i.e. None).
-    """
-    if len(py_version_info) < 3:
-        py_version_info += (3 - len(py_version_info)) * (0,)
-    elif len(py_version_info) > 3:
-        py_version_info = py_version_info[:3]
-
-    return cast('VersionInfo', py_version_info)
 
 
 def ensure_dir(path):
@@ -354,182 +302,6 @@ def renames(old, new):
             os.removedirs(head)
         except OSError:
             pass
-
-
-def is_local(path):
-    # type: (str) -> bool
-    """
-    Return True if path is within sys.prefix, if we're running in a virtualenv.
-
-    If we're not in a virtualenv, all paths are considered "local."
-
-    Caution: this function assumes the head of path has been normalized
-    with normalize_path.
-    """
-    if not running_under_virtualenv():
-        return True
-    return path.startswith(normalize_path(sys.prefix))
-
-
-def dist_is_local(dist):
-    # type: (Distribution) -> bool
-    """
-    Return True if given Distribution object is installed locally
-    (i.e. within current virtualenv).
-
-    Always True if we're not in a virtualenv.
-
-    """
-    return is_local(dist_location(dist))
-
-
-def dist_in_usersite(dist):
-    # type: (Distribution) -> bool
-    """
-    Return True if given Distribution is installed in user site.
-    """
-    return dist_location(dist).startswith(normalize_path(user_site))
-
-
-def dist_in_site_packages(dist):
-    # type: (Distribution) -> bool
-    """
-    Return True if given Distribution is installed in
-    sysconfig.get_python_lib().
-    """
-    return dist_location(dist).startswith(normalize_path(site_packages))
-
-
-def dist_is_editable(dist):
-    # type: (Distribution) -> bool
-    """
-    Return True if given Distribution is an editable install.
-    """
-    for path_item in sys.path:
-        egg_link = os.path.join(path_item, dist.project_name + '.egg-link')
-        if os.path.isfile(egg_link):
-            return True
-    return False
-
-
-def get_installed_distributions(
-        local_only=True,  # type: bool
-        skip=stdlib_pkgs,  # type: Container[str]
-        include_editables=True,  # type: bool
-        editables_only=False,  # type: bool
-        user_only=False,  # type: bool
-        paths=None  # type: Optional[List[str]]
-):
-    # type: (...) -> List[Distribution]
-    """
-    Return a list of installed Distribution objects.
-
-    If ``local_only`` is True (default), only return installations
-    local to the current virtualenv, if in a virtualenv.
-
-    ``skip`` argument is an iterable of lower-case project names to
-    ignore; defaults to stdlib_pkgs
-
-    If ``include_editables`` is False, don't report editables.
-
-    If ``editables_only`` is True , only report editables.
-
-    If ``user_only`` is True , only report installations in the user
-    site directory.
-
-    If ``paths`` is set, only report the distributions present at the
-    specified list of locations.
-    """
-    if paths:
-        working_set = pkg_resources.WorkingSet(paths)
-    else:
-        working_set = pkg_resources.working_set
-
-    if local_only:
-        local_test = dist_is_local
-    else:
-        def local_test(d):
-            return True
-
-    if include_editables:
-        def editable_test(d):
-            return True
-    else:
-        def editable_test(d):
-            return not dist_is_editable(d)
-
-    if editables_only:
-        def editables_only_test(d):
-            return dist_is_editable(d)
-    else:
-        def editables_only_test(d):
-            return True
-
-    if user_only:
-        user_test = dist_in_usersite
-    else:
-        def user_test(d):
-            return True
-
-    return [d for d in working_set
-            if local_test(d) and
-            d.key not in skip and
-            editable_test(d) and
-            editables_only_test(d) and
-            user_test(d)
-            ]
-
-
-def egg_link_path(dist):
-    # type: (Distribution) -> Optional[str]
-    """
-    Return the path for the .egg-link file if it exists, otherwise, None.
-
-    There's 3 scenarios:
-    1) not in a virtualenv
-       try to find in site.USER_SITE, then site_packages
-    2) in a no-global virtualenv
-       try to find in site_packages
-    3) in a yes-global virtualenv
-       try to find in site_packages, then site.USER_SITE
-       (don't look in global location)
-
-    For #1 and #3, there could be odd cases, where there's an egg-link in 2
-    locations.
-
-    This method will just return the first one found.
-    """
-    sites = []
-    if running_under_virtualenv():
-        sites.append(site_packages)
-        if not virtualenv_no_global() and user_site:
-            sites.append(user_site)
-    else:
-        if user_site:
-            sites.append(user_site)
-        sites.append(site_packages)
-
-    for site in sites:
-        egglink = os.path.join(site, dist.project_name) + '.egg-link'
-        if os.path.isfile(egglink):
-            return egglink
-    return None
-
-
-def dist_location(dist):
-    # type: (Distribution) -> str
-    """
-    Get the site-packages location of this distribution. Generally
-    this is dist.location, except in the case of develop-installed
-    packages, where dist.location is the source code location, and we
-    want to know where the egg-link file is.
-
-    The returned location is normalized (in particular, with symlinks removed).
-    """
-    egg_link = egg_link_path(dist)
-    if egg_link:
-        return normalize_path(egg_link)
-    return normalize_path(dist.location)
 
 
 def write_output(msg, *args):

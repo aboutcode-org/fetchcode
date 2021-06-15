@@ -10,17 +10,6 @@ from fetchcode.vcs.pip._internal.exceptions import (
     InstallationError,
 )
 from fetchcode.vcs.pip._internal.utils.misc import read_chunks
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import (
-        Dict, List, BinaryIO, NoReturn, Iterator
-    )
-    from fetchcode.vcs.pip._vendor.six import PY3
-    if PY3:
-        from hashlib import _Hash
-    else:
-        from hashlib import _hash as _Hash
 
 
 # The recommended hash algo of the moment. Change this whenever the state of

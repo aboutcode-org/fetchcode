@@ -1,6 +1,3 @@
-# The following comment should be removed at some point in the future.
-# mypy: disallow-untyped-defs=False
-
 from __future__ import absolute_import
 
 import logging
@@ -15,20 +12,12 @@ from fetchcode.vcs.pip._internal.utils.misc import (
     split_auth_from_netloc,
 )
 from fetchcode.vcs.pip._internal.utils.subprocess import make_command
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
 from fetchcode.vcs.pip._internal.vcs.versioncontrol import VersionControl, vcs
 
 _svn_xml_url_re = re.compile('url="([^"]+)"')
 _svn_rev_re = re.compile(r'committed-rev="(\d+)"')
 _svn_info_xml_rev_re = re.compile(r'\s*revision="(\d+)"')
 _svn_info_xml_url_re = re.compile(r'<url>(.*)</url>')
-
-
-if MYPY_CHECK_RUNNING:
-    from typing import Optional, Tuple
-    from fetchcode.vcs.pip._internal.utils.subprocess import CommandArgs
-    from fetchcode.vcs.pip._internal.utils.misc import HiddenText
-    from fetchcode.vcs.pip._internal.vcs.versioncontrol import AuthInfo, RevOptions
 
 
 logger = logging.getLogger(__name__)

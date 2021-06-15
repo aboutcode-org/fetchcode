@@ -22,19 +22,7 @@ from fetchcode.vcs.pip._internal.utils.misc import (
     rmtree,
 )
 from fetchcode.vcs.pip._internal.utils.subprocess import call_subprocess, make_command
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
 from fetchcode.vcs.pip._internal.utils.urls import get_url_scheme
-
-if MYPY_CHECK_RUNNING:
-    from typing import (
-        Any, Dict, Iterable, Iterator, List, Mapping, Optional, Text, Tuple,
-        Type, Union
-    )
-    from fetchcode.vcs.pip._internal.cli.spinners import SpinnerInterface
-    from fetchcode.vcs.pip._internal.utils.misc import HiddenText
-    from fetchcode.vcs.pip._internal.utils.subprocess import CommandArgs
-
-    AuthInfo = Tuple[Optional[str], Optional[str]]
 
 
 __all__ = ['vcs']

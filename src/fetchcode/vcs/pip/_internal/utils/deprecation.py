@@ -2,9 +2,6 @@
 A module that implements tooling to enable easy warnings about deprecations.
 """
 
-# The following comment should be removed at some point in the future.
-# mypy: disallow-untyped-defs=False
-
 from __future__ import absolute_import
 
 import logging
@@ -13,10 +10,6 @@ import warnings
 from fetchcode.vcs.pip._vendor.packaging.version import parse
 
 from pip import __version__ as current_version
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import Any, Optional
 
 
 DEPRECATION_MSG_PREFIX = "DEPRECATION: "

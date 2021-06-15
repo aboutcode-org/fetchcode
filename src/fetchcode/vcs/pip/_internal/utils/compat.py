@@ -15,10 +15,6 @@ import sys
 
 from fetchcode.vcs.pip._vendor.six import PY2, text_type
 
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import Optional, Text, Tuple, Union
 
 try:
     import ipaddress

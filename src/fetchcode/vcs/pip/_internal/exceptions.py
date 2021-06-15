@@ -1,20 +1,10 @@
 """Exceptions used throughout package"""
 
-# The following comment should be removed at some point in the future.
-# mypy: disallow-untyped-defs=False
-
 from __future__ import absolute_import
 
 from itertools import chain, groupby, repeat
 
 from fetchcode.vcs.pip._vendor.six import iteritems
-
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import Optional
-    from fetchcode.vcs.pip._vendor.pkg_resources import Distribution
-    from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
 
 
 class PipError(Exception):

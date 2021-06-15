@@ -1,6 +1,3 @@
-# The following comment should be removed at some point in the future.
-# mypy: disallow-untyped-defs=False
-
 from __future__ import absolute_import
 
 import logging
@@ -15,18 +12,12 @@ from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
 from fetchcode.vcs.pip._internal.utils.misc import display_path, hide_url
 from fetchcode.vcs.pip._internal.utils.subprocess import make_command
 from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
 from fetchcode.vcs.pip._internal.vcs.versioncontrol import (
     RemoteNotFoundError,
     VersionControl,
     find_path_to_setup_from_repo_root,
     vcs,
 )
-
-if MYPY_CHECK_RUNNING:
-    from typing import Optional, Tuple
-    from fetchcode.vcs.pip._internal.utils.misc import HiddenText
-    from fetchcode.vcs.pip._internal.vcs.versioncontrol import AuthInfo, RevOptions
 
 
 urlsplit = urllib_parse.urlsplit
