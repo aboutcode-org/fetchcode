@@ -41,14 +41,14 @@ import shutil
 import stat
 import sys
 from collections import deque
+from io import StringIO
+from itertools import zip_longest
 from urllib.parse import urlparse
 
 from fetchcode.vcs.pip._vendor import pkg_resources
 # NOTE: retrying is not annotated in typeshed as on 2017-07-17, which is
 #       why we ignore the type on this import.
 from fetchcode.vcs.pip._vendor.retrying import retry  # type: ignore
-from fetchcode.vcs.pip._vendor.six import PY2, text_type
-from fetchcode.vcs.pip._vendor.six.moves import input, map, zip_longest
 
 from pip import __version__
 from fetchcode.vcs.pip._internal.exceptions import CommandError
@@ -59,12 +59,6 @@ from fetchcode.vcs.pip._internal.utils.compat import (
     stdlib_pkgs,
     str_to_display,
 )
-
-
-if PY2:
-    from io import BytesIO as StringIO
-else:
-    from io import StringIO
 
 
 __all__ = ['rmtree', 'display_path', 'backup_dir',
@@ -143,7 +137,7 @@ def path_to_display(path):
     """
     if path is None:
         return None
-    if isinstance(path, text_type):
+    if isinstance(path, str):
         return path
     # Otherwise, path is a bytes object (str in Python 2).
     try:

@@ -31,24 +31,12 @@ distributions."""
 from __future__ import absolute_import, division
 
 import codecs
+import ipaddress
 import locale
 import logging
 import os
 import shutil
 import sys
-
-from fetchcode.vcs.pip._vendor.six import PY2, text_type
-
-
-try:
-    import ipaddress
-except ImportError:
-    try:
-        from fetchcode.vcs.pip._vendor import ipaddress  # type: ignore
-    except ImportError:
-        import ipaddr as ipaddress  # type: ignore
-        ipaddress.ip_address = ipaddress.IPAddress  # type: ignore
-        ipaddress.ip_network = ipaddress.IPNetwork  # type: ignore
 
 
 __all__ = [
@@ -59,39 +47,11 @@ __all__ = [
 
 logger = logging.getLogger(__name__)
 
-if PY2:
-    import imp
-
-    try:
-        cache_from_source = imp.cache_from_source  # type: ignore
-    except AttributeError:
-        # does not use __pycache__
-        cache_from_source = None
-
-    uses_pycache = cache_from_source is not None
-else:
-    uses_pycache = True
-    from importlib.util import cache_from_source
+uses_pycache = True
+from importlib.util import cache_from_source
 
 
-if PY2:
-    # In Python 2.7, backslashreplace exists
-    # but does not support use for decoding.
-    # We implement our own replace handler for this
-    # situation, so that we can consistently use
-    # backslash replacement for all versions.
-    def backslashreplace_decode_fn(err):
-        raw_bytes = (err.object[i] for i in range(err.start, err.end))
-        # Python 2 gave us characters - convert to numeric bytes
-        raw_bytes = (ord(b) for b in raw_bytes)
-        return u"".join(map(u"\\x{:x}".format, raw_bytes)), err.end
-    codecs.register_error(
-        "backslashreplace_decode",
-        backslashreplace_decode_fn,
-    )
-    backslashreplace_decode = "backslashreplace_decode"
-else:
-    backslashreplace_decode = "backslashreplace"
+backslashreplace_decode = "backslashreplace"
 
 
 def has_tls():
@@ -125,7 +85,7 @@ def str_to_display(data, desc=None):
     We also ensure that the output can be safely written to standard output
     without encoding errors.
     """
-    if isinstance(data, text_type):
+    if isinstance(data, str):
         return data
 
     # Otherwise, data is a bytes object (str in Python 2).

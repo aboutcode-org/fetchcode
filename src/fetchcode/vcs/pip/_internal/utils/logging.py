@@ -31,8 +31,6 @@ import os
 import sys
 from logging import Filter, getLogger
 
-from fetchcode.vcs.pip._vendor.six import PY2
-
 from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
 from fetchcode.vcs.pip._internal.utils.deprecation import DEPRECATION_MSG_PREFIX
 from fetchcode.vcs.pip._internal.utils.misc import ensure_dir
@@ -88,22 +86,12 @@ if WINDOWS:
     # In Windows, a broken pipe can show up as EINVAL rather than EPIPE:
     # https://bugs.python.org/issue19612
     # https://bugs.python.org/issue30418
-    if PY2:
-        def _is_broken_pipe_error(exc_class, exc):
-            """See the docstring for non-Windows Python 3 below."""
-            return (exc_class is IOError and
-                    exc.errno in (errno.EINVAL, errno.EPIPE))
-    else:
-        # In Windows, a broken pipe IOError became OSError in Python 3.
-        def _is_broken_pipe_error(exc_class, exc):
-            """See the docstring for non-Windows Python 3 below."""
-            return ((exc_class is BrokenPipeError) or  # noqa: F821
-                    (exc_class is OSError and
-                     exc.errno in (errno.EINVAL, errno.EPIPE)))
-elif PY2:
+    # In Windows, a broken pipe IOError became OSError in Python 3.
     def _is_broken_pipe_error(exc_class, exc):
         """See the docstring for non-Windows Python 3 below."""
-        return (exc_class is IOError and exc.errno == errno.EPIPE)
+        return ((exc_class is BrokenPipeError) or  # noqa: F821
+                (exc_class is OSError and
+                 exc.errno in (errno.EINVAL, errno.EPIPE)))
 else:
     # Then we are in the non-Windows Python 3 case.
     def _is_broken_pipe_error(exc_class, exc):

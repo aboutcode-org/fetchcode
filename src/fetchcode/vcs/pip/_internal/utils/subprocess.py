@@ -26,8 +26,7 @@ from __future__ import absolute_import
 import logging
 import os
 import subprocess
-
-from fetchcode.vcs.pip._vendor.six.moves import shlex_quote
+from shlex import quote as shlex_quote
 
 from fetchcode.vcs.pip._internal.exceptions import InstallationError
 from fetchcode.vcs.pip._internal.utils.compat import console_to_str, str_to_display

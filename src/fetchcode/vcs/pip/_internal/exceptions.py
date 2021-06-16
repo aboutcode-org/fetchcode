@@ -27,8 +27,6 @@ from __future__ import absolute_import
 
 from itertools import chain, groupby, repeat
 
-from fetchcode.vcs.pip._vendor.six import iteritems
-
 
 class PipError(Exception):
     """Base pip exception"""
@@ -288,7 +286,7 @@ class HashMismatch(HashError):
             return chain([hash_name], repeat('    or'))
 
         lines = []
-        for hash_name, expecteds in iteritems(self.allowed):
+        for hash_name, expecteds in self.allowed.items():
             prefix = hash_then_or(hash_name)
             lines.extend(('        Expected {} {}'.format(next(prefix), e))
                          for e in expecteds)

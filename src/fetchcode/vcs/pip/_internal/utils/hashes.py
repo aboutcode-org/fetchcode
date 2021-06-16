@@ -24,8 +24,6 @@ from __future__ import absolute_import
 
 import hashlib
 
-from fetchcode.vcs.pip._vendor.six import iteritems, iterkeys, itervalues
-
 from fetchcode.vcs.pip._internal.exceptions import (
     HashMismatch,
     HashMissing,
@@ -80,7 +78,7 @@ class Hashes(object):
 
         """
         gots = {}
-        for hash_name in iterkeys(self._allowed):
+        for hash_name in self._allowed.keys():
             try:
                 gots[hash_name] = hashlib.new(hash_name)
             except (ValueError, TypeError):
@@ -89,10 +87,10 @@ class Hashes(object):
                 )
 
         for chunk in chunks:
-            for hash in itervalues(gots):
+            for hash in gots.values():
                 hash.update(chunk)
 
-        for hash_name, got in iteritems(gots):
+        for hash_name, got in gots.items():
             if got.hexdigest() in self._allowed[hash_name]:
                 return
         self._raise(gots)
