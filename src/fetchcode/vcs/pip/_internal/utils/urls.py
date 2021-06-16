@@ -23,8 +23,7 @@
 import os
 import sys
 from urllib.parse import urlparse
-
-from fetchcode.vcs.pip._vendor.six.moves.urllib import request as urllib_request
+from urllib import request
 
 
 def get_url_scheme(url):
@@ -41,7 +40,7 @@ def path_to_url(path):
     quoted path parts.
     """
     path = os.path.normpath(os.path.abspath(path))
-    url = urlparse.urljoin('file:', urllib_request.pathname2url(path))
+    url = urlparse.urljoin('file:', request.pathname2url(path))
     return url
 
 
@@ -68,5 +67,5 @@ def url_to_path(url):
             .format(**locals())
         )
 
-    path = urllib_request.url2pathname(netloc + path)
+    path = request.url2pathname(netloc + path)
     return path

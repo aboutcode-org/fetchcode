@@ -33,7 +33,6 @@ from __future__ import absolute_import
 
 import logging
 import os
-
 from urllib.parse import urlparse
 
 from fetchcode.vcs.pip._internal.utils.misc import display_path, rmtree

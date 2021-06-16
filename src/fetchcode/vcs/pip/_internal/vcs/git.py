@@ -31,10 +31,10 @@ from __future__ import absolute_import
 import logging
 import os.path
 import re
+from urllib.parse import urlparse
+from urllib import request
 
 from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
-from urllib.parse import urlparse
-from fetchcode.vcs.pip._vendor.six.moves.urllib import request as urllib_request
 
 from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
 from fetchcode.vcs.pip._internal.utils.misc import display_path, hide_url
@@ -356,7 +356,7 @@ class Git(VersionControl):
             initial_slashes = path[:-len(path.lstrip('/'))]
             newpath = (
                 initial_slashes +
-                urllib_request.url2pathname(path)
+                request.url2pathname(path)
                 .replace('\\', '/').lstrip('/')
             )
             url = urlparse.urlunsplit((scheme, netloc, newpath, query, fragment))
