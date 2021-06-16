@@ -33,7 +33,7 @@ import os.path
 import re
 
 from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
-from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urllib_parse
+from urllib.parse import urlparse
 from fetchcode.vcs.pip._vendor.six.moves.urllib import request as urllib_request
 
 from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
@@ -46,10 +46,6 @@ from fetchcode.vcs.pip._internal.vcs.versioncontrol import (
     find_path_to_setup_from_repo_root,
     vcs,
 )
-
-
-urlsplit = urllib_parse.urlsplit
-urlunsplit = urllib_parse.urlunsplit
 
 
 logger = logging.getLogger(__name__)
@@ -355,7 +351,7 @@ class Git(VersionControl):
         """
         # Works around an apparent Git bug
         # (see https://article.gmane.org/gmane.comp.version-control.git/146500)
-        scheme, netloc, path, query, fragment = urlsplit(url)
+        scheme, netloc, path, query, fragment = urlparse.urlsplit(url)
         if scheme.endswith('file'):
             initial_slashes = path[:-len(path.lstrip('/'))]
             newpath = (
@@ -363,9 +359,9 @@ class Git(VersionControl):
                 urllib_request.url2pathname(path)
                 .replace('\\', '/').lstrip('/')
             )
-            url = urlunsplit((scheme, netloc, newpath, query, fragment))
+            url = urlparse.urlunsplit((scheme, netloc, newpath, query, fragment))
             after_plus = scheme.find('+') + 1
-            url = scheme[:after_plus] + urlunsplit(
+            url = scheme[:after_plus] + urlparse.urlunsplit(
                 (scheme[after_plus:], netloc, newpath, query, fragment),
             )
 

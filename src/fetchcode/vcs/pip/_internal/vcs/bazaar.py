@@ -34,7 +34,7 @@ from __future__ import absolute_import
 import logging
 import os
 
-from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urllib_parse
+from urllib.parse import urlparse
 
 from fetchcode.vcs.pip._internal.utils.misc import display_path, rmtree
 from fetchcode.vcs.pip._internal.utils.subprocess import make_command
@@ -56,10 +56,8 @@ class Bazaar(VersionControl):
 
     def __init__(self, *args, **kwargs):
         super(Bazaar, self).__init__(*args, **kwargs)
-        # This is only needed for python <2.7.5
         # Register lp but do not expose as a scheme to support bzr+lp.
-        if getattr(urllib_parse, 'uses_fragment', None):
-            urllib_parse.uses_fragment.extend(['lp'])
+        urlparse.uses_fragment.extend(['lp'])
 
     @staticmethod
     def get_base_rev_args(rev):

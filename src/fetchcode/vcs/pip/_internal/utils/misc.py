@@ -41,6 +41,7 @@ import shutil
 import stat
 import sys
 from collections import deque
+from urllib.parse import urlparse
 
 from fetchcode.vcs.pip._vendor import pkg_resources
 # NOTE: retrying is not annotated in typeshed as on 2017-07-17, which is
@@ -48,8 +49,6 @@ from fetchcode.vcs.pip._vendor import pkg_resources
 from fetchcode.vcs.pip._vendor.retrying import retry  # type: ignore
 from fetchcode.vcs.pip._vendor.six import PY2, text_type
 from fetchcode.vcs.pip._vendor.six.moves import input, map, zip_longest
-from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urllib_parse
-from fetchcode.vcs.pip._vendor.six.moves.urllib.parse import unquote as urllib_unquote
 
 from pip import __version__
 from fetchcode.vcs.pip._internal.exceptions import CommandError
@@ -511,7 +510,7 @@ def split_auth_from_netloc(netloc):
         user_pass = auth, None
 
     user_pass = tuple(
-        None if x is None else urllib_unquote(x) for x in user_pass
+        None if x is None else urlparse.unquote(x) for x in user_pass
     )
 
     return netloc, user_pass
@@ -533,7 +532,7 @@ def redact_netloc(netloc):
         user = '****'
         password = ''
     else:
-        user = urllib_parse.quote(user)
+        user = urlparse.quote(user)
         password = ':****'
     return '{user}{password}@{netloc}'.format(user=user,
                                               password=password,
@@ -550,13 +549,13 @@ def _transform_url(url, transform_netloc):
     Returns a tuple containing the transformed url as item 0 and the
     original tuple returned by transform_netloc as item 1.
     """
-    purl = urllib_parse.urlsplit(url)
+    purl = urlparse.urlsplit(url)
     netloc_tuple = transform_netloc(purl.netloc)
     # stripped url
     url_pieces = (
         purl.scheme, netloc_tuple[0], purl.path, purl.query, purl.fragment
     )
-    surl = urllib_parse.urlunsplit(url_pieces)
+    surl = urlparse.urlunsplit(url_pieces)
     return surl, netloc_tuple
 
 

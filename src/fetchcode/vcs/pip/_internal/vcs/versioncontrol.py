@@ -32,12 +32,12 @@ from __future__ import absolute_import
 
 import errno
 import logging
+from urllib.parse import urlparse
 import os
 import shutil
 import sys
 
 from fetchcode.vcs.pip._vendor import pkg_resources
-from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urllib_parse
 
 from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
 from fetchcode.vcs.pip._internal.utils.compat import samefile
@@ -200,10 +200,8 @@ class VcsSupport(object):
         # type: () -> None
         # Register more schemes with urlparse for various version control
         # systems
-        urllib_parse.uses_netloc.extend(self.schemes)
-        # Python >= 2.7.4, 3.3 doesn't have uses_fragment
-        if getattr(urllib_parse, 'uses_fragment', None):
-            urllib_parse.uses_fragment.extend(self.schemes)
+        urlparse.uses_netloc.extend(self.schemes)
+        urlparse.uses_fragment.extend(self.schemes)
         super(VcsSupport, self).__init__()
 
     def __iter__(self):
@@ -458,7 +456,7 @@ class VersionControl(object):
                     "which is not supported. Include a revision after @ "
                     "or remove @ from the URL.".format(url)
                 )
-        url = urllib_parse.urlunsplit((scheme, netloc, path, query, ''))
+        url = urlparse.urlunsplit((scheme, netloc, path, query, ''))
         return url, rev, user_pass
 
     @staticmethod
@@ -492,7 +490,7 @@ class VersionControl(object):
         Normalize a URL for comparison by unquoting it and removing any
         trailing slash.
         """
-        return urllib_parse.unquote(url).rstrip('/')
+        return urlparse.unquote(url).rstrip('/')
 
     @classmethod
     def compare_urls(cls, url1, url2):

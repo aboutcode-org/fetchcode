@@ -22,8 +22,8 @@
 
 import os
 import sys
+from urllib.parse import urlparse
 
-from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urllib_parse
 from fetchcode.vcs.pip._vendor.six.moves.urllib import request as urllib_request
 
 
@@ -41,7 +41,7 @@ def path_to_url(path):
     quoted path parts.
     """
     path = os.path.normpath(os.path.abspath(path))
-    url = urllib_parse.urljoin('file:', urllib_request.pathname2url(path))
+    url = urlparse.urljoin('file:', urllib_request.pathname2url(path))
     return url
 
 
@@ -54,7 +54,7 @@ def url_to_path(url):
         "You can only turn file: urls into filenames (not {url!r})"
         .format(**locals()))
 
-    _, netloc, path, _, _ = urllib_parse.urlsplit(url)
+    _, netloc, path, _, _ = urlparse.urlsplit(url)
 
     if not netloc or netloc == 'localhost':
         # According to RFC 8089, same as empty authority.
