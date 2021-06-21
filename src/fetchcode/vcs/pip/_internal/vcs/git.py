@@ -34,7 +34,7 @@ import re
 from urllib.parse import urlparse
 from urllib import request
 
-from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
+from packaging.version import parse as parse_version
 
 from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
 from fetchcode.vcs.pip._internal.utils.misc import display_path, hide_url

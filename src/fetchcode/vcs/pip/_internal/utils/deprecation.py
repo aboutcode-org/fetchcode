@@ -29,7 +29,7 @@ from __future__ import absolute_import
 import logging
 import warnings
 
-from fetchcode.vcs.pip._vendor.packaging.version import parse
+from packaging.version import parse
 
 from pip import __version__ as current_version
 
