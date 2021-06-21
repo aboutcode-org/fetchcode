@@ -37,7 +37,7 @@ import os
 import shutil
 import sys
 
-from fetchcode.vcs.pip._vendor import pkg_resources
+import pkg_resources
 
 from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
 from fetchcode.vcs.pip._internal.utils.compat import samefile
