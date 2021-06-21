@@ -27,9 +27,7 @@ import itertools
 import logging
 import os.path
 import tempfile
-from contextlib import contextmanager
-
-from fetchcode.vcs.pip._vendor.contextlib2 import ExitStack
+from contextlib import contextmanager, ExitStack
 
 from fetchcode.vcs.pip._internal.utils.misc import enum, rmtree
 
