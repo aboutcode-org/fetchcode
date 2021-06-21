@@ -45,10 +45,7 @@ from io import StringIO
 from itertools import zip_longest
 from urllib.parse import urlparse
 
-from fetchcode.vcs.pip._vendor import pkg_resources
-# NOTE: retrying is not annotated in typeshed as on 2017-07-17, which is
-#       why we ignore the type on this import.
-from fetchcode.vcs.pip._vendor.retrying import retry  # type: ignore
+import pkg_resources
 
 from pip import __version__
 from fetchcode.vcs.pip._internal.exceptions import CommandError
@@ -98,8 +95,6 @@ def get_prog():
     return 'pip'
 
 
-# Retry every half second for up to 3 seconds
-@retry(stop_max_delay=3000, wait_fixed=500)
 def rmtree(dir, ignore_errors=False):
     # type: (str, bool) -> None
     shutil.rmtree(dir, ignore_errors=ignore_errors,
