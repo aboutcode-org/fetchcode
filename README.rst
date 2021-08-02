@@ -1,15 +1,15 @@
 *********
 Fetchcode
 *********
-It is a library to reliably fetch code via HTTP, FTP and version control systems. 
+It is a library to reliably fetch code via HTTP, FTP and version control systems.
 
 Installation
 ############
-Clone the repo using 
+Clone the repo using
 
 :code:`git clone https://github.com/nexB/fetchcode`
 
-Then install all the requirements using 
+Then install all the requirements using
 
 :code:`pip3 install -r requirements.txt`
 
