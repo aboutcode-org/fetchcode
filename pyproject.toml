@@ -34,7 +34,8 @@ norecursedirs = [
    "thirdparty",
    "tmp",
    "tests/data",
-   ".eggs"
+   ".eggs",
+   "src/fetchcode/vcs/pip",
 ]
 
 python_files = "*.py"
