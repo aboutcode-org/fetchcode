@@ -1,5 +1,13 @@
-Release notes
--------------
-### Version 0.0.1 2020-10-29
+Changelog
+=========
 
-Initial release
+
+v (next, future)
+-----------------------
+
+
+v0.1.0
+---------
+
+First, initial release.
+ 
