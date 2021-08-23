@@ -580,37 +580,37 @@ class VersionControl:
             self.name,
             url,
         )
-        response = ask_path_exists('What to do?  {}'.format(
-            prompt[0]), prompt[1])
+        # response = ask_path_exists('What to do?  {}'.format(
+        #     prompt[0]), prompt[1])
 
-        if response == 'a':
-            sys.exit(-1)
+        # if response == 'a':
+        #     sys.exit(-1)
 
-        if response == 'w':
-            logger.warning('Deleting %s', display_path(dest))
-            rmtree(dest)
-            self.fetch_new(dest, url, rev_options)
-            return
+        # if response == 'w':
+        #     logger.warning('Deleting %s', display_path(dest))
+        #     rmtree(dest)
+        #     self.fetch_new(dest, url, rev_options)
+        #     return
 
-        if response == 'b':
-            dest_dir = backup_dir(dest)
-            logger.warning(
-                'Backing up %s to %s', display_path(dest), dest_dir,
-            )
-            shutil.move(dest, dest_dir)
-            self.fetch_new(dest, url, rev_options)
-            return
+        # if response == 'b':
+        #     dest_dir = backup_dir(dest)
+        #     logger.warning(
+        #         'Backing up %s to %s', display_path(dest), dest_dir,
+        #     )
+        #     shutil.move(dest, dest_dir)
+        #     self.fetch_new(dest, url, rev_options)
+        #     return
 
-        # Do nothing if the response is "i".
-        if response == 's':
-            logger.info(
-                'Switching %s %s to %s%s',
-                self.repo_name,
-                display_path(dest),
-                url,
-                rev_display,
-            )
-            self.switch(dest, url, rev_options)
+        # # Do nothing if the response is "i".
+        # if response == 's':
+        #     logger.info(
+        #         'Switching %s %s to %s%s',
+        #         self.repo_name,
+        #         display_path(dest),
+        #         url,
+        #         rev_display,
+        #     )
+        #     self.switch(dest, url, rev_options)
 
     def unpack(self, location, url):
         # type: (str, HiddenText) -> None
