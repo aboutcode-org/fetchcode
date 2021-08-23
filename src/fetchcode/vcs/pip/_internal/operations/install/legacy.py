@@ -5,21 +5,16 @@ import logging
 import os
 import sys
 from distutils.util import change_root
+from typing import List, Optional, Sequence
 
-from fetchcode.vcs.pip._internal.utils.deprecation import deprecated
-from fetchcode.vcs.pip._internal.utils.logging import indent_log
-from fetchcode.vcs.pip._internal.utils.misc import ensure_dir
-from fetchcode.vcs.pip._internal.utils.setuptools_build import make_setuptools_install_args
-from fetchcode.vcs.pip._internal.utils.subprocess import runner_with_spinner_message
-from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import List, Optional, Sequence
-
-    from fetchcode.vcs.pip._internal.build_env import BuildEnvironment
-    from fetchcode.vcs.pip._internal.models.scheme import Scheme
-
+from pip._internal.build_env import BuildEnvironment
+from pip._internal.exceptions import InstallationError
+from pip._internal.models.scheme import Scheme
+from pip._internal.utils.logging import indent_log
+from pip._internal.utils.misc import ensure_dir
+from pip._internal.utils.setuptools_build import make_setuptools_install_args
+from pip._internal.utils.subprocess import runner_with_spinner_message
+from pip._internal.utils.temp_dir import TempDirectory
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +23,46 @@ class LegacyInstallFailure(Exception):
     def __init__(self):
         # type: () -> None
         self.parent = sys.exc_info()
+
+
+def write_installed_files_from_setuptools_record(
+    record_lines: List[str],
+    root: Optional[str],
+    req_description: str,
+) -> None:
+    def prepend_root(path):
+        # type: (str) -> str
+        if root is None or not os.path.isabs(path):
+            return path
+        else:
+            return change_root(root, path)
+
+    for line in record_lines:
+        directory = os.path.dirname(line)
+        if directory.endswith('.egg-info'):
+            egg_info_dir = prepend_root(directory)
+            break
+    else:
+        message = (
+            "{} did not indicate that it installed an "
+            ".egg-info directory. Only setup.py projects "
+            "generating .egg-info directories are supported."
+        ).format(req_description)
+        raise InstallationError(message)
+
+    new_lines = []
+    for line in record_lines:
+        filename = line.strip()
+        if os.path.isdir(filename):
+            filename += os.path.sep
+        new_lines.append(
+            os.path.relpath(prepend_root(filename), egg_info_dir)
+        )
+    new_lines.sort()
+    ensure_dir(egg_info_dir)
+    inst_files_path = os.path.join(egg_info_dir, 'installed-files.txt')
+    with open(inst_files_path, 'w') as f:
+        f.write('\n'.join(new_lines) + '\n')
 
 
 def install(
@@ -68,7 +103,7 @@ def install(
             )
 
             runner = runner_with_spinner_message(
-                "Running setup.py install for {}".format(req_name)
+                f"Running setup.py install for {req_name}"
             )
             with indent_log(), build_env:
                 runner(
@@ -93,50 +128,5 @@ def install(
         with open(record_filename) as f:
             record_lines = f.read().splitlines()
 
-    def prepend_root(path):
-        # type: (str) -> str
-        if root is None or not os.path.isabs(path):
-            return path
-        else:
-            return change_root(root, path)
-
-    for line in record_lines:
-        directory = os.path.dirname(line)
-        if directory.endswith('.egg-info'):
-            egg_info_dir = prepend_root(directory)
-            break
-    else:
-        deprecated(
-            reason=(
-                "{} did not indicate that it installed an "
-                ".egg-info directory. Only setup.py projects "
-                "generating .egg-info directories are supported."
-            ).format(req_description),
-            replacement=(
-                "for maintainers: updating the setup.py of {0}. "
-                "For users: contact the maintainers of {0} to let "
-                "them know to update their setup.py.".format(
-                    req_name
-                )
-            ),
-            gone_in="20.2",
-            issue=6998,
-        )
-        # FIXME: put the record somewhere
-        return True
-
-    new_lines = []
-    for line in record_lines:
-        filename = line.strip()
-        if os.path.isdir(filename):
-            filename += os.path.sep
-        new_lines.append(
-            os.path.relpath(prepend_root(filename), egg_info_dir)
-        )
-    new_lines.sort()
-    ensure_dir(egg_info_dir)
-    inst_files_path = os.path.join(egg_info_dir, 'installed-files.txt')
-    with open(inst_files_path, 'w') as f:
-        f.write('\n'.join(new_lines) + '\n')
-
+    write_installed_files_from_setuptools_record(record_lines, root, req_description)
     return True

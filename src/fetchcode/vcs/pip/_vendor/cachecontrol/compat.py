@@ -13,14 +13,14 @@ except ImportError:
 # Handle the case where the requests module has been patched to not have
 # urllib3 bundled as part of its source.
 try:
-    from fetchcode.vcs.pip._vendor.requests.packages.urllib3.response import HTTPResponse
+    from pip._vendor.requests.packages.urllib3.response import HTTPResponse
 except ImportError:
-    from fetchcode.vcs.pip._vendor.urllib3.response import HTTPResponse
+    from pip._vendor.urllib3.response import HTTPResponse
 
 try:
-    from fetchcode.vcs.pip._vendor.requests.packages.urllib3.util import is_fp_closed
+    from pip._vendor.requests.packages.urllib3.util import is_fp_closed
 except ImportError:
-    from fetchcode.vcs.pip._vendor.urllib3.util import is_fp_closed
+    from pip._vendor.urllib3.util import is_fp_closed
 
 # Replicate some six behaviour
 try:

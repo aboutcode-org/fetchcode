@@ -1,36 +1,31 @@
-from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
+from pip._vendor.packaging.version import parse as parse_version
 
-from fetchcode.vcs.pip._internal.utils.models import KeyBasedCompareMixin
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from fetchcode.vcs.pip._vendor.packaging.version import _BaseVersion
-    from fetchcode.vcs.pip._internal.models.link import Link
+from pip._internal.models.link import Link
+from pip._internal.utils.models import KeyBasedCompareMixin
 
 
 class InstallationCandidate(KeyBasedCompareMixin):
     """Represents a potential "candidate" for installation.
     """
 
-    def __init__(self, name, version, link):
-        # type: (str, str, Link) -> None
+    __slots__ = ["name", "version", "link"]
+
+    def __init__(self, name: str, version: str, link: Link) -> None:
         self.name = name
-        self.version = parse_version(version)  # type: _BaseVersion
+        self.version = parse_version(version)
         self.link = link
 
-        super(InstallationCandidate, self).__init__(
+        super().__init__(
             key=(self.name, self.version, self.link),
             defining_class=InstallationCandidate
         )
 
-    def __repr__(self):
-        # type: () -> str
+    def __repr__(self) -> str:
         return "<InstallationCandidate({!r}, {!r}, {!r})>".format(
             self.name, self.version, self.link,
         )
 
-    def __str__(self):
-        # type: () -> str
+    def __str__(self) -> str:
         return '{!r} candidate (version {} at {})'.format(
             self.name, self.version, self.link,
         )

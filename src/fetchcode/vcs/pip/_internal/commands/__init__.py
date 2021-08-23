@@ -2,24 +2,11 @@
 Package containing all pip commands
 """
 
-# The following comment should be removed at some point in the future.
-# mypy: disallow-untyped-defs=False
-# There is currently a bug in python/typeshed mentioned at
-# https://github.com/python/typeshed/issues/3906 which causes the
-# return type of difflib.get_close_matches to be reported
-# as List[Sequence[str]] whereas it should have been List[str]
-
-from __future__ import absolute_import
-
 import importlib
 from collections import OrderedDict, namedtuple
+from typing import Any, Dict, Optional
 
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import Any
-    from fetchcode.vcs.pip._internal.cli.base_command import Command
-
+from pip._internal.cli.base_command import Command
 
 CommandInfo = namedtuple('CommandInfo', 'module_path, class_name, summary')
 
@@ -31,7 +18,7 @@ CommandInfo = namedtuple('CommandInfo', 'module_path, class_name, summary')
 # in a test-related module).
 #    Finally, we need to pass an iterable of pairs here rather than a dict
 # so that the ordering won't be lost when using Python 2.7.
-commands_dict = OrderedDict([
+commands_dict: Dict[str, CommandInfo] = OrderedDict([
     ('install', CommandInfo(
         'pip._internal.commands.install', 'InstallCommand',
         'Install packages.',
@@ -72,6 +59,10 @@ commands_dict = OrderedDict([
         'pip._internal.commands.cache', 'CacheCommand',
         "Inspect and manage pip's wheel cache.",
     )),
+    ('index', CommandInfo(
+        'pip._internal.commands.index', 'IndexCommand',
+        "Inspect information available from package indexes.",
+    )),
     ('wheel', CommandInfo(
         'pip._internal.commands.wheel', 'WheelCommand',
         'Build wheels from your requirements.',
@@ -92,11 +83,10 @@ commands_dict = OrderedDict([
         'pip._internal.commands.help', 'HelpCommand',
         'Show help for commands.',
     )),
-])  # type: OrderedDict[str, CommandInfo]
+])
 
 
-def create_command(name, **kwargs):
-    # type: (str, **Any) -> Command
+def create_command(name: str, **kwargs: Any) -> Command:
     """
     Create an instance of the Command class with the given name.
     """
@@ -108,7 +98,7 @@ def create_command(name, **kwargs):
     return command
 
 
-def get_similar_commands(name):
+def get_similar_commands(name: str) -> Optional[str]:
     """Command name auto-correct."""
     from difflib import get_close_matches
 
@@ -119,4 +109,4 @@ def get_similar_commands(name):
     if close_commands:
         return close_commands[0]
     else:
-        return False
+        return None

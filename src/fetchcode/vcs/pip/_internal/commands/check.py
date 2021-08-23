@@ -1,19 +1,16 @@
 import logging
+from optparse import Values
+from typing import Any, List
 
-from fetchcode.vcs.pip._internal.cli.base_command import Command
-from fetchcode.vcs.pip._internal.cli.status_codes import ERROR, SUCCESS
-from fetchcode.vcs.pip._internal.operations.check import (
+from pip._internal.cli.base_command import Command
+from pip._internal.cli.status_codes import ERROR, SUCCESS
+from pip._internal.operations.check import (
     check_package_set,
     create_package_set_from_installed,
 )
-from fetchcode.vcs.pip._internal.utils.misc import write_output
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
+from pip._internal.utils.misc import write_output
 
 logger = logging.getLogger(__name__)
-
-if MYPY_CHECK_RUNNING:
-    from typing import List, Any
-    from optparse import Values
 
 
 class CheckCommand(Command):
@@ -22,8 +19,7 @@ class CheckCommand(Command):
     usage = """
       %prog [options]"""
 
-    def run(self, options, args):
-        # type: (Values, List[Any]) -> int
+    def run(self, options: Values, args: List[Any]) -> int:
 
         package_set, parsing_probs = create_package_set_from_installed()
         missing, conflicting = check_package_set(package_set)

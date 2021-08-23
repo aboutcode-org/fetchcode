@@ -1,31 +1,24 @@
-from __future__ import division
-
 import itertools
 import sys
 from signal import SIGINT, default_int_handler, signal
+from typing import Any
 
-from fetchcode.vcs.pip._vendor import six
-from fetchcode.vcs.pip._vendor.progress.bar import Bar, FillingCirclesBar, IncrementalBar
-from fetchcode.vcs.pip._vendor.progress.spinner import Spinner
+from pip._vendor.progress.bar import Bar, FillingCirclesBar, IncrementalBar
+from pip._vendor.progress.spinner import Spinner
 
-from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
-from fetchcode.vcs.pip._internal.utils.logging import get_indentation
-from fetchcode.vcs.pip._internal.utils.misc import format_size
-from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
-
-if MYPY_CHECK_RUNNING:
-    from typing import Any, Dict, List
+from pip._internal.utils.compat import WINDOWS
+from pip._internal.utils.logging import get_indentation
+from pip._internal.utils.misc import format_size
 
 try:
-    from fetchcode.vcs.pip._vendor import colorama
+    from pip._vendor import colorama
 # Lots of different errors can come from this, including SystemError and
 # ImportError.
 except Exception:
     colorama = None
 
 
-def _select_progress_class(preferred, fallback):
-    # type: (Bar, Bar) -> Bar
+def _select_progress_class(preferred: Bar, fallback: Bar) -> Bar:
     encoding = getattr(preferred.file, "encoding", None)
 
     # If we don't know what encoding this file is in, then we'll just assume
@@ -36,8 +29,8 @@ def _select_progress_class(preferred, fallback):
     # Collect all of the possible characters we want to use with the preferred
     # bar.
     characters = [
-        getattr(preferred, "empty_fill", six.text_type()),
-        getattr(preferred, "fill", six.text_type()),
+        getattr(preferred, "empty_fill", ""),
+        getattr(preferred, "fill", ""),
     ]
     characters += list(getattr(preferred, "phases", []))
 
@@ -45,17 +38,17 @@ def _select_progress_class(preferred, fallback):
     # of the given file, if this works then we'll assume that we can use the
     # fancier bar and if not we'll fall back to the plaintext bar.
     try:
-        six.text_type().join(characters).encode(encoding)
+        "".join(characters).encode(encoding)
     except UnicodeEncodeError:
         return fallback
     else:
         return preferred
 
 
-_BaseBar = _select_progress_class(IncrementalBar, Bar)  # type: Any
+_BaseBar: Any = _select_progress_class(IncrementalBar, Bar)
 
 
-class InterruptibleMixin(object):
+class InterruptibleMixin:
     """
     Helper to ensure that self.finish() gets called on keyboard interrupt.
 
@@ -73,15 +66,12 @@ class InterruptibleMixin(object):
        download has already completed, for example.
     """
 
-    def __init__(self, *args, **kwargs):
-        # type: (List[Any], Dict[Any, Any]) -> None
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         Save the original SIGINT handler for later.
         """
-        super(InterruptibleMixin, self).__init__(  # type: ignore
-            *args,
-            **kwargs
-        )
+        # https://github.com/python/mypy/issues/5887
+        super().__init__(*args, **kwargs)  # type: ignore
 
         self.original_handler = signal(SIGINT, self.handle_sigint)
 
@@ -93,15 +83,14 @@ class InterruptibleMixin(object):
         if self.original_handler is None:
             self.original_handler = default_int_handler
 
-    def finish(self):
-        # type: () -> None
+    def finish(self) -> None:
         """
         Restore the original SIGINT handler after finishing.
 
         This should happen regardless of whether the progress display finishes
         normally, or gets interrupted.
         """
-        super(InterruptibleMixin, self).finish()  # type: ignore
+        super().finish()  # type: ignore
         signal(SIGINT, self.original_handler)
 
     def handle_sigint(self, signum, frame):  # type: ignore
@@ -116,9 +105,7 @@ class InterruptibleMixin(object):
 
 
 class SilentBar(Bar):
-
-    def update(self):
-        # type: () -> None
+    def update(self) -> None:
         pass
 
 
@@ -127,52 +114,43 @@ class BlueEmojiBar(IncrementalBar):
     suffix = "%(percent)d%%"
     bar_prefix = " "
     bar_suffix = " "
-    phases = (u"\U0001F539", u"\U0001F537", u"\U0001F535")  # type: Any
+    phases = ("\U0001F539", "\U0001F537", "\U0001F535")
 
 
-class DownloadProgressMixin(object):
-
-    def __init__(self, *args, **kwargs):
-        # type: (List[Any], Dict[Any, Any]) -> None
-        super(DownloadProgressMixin, self).__init__(  # type: ignore
-            *args,
-            **kwargs
-        )
-        self.message = (" " * (
-            get_indentation() + 2
-        )) + self.message  # type: str
+class DownloadProgressMixin:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        # https://github.com/python/mypy/issues/5887
+        super().__init__(*args, **kwargs)  # type: ignore
+        self.message: str = (" " * (get_indentation() + 2)) + self.message
 
     @property
-    def downloaded(self):
-        # type: () -> str
+    def downloaded(self) -> str:
         return format_size(self.index)  # type: ignore
 
     @property
-    def download_speed(self):
-        # type: () -> str
+    def download_speed(self) -> str:
         # Avoid zero division errors...
         if self.avg == 0.0:  # type: ignore
             return "..."
         return format_size(1 / self.avg) + "/s"  # type: ignore
 
     @property
-    def pretty_eta(self):
-        # type: () -> str
+    def pretty_eta(self) -> str:
         if self.eta:  # type: ignore
-            return "eta {}".format(self.eta_td)  # type: ignore
+            return f"eta {self.eta_td}"  # type: ignore
         return ""
 
     def iter(self, it):  # type: ignore
         for x in it:
             yield x
-            self.next(len(x))
+            # B305 is incorrectly raised here
+            # https://github.com/PyCQA/flake8-bugbear/issues/59
+            self.next(len(x))  # noqa: B305
         self.finish()
 
 
-class WindowsMixin(object):
-
-    def __init__(self, *args, **kwargs):
-        # type: (List[Any], Dict[Any, Any]) -> None
+class WindowsMixin:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         # The Windows terminal does not support the hide/show cursor ANSI codes
         # even with colorama. So we'll ensure that hide_cursor is False on
         # Windows.
@@ -183,7 +161,8 @@ class WindowsMixin(object):
         if WINDOWS and self.hide_cursor:  # type: ignore
             self.hide_cursor = False
 
-        super(WindowsMixin, self).__init__(*args, **kwargs)  # type: ignore
+        # https://github.com/python/mypy/issues/5887
+        super().__init__(*args, **kwargs)  # type: ignore
 
         # Check if we are running on Windows and we have the colorama module,
         # if we do then wrap our file with it.
@@ -199,64 +178,58 @@ class WindowsMixin(object):
             self.file.flush = lambda: self.file.wrapped.flush()
 
 
-class BaseDownloadProgressBar(WindowsMixin, InterruptibleMixin,
-                              DownloadProgressMixin):
+class BaseDownloadProgressBar(WindowsMixin, InterruptibleMixin, DownloadProgressMixin):
 
     file = sys.stdout
     message = "%(percent)d%%"
     suffix = "%(downloaded)s %(download_speed)s %(pretty_eta)s"
 
-# NOTE: The "type: ignore" comments on the following classes are there to
-#       work around https://github.com/python/typing/issues/241
 
-
-class DefaultDownloadProgressBar(BaseDownloadProgressBar,
-                                 _BaseBar):
+class DefaultDownloadProgressBar(BaseDownloadProgressBar, _BaseBar):
     pass
 
 
-class DownloadSilentBar(BaseDownloadProgressBar, SilentBar):  # type: ignore
+class DownloadSilentBar(BaseDownloadProgressBar, SilentBar):
     pass
 
 
-class DownloadBar(BaseDownloadProgressBar,  # type: ignore
-                  Bar):
+class DownloadBar(BaseDownloadProgressBar, Bar):
     pass
 
 
-class DownloadFillingCirclesBar(BaseDownloadProgressBar,  # type: ignore
-                                FillingCirclesBar):
+class DownloadFillingCirclesBar(BaseDownloadProgressBar, FillingCirclesBar):
     pass
 
 
-class DownloadBlueEmojiProgressBar(BaseDownloadProgressBar,  # type: ignore
-                                   BlueEmojiBar):
+class DownloadBlueEmojiProgressBar(BaseDownloadProgressBar, BlueEmojiBar):
     pass
 
 
-class DownloadProgressSpinner(WindowsMixin, InterruptibleMixin,
-                              DownloadProgressMixin, Spinner):
+class DownloadProgressSpinner(
+    WindowsMixin, InterruptibleMixin, DownloadProgressMixin, Spinner
+):
 
     file = sys.stdout
     suffix = "%(downloaded)s %(download_speed)s"
 
-    def next_phase(self):  # type: ignore
+    def next_phase(self) -> str:
         if not hasattr(self, "_phaser"):
             self._phaser = itertools.cycle(self.phases)
         return next(self._phaser)
 
-    def update(self):
-        # type: () -> None
+    def update(self) -> None:
         message = self.message % self
         phase = self.next_phase()
         suffix = self.suffix % self
-        line = ''.join([
-            message,
-            " " if message else "",
-            phase,
-            " " if suffix else "",
-            suffix,
-        ])
+        line = "".join(
+            [
+                message,
+                " " if message else "",
+                phase,
+                " " if suffix else "",
+                suffix,
+            ]
+        )
 
         self.writeln(line)
 
@@ -266,7 +239,7 @@ BAR_TYPES = {
     "on": (DefaultDownloadProgressBar, DownloadProgressSpinner),
     "ascii": (DownloadBar, DownloadProgressSpinner),
     "pretty": (DownloadFillingCirclesBar, DownloadProgressSpinner),
-    "emoji": (DownloadBlueEmojiProgressBar, DownloadProgressSpinner)
+    "emoji": (DownloadBlueEmojiProgressBar, DownloadProgressSpinner),
 }
 
 

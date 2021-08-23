@@ -8,7 +8,7 @@ This module handles import compatibility issues between Python 2 and
 Python 3.
 """
 
-from fetchcode.vcs.pip._vendor import chardet
+from pip._vendor import chardet
 
 import sys
 

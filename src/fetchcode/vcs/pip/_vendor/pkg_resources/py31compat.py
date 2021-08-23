@@ -2,7 +2,7 @@ import os
 import errno
 import sys
 
-from fetchcode.vcs.pip._vendor import six
+from pip._vendor import six
 
 
 def _makedirs_31(path, exist_ok=False):

@@ -33,7 +33,7 @@ def vendored(modulename):
         __import__(modulename, globals(), locals(), level=0)
     except ImportError:
         # We can just silently allow import failures to pass here. If we
-        # got to this point it means that ``import fetchcode.vcs.pip._vendor.whatever``
+        # got to this point it means that ``import pip._vendor.whatever``
         # failed and so did ``import whatever``. Since we're importing this
         # upfront in an attempt to alias imports, not erroring here will
         # just mean we get a regular import error whenever pip *actually*
@@ -62,7 +62,6 @@ if DEBUNDLED:
     vendored("cachecontrol")
     vendored("certifi")
     vendored("colorama")
-    vendored("contextlib2")
     vendored("distlib")
     vendored("distro")
     vendored("html5lib")
@@ -76,7 +75,6 @@ if DEBUNDLED:
     vendored("pep517")
     vendored("pkg_resources")
     vendored("progress")
-    vendored("retrying")
     vendored("requests")
     vendored("requests.exceptions")
     vendored("requests.packages")
@@ -108,7 +106,6 @@ if DEBUNDLED:
     vendored("requests.packages.urllib3.util.timeout")
     vendored("requests.packages.urllib3.util.url")
     vendored("resolvelib")
-    vendored("toml")
-    vendored("toml.encoder")
-    vendored("toml.decoder")
+    vendored("tenacity")
+    vendored("tomli")
     vendored("urllib3")

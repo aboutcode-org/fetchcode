@@ -4,8 +4,8 @@ This module provides a pool manager that uses Google App Engine's
 
 Example usage::
 
-    from fetchcode.vcs.pip._vendor.urllib3 import PoolManager
-    from fetchcode.vcs.pip._vendor.urllib3.contrib.appengine import AppEngineManager, is_appengine_sandbox
+    from pip._vendor.urllib3 import PoolManager
+    from pip._vendor.urllib3.contrib.appengine import AppEngineManager, is_appengine_sandbox
 
     if is_appengine_sandbox():
         # AppEngineManager uses AppEngine's URLFetch API behind the scenes
@@ -39,24 +39,24 @@ urllib3 on Google App Engine:
 """
 
 from __future__ import absolute_import
+
 import io
 import logging
 import warnings
-from ..packages.six.moves.urllib.parse import urljoin
 
 from ..exceptions import (
     HTTPError,
     HTTPWarning,
     MaxRetryError,
     ProtocolError,
-    TimeoutError,
     SSLError,
+    TimeoutError,
 )
-
+from ..packages.six.moves.urllib.parse import urljoin
 from ..request import RequestMethods
 from ..response import HTTPResponse
-from ..util.timeout import Timeout
 from ..util.retry import Retry
+from ..util.timeout import Timeout
 from . import _appengine_environ
 
 try:
@@ -90,7 +90,7 @@ class AppEngineManager(RequestMethods):
         * If you attempt to use this on App Engine Flexible, as full socket
           support is available.
         * If a request size is more than 10 megabytes.
-        * If a response size is more than 32 megabtyes.
+        * If a response size is more than 32 megabytes.
         * If you use an unsupported request method such as OPTIONS.
 
     Beyond those cases, it will raise normal urllib3 errors.
@@ -111,7 +111,7 @@ class AppEngineManager(RequestMethods):
         warnings.warn(
             "urllib3 is using URLFetch on Google App Engine sandbox instead "
             "of sockets. To use sockets directly instead of URLFetch see "
-            "https://urllib3.readthedocs.io/en/latest/reference/urllib3.contrib.html.",
+            "https://urllib3.readthedocs.io/en/1.26.x/reference/urllib3.contrib.html.",
             AppEnginePlatformWarning,
         )
 

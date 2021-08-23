@@ -22,11 +22,11 @@ def inject_securetransport():
         return
 
     # Checks for OpenSSL 1.0.1
-    if ssl.OPENSSL_VERSION_NUMBER >= 0x1000100f:
+    if ssl.OPENSSL_VERSION_NUMBER >= 0x1000100F:
         return
 
     try:
-        from fetchcode.vcs.pip._vendor.urllib3.contrib import securetransport
+        from pip._vendor.urllib3.contrib import securetransport
     except (ImportError, OSError):
         return
 

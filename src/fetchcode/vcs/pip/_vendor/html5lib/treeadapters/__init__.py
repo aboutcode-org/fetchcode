@@ -4,8 +4,8 @@ Example:
 
 .. code-block:: python
 
-   from fetchcode.vcs.pip._vendor import html5lib
-   from fetchcode.vcs.pip._vendor.html5lib.treeadapters import genshi
+   from pip._vendor import html5lib
+   from pip._vendor.html5lib.treeadapters import genshi
 
    doc = '<html><body>Hi!</body></html>'
    treebuilder = html5lib.getTreeBuilder('etree')
