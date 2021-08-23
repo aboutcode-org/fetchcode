@@ -4,13 +4,13 @@ import configparser
 from itertools import chain, groupby, repeat
 from typing import TYPE_CHECKING, Dict, List, Optional
 
-from pip._vendor.pkg_resources import Distribution
-from pip._vendor.requests.models import Request, Response
+from fetchcode.vcs.pip._vendor.pkg_resources import Distribution
+from fetchcode.vcs.pip._vendor.requests.models import Request, Response
 
 if TYPE_CHECKING:
     from hashlib import _Hash
 
-    from pip._internal.req.req_install import InstallRequirement
+    from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
 
 
 class PipError(Exception):
@@ -287,7 +287,7 @@ class HashMissing(HashError):
     def body(self):
         # type: () -> str
         # Dodge circular import.
-        from pip._internal.utils.hashes import FAVORITE_HASH
+        from fetchcode.vcs.pip._internal.utils.hashes import FAVORITE_HASH
 
         package = None
         if self.req:

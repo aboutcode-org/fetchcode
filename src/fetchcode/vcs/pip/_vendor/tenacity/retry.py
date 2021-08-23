@@ -19,7 +19,7 @@ import re
 import typing
 
 if typing.TYPE_CHECKING:
-    from pip._vendor.tenacity import RetryCallState
+    from fetchcode.vcs.pip._vendor.tenacity import RetryCallState
 
 
 class retry_base(abc.ABC):

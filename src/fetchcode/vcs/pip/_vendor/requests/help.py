@@ -6,20 +6,20 @@ import platform
 import sys
 import ssl
 
-from pip._vendor import idna
-from pip._vendor import urllib3
+from fetchcode.vcs.pip._vendor import idna
+from fetchcode.vcs.pip._vendor import urllib3
 
 from . import __version__ as requests_version
 
 charset_normalizer = None
 
 try:
-    from pip._vendor import chardet
+    from fetchcode.vcs.pip._vendor import chardet
 except ImportError:
     chardet = None
 
 try:
-    from pip._vendor.urllib3.contrib import pyopenssl
+    from fetchcode.vcs.pip._vendor.urllib3.contrib import pyopenssl
 except ImportError:
     pyopenssl = None
     OpenSSL = None

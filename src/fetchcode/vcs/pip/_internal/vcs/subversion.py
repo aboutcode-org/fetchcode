@@ -3,15 +3,15 @@ import os
 import re
 from typing import List, Optional, Tuple
 
-from pip._internal.utils.misc import (
+from fetchcode.vcs.pip._internal.utils.misc import (
     HiddenText,
     display_path,
     is_console_interactive,
     is_installable_dir,
     split_auth_from_netloc,
 )
-from pip._internal.utils.subprocess import CommandArgs, make_command
-from pip._internal.vcs.versioncontrol import (
+from fetchcode.vcs.pip._internal.utils.subprocess import CommandArgs, make_command
+from fetchcode.vcs.pip._internal.vcs.versioncontrol import (
     AuthInfo,
     RemoteNotFoundError,
     RevOptions,
@@ -137,7 +137,7 @@ class Subversion(VersionControl):
     @classmethod
     def _get_svn_url_rev(cls, location):
         # type: (str) -> Tuple[Optional[str], int]
-        from pip._internal.exceptions import InstallationError
+        from fetchcode.vcs.pip._internal.exceptions import InstallationError
 
         entries_path = os.path.join(location, cls.dirname, 'entries')
         if os.path.exists(entries_path):

@@ -12,7 +12,7 @@ from typing import (
     Tuple,
 )
 
-from pip._vendor.tomli._re import (
+from fetchcode.vcs.pip._vendor.tomli._re import (
     RE_BIN,
     RE_DATETIME,
     RE_HEX,

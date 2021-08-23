@@ -34,14 +34,14 @@ from typing import (
     cast,
 )
 
-from pip._vendor.pkg_resources import Distribution
-from pip._vendor.tenacity import retry, stop_after_delay, wait_fixed
+from fetchcode.vcs.pip._vendor.pkg_resources import Distribution
+from fetchcode.vcs.pip._vendor.tenacity import retry, stop_after_delay, wait_fixed
 
 from pip import __version__
-from pip._internal.exceptions import CommandError
-from pip._internal.locations import get_major_minor_version, site_packages, user_site
-from pip._internal.utils.compat import WINDOWS, stdlib_pkgs
-from pip._internal.utils.virtualenv import (
+from fetchcode.vcs.pip._internal.exceptions import CommandError
+from fetchcode.vcs.pip._internal.locations import get_major_minor_version, site_packages, user_site
+from fetchcode.vcs.pip._internal.utils.compat import WINDOWS, stdlib_pkgs
+from fetchcode.vcs.pip._internal.utils.virtualenv import (
     running_under_virtualenv,
     virtualenv_no_global,
 )
@@ -407,8 +407,8 @@ def get_installed_distributions(
 
     Left for compatibility until direct pkg_resources uses are refactored out.
     """
-    from pip._internal.metadata import get_default_environment, get_environment
-    from pip._internal.metadata.pkg_resources import Distribution as _Dist
+    from fetchcode.vcs.pip._internal.metadata import get_default_environment, get_environment
+    from fetchcode.vcs.pip._internal.metadata.pkg_resources import Distribution as _Dist
 
     if paths is None:
         env = get_default_environment()
@@ -433,8 +433,8 @@ def get_distribution(req_name):
 
     Left for compatibility until direct pkg_resources uses are refactored out.
     """
-    from pip._internal.metadata import get_default_environment
-    from pip._internal.metadata.pkg_resources import Distribution as _Dist
+    from fetchcode.vcs.pip._internal.metadata import get_default_environment
+    from fetchcode.vcs.pip._internal.metadata.pkg_resources import Distribution as _Dist
 
     dist = get_default_environment().get_distribution(req_name)
     if dist is None:

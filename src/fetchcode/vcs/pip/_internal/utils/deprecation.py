@@ -6,7 +6,7 @@ import logging
 import warnings
 from typing import Any, Optional, TextIO, Type, Union
 
-from pip._vendor.packaging.version import parse
+from fetchcode.vcs.pip._vendor.packaging.version import parse
 
 from pip import __version__ as current_version
 
@@ -35,7 +35,7 @@ def _showwarning(
     elif issubclass(category, PipDeprecationWarning):
         # We use a specially named logger which will handle all of the
         # deprecation messages for pip.
-        logger = logging.getLogger("pip._internal.deprecations")
+        logger = logging.getLogger("fetchcode.vcs.pip._internal.deprecations")
         logger.warning(message)
     else:
         _original_showwarning(message, category, filename, lineno, file, line)

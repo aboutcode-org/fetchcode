@@ -2,7 +2,7 @@ import types
 import functools
 import zlib
 
-from pip._vendor.requests.adapters import HTTPAdapter
+from fetchcode.vcs.pip._vendor.requests.adapters import HTTPAdapter
 
 from .controller import CacheController
 from .cache import DictCache

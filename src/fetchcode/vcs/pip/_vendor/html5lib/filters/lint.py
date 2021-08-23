@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, unicode_literals
 
-from pip._vendor.six import text_type
+from fetchcode.vcs.pip._vendor.six import text_type
 
 from . import base
 from ..constants import namespaces, voidElements

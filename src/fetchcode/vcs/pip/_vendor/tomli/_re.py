@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Any, Optional, Union
 if TYPE_CHECKING:
     from re import Match
 
-    from pip._vendor.tomli._parser import ParseFloat
+    from fetchcode.vcs.pip._vendor.tomli._parser import ParseFloat
 
 # E.g.
 # - 00:32:00.999999

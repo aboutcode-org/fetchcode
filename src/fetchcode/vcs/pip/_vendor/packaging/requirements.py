@@ -7,7 +7,7 @@ import string
 import urllib.parse
 from typing import List, Optional as TOptional, Set
 
-from pip._vendor.pyparsing import (  # noqa
+from fetchcode.vcs.pip._vendor.pyparsing import (  # noqa
     Combine,
     Literal as L,
     Optional,

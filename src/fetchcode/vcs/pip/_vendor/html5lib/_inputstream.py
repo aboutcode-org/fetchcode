@@ -1,13 +1,13 @@
 from __future__ import absolute_import, division, unicode_literals
 
-from pip._vendor.six import text_type
-from pip._vendor.six.moves import http_client, urllib
+from fetchcode.vcs.pip._vendor.six import text_type
+from fetchcode.vcs.pip._vendor.six.moves import http_client, urllib
 
 import codecs
 import re
 from io import BytesIO, StringIO
 
-from pip._vendor import webencodings
+from fetchcode.vcs.pip._vendor import webencodings
 
 from .constants import EOF, spaceCharacters, asciiLetters, asciiUppercase
 from .constants import _ReparseException
@@ -483,7 +483,7 @@ class HTMLBinaryInputStream(HTMLUnicodeInputStream):
         # Guess with chardet, if available
         if chardet:
             try:
-                from pip._vendor.chardet.universaldetector import UniversalDetector
+                from fetchcode.vcs.pip._vendor.chardet.universaldetector import UniversalDetector
             except ImportError:
                 pass
             else:

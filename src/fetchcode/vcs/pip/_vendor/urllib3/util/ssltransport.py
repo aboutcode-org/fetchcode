@@ -2,8 +2,8 @@ import io
 import socket
 import ssl
 
-from pip._vendor.urllib3.exceptions import ProxySchemeUnsupported
-from pip._vendor.urllib3.packages import six
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import ProxySchemeUnsupported
+from fetchcode.vcs.pip._vendor.urllib3.packages import six
 
 SSL_BLOCKSIZE = 16384
 

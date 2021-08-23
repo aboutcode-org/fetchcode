@@ -16,12 +16,12 @@
 
 import typing
 
-from pip._vendor.tenacity import _utils
+from fetchcode.vcs.pip._vendor.tenacity import _utils
 
 if typing.TYPE_CHECKING:
     import logging
 
-    from pip._vendor.tenacity import RetryCallState
+    from fetchcode.vcs.pip._vendor.tenacity import RetryCallState
 
 
 def before_nothing(retry_state: "RetryCallState") -> None:

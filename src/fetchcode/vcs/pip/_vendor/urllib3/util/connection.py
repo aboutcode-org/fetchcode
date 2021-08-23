@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import socket
 
-from pip._vendor.urllib3.exceptions import LocationParseError
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import LocationParseError
 
 from ..contrib import _appengine_environ
 from ..packages import six

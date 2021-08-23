@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, unicode_literals
-from pip._vendor.six import with_metaclass, viewkeys
+from fetchcode.vcs.pip._vendor.six import with_metaclass, viewkeys
 
 import types
 

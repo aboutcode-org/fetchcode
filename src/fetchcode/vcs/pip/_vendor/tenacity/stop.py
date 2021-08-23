@@ -19,7 +19,7 @@ import typing
 if typing.TYPE_CHECKING:
     import threading
 
-    from pip._vendor.tenacity import RetryCallState
+    from fetchcode.vcs.pip._vendor.tenacity import RetryCallState
 
 
 class stop_base(abc.ABC):

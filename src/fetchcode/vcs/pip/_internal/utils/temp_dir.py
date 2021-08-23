@@ -6,7 +6,7 @@ import tempfile
 from contextlib import ExitStack, contextmanager
 from typing import Any, Dict, Iterator, Optional, TypeVar, Union
 
-from pip._internal.utils.misc import enum, rmtree
+from fetchcode.vcs.pip._internal.utils.misc import enum, rmtree
 
 logger = logging.getLogger(__name__)
 
