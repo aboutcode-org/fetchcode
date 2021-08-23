@@ -3,7 +3,7 @@
 from itertools import groupby
 from typing import TYPE_CHECKING, Dict, List
 
-from fetchcode.vcs.pip._vendor.requests.models import Request, Response
+from requests.models import Request, Response
 
 if TYPE_CHECKING:
     from hashlib import _Hash

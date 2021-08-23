@@ -17,12 +17,7 @@ except ImportError:
     import dummy_threading as threading  # type: ignore
 
 
-try:
-    from fetchcode.vcs.pip._vendor import colorama
-# Lots of different errors can come from this, including SystemError and
-# ImportError.
-except Exception:
-    colorama = None
+colorama = None
 
 
 _log_state = threading.local()

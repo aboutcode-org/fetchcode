@@ -33,7 +33,7 @@ from typing import (
     cast,
 )
 
-from fetchcode.vcs.pip._vendor.tenacity import retry, stop_after_delay, wait_fixed
+from tenacity import retry, stop_after_delay, wait_fixed
 
 from fetchcode.vcs.pip._internal.exceptions import CommandError
 from fetchcode.vcs.pip._internal.utils.compat import WINDOWS, stdlib_pkgs
