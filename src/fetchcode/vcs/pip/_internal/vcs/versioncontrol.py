@@ -18,7 +18,6 @@ from typing import (
     Union,
 )
 
-from fetchcode.vcs.pip._internal.cli.spinners import SpinnerInterface
 from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
 from fetchcode.vcs.pip._internal.utils.misc import (
     HiddenText,
@@ -654,7 +653,7 @@ class VersionControl:
         extra_ok_returncodes=None,  # type: Optional[Iterable[int]]
         command_desc=None,  # type: Optional[str]
         extra_environ=None,  # type: Optional[Mapping[str, Any]]
-        spinner=None,  # type: Optional[SpinnerInterface]
+        spinner=None,
         log_failed_cmd=True,  # type: bool
         stdout_only=False,  # type: bool
     ):

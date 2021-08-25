@@ -2,9 +2,8 @@ import logging
 import os
 import shlex
 import subprocess
-from typing import Any, Callable, Iterable, List, Mapping, Optional, Union
+from typing import Any, Iterable, List, Mapping, Optional, Union
 
-from fetchcode.vcs.pip._internal.cli.spinners import SpinnerInterface, open_spinner
 from fetchcode.vcs.pip._internal.exceptions import InstallationSubprocessError
 from fetchcode.vcs.pip._internal.utils.logging import VERBOSE, subprocess_logger
 from fetchcode.vcs.pip._internal.utils.misc import HiddenText
@@ -102,7 +101,7 @@ def call_subprocess(
     command_desc=None,  # type: Optional[str]
     extra_environ=None,  # type: Optional[Mapping[str, Any]]
     unset_environ=None,  # type: Optional[Iterable[str]]
-    spinner=None,  # type: Optional[SpinnerInterface]
+    spinner=None,
     log_failed_cmd=True,  # type: Optional[bool]
     stdout_only=False,  # type: Optional[bool]
 ):
@@ -152,10 +151,6 @@ def call_subprocess(
     # Whether the subprocess will be visible in the console.
     showing_subprocess = subprocess_logger.getEffectiveLevel() <= used_level
 
-    # Only use the spinner if we're not showing the subprocess output
-    # and we have a spinner.
-    use_spinner = not showing_subprocess and spinner is not None
-
     if command_desc is None:
         command_desc = format_command_args(cmd)
 
@@ -199,10 +194,6 @@ def call_subprocess(
 
             # Show the line immediately.
             log_subprocess(line)
-            # Update the spinner.
-            if use_spinner:
-                assert spinner
-                spinner.spin()
         try:
             proc.wait()
         finally:
@@ -223,12 +214,6 @@ def call_subprocess(
         output = out
 
     proc_had_error = proc.returncode and proc.returncode not in extra_ok_returncodes
-    if use_spinner:
-        assert spinner
-        if proc_had_error:
-            spinner.finish("error")
-        else:
-            spinner.finish("done")
     if proc_had_error:
         if on_returncode == "raise":
             if not showing_subprocess and log_failed_cmd:
@@ -254,28 +239,3 @@ def call_subprocess(
         else:
             raise ValueError(f"Invalid value: on_returncode={on_returncode!r}")
     return output
-
-
-def runner_with_spinner_message(message):
-    # type: (str) -> Callable[..., None]
-    """Provide a subprocess_runner that shows a spinner message.
-
-    Intended for use with for pep517's Pep517HookCaller. Thus, the runner has
-    an API that matches what's expected by Pep517HookCaller.subprocess_runner.
-    """
-
-    def runner(
-        cmd,  # type: List[str]
-        cwd=None,  # type: Optional[str]
-        extra_environ=None,  # type: Optional[Mapping[str, Any]]
-    ):
-        # type: (...) -> None
-        with open_spinner(message) as spinner:
-            call_subprocess(
-                cmd,
-                cwd=cwd,
-                extra_environ=extra_environ,
-                spinner=spinner,
-            )
-
-    return runner

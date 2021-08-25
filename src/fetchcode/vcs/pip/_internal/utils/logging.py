@@ -9,7 +9,6 @@ from typing import IO, Any, Callable, Iterator, Optional, TextIO, Type, cast
 
 from fetchcode.vcs.pip._internal.utils._log import VERBOSE, getLogger
 from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
-from fetchcode.vcs.pip._internal.utils.deprecation import DEPRECATION_MSG_PREFIX
 from fetchcode.vcs.pip._internal.utils.misc import ensure_dir
 
 try:
@@ -112,10 +111,6 @@ class IndentingFormatter(logging.Formatter):
         prefix to add to each line).
         """
         if levelno < logging.WARNING:
-            return ""
-        if formatted.startswith(DEPRECATION_MSG_PREFIX):
-            # Then the message already has a prefix.  We don't want it to
-            # look like "WARNING: DEPRECATION: ...."
             return ""
         if levelno < logging.ERROR:
             return "WARNING: "
