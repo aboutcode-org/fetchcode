@@ -25,58 +25,50 @@ def obtain(dest, url):
     pass
 
 
+@pytest.mark.parametrize(
+    "url, vcs_type, domain",
+    [
+        pytest.param(
+            "git+http://github.com/jamesor/mongoose-versioner",
+            "git",
+            "github.com",
+            id="git_http",
+        ),
+        pytest.param(
+            "git://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git"
+        ),
+        pytest.param(
+            "git+https://github.com/jamesor/mongoose-versioner",
+            "git",
+            "github.com",
+            id="git_https",
+        ),
+        pytest.param(
+            "git+ssh://github.com/jamesor/mongoose-versioner",
+            "git",
+            "github.com",
+            id="git_ssh",
+        ),
+        pytest.param(
+            "git+file://github.com/jamesor/mongoose-versioner",
+            "git",
+            "github.com",
+            id="git_file",
+        ),
+        pytest.param(
+            "git+git://github.com/jamesor/mongoose-versioner",
+            "git",
+            "github.com",
+            id="git_git",
+        ),
+    ],
+)
 @mock.patch("fetchcode.vcs.git.vcs.get_backend")
-def test_fetch_with_git_http_url_returns_a_response(mock_backend):
+def test_fetch_via_vcs_returns_response(mock_backend, url, vcs_type, domain):
     mock_backend.return_value.obtain = obtain
-    url = "git+http://github.com/jamesor/mongoose-versioner"
     response = fetch_via_git(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.git.vcs.get_backend")
-def test_fetch_with_git_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_git(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.git.vcs.get_backend")
-def test_fetch_with_git_https_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+https://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_git(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.git.vcs.get_backend")
-def test_fetch_with_git_ssh_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+ssh://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_git(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.git.vcs.get_backend")
-def test_fetch_with_git_file_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+file://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_git(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
-
-
-@mock.patch("fetchcode.vcs.git.vcs.get_backend")
-def test_fetch_with_git_ssh_url_returns_a_response(mock_backend):
-    mock_backend.return_value.obtain = obtain
-    url = "git+git://github.com/jamesor/mongoose-versioner"
-    response = fetch_via_git(url=url)
-    assert response.vcs_type == "git"
-    assert response.domain == "github.com"
+    assert response.vcs_type == vcs_type
+    assert response.domain == domain
 
 
 def test_fetch_with_git_invalid_scheme():

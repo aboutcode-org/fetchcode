@@ -19,21 +19,28 @@ import tempfile
 from urllib.parse import urlparse
 
 from fetchcode.vcs.pip._internal.vcs.git import Git
+from fetchcode.vcs.pip._internal.vcs.versioncontrol import RevOptions
 from fetchcode.vcs.pip._internal.utils import misc
 from fetchcode.vcs.pip._internal.vcs import vcs
 from fetchcode.vcs import VCSResponse
 
 
-def fetch_via_git(url):
+def fetch_via_git(url, location=None):
+    """
+    Take `url` as input and store the content of it at location specified at `location` string
+    If location string is not set, a tempfile.mkdtemp() will be created to store content in.
+    tempfile.mkdtemp must be cleaned by user manually.
+    Return a VCSResponse object
+    """
     parsed_url = urlparse(url)
     scheme = parsed_url.scheme
     domain = parsed_url.netloc
-    temp = tempfile.mkdtemp()
-    os.rmdir(temp)
+    if location is None:
+        location = tempfile.mkdtemp()
+        os.rmdir(location)
     if scheme not in Git.schemes:
         raise Exception("Not a Git based scheme.")
 
     backend = vcs.get_backend(name="git")
-    backend.obtain(dest=temp, url=misc.hide_url(url))
-
-    return VCSResponse(dest_dir=temp, vcs_type="git", domain=domain)
+    backend.obtain(dest=location, url=misc.hide_url(url))
+    return VCSResponse(dest_dir=location, vcs_type="git", domain=domain)

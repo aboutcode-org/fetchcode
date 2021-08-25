@@ -29,9 +29,9 @@ from fetchcode.vcs.pip._internal.vcs import vcs
 class VCSResponse:
     """
     Represent the response from fetching a VCS URL with:
-- `dest_dir`: destination of directory
-- `vcs_type`: VCS Type of URL (git,bzr,hg,svn)
-- `domain` : Source of git VCS (GitHub, Gitlab, Bitbucket)
+    - `dest_dir`: destination of directory
+    - `vcs_type`: VCS Type of URL (git,bzr,hg,svn)
+    - `domain` : Source of git VCS (GitHub, Gitlab, Bitbucket)
     """
 
     def __init__(self, dest_dir, vcs_type, domain):
@@ -40,16 +40,17 @@ class VCSResponse:
         self.domain = domain
 
 
-def fetch_via_vcs(url):
+def fetch_via_vcs(url, location=None):
     """
     Take `url` as input and store the content of it at location specified at `location` string
-    Return a VCSResponse object 
+    Return a VCSResponse object
     """
     parsed_url = urlparse(url)
     scheme = parsed_url.scheme
     domain = parsed_url.netloc
-    temp = tempfile.mkdtemp()
-    os.rmdir(temp)
+    if location is None:
+        location = tempfile.mkdtemp()
+        os.rmdir(location)
     if scheme not in vcs.all_schemes:
         raise Exception("Not a supported/known scheme.")
 
@@ -58,6 +59,6 @@ def fetch_via_vcs(url):
             vcs_type = vcs_name
 
     backend = vcs.get_backend_for_scheme(scheme)
-    backend.obtain(dest=temp, url=misc.hide_url(url))
+    backend.obtain(dest=location, url=misc.hide_url(url))
 
-    return VCSResponse(dest_dir=temp, vcs_type=vcs_type, domain=domain)
+    return VCSResponse(dest_dir=location, vcs_type=vcs_type, domain=domain)
