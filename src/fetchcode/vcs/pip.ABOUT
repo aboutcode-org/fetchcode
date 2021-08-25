@@ -1,0 +1,17 @@
+about_resource: pip
+attribute: yes
+copyright: Copyright (c) The Python Software Foundation and the pip authors
+ (see pip-AUTHORS.txt file for a list of pip authors)
+description: A tool for installing and managing Python packages.
+notes: this is a copy of pip vendored for stability.
+download_url: https://files.pythonhosted.org/packages/08/25/f204a6138dade2f6757b4ae99bc3994aac28a5602c97ddb2a35e0e22fbc4/pip-20.1.1.tar.gz
+homepage_url: https://pip.pypa.io
+license_expression: mit AND lgpl-2.1-plus AND python AND mit AND bsd-new AND (bsd-new OR apache-2.0)
+  AND apache-2.0 AND isc
+name: pip
+package_url: pkg:pypi/pip@20.1.1
+primary_language: Python
+redistribute: yes
+track_changes: yes
+type: pypi
+version: 20.1.1
