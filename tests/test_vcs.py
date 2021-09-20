@@ -19,7 +19,6 @@ from unittest import mock
 import pytest
 
 from fetchcode.vcs import fetch_via_vcs
-from fetchcode.vcs.pip._internal.vcs import vcs
 
 
 def obtain(dest, url):

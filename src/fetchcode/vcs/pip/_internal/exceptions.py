@@ -4,15 +4,14 @@
 """Exceptions used throughout package"""
 
 from itertools import groupby
-from typing import TYPE_CHECKING, Dict, List
+from typing import List
 
 from requests.models import Request, Response
 
-if TYPE_CHECKING:
-    from hashlib import _Hash
 
 class PipError(Exception):
     """Base pip exception"""
+
 
 class InstallationError(PipError):
     """General exception during installation"""
@@ -38,8 +37,11 @@ class NetworkConnectionError(PipError):
         self.response = response
         self.request = request
         self.error_msg = error_msg
-        if (self.response is not None and not self.request and
-                hasattr(response, 'request')):
+        if (
+            self.response is not None
+            and not self.request
+            and hasattr(response, "request")
+        ):
             self.request = self.response.request
         super().__init__(error_msg, response, request)
 
@@ -50,6 +52,7 @@ class NetworkConnectionError(PipError):
 
 class InstallationSubprocessError(InstallationError):
     """A subprocess call failed during installation."""
+
     def __init__(self, returncode, description):
         # type: (int, str) -> None
         self.returncode = returncode
@@ -82,8 +85,8 @@ class HashErrors(InstallationError):
             lines.append(cls.head)
             lines.extend(e.body() for e in errors_of_cls)
         if lines:
-            return '\n'.join(lines)
-        return ''
+            return "\n".join(lines)
+        return ""
 
     def __nonzero__(self):
         # type: () -> bool
@@ -107,12 +110,13 @@ class HashError(InstallationError):
         exceptions of this kind
 
     """
-    head = ''
+
+    head = ""
     order = -1  # type: int
 
     def __str__(self):
         # type: () -> str
-        return f'{self.head}'
+        return f"{self.head}"
 
 
 class VcsHashUnsupported(HashError):
@@ -120,6 +124,7 @@ class VcsHashUnsupported(HashError):
     we don't have a method for hashing those."""
 
     order = 0
-    head = ("Can't verify hashes for these requirements because we don't "
-            "have a way to hash version control repositories:")
-
+    head = (
+        "Can't verify hashes for these requirements because we don't "
+        "have a way to hash version control repositories:"
+    )

@@ -29,9 +29,9 @@ from fetchcode.vcs.pip._internal.vcs import vcs
 class VCSResponse:
     """
     Represent the response from fetching a VCS URL with:
-- `dest_dir`: destination of directory
-- `vcs_type`: VCS Type of URL (git,bzr,hg,svn)
-- `domain` : Source of git VCS (GitHub, Gitlab, Bitbucket)
+    - `dest_dir`: destination of directory
+    - `vcs_type`: VCS Type of URL (git,bzr,hg,svn)
+    - `domain` : Source of git VCS (GitHub, Gitlab, Bitbucket)
     """
 
     def __init__(self, dest_dir, vcs_type, domain):
@@ -43,7 +43,7 @@ class VCSResponse:
 def fetch_via_vcs(url):
     """
     Take `url` as input and store the content of it at location specified at `location` string
-    Return a VCSResponse object 
+    Return a VCSResponse object
     """
     parsed_url = urlparse(url)
     scheme = parsed_url.scheme

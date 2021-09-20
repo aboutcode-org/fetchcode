@@ -3,7 +3,6 @@
 
 import os
 import re
-import site
 import subprocess
 import sys
 import textwrap
@@ -11,7 +10,7 @@ from base64 import urlsafe_b64encode
 from textwrap import dedent
 
 import pytest
-from scripttest import FoundDir, TestFileEnvironment
+from scripttest import TestFileEnvironment
 
 from lib.path import Path
 
@@ -185,14 +184,15 @@ def _check_stderr(
             msg = make_check_stderr_message(stderr, line=line, reason=reason)
             raise RuntimeError(msg)
 
+
 class VCSTestEnvironment(TestFileEnvironment):
     verbose = False
-    
+
     def __init__(self, base_path, *args, **kwargs):
         base_path = Path(base_path)
         # Create a Directory to use as a scratch pad
         self.scratch_path = base_path.joinpath("scratch")
-        
+
         kwargs.setdefault("cwd", self.scratch_path)
         kwargs.setdefault("environ", os.environ.copy())
         super().__init__(base_path, *args, **kwargs)
@@ -478,6 +478,7 @@ def _vcs_add(script, version_pkg_path, vcs="git"):
     else:
         raise ValueError(f"Unknown vcs: {vcs}")
     return version_pkg_path
+
 
 def _create_test_package(script, name="version_pkg", vcs="git"):
     script.scratch_path.joinpath(name).mkdir()

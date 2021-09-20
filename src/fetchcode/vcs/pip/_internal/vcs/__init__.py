@@ -10,6 +10,5 @@ from fetchcode.vcs.pip._internal.vcs.versioncontrol import (  # noqa: F401
     RemoteNotFoundError,
     RemoteNotValidError,
     is_url,
-    make_vcs_requirement_url,
     vcs,
 )

@@ -102,7 +102,6 @@ def isolate(tmpdir, monkeypatch):
     monkeypatch.setenv("GIT_AUTHOR_EMAIL", "distutils-sig@python.org")
 
     # FIXME: Windows...
-    #os.makedirs(os.path.join(home_dir, ".gitconfig", "git"))
     with open(os.path.join(home_dir, ".gitconfig"), "wb") as fp:
         fp.write(b"[user]\n\tname = pip\n\temail = distutils-sig@python.org\n")
 
@@ -128,15 +127,16 @@ def script_factory():
     def factory(tmpdir):
         return VCSTestEnvironment(
             tmpdir,
-            ignore_hidden=False, 
-            start_clear=False, 
-            capture_temp=True, 
-            assert_no_temp=True)
+            ignore_hidden=False,
+            start_clear=False,
+            capture_temp=True,
+            assert_no_temp=True,
+        )
+
     return factory
 
 
 @pytest.fixture
-#def script(tmpdir, virtualenv, script_factory):
 def script(tmpdir, script_factory):
     """
     Return a PipTestEnvironment which is unique to each test function and
@@ -144,5 +144,4 @@ def script(tmpdir, script_factory):
     test function. The returned object is a
     ``tests.lib.PipTestEnvironment``.
     """
-    #return script_factory(tmpdir.joinpath("workspace"), virtualenv)
     return script_factory(tmpdir.joinpath("workspace"))

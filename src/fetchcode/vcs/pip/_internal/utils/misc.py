@@ -6,7 +6,6 @@
 
 import contextlib
 import errno
-import getpass
 import hashlib
 import io
 import logging
@@ -39,13 +38,12 @@ from typing import (
 from tenacity import retry, stop_after_delay, wait_fixed
 
 from fetchcode.vcs.pip._internal.exceptions import CommandError
-from fetchcode.vcs.pip._internal.utils.compat import WINDOWS, stdlib_pkgs
+from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
 
 __all__ = [
     "rmtree",
     "display_path",
     "backup_dir",
-    "ask",
     "splitext",
     "format_size",
     "is_installable_dir",
@@ -125,53 +123,6 @@ def backup_dir(dir, ext=".bak"):
         n += 1
         extension = ext + str(n)
     return dir + extension
-
-
-def ask_path_exists(message, options):
-    # type: (str, Iterable[str]) -> str
-    for action in os.environ.get("PIP_EXISTS_ACTION", "").split():
-        if action in options:
-            return action
-    return ask(message, options)
-
-
-def _check_no_input(message):
-    # type: (str) -> None
-    """Raise an error if no input is allowed."""
-    if os.environ.get("PIP_NO_INPUT"):
-        raise Exception(
-            f"No input was expected ($PIP_NO_INPUT set); question: {message}"
-        )
-
-
-def ask(message, options):
-    # type: (str, Iterable[str]) -> str
-    """Ask the message interactively, with the given possible responses"""
-    while 1:
-        _check_no_input(message)
-        response = input(message)
-        response = response.strip().lower()
-        if response not in options:
-            print(
-                "Your response ({!r}) was not one of the expected responses: "
-                "{}".format(response, ", ".join(options))
-            )
-        else:
-            return response
-
-
-def ask_input(message):
-    # type: (str) -> str
-    """Ask for input interactively."""
-    _check_no_input(message)
-    return input(message)
-
-
-def ask_password(message):
-    # type: (str) -> str
-    """Ask for a password interactively."""
-    _check_no_input(message)
-    return getpass.getpass(message)
 
 
 def strtobool(val):
@@ -533,33 +484,6 @@ def hide_url(url):
     # type: (str) -> HiddenText
     redacted = redact_auth_from_url(url)
     return HiddenText(url, redacted=redacted)
-
-
-def protect_pip_from_modification_on_windows(modifying_pip):
-    # type: (bool) -> None
-    """Protection of pip.exe from modification on Windows
-
-    On Windows, any operation modifying pip should be run as:
-        python -m pip ...
-    """
-    pip_names = [
-        "pip.exe",
-        "pip{}.exe".format(sys.version_info[0]),
-        "pip{}.{}.exe".format(*sys.version_info[:2]),
-    ]
-
-    # See https://github.com/pypa/pip/issues/1299 for more discussion
-    should_show_use_python_msg = (
-        modifying_pip and WINDOWS and os.path.basename(sys.argv[0]) in pip_names
-    )
-
-    if should_show_use_python_msg:
-        new_command = [sys.executable, "-m", "pip"] + sys.argv[1:]
-        raise CommandError(
-            "To modify pip, please run the following command:\n{}".format(
-                " ".join(new_command)
-            )
-        )
 
 
 def is_console_interactive():

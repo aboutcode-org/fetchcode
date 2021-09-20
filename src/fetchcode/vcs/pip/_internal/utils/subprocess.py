@@ -8,11 +8,11 @@ import subprocess
 from typing import Any, Iterable, List, Mapping, Optional, Union
 
 from fetchcode.vcs.pip._internal.exceptions import InstallationSubprocessError
-from fetchcode.vcs.pip._internal.utils.logging import VERBOSE, subprocess_logger
 from fetchcode.vcs.pip._internal.utils.misc import HiddenText
 
 CommandArgs = List[Union[str, HiddenText]]
 
+subprocess_logger = logging.getLogger("fetchcode.subprocessor")
 
 LOG_DIVIDER = "----------------------------------------"
 
@@ -104,7 +104,6 @@ def call_subprocess(
     command_desc=None,  # type: Optional[str]
     extra_environ=None,  # type: Optional[Mapping[str, Any]]
     unset_environ=None,  # type: Optional[Iterable[str]]
-    spinner=None,
     log_failed_cmd=True,  # type: Optional[bool]
     stdout_only=False,  # type: Optional[bool]
 ):
@@ -131,12 +130,10 @@ def call_subprocess(
     # - We connect the child's output (combined stderr and stdout) to a
     #   single pipe, which we read.
     # - We log this output to stderr at DEBUG level as it is received.
-    # - If DEBUG logging isn't enabled (e.g. if --verbose logging wasn't
-    #   requested), then we show a spinner so the user can still see the
-    #   subprocess is in progress.
+    # - If DEBUG logging isn't enabled
     # - If the subprocess exits with an error, we log the output to stderr
     #   at ERROR level if it hasn't already been displayed to the console
-    #   (e.g. if --verbose logging wasn't enabled).  This way we don't log
+    #   (e.g. DEBUG logging wasn't enabled). This way we don't log
     #   the output to the console twice.
     #
     # If show_stdout=True, then the above is still done, but with DEBUG
@@ -146,10 +143,10 @@ def call_subprocess(
         log_subprocess = subprocess_logger.info
         used_level = logging.INFO
     else:
-        # Then log the subprocess output using VERBOSE.  This also ensures
+        # Then log the subprocess output using DEBUG.  This also ensures
         # it will be logged to the log file (aka user_log), if enabled.
-        log_subprocess = subprocess_logger.verbose
-        used_level = VERBOSE
+        log_subprocess = subprocess_logger.debug
+        used_level = logging.DEBUG
 
     # Whether the subprocess will be visible in the console.
     showing_subprocess = subprocess_logger.getEffectiveLevel() <= used_level
