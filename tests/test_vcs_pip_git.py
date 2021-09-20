@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright @ The pip developers (see pip-AUTHORS.txt). All rights reserved
+
 """
 Contains functional tests of the Git class.
 """

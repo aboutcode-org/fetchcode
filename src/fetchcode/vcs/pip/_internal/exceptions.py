@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright @ The pip developers (see pip-AUTHORS.txt). All rights reserved
+
 """Exceptions used throughout package"""
 
 from itertools import groupby

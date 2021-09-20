@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright @ The pip developers (see pip-AUTHORS.txt). All rights reserved
+
 # The following comment should be removed at some point in the future.
 # mypy: strict-optional=False
 

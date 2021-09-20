@@ -1,3 +1,6 @@
+# SPDX-License-Identifier: MIT
+# Copyright @ The pip developers (see pip-AUTHORS.txt). All rights reserved
+
 """Stuff that differs in different Python versions and platform
 distributions."""
 
