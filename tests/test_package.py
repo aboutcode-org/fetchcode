@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations under the License.
 
 import json
+import pytest
 from unittest import mock
 
 from fetchcode.package import info
@@ -97,3 +98,11 @@ def test_rubygems_packages(mock_get):
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     match_data(packages, expected_data)
+
+
+@mock.patch("fetchcode.package.get_response")
+def test_tuby_package_with_invalid_url(mock_get):
+    with pytest.raises(Exception) as e_info:
+        purl = "pkg:ruby/file"
+        packages = list(info(purl))
+        assert "Failed to fetch: https://rubygems.org/api/v1/gems/file.json" == e_info
