@@ -60,7 +60,6 @@ Fetch some package metadata and get a ``fetchcode.packagedcode_models.Package`` 
     [Package(type='rubygems', namespace=None, name='files', version=None)]
 
 
-
 License
 --------
 
