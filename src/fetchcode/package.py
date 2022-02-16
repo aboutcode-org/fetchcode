@@ -43,10 +43,10 @@ def get_response(url):
     Generate `Package` object for a `url` string
     """
     resp = requests.get(url)
-    if "json" in dir(resp):
+    if resp.status_code == 200:
         return resp.json()
 
-    raise Exception("Response of this URL does not contain json object")
+    raise Exception(f"Failed to fetch: {url}")
 
 
 def get_pypi_bugtracker_url(project_urls):
