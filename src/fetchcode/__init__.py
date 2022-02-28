@@ -41,7 +41,7 @@ class Response:
 def fetch_http(url, location):
     """
     Return a `Response` object built from fetching the content at a HTTP/HTTPS based `url` URL string
-    saving the content in a file at `location`   
+    saving the content in a file at `location`
     """
     r = requests.get(url)
     with open(location, 'wb') as f:
@@ -59,7 +59,7 @@ def fetch_http(url, location):
 def fetch_ftp(url, location):
     """
     Return a `Response` object built from fetching the content at a FTP based `url` URL string
-    saving the content in a file at `location`  
+    saving the content in a file at `location`
     """
     url_parts = urlparse(url)
 

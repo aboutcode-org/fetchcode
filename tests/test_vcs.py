@@ -19,7 +19,6 @@ from unittest import mock
 import pytest
 
 from fetchcode.vcs import fetch_via_vcs
-from fetchcode.vcs.pip._internal.vcs import vcs
 
 
 def obtain(dest, url):
@@ -29,25 +28,23 @@ def obtain(dest, url):
     "url, vcs_type, domain",
     [
         pytest.param("git+http://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_http"),
-        pytest.param("git://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git"),
         pytest.param("git+https://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_https"),
         pytest.param("git+ssh://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_ssh"),
         pytest.param("git+file://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_file"),
         pytest.param("git+git://github.com/jamesor/mongoose-versioner", "git", "github.com", id="git_git"),
         pytest.param("bzr+http://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_http"),
         pytest.param("bzr+https://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_https"),
-        pytest.param("bzr://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr"),
+        pytest.param("bzr+file://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_file"),
         pytest.param("bzr+ssh://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_ssh"),
         pytest.param("bzr+ftp://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_ftp"),
         pytest.param("bzr+sftp://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_sftp"),
         pytest.param("bzr+lp://gitlab.com/jamesor/mongoose-versioner", "bzr", "gitlab.com", id="bzr_lp"),
-        pytest.param("hg://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg"),
         pytest.param("hg+file://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_file"),
         pytest.param("hg+http://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_http"),
         pytest.param("hg+https://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_https"),
         pytest.param("hg+ssh://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_ssh"),
         pytest.param("hg+static-http://bitbucket.com/jamesor/mongoose-versioner", "hg", "bitbucket.com", id="hg_static_http"),
-        pytest.param("svn://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn"),
+        pytest.param("svn+file://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn_file"),
         pytest.param("svn+http://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn_http"),
         pytest.param("svn+https://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn_https"),
         pytest.param("svn+svn://bitbucket.com/jamesor/mongoose-versioner", "svn", "bitbucket.com", id="svn_svn")

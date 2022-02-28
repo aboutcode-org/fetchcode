@@ -21,45 +21,45 @@ import pytest
 from fetchcode import fetch
 
 
-@mock.patch('fetchcode.requests.get')
+@mock.patch("fetchcode.requests.get")
 def test_fetch_http_with_tempfile(mock_get):
     mock_get.return_value.headers = {
-        'content-type': 'image/png',
-        'content-length': '1000999',
+        "content-type": "image/png",
+        "content-length": "1000999",
     }
 
-    with mock.patch('fetchcode.open', mock.mock_open()) as mocked_file:
-        url = 'https://raw.githubusercontent.com/TG1999/converge/master/assets/Group%2022.png'
+    with mock.patch("fetchcode.open", mock.mock_open()):
+        url = "https://raw.githubusercontent.com/TG1999/converge/master/assets/Group%2022.png"
         response = fetch(url=url)
         assert response is not None
         assert 1000999 == response.size
         assert url == response.url
-        assert 'image/png' == response.content_type
+        assert "image/png" == response.content_type
 
 
-@mock.patch('fetchcode.FTP')
+@mock.patch("fetchcode.FTP")
 def test_fetch_with_wrong_url(mock_get):
     with pytest.raises(Exception) as e_info:
-        url = 'ftp://speedtest/1KB.zip'
-        response = fetch(url=url)
-        assert 'Not a valid URL' == e_info
+        url = "ftp://speedtest/1KB.zip"
+        fetch(url=url)
+        assert "Not a valid URL" == e_info
 
 
-@mock.patch('fetchcode.FTP', autospec=True)
+@mock.patch("fetchcode.FTP", autospec=True)
 def test_fetch_ftp_with_tempfile(mock_ftp_constructor):
     mock_ftp = mock_ftp_constructor.return_value
     mock_ftp_constructor.return_value.size.return_value = 1024
-    with mock.patch('fetchcode.open', mock.mock_open()) as mocked_file:
-        response = fetch('ftp://speedtest.tele2.net/1KB.zip')
+    with mock.patch("fetchcode.open", mock.mock_open()):
+        response = fetch("ftp://speedtest.tele2.net/1KB.zip")
         assert 1024 == response.size
-        mock_ftp_constructor.assert_called_with('speedtest.tele2.net')
-        assert mock_ftp.login.called == True
-        mock_ftp.cwd.assert_called_with('/')
+        mock_ftp_constructor.assert_called_with("speedtest.tele2.net")
+        assert mock_ftp.login.called
+        mock_ftp.cwd.assert_called_with("/")
         assert mock_ftp.retrbinary.called
 
 
 def test_fetch_with_scheme_not_present():
     with pytest.raises(Exception) as e_info:
-        url = 'abc://speedtest/1KB.zip'
-        response = fetch(url=url)
-        assert 'Not a supported/known scheme.' == e_info
+        url = "abc://speedtest/1KB.zip"
+        fetch(url=url)
+        assert "Not a supported/known scheme." == e_info
