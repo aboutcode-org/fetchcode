@@ -16,3 +16,4 @@ six==1.14.0
 urllib3==1.26.5
 wcwidth==0.1.8
 zipp==1.2.0
+kiss-headers==2.3.0
