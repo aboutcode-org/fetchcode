@@ -33,18 +33,21 @@ norecursedirs = [
    "Scripts",
    "thirdparty",
    "tmp",
+   "venv",
    "tests/data",
    ".eggs",
    "src/fetchcode/vcs/pip",
+   "src/*/data",
+   "tests/*/data",
 ]
 
 python_files = "*.py"
 
-python_classes="Test"
-python_functions="test"
+python_classes = "Test"
+python_functions = "test"
 
 addopts = [
     "-rfExXw",
-    "--strict",
+    "--strict-markers",
     "--doctest-modules"
 ]
