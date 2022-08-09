@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations under the License.
 
 import os
+import shutil
 import tempfile
 from urllib.parse import urlparse
 
@@ -28,10 +29,10 @@ from fetchcode.vcs.pip._internal.vcs import vcs
 
 class VCSResponse:
     """
-    Represent the response from fetching a VCS URL with:
-- `dest_dir`: destination of directory
-- `vcs_type`: VCS Type of URL (git,bzr,hg,svn)
-- `domain` : Source of git VCS (GitHub, Gitlab, Bitbucket)
+        Represent the response from fetching a VCS URL with:
+    - `dest_dir`: destination of directory
+    - `vcs_type`: VCS Type of URL (git,bzr,hg,svn)
+    - `domain` : Source of git VCS (GitHub, Gitlab, Bitbucket)
     """
 
     def __init__(self, dest_dir, vcs_type, domain):
@@ -39,17 +40,23 @@ class VCSResponse:
         self.vcs_type = vcs_type
         self.domain = domain
 
+    def delete(self):
+        """
+        Delete the temporary directory.
+        """
+        if os.path.isdir(self.dest_dir):
+            shutil.rmtree(path=self.dest_dir)
+
 
 def fetch_via_vcs(url):
     """
     Take `url` as input and store the content of it at location specified at `location` string
-    Return a VCSResponse object 
+    Return a VCSResponse object
     """
     parsed_url = urlparse(url)
     scheme = parsed_url.scheme
     domain = parsed_url.netloc
-    temp = tempfile.mkdtemp()
-    os.rmdir(temp)
+    dest_dir = os.path.join(tempfile.mkdtemp(), "checkout")
     if scheme not in vcs.all_schemes:
         raise Exception("Not a supported/known scheme.")
 
@@ -58,6 +65,6 @@ def fetch_via_vcs(url):
             vcs_type = vcs_name
 
     backend = vcs.get_backend_for_scheme(scheme)
-    backend.obtain(dest=temp, url=misc.hide_url(url))
+    backend.obtain(dest=dest_dir, url=misc.hide_url(url))
 
-    return VCSResponse(dest_dir=temp, vcs_type=vcs_type, domain=domain)
+    return VCSResponse(dest_dir=dest_dir, vcs_type=vcs_type, domain=domain)
