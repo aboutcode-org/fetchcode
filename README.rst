@@ -42,7 +42,7 @@ To run test suite use::
 Usage
 --------
 
-Fetch a code archive and get a ``fetchcode.fetch.Reposnse`` object back::
+Fetch a code archive and get a ``fetchcode.fetch.Response`` object back::
 
     >>> from fetchcode import fetch
     >>> f = fetch('https://github.com/nexB/fetchcode/archive/ab65b2e645c889887227ea49eb3332d885fd0a54.zip')
