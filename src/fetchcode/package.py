@@ -311,8 +311,8 @@ def get_rubygems_data_from_purl(purl):
     name = purl.name
     api_url = f"https://rubygems.org/api/v1/gems/{name}.json"
     releases_url = f"https://rubygems.org/api/v1/versions/{name}.json"
-    response = get_response(api_url)
     releases = get_response(releases_url)
+    response = get_response(api_url)
     declared_license = response.get("licenses") or None
     version = response.get("version")
     version_purl = PackageURL(
@@ -336,11 +336,6 @@ def get_rubygems_data_from_purl(purl):
     for release in releases:
         version = release.get("number")
         release_date = release.get("created_at")
-        platform = release.get("platform") or ""
-        if platform:
-            download_url = f"https://rubygems.org/gems/{name}-{version}-{platform}.gem"
-        else:
-            download_url = f"https://rubygems.org/gems/{name}-{version}.gem"
         version_purl = PackageURL(
             type=purl.type, name=name, version=version
         )
@@ -350,7 +345,6 @@ def get_rubygems_data_from_purl(purl):
             bug_tracking_url=bug_tracking_url,
             code_view_url=code_view_url,
             declared_license=declared_license,
-            download_url=download_url,
             release_date=release_date,
             **version_purl.to_dict()
         )
