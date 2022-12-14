@@ -14,12 +14,10 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-from attr import attrs, attrib
-
-from packageurl.contrib.route import NoRouteAvailable
-from packageurl import PackageURL
-from packageurl.contrib.route import Router
 import requests
+from packageurl import PackageURL
+from packageurl.contrib.route import NoRouteAvailable
+from packageurl.contrib.route import Router
 
 from fetchcode.packagedcode_models import Package
 
@@ -169,7 +167,7 @@ def get_npm_data_from_purl(purl):
 @router.route("pkg:pypi/.*")
 def get_pypi_data_from_purl(purl):
     """
-    Generate `Package` object from the `purl` string of npm type
+    Generate `Package` object from the `purl` string of pypi type
     """
     purl = PackageURL.from_string(purl)
     name = purl.name
@@ -312,12 +310,19 @@ def get_rubygems_data_from_purl(purl):
     purl = PackageURL.from_string(purl)
     name = purl.name
     api_url = f"https://rubygems.org/api/v1/gems/{name}.json"
+    releases_url = f"https://rubygems.org/api/v1/versions/{name}.json"
     response = get_response(api_url)
+    releases = get_response(releases_url)
     declared_license = response.get("licenses") or None
+    version = response.get("version")
+    version_purl = PackageURL(
+        type=purl.type, name=name, version=version
+    )
     homepage_url = response.get("homepage_uri")
     code_view_url = response.get("source_code_uri")
     bug_tracking_url = response.get("bug_tracker_uri")
     download_url = response.get("gem_uri")
+    release_date = response.get("version_created_at")
     yield Package(
         homepage_url=homepage_url,
         api_url=api_url,
@@ -325,5 +330,27 @@ def get_rubygems_data_from_purl(purl):
         code_view_url=code_view_url,
         declared_license=declared_license,
         download_url=download_url,
-        **purl.to_dict(),
+        release_date=release_date,
+        **version_purl.to_dict()
     )
+    for release in releases:
+        version = release.get("number")
+        release_date = release.get("created_at")
+        platform = release.get("platform") or ""
+        if platform:
+            download_url = f"https://rubygems.org/gems/{name}-{version}-{platform}.gem"
+        else:
+            download_url = f"https://rubygems.org/gems/{name}-{version}.gem"
+        version_purl = PackageURL(
+            type=purl.type, name=name, version=version
+        )
+        yield Package(
+            homepage_url=homepage_url,
+            api_url=api_url,
+            bug_tracking_url=bug_tracking_url,
+            code_view_url=code_view_url,
+            declared_license=declared_license,
+            download_url=download_url,
+            release_date=release_date,
+            **version_purl.to_dict()
+        )
