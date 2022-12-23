@@ -28,10 +28,26 @@ def file_data(file_name):
         return json.loads(data)
 
 
+def create_tests(packages, path):
+    """
+    Helper function for Creating test files.
+    Takes in list(info(purl)) and path of the test_file.
+    """
+    test_data = {}
+    index = 0
+    test_file = open(path, "w")
+    for package in packages:
+        test_data[index] = dict(package.to_dict())
+        index += 1
+    test_file.write(json.dumps(test_data))
+    test_file.close()
+
+
 def match_data(packages, expected_data):
     data = [dict(p.to_dict()) for p in packages]
     expected_data_dict = dict(expected_data)
     expected_data = [dict(expected_data_dict[p]) for p in expected_data_dict]
+    print(p for p in expected_data_dict)
     assert expected_data == data
 
 
@@ -91,7 +107,6 @@ def test_bitbucket_packages(mock_get):
     match_data(packages, expected_data)
 
 
-# @mock.patch("fetchcode.package.get_response")
 @mock.patch("fetchcode.package.get_response")
 def test_rubygems_packages(mock_get):
     side_effect = [
