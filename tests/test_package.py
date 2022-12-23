@@ -40,7 +40,7 @@ def test_cargo_packages(mock_get):
     purl = "pkg:cargo/rand"
     expected_data = file_data("tests/data/cargo.json")
     mock_get.side_effect = side_effect
-    packages = list(info(purl))
+    packages = list(info(purl, True))
     match_data(packages, expected_data)
 
 
@@ -50,7 +50,7 @@ def test_npm_packages(mock_get):
     purl = "pkg:npm/express"
     expected_data = file_data("tests/data/npm.json")
     mock_get.side_effect = side_effect
-    packages = list(info(purl))
+    packages = list(info(purl, True))
     match_data(packages, expected_data)
 
 
@@ -60,7 +60,7 @@ def test_pypi_packages(mock_get):
     purl = "pkg:pypi/flask"
     expected_data = file_data("tests/data/pypi.json")
     mock_get.side_effect = side_effect
-    packages = list(info(purl))
+    packages = list(info(purl, True))
     match_data(packages, expected_data)
 
 
@@ -73,7 +73,7 @@ def test_github_packages(mock_get):
     purl = "pkg:github/TG1999/fetchcode"
     expected_data = file_data("tests/data/github.json")
     mock_get.side_effect = side_effect
-    packages = list(info(purl))
+    packages = list(info(purl, True))
     match_data(packages, expected_data)
 
 
@@ -86,7 +86,7 @@ def test_bitbucket_packages(mock_get):
     purl = "pkg:bitbucket/litmis/python-itoolkit"
     expected_data = file_data("tests/data/bitbucket.json")
     mock_get.side_effect = side_effect
-    packages = list(info(purl))
+    packages = list(info(purl, True))
     match_data(packages, expected_data)
 
 
@@ -96,7 +96,7 @@ def test_rubygems_packages(mock_get):
     purl = "pkg:rubygems/rubocop"
     expected_data = file_data("tests/data/rubygems.json")
     mock_get.side_effect = side_effect
-    packages = list(info(purl))
+    packages = list(info(purl, True))
     match_data(packages, expected_data)
 
 
@@ -104,5 +104,5 @@ def test_rubygems_packages(mock_get):
 def test_tuby_package_with_invalid_url(mock_get):
     with pytest.raises(Exception) as e_info:
         purl = "pkg:ruby/file"
-        packages = list(info(purl))
+        packages = list(info(purl, True))
         assert "Failed to fetch: https://rubygems.org/api/v1/gems/file.json" == e_info
