@@ -73,9 +73,9 @@ def test_npm_packages(mock_get):
 
 @mock.patch("fetchcode.package.get_response")
 def test_pypi_packages(mock_get):
-    side_effect = [file_data("test/data/pypi_mock_data.json")]
+    side_effect = [file_data("tests/data/pypi_mock_data.json")]
     purl = "pkg:pypi/flask"
-    expected_data = file_data("test/data/pypi.json")
+    expected_data = file_data("tests/data/pypi.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     match_data(packages, expected_data)
