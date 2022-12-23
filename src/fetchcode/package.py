@@ -14,26 +14,25 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-from attr import attrs, attrib
-
-from packageurl.contrib.route import NoRouteAvailable
-from packageurl import PackageURL
-from packageurl.contrib.route import Router
 import requests
+from packageurl import PackageURL
+from packageurl.contrib.route import NoRouteAvailable
+from packageurl.contrib.route import Router
 
 from fetchcode.packagedcode_models import Package
 
 router = Router()
 
 
-def info(url):
+def info(url, all_versions=False):
     """
     Return data according to the `url` string
     `url` string can be purl too
+    `all_versions` if True then return Package info for all versions
     """
     if url:
         try:
-            return router.process(url)
+            return router.process(url, all_versions)
         except NoRouteAvailable:
             return
 
@@ -51,24 +50,24 @@ def get_response(url):
 
 def get_pypi_bugtracker_url(project_urls):
     bug_tracking_url = project_urls.get("Tracker")
-    if not (bug_tracking_url):
+    if not bug_tracking_url:
         bug_tracking_url = project_urls.get("Issue Tracker")
-    if not (bug_tracking_url):
+    if not bug_tracking_url:
         bug_tracking_url = project_urls.get("Bug Tracker")
     return bug_tracking_url
 
 
 def get_pypi_codeview_url(project_urls):
     code_view_url = project_urls.get("Source")
-    if not (code_view_url):
+    if not code_view_url:
         code_view_url = project_urls.get("Code")
-    if not (code_view_url):
+    if not code_view_url:
         code_view_url = project_urls.get("Source Code")
     return code_view_url
 
 
 @router.route("pkg:cargo/.*")
-def get_cargo_data_from_purl(purl):
+def get_cargo_data_from_purl(purl, all_versions):
     """
     Generate `Package` object from the `purl` string of cargo type
     """
@@ -89,28 +88,30 @@ def get_cargo_data_from_purl(purl):
         download_url=download_url,
         **purl.to_dict(),
     )
-    versions = response.get("versions", [])
-    for version in versions:
-        version_purl = PackageURL(type=purl.type, name=name, version=version.get("num"))
-        dl_path = version.get("dl_path")
-        if dl_path:
-            download_url = f"{base_url}/{dl_path}"
-        else:
-            download_url = None
-        declared_license = version.get("license")
 
-        yield Package(
-            homepage_url=homepage_url,
-            api_url=api_url,
-            code_view_url=code_view_url,
-            download_url=download_url,
-            declared_license=declared_license,
-            **version_purl.to_dict(),
-        )
+    if all_versions:
+        versions = response.get("versions", [])
+        for version in versions:
+            version_purl = PackageURL(type=purl.type, name=name, version=version.get("num"))
+            dl_path = version.get("dl_path")
+            if dl_path:
+                download_url = f"{base_url}/{dl_path}"
+            else:
+                download_url = None
+            declared_license = version.get("license")
+
+            yield Package(
+                homepage_url=homepage_url,
+                api_url=api_url,
+                code_view_url=code_view_url,
+                download_url=download_url,
+                declared_license=declared_license,
+                **version_purl.to_dict(),
+            )
 
 
 @router.route("pkg:npm/.*")
-def get_npm_data_from_purl(purl):
+def get_npm_data_from_purl(purl, all_versions):
     """
     Generate `Package` object from the `purl` string of npm type
     """
@@ -139,35 +140,36 @@ def get_npm_data_from_purl(purl):
         **purl.to_dict(),
     )
 
-    versions = response.get("versions", [])
-    tags = []
-    for num in versions:
-        version = versions[num]
-        version_purl = PackageURL(
-            type=purl.type, name=name, version=version.get("version")
-        )
-        repository = version.get("repository") or {}
-        bugs = response.get("bugs") or {}
-        dist = version.get("dist") or {}
-        licenses = version.get("licenses") or [{}]
-        vcs_url = repository.get("url")
-        download_url = dist.get("tarball")
-        bug_tracking_url = bugs.get("url")
-        declared_license = licenses[0].get("type")
+    if all_versions:
+        versions = response.get("versions", [])
+        tags = []
+        for num in versions:
+            version = versions[num]
+            version_purl = PackageURL(
+                type=purl.type, name=name, version=version.get("version")
+            )
+            repository = version.get("repository") or {}
+            bugs = response.get("bugs") or {}
+            dist = version.get("dist") or {}
+            licenses = version.get("licenses") or [{}]
+            vcs_url = repository.get("url")
+            download_url = dist.get("tarball")
+            bug_tracking_url = bugs.get("url")
+            declared_license = licenses[0].get("type")
 
-        yield Package(
-            homepage_url=homepage_url,
-            api_url=api_url,
-            vcs_url=vcs_url,
-            bug_tracking_url=bug_tracking_url,
-            download_url=download_url,
-            declared_license=declared_license,
-            **version_purl.to_dict(),
-        )
+            yield Package(
+                homepage_url=homepage_url,
+                api_url=api_url,
+                vcs_url=vcs_url,
+                bug_tracking_url=bug_tracking_url,
+                download_url=download_url,
+                declared_license=declared_license,
+                **version_purl.to_dict(),
+            )
 
 
 @router.route("pkg:pypi/.*")
-def get_pypi_data_from_purl(purl):
+def get_pypi_data_from_purl(purl, all_versions):
     """
     Generate `Package` object from the `purl` string of npm type
     """
@@ -191,24 +193,26 @@ def get_pypi_data_from_purl(purl):
         declared_license=license,
         **purl.to_dict(),
     )
-    for num in releases:
-        version_purl = PackageURL(type=purl.type, name=name, version=num)
-        release = releases.get(num) or [{}]
-        release = release[0]
-        download_url = release.get("url")
-        yield Package(
-            homepage_url=homepage_url,
-            api_url=api_url,
-            bug_tracking_url=bug_tracking_url,
-            code_view_url=code_view_url,
-            download_url=download_url,
-            declared_license=license,
-            **version_purl.to_dict(),
-        )
+
+    if all_versions:
+        for num in releases:
+            version_purl = PackageURL(type=purl.type, name=name, version=num)
+            release = releases.get(num) or [{}]
+            release = release[0]
+            download_url = release.get("url")
+            yield Package(
+                homepage_url=homepage_url,
+                api_url=api_url,
+                bug_tracking_url=bug_tracking_url,
+                code_view_url=code_view_url,
+                download_url=download_url,
+                declared_license=license,
+                **version_purl.to_dict(),
+            )
 
 
 @router.route("pkg:github/.*")
-def get_github_data_from_purl(purl):
+def get_github_data_from_purl(purl, all_versions):
     """
     Generate `Package` object from the `purl` string of github type
     """
@@ -236,31 +240,33 @@ def get_github_data_from_purl(purl):
         primary_language=primary_language,
         **purl.to_dict(),
     )
-    release_url = f"{api_url}/releases"
-    releases = get_response(release_url)
-    for release in releases:
-        version = release.get("name")
-        version_purl = PackageURL(
-            type=purl.type, namespace=namespace, name=name, version=version
-        )
-        download_url = release.get("tarball_url")
-        code_view_url = f"{github_url}/{namespace}/{name}/tree/{version}"
-        version_vcs_url = f"{vcs_url}@{version}"
-        yield Package(
-            homepage_url=homepage_url,
-            vcs_url=version_vcs_url,
-            api_url=api_url,
-            bug_tracking_url=bug_tracking_url,
-            code_view_url=code_view_url,
-            declared_license=declared_license,
-            primary_language=primary_language,
-            download_url=download_url,
-            **version_purl.to_dict(),
-        )
+
+    if all_versions:
+        release_url = f"{api_url}/releases"
+        releases = get_response(release_url)
+        for release in releases:
+            version = release.get("name")
+            version_purl = PackageURL(
+                type=purl.type, namespace=namespace, name=name, version=version
+            )
+            download_url = release.get("tarball_url")
+            code_view_url = f"{github_url}/{namespace}/{name}/tree/{version}"
+            version_vcs_url = f"{vcs_url}@{version}"
+            yield Package(
+                homepage_url=homepage_url,
+                vcs_url=version_vcs_url,
+                api_url=api_url,
+                bug_tracking_url=bug_tracking_url,
+                code_view_url=code_view_url,
+                declared_license=declared_license,
+                primary_language=primary_language,
+                download_url=download_url,
+                **version_purl.to_dict(),
+            )
 
 
 @router.route("pkg:bitbucket/.*")
-def get_bitbucket_data_from_purl(purl):
+def get_bitbucket_data_from_purl(purl, all_versions):
     """
     Generate `Package` object from the `purl` string of bitbucket type
     """
@@ -279,33 +285,35 @@ def get_bitbucket_data_from_purl(purl):
         code_view_url=code_view_url,
         **purl.to_dict(),
     )
-    links = response.get("links") or {}
-    tags_url = links.get("tags") or {}
-    tags_url = tags_url.get("href")
-    if not tags_url:
-        return []
-    tags_data = get_response(tags_url)
-    tags = tags_data.get("values") or {}
-    for tag in tags:
-        version = tag.get("name") or ""
-        version_purl = PackageURL(
-            type=purl.type, namespace=namespace, name=name, version=version
-        )
-        download_url = (
-            f"{base_path}/{namespace}/{name}/downloads/{name}-{version}.tar.gz"
-        )
-        code_view_url = f"{bitbucket_url}/{namespace}/{name}/src/{version}"
-        yield Package(
-            api_url=api_url,
-            bug_tracking_url=bug_tracking_url,
-            code_view_url=code_view_url,
-            download_url=download_url,
-            **version_purl.to_dict(),
-        )
+
+    if all_versions:
+        links = response.get("links") or {}
+        tags_url = links.get("tags") or {}
+        tags_url = tags_url.get("href")
+        if not tags_url:
+            return []
+        tags_data = get_response(tags_url)
+        tags = tags_data.get("values") or {}
+        for tag in tags:
+            version = tag.get("name") or ""
+            version_purl = PackageURL(
+                type=purl.type, namespace=namespace, name=name, version=version
+            )
+            download_url = (
+                f"{base_path}/{namespace}/{name}/downloads/{name}-{version}.tar.gz"
+            )
+            code_view_url = f"{bitbucket_url}/{namespace}/{name}/src/{version}"
+            yield Package(
+                api_url=api_url,
+                bug_tracking_url=bug_tracking_url,
+                code_view_url=code_view_url,
+                download_url=download_url,
+                **version_purl.to_dict(),
+            )
 
 
 @router.route("pkg:rubygems/.*")
-def get_rubygems_data_from_purl(purl):
+def get_rubygems_data_from_purl(purl, all_versions):
     """
     Generate `Package` object from the `purl` string of rubygems type
     """
