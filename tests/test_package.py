@@ -56,9 +56,9 @@ def test_npm_packages(mock_get):
 
 @mock.patch("fetchcode.package.get_response")
 def test_pypi_packages(mock_get):
-    side_effect = [file_data("tests/data/pypi_mock_data.json")]
+    side_effect = [file_data("./data/pypi_mock_data.json")]
     purl = "pkg:pypi/flask"
-    expected_data = file_data("tests/data/pypi.json")
+    expected_data = file_data("./data/pypi.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     match_data(packages, expected_data)
@@ -90,13 +90,19 @@ def test_bitbucket_packages(mock_get):
     match_data(packages, expected_data)
 
 
+# @mock.patch("fetchcode.package.get_response")
 @mock.patch("fetchcode.package.get_response")
 def test_rubygems_packages(mock_get):
-    side_effect = [file_data("tests/data/rubygems_mock_data.json")]
+    # print(mock_get)
+    side_effect = [file_data("./data/rubygems_mock_data.json"), file_data("./data/rubygems_mock_data2.json")]
+    # side_effect2 = [file_data("./data/rubygems_mock_data2.json")]
     purl = "pkg:rubygems/rubocop"
-    expected_data = file_data("tests/data/rubygems.json")
+    expected_data = file_data("./data/rubygems.json")
     mock_get.side_effect = side_effect
+    # mock_get2.side_effect = side_effect
     packages = list(info(purl))
+    # print(packages)
+    # print(packages, expected_data)
     match_data(packages, expected_data)
 
 
