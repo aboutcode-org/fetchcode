@@ -5,8 +5,19 @@
 import string
 import re
 
-from fetchcode.vcs.pip._vendor.pyparsing import stringStart, stringEnd, originalTextFor, ParseException
-from fetchcode.vcs.pip._vendor.pyparsing import ZeroOrMore, Word, Optional, Regex, Combine
+from fetchcode.vcs.pip._vendor.pyparsing import (
+    stringStart,
+    stringEnd,
+    originalTextFor,
+    ParseException,
+)
+from fetchcode.vcs.pip._vendor.pyparsing import (
+    ZeroOrMore,
+    Word,
+    Optional,
+    Regex,
+    Combine,
+)
 from fetchcode.vcs.pip._vendor.pyparsing import Literal as L  # noqa
 from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urlparse
 

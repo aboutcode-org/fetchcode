@@ -53,7 +53,7 @@ INTERPRETER_SHORT_NAMES = {
 }  # type: Dict[str, str]
 
 
-_32_BIT_INTERPRETER = sys.maxsize <= 2 ** 32
+_32_BIT_INTERPRETER = sys.maxsize <= 2**32
 
 
 class Tag(object):
@@ -540,7 +540,7 @@ class _ELFFileHeader(object):
         def unpack(fmt):
             # type: (str) -> int
             try:
-                result, = struct.unpack(
+                (result,) = struct.unpack(
                     fmt, file.read(struct.calcsize(fmt))
                 )  # type: (int, )
             except struct.error:

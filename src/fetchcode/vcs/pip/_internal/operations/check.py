@@ -21,12 +21,10 @@ logger = logging.getLogger(__name__)
 
 if MYPY_CHECK_RUNNING:
     from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
-    from typing import (
-        Any, Callable, Dict, Optional, Set, Tuple, List
-    )
+    from typing import Any, Callable, Dict, Optional, Set, Tuple, List
 
     # Shorthands
-    PackageSet = Dict[str, 'PackageDetails']
+    PackageSet = Dict[str, "PackageDetails"]
     Missing = Tuple[str, Any]
     Conflicting = Tuple[str, str, Any]
 
@@ -34,13 +32,12 @@ if MYPY_CHECK_RUNNING:
     ConflictingDict = Dict[str, List[Conflicting]]
     CheckResult = Tuple[MissingDict, ConflictingDict]
 
-PackageDetails = namedtuple('PackageDetails', ['version', 'requires'])
+PackageDetails = namedtuple("PackageDetails", ["version", "requires"])
 
 
 def create_package_set_from_installed(**kwargs):
     # type: (**Any) -> Tuple[PackageSet, bool]
-    """Converts a list of distributions into a PackageSet.
-    """
+    """Converts a list of distributions into a PackageSet."""
     # Default to using all packages installed on the system
     if kwargs == {}:
         kwargs = {"local_only": False, "skip": ()}
@@ -66,6 +63,7 @@ def check_package_set(package_set, should_ignore=None):
     package name and returns a boolean.
     """
     if should_ignore is None:
+
         def should_ignore(name):
             return False
 
@@ -122,14 +120,13 @@ def check_install_conflicts(to_install):
         package_set,
         check_package_set(
             package_set, should_ignore=lambda name: name not in whitelist
-        )
+        ),
     )
 
 
 def _simulate_installation_of(to_install, package_set):
     # type: (List[InstallRequirement], PackageSet) -> Set[str]
-    """Computes the version of packages after installing to_install.
-    """
+    """Computes the version of packages after installing to_install."""
 
     # Keep track of packages that were installed
     installed = set()

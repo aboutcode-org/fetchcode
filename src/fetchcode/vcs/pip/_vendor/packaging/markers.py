@@ -7,7 +7,12 @@ import os
 import platform
 import sys
 
-from fetchcode.vcs.pip._vendor.pyparsing import ParseException, ParseResults, stringStart, stringEnd
+from fetchcode.vcs.pip._vendor.pyparsing import (
+    ParseException,
+    ParseResults,
+    stringStart,
+    stringEnd,
+)
 from fetchcode.vcs.pip._vendor.pyparsing import ZeroOrMore, Group, Forward, QuotedString
 from fetchcode.vcs.pip._vendor.pyparsing import Literal as L  # noqa
 

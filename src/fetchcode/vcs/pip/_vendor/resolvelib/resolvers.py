@@ -68,15 +68,13 @@ class Criterion(object):
 
     def __repr__(self):
         requirements = ", ".join(
-            "{!r} from {!r}".format(req, parent)
-            for req, parent in self.information
+            "{!r} from {!r}".format(req, parent) for req, parent in self.information
         )
         return "<Criterion {}>".format(requirements)
 
     @classmethod
     def from_requirement(cls, provider, requirement, parent):
-        """Build an instance from a requirement.
-        """
+        """Build an instance from a requirement."""
         candidates = provider.find_matches(requirement)
         criterion = cls(
             candidates=candidates,
@@ -94,14 +92,11 @@ class Criterion(object):
         return (i.parent for i in self.information)
 
     def merged_with(self, provider, requirement, parent):
-        """Build a new instance from this and a new requirement.
-        """
+        """Build a new instance from this and a new requirement."""
         infos = list(self.information)
         infos.append(RequirementInformation(requirement, parent))
         candidates = [
-            c
-            for c in self.candidates
-            if provider.is_satisfied_by(requirement, c)
+            c for c in self.candidates if provider.is_satisfied_by(requirement, c)
         ]
         criterion = type(self)(candidates, infos, list(self.incompatibilities))
         if not candidates:
@@ -174,7 +169,8 @@ class Resolution(object):
             state = State(mapping=collections.OrderedDict(), criteria={})
         else:
             state = State(
-                mapping=base.mapping.copy(), criteria=base.criteria.copy(),
+                mapping=base.mapping.copy(),
+                criteria=base.criteria.copy(),
             )
         self._states.append(state)
 
@@ -196,7 +192,9 @@ class Resolution(object):
         except KeyError:
             pinned = None
         return self._p.get_preference(
-            pinned, criterion.candidates, criterion.information,
+            pinned,
+            criterion.candidates,
+            criterion.information,
         )
 
     def _is_current_pin_satisfying(self, name, criterion):
@@ -313,9 +311,7 @@ class Resolution(object):
             if failure_causes:
                 result = self._backtrack()
                 if not result:
-                    causes = [
-                        i for crit in failure_causes for i in crit.information
-                    ]
+                    causes = [i for crit in failure_causes for i in crit.information]
                     raise ResolutionImpossible(causes)
 
             self._r.ending_round(round_index, curr)
@@ -376,8 +372,7 @@ def _build_result(state):
 
 
 class Resolver(AbstractResolver):
-    """The thing that performs the actual resolution work.
-    """
+    """The thing that performs the actual resolution work."""
 
     base_exception = ResolverException
 

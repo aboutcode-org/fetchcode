@@ -58,8 +58,8 @@ def make_link_collector(
     index_urls = [options.index_url] + options.extra_index_urls
     if options.no_index and not suppress_no_index:
         logger.debug(
-            'Ignoring indexes: %s',
-            ','.join(redact_auth_from_url(url) for url in index_urls),
+            "Ignoring indexes: %s",
+            ",".join(redact_auth_from_url(url) for url in index_urls),
         )
         index_urls = []
 
@@ -67,7 +67,8 @@ def make_link_collector(
     find_links = options.find_links or []
 
     search_scope = SearchScope.create(
-        find_links=find_links, index_urls=index_urls,
+        find_links=find_links,
+        index_urls=index_urls,
     )
 
     link_collector = LinkCollector(session=session, search_scope=search_scope)
@@ -177,8 +178,7 @@ def pip_self_version_check(session, options):
         # Determine if we need to refresh the state
         if "last_check" in state.state and "pypi_version" in state.state:
             last_check = datetime.datetime.strptime(
-                state.state["last_check"],
-                SELFCHECK_DATE_FMT
+                state.state["last_check"], SELFCHECK_DATE_FMT
             )
             if (current_time - last_check).total_seconds() < 7 * 24 * 60 * 60:
                 pypi_version = state.state["pypi_version"]
@@ -214,9 +214,9 @@ def pip_self_version_check(session, options):
         remote_version = packaging_version.parse(pypi_version)
 
         local_version_is_older = (
-            pip_version < remote_version and
-            pip_version.base_version != remote_version.base_version and
-            was_installed_by_pip('pip')
+            pip_version < remote_version
+            and pip_version.base_version != remote_version.base_version
+            and was_installed_by_pip("pip")
         )
 
         # Determine if our pypi_version is older
@@ -232,7 +232,9 @@ def pip_self_version_check(session, options):
             "You are using pip version %s; however, version %s is "
             "available.\nYou should consider upgrading via the "
             "'%s install --upgrade pip' command.",
-            pip_version, pypi_version, pip_cmd
+            pip_version,
+            pypi_version,
+            pip_cmd,
         )
     except Exception:
         logger.debug(

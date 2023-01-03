@@ -85,10 +85,10 @@ class Factory(object):
 
     def _make_candidate_from_link(
         self,
-        link,          # type: Link
-        extras,        # type: Set[str]
-        parent,        # type: InstallRequirement
-        name=None,     # type: Optional[str]
+        link,  # type: Link
+        extras,  # type: Set[str]
+        parent,  # type: InstallRequirement
+        name=None,  # type: Optional[str]
         version=None,  # type: Optional[_BaseVersion]
     ):
         # type: (...) -> Candidate
@@ -97,13 +97,21 @@ class Factory(object):
         if parent.editable:
             if link not in self._editable_candidate_cache:
                 self._editable_candidate_cache[link] = EditableCandidate(
-                    link, parent, factory=self, name=name, version=version,
+                    link,
+                    parent,
+                    factory=self,
+                    name=name,
+                    version=version,
                 )
             base = self._editable_candidate_cache[link]  # type: BaseCandidate
         else:
             if link not in self._link_candidate_cache:
                 self._link_candidate_cache[link] = LinkCandidate(
-                    link, parent, factory=self, name=name, version=version,
+                    link,
+                    parent,
+                    factory=self,
+                    name=name,
+                    version=version,
                 )
             base = self._link_candidate_cache[link]
         if extras:
@@ -124,8 +132,10 @@ class Factory(object):
             hashes=ireq.hashes(trust_internet=False),
         )
         for ican in found.iter_applicable():
-            if (installed_dist is not None and
-                    installed_dist.parsed_version == ican.version):
+            if (
+                installed_dist is not None
+                and installed_dist.parsed_version == ican.version
+            ):
                 continue
             yield self._make_candidate_from_link(
                 link=ican.link,
@@ -137,8 +147,10 @@ class Factory(object):
 
         # Return installed distribution if it matches the specifier. This is
         # done last so the resolver will prefer it over downloading links.
-        if (installed_dist is not None and
-                installed_dist.parsed_version in ireq.req.specifier):
+        if (
+            installed_dist is not None
+            and installed_dist.parsed_version in ireq.req.specifier
+        ):
             yield self._make_candidate_from_dist(
                 dist=installed_dist,
                 extras=extras,
@@ -152,7 +164,9 @@ class Factory(object):
             #       Specifically, this might be needed in "name @ URL"
             #       syntax - need to check where that syntax is handled.
             cand = self._make_candidate_from_link(
-                ireq.link, extras=set(), parent=ireq,
+                ireq.link,
+                extras=set(),
+                parent=ireq,
             )
             return ExplicitRequirement(cand)
         return SpecifierRequirement(ireq, factory=self)

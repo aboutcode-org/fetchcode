@@ -1,4 +1,3 @@
-
 from .py import Trie as PyTrie
 
 Trie = PyTrie

@@ -1,7 +1,10 @@
 import logging
 import sys
 
-from fetchcode.vcs.pip._vendor.packaging.specifiers import InvalidSpecifier, SpecifierSet
+from fetchcode.vcs.pip._vendor.packaging.specifiers import (
+    InvalidSpecifier,
+    SpecifierSet,
+)
 from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
 from fetchcode.vcs.pip._vendor.packaging.version import Version
 
@@ -50,7 +53,7 @@ def make_install_req_from_link(link, parent):
         options=dict(
             install_options=parent.install_options,
             global_options=parent.global_options,
-            hashes=parent.hash_options
+            hashes=parent.hash_options,
         ),
     )
 
@@ -67,7 +70,7 @@ def make_install_req_from_editable(link, parent):
         options=dict(
             install_options=parent.install_options,
             global_options=parent.global_options,
-            hashes=parent.hash_options
+            hashes=parent.hash_options,
         ),
     )
 
@@ -86,7 +89,7 @@ def make_install_req_from_dist(dist, parent):
         options=dict(
             install_options=parent.install_options,
             global_options=parent.global_options,
-            hashes=parent.hash_options
+            hashes=parent.hash_options,
         ),
     )
     ireq.satisfied_by = dist
@@ -96,10 +99,10 @@ def make_install_req_from_dist(dist, parent):
 class _InstallRequirementBackedCandidate(Candidate):
     def __init__(
         self,
-        link,          # type: Link
-        ireq,          # type: InstallRequirement
-        factory,       # type: Factory
-        name=None,     # type: Optional[str]
+        link,  # type: Link
+        ireq,  # type: InstallRequirement
+        factory,  # type: Factory
+        name=None,  # type: Optional[str]
         version=None,  # type: Optional[_BaseVersion]
     ):
         # type: (...) -> None
@@ -164,17 +167,17 @@ class _InstallRequirementBackedCandidate(Candidate):
         # These should be "proper" errors, not just asserts, as they
         # can result from user errors like a requirement "foo @ URL"
         # when the project at URL has a name of "bar" in its metadata.
-        assert (
-            self._name is None or
-            self._name == canonicalize_name(self._dist.project_name)
+        assert self._name is None or self._name == canonicalize_name(
+            self._dist.project_name
         ), "Name mismatch: {!r} vs {!r}".format(
-            self._name, canonicalize_name(self._dist.project_name),
+            self._name,
+            canonicalize_name(self._dist.project_name),
         )
         assert (
-            self._version is None or
-            self._version == self._dist.parsed_version
+            self._version is None or self._version == self._dist.parsed_version
         ), "Version mismatch: {!r} vs {!r}".format(
-            self._version, self._dist.parsed_version,
+            self._version,
+            self._dist.parsed_version,
         )
 
     @property
@@ -192,7 +195,9 @@ class _InstallRequirementBackedCandidate(Candidate):
             spec = SpecifierSet(requires_python)
         except InvalidSpecifier as e:
             logger.warning(
-                "Package %r has an invalid Requires-Python: %s", self.name, e,
+                "Package %r has an invalid Requires-Python: %s",
+                self.name,
+                e,
             )
             return None
         return spec
@@ -219,10 +224,10 @@ class _InstallRequirementBackedCandidate(Candidate):
 class LinkCandidate(_InstallRequirementBackedCandidate):
     def __init__(
         self,
-        link,          # type: Link
-        parent,        # type: InstallRequirement
-        factory,       # type: Factory
-        name=None,     # type: Optional[str]
+        link,  # type: Link
+        parent,  # type: InstallRequirement
+        factory,  # type: Factory
+        name=None,  # type: Optional[str]
         version=None,  # type: Optional[_BaseVersion]
     ):
         # type: (...) -> None
@@ -242,10 +247,10 @@ class LinkCandidate(_InstallRequirementBackedCandidate):
 class EditableCandidate(_InstallRequirementBackedCandidate):
     def __init__(
         self,
-        link,          # type: Link
-        parent,        # type: InstallRequirement
-        factory,       # type: Factory
-        name=None,     # type: Optional[str]
+        link,  # type: Link
+        parent,  # type: InstallRequirement
+        factory,  # type: Factory
+        name=None,  # type: Optional[str]
         version=None,  # type: Optional[_BaseVersion]
     ):
         # type: (...) -> None
@@ -345,6 +350,7 @@ class ExtrasCandidate(Candidate):
     version 2.0. Having those candidates depend on foo=1.0 and foo=2.0
     respectively forces the resolver to recognise that this is a conflict.
     """
+
     def __init__(
         self,
         base,  # type: BaseCandidate
@@ -396,7 +402,7 @@ class ExtrasCandidate(Candidate):
             logger.warning(
                 "Invalid extras specified in %s: %s",
                 self.name,
-                ','.join(sorted(invalid_extras))
+                ",".join(sorted(invalid_extras)),
             )
 
         deps = [

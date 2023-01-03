@@ -16,7 +16,9 @@ class HelpCommand(Command):
 
     def run(self, options, args):
         from fetchcode.vcs.pip._internal.commands import (
-            commands_dict, create_command, get_similar_commands,
+            commands_dict,
+            create_command,
+            get_similar_commands,
         )
 
         try:
@@ -32,7 +34,7 @@ class HelpCommand(Command):
             if guess:
                 msg.append('maybe you meant "{}"'.format(guess))
 
-            raise CommandError(' - '.join(msg))
+            raise CommandError(" - ".join(msg))
 
         command = create_command(cmd_name)
         command.parser.print_help()

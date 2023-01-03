@@ -27,9 +27,16 @@ from fetchcode.vcs.pip._vendor.six import StringIO
 
 from fetchcode.vcs.pip._internal.exceptions import InstallationError
 from fetchcode.vcs.pip._internal.locations import get_major_minor_version
-from fetchcode.vcs.pip._internal.models.direct_url import DIRECT_URL_METADATA_NAME, DirectUrl
+from fetchcode.vcs.pip._internal.models.direct_url import (
+    DIRECT_URL_METADATA_NAME,
+    DirectUrl,
+)
 from fetchcode.vcs.pip._internal.utils.filesystem import adjacent_tmp_file, replace
-from fetchcode.vcs.pip._internal.utils.misc import captured_stdout, ensure_dir, hash_file
+from fetchcode.vcs.pip._internal.utils.misc import (
+    captured_stdout,
+    ensure_dir,
+    hash_file,
+)
 from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
 from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
 from fetchcode.vcs.pip._internal.utils.unpacking import current_umask, unpack_file
@@ -38,8 +45,16 @@ from fetchcode.vcs.pip._internal.utils.wheel import parse_wheel
 if MYPY_CHECK_RUNNING:
     from email.message import Message
     from typing import (
-        Dict, List, Optional, Sequence, Tuple, Any,
-        Iterable, Iterator, Callable, Set,
+        Dict,
+        List,
+        Optional,
+        Sequence,
+        Tuple,
+        Any,
+        Iterable,
+        Iterator,
+        Callable,
+        Set,
     )
 
     from fetchcode.vcs.pip._internal.models.scheme import Scheme
@@ -53,16 +68,14 @@ logger = logging.getLogger(__name__)
 
 def normpath(src, p):
     # type: (str, str) -> str
-    return os.path.relpath(src, p).replace(os.path.sep, '/')
+    return os.path.relpath(src, p).replace(os.path.sep, "/")
 
 
 def rehash(path, blocksize=1 << 20):
     # type: (str, int) -> Tuple[str, str]
     """Return (encoded_digest, length) for path using hashlib.sha256()"""
     h, length = hash_file(path, blocksize)
-    digest = 'sha256=' + urlsafe_b64encode(
-        h.digest()
-    ).decode('latin1').rstrip('=')
+    digest = "sha256=" + urlsafe_b64encode(h.digest()).decode("latin1").rstrip("=")
     # unicode/str python2 issues
     return (digest, str(length))  # type: ignore
 
@@ -73,9 +86,9 @@ def csv_io_kwargs(mode):
     in the given mode.
     """
     if sys.version_info.major < 3:
-        return {'mode': '{}b'.format(mode)}
+        return {"mode": "{}b".format(mode)}
     else:
-        return {'mode': mode, 'newline': ''}
+        return {"mode": mode, "newline": ""}
 
 
 def fix_script(path):
@@ -85,14 +98,14 @@ def fix_script(path):
     """
     # XXX RECORD hashes will need to be updated
     if os.path.isfile(path):
-        with open(path, 'rb') as script:
+        with open(path, "rb") as script:
             firstline = script.readline()
-            if not firstline.startswith(b'#!python'):
+            if not firstline.startswith(b"#!python"):
                 return False
             exename = sys.executable.encode(sys.getfilesystemencoding())
-            firstline = b'#!' + exename + os.linesep.encode("ascii")
+            firstline = b"#!" + exename + os.linesep.encode("ascii")
             rest = script.read()
-        with open(path, 'wb') as script:
+        with open(path, "wb") as script:
             script.write(firstline)
             script.write(rest)
         return True
@@ -122,8 +135,8 @@ def get_entrypoints(filename):
 
     # get the entry points and then the script names
     entry_points = pkg_resources.EntryPoint.parse_map(data)
-    console = entry_points.get('console_scripts', {})
-    gui = entry_points.get('gui_scripts', {})
+    console = entry_points.get("console_scripts", {})
+    gui = entry_points.get("gui_scripts", {})
 
     def _split_ep(s):
         # type: (pkg_resources.EntryPoint) -> Tuple[str, str]
@@ -157,14 +170,15 @@ def message_about_scripts_not_on_PATH(scripts):
 
     # We don't want to warn for directories that are on PATH.
     not_warn_dirs = [
-        os.path.normcase(i).rstrip(os.sep) for i in
-        os.environ.get("PATH", "").split(os.pathsep)
+        os.path.normcase(i).rstrip(os.sep)
+        for i in os.environ.get("PATH", "").split(os.pathsep)
     ]
     # If an executable sits with sys.executable, we don't warn for it.
     #     This covers the case of venv invocations without activating the venv.
     not_warn_dirs.append(os.path.normcase(os.path.dirname(sys.executable)))
     warn_for = {
-        parent_dir: scripts for parent_dir, scripts in grouped_by_dir.items()
+        parent_dir: scripts
+        for parent_dir, scripts in grouped_by_dir.items()
         if os.path.normcase(parent_dir) not in not_warn_dirs
     }  # type: Dict[str, Set[str]]
     if not warn_for:
@@ -182,8 +196,9 @@ def message_about_scripts_not_on_PATH(scripts):
             )
 
         msg_lines.append(
-            "The {} installed in '{}' which is not on PATH."
-            .format(start_text, parent_dir)
+            "The {} installed in '{}' which is not on PATH.".format(
+                start_text, parent_dir
+            )
         )
 
     last_line_fmt = (
@@ -245,9 +260,7 @@ def get_csv_rows_for_installed(
     installed_rows = []  # type: List[InstalledCSVRow]
     for row in old_csv_rows:
         if len(row) > 3:
-            logger.warning(
-                'RECORD line has more than three elements: {}'.format(row)
-            )
+            logger.warning("RECORD line has more than three elements: {}".format(row))
         # Make a copy because we are mutating the row.
         row = list(row)
         old_path = row[0]
@@ -262,7 +275,7 @@ def get_csv_rows_for_installed(
         digest, length = rehash(f)
         installed_rows.append((normpath(f, lib_dir), digest, str(length)))
     for f in installed:
-        installed_rows.append((installed[f], '', ''))
+        installed_rows.append((installed[f], "", ""))
     return installed_rows
 
 
@@ -325,7 +338,7 @@ def install_unpacked_wheel(
         lib_dir = scheme.platlib
 
     subdirs = os.listdir(source)
-    data_dirs = [s for s in subdirs if s.endswith('.data')]
+    data_dirs = [s for s in subdirs if s.endswith(".data")]
 
     # Record details of the files moved
     #   installed = files copied from the wheel to the destination
@@ -339,7 +352,7 @@ def install_unpacked_wheel(
     if pycompile:
         with captured_stdout() as stdout:
             with warnings.catch_warnings():
-                warnings.filterwarnings('ignore')
+                warnings.filterwarnings("ignore")
                 compileall.compile_dir(source, force=True, quiet=True)
         logger.debug(stdout.getvalue())
 
@@ -353,20 +366,20 @@ def install_unpacked_wheel(
             changed.add(destfile)
 
     def clobber(
-            source,  # type: str
-            dest,  # type: str
-            is_base,  # type: bool
-            fixer=None,  # type: Optional[Callable[[str], Any]]
-            filter=None  # type: Optional[Callable[[str], bool]]
+        source,  # type: str
+        dest,  # type: str
+        is_base,  # type: bool
+        fixer=None,  # type: Optional[Callable[[str], Any]]
+        filter=None,  # type: Optional[Callable[[str], bool]]
     ):
         # type: (...) -> None
         ensure_dir(dest)  # common for the 'include' path
 
         for dir, subdirs, files in os.walk(source):
-            basedir = dir[len(source):].lstrip(os.path.sep)
+            basedir = dir[len(source) :].lstrip(os.path.sep)
             destdir = os.path.join(dest, basedir)
-            if is_base and basedir == '':
-                subdirs[:] = [s for s in subdirs if not s.endswith('.data')]
+            if is_base and basedir == "":
+                subdirs[:] = [s for s in subdirs if not s.endswith(".data")]
             for f in files:
                 # Skip unwanted files
                 if filter and filter(f):
@@ -421,30 +434,30 @@ def install_unpacked_wheel(
     dest_info_dir = os.path.join(lib_dir, info_dir)
 
     # Get the defined entry points
-    ep_file = os.path.join(dest_info_dir, 'entry_points.txt')
+    ep_file = os.path.join(dest_info_dir, "entry_points.txt")
     console, gui = get_entrypoints(ep_file)
 
     def is_entrypoint_wrapper(name):
         # type: (str) -> bool
         # EP, EP.exe and EP-script.py are scripts generated for
         # entry point EP by setuptools
-        if name.lower().endswith('.exe'):
+        if name.lower().endswith(".exe"):
             matchname = name[:-4]
-        elif name.lower().endswith('-script.py'):
+        elif name.lower().endswith("-script.py"):
             matchname = name[:-10]
         elif name.lower().endswith(".pya"):
             matchname = name[:-4]
         else:
             matchname = name
         # Ignore setuptools-generated scripts
-        return (matchname in console or matchname in gui)
+        return matchname in console or matchname in gui
 
     for datadir in data_dirs:
         fixer = None
         filter = None
         for subdir in os.listdir(os.path.join(wheeldir, datadir)):
             fixer = None
-            if subdir == 'scripts':
+            if subdir == "scripts":
                 fixer = fix_script
                 filter = is_entrypoint_wrapper
             source = os.path.join(wheeldir, datadir, subdir)
@@ -460,7 +473,7 @@ def install_unpacked_wheel(
     # Ensure we don't generate any variants for scripts because this is almost
     # never what somebody wants.
     # See https://bitbucket.org/pypa/distlib/issue/35/
-    maker.variants = {''}
+    maker.variants = {""}
 
     # This is required because otherwise distlib creates scripts that are not
     # executable.
@@ -502,46 +515,44 @@ def install_unpacked_wheel(
     # DEFAULT
     #   - The default behavior is to install pip, pipX, pipX.Y, easy_install
     #     and easy_install-X.Y.
-    pip_script = console.pop('pip', None)
+    pip_script = console.pop("pip", None)
     if pip_script:
         if "ENSUREPIP_OPTIONS" not in os.environ:
-            scripts_to_generate.append('pip = ' + pip_script)
+            scripts_to_generate.append("pip = " + pip_script)
 
         if os.environ.get("ENSUREPIP_OPTIONS", "") != "altinstall":
             scripts_to_generate.append(
-                'pip{} = {}'.format(sys.version_info[0], pip_script)
+                "pip{} = {}".format(sys.version_info[0], pip_script)
             )
 
         scripts_to_generate.append(
-            'pip{} = {}'.format(get_major_minor_version(), pip_script)
+            "pip{} = {}".format(get_major_minor_version(), pip_script)
         )
         # Delete any other versioned pip entry points
-        pip_ep = [k for k in console if re.match(r'pip(\d(\.\d)?)?$', k)]
+        pip_ep = [k for k in console if re.match(r"pip(\d(\.\d)?)?$", k)]
         for k in pip_ep:
             del console[k]
-    easy_install_script = console.pop('easy_install', None)
+    easy_install_script = console.pop("easy_install", None)
     if easy_install_script:
         if "ENSUREPIP_OPTIONS" not in os.environ:
-            scripts_to_generate.append(
-                'easy_install = ' + easy_install_script
-            )
+            scripts_to_generate.append("easy_install = " + easy_install_script)
 
         scripts_to_generate.append(
-            'easy_install-{} = {}'.format(
+            "easy_install-{} = {}".format(
                 get_major_minor_version(), easy_install_script
             )
         )
         # Delete any other versioned easy_install entry points
         easy_install_ep = [
-            k for k in console if re.match(r'easy_install(-\d\.\d)?$', k)
+            k for k in console if re.match(r"easy_install(-\d\.\d)?$", k)
         ]
         for k in easy_install_ep:
             del console[k]
 
     # Generate the console and GUI entry points specified in the wheel
-    scripts_to_generate.extend(starmap('{} = {}'.format, console.items()))
+    scripts_to_generate.extend(starmap("{} = {}".format, console.items()))
 
-    gui_scripts_to_generate = list(starmap('{} = {}'.format, gui.items()))
+    gui_scripts_to_generate = list(starmap("{} = {}".format, gui.items()))
 
     generated_console_scripts = []  # type: List[str]
 
@@ -549,9 +560,7 @@ def install_unpacked_wheel(
         generated_console_scripts = maker.make_multiple(scripts_to_generate)
         generated.extend(generated_console_scripts)
 
-        generated.extend(
-            maker.make_multiple(gui_scripts_to_generate, {'gui': True})
-        )
+        generated.extend(maker.make_multiple(gui_scripts_to_generate, {"gui": True}))
     except MissingCallableSuffix as e:
         entry = e.args[0]
         raise InstallationError(
@@ -577,9 +586,9 @@ def install_unpacked_wheel(
         replace(f.name, path)
 
     # Record pip as the installer
-    installer_path = os.path.join(dest_info_dir, 'INSTALLER')
+    installer_path = os.path.join(dest_info_dir, "INSTALLER")
     with _generate_file(installer_path) as installer_file:
-        installer_file.write(b'pip\n')
+        installer_file.write(b"pip\n")
     generated.append(installer_path)
 
     # Record the PEP 610 direct URL reference
@@ -590,15 +599,16 @@ def install_unpacked_wheel(
         generated.append(direct_url_path)
 
     # Record details of all files installed
-    record_path = os.path.join(dest_info_dir, 'RECORD')
-    with open(record_path, **csv_io_kwargs('r')) as record_file:
+    record_path = os.path.join(dest_info_dir, "RECORD")
+    with open(record_path, **csv_io_kwargs("r")) as record_file:
         rows = get_csv_rows_for_installed(
             csv.reader(record_file),
             installed=installed,
             changed=changed,
             generated=generated,
-            lib_dir=lib_dir)
-    with _generate_file(record_path, **csv_io_kwargs('w')) as record_file:
+            lib_dir=lib_dir,
+        )
+    with _generate_file(record_path, **csv_io_kwargs("w")) as record_file:
         writer = csv.writer(record_file)
         writer.writerows(sorted_outrows(rows))  # sort to simplify testing
 

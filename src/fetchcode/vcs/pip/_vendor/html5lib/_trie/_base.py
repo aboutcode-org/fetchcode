@@ -1,4 +1,3 @@
-
 try:
     from collections.abc import Mapping
 except ImportError:  # Python 2.7

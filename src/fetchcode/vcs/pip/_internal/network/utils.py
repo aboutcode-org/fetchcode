@@ -8,8 +8,7 @@ if MYPY_CHECK_RUNNING:
 
 def response_chunks(response, chunk_size=CONTENT_CHUNK_SIZE):
     # type: (Response, int) -> Iterator[bytes]
-    """Given a requests Response, provide the data chunks.
-    """
+    """Given a requests Response, provide the data chunks."""
     try:
         # Special case for urllib3.
         for chunk in response.raw.stream(

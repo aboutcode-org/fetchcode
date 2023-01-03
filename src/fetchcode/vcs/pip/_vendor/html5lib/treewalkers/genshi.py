@@ -1,4 +1,3 @@
-
 from genshi.core import QName
 from genshi.core import START, END, XML_NAMESPACE, DOCTYPE, TEXT
 from genshi.core import START_NS, END_NS, START_CDATA, END_CDATA, PI, COMMENT
@@ -37,9 +36,12 @@ class TreeWalker(base.TreeWalker):
                     converted_attribs[(None, k)] = v
 
             if namespace == namespaces["html"] and name in voidElements:
-                for token in self.emptyTag(namespace, name, converted_attribs,
-                                           not next or next[0] != END or
-                                           next[1] != tag):
+                for token in self.emptyTag(
+                    namespace,
+                    name,
+                    converted_attribs,
+                    not next or next[0] != END or next[1] != tag,
+                ):
                     yield token
             else:
                 yield self.startTag(namespace, name, converted_attribs)
@@ -60,8 +62,15 @@ class TreeWalker(base.TreeWalker):
         elif kind == DOCTYPE:
             yield self.doctype(*data)
 
-        elif kind in (XML_NAMESPACE, DOCTYPE, START_NS, END_NS,
-                      START_CDATA, END_CDATA, PI):
+        elif kind in (
+            XML_NAMESPACE,
+            DOCTYPE,
+            START_NS,
+            END_NS,
+            START_CDATA,
+            END_CDATA,
+            PI,
+        ):
             pass
 
         else:

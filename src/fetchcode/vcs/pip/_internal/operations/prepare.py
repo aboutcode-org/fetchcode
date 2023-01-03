@@ -40,7 +40,10 @@ from fetchcode.vcs.pip._internal.vcs import vcs
 
 if MYPY_CHECK_RUNNING:
     from typing import (
-        Callable, List, Optional, Tuple,
+        Callable,
+        List,
+        Optional,
+        Tuple,
     )
 
     from mypy_extensions import TypedDict
@@ -55,21 +58,21 @@ if MYPY_CHECK_RUNNING:
 
     if PY2:
         CopytreeKwargs = TypedDict(
-            'CopytreeKwargs',
+            "CopytreeKwargs",
             {
-                'ignore': Callable[[str, List[str]], List[str]],
-                'symlinks': bool,
+                "ignore": Callable[[str, List[str]], List[str]],
+                "symlinks": bool,
             },
             total=False,
         )
     else:
         CopytreeKwargs = TypedDict(
-            'CopytreeKwargs',
+            "CopytreeKwargs",
             {
-                'copy_function': Callable[[str, str], None],
-                'ignore': Callable[[str, List[str]], List[str]],
-                'ignore_dangling_symlinks': bool,
-                'symlinks': bool,
+                "copy_function": Callable[[str, str], None],
+                "ignore": Callable[[str, List[str]], List[str]],
+                "ignore_dangling_symlinks": bool,
+                "symlinks": bool,
             },
             total=False,
         )
@@ -78,14 +81,13 @@ logger = logging.getLogger(__name__)
 
 
 def _get_prepared_distribution(
-        req,  # type: InstallRequirement
-        req_tracker,  # type: RequirementTracker
-        finder,  # type: PackageFinder
-        build_isolation  # type: bool
+    req,  # type: InstallRequirement
+    req_tracker,  # type: RequirementTracker
+    finder,  # type: PackageFinder
+    build_isolation,  # type: bool
 ):
     # type: (...) -> AbstractDistribution
-    """Prepare a distribution for installation.
-    """
+    """Prepare a distribution for installation."""
     abstract_dist = make_distribution_for_install_requirement(req)
     with req_tracker.track(req):
         abstract_dist.prepare_distribution_metadata(finder, build_isolation)
@@ -117,9 +119,7 @@ def get_http_url(
     # If a download dir is specified, is the file already downloaded there?
     already_downloaded_path = None
     if download_dir:
-        already_downloaded_path = _check_download_dir(
-            link, download_dir, hashes
-        )
+        already_downloaded_path = _check_download_dir(link, download_dir, hashes)
 
     if already_downloaded_path:
         from_path = already_downloaded_path
@@ -168,7 +168,7 @@ def _copy_source_tree(source, target):
             # exclude the following directories if they appear in the top
             # level dir (and only it).
             # See discussion at https://github.com/pypa/pip/pull/6770
-            skipped += ['.tox', '.nox']
+            skipped += [".tox", ".nox"]
         if os.path.abspath(d) == target_dirname:
             # Prevent an infinite recursion if the target is in source.
             # This can happen when TMPDIR is set to ${PWD}/...
@@ -181,7 +181,7 @@ def _copy_source_tree(source, target):
     if not PY2:
         # Python 2 does not support copy_function, so we only ignore
         # errors on special file copy in Python 3.
-        kwargs['copy_function'] = _copy2_ignoring_special_files
+        kwargs["copy_function"] = _copy2_ignoring_special_files
 
     shutil.copytree(source, target, **kwargs)
 
@@ -189,17 +189,14 @@ def _copy_source_tree(source, target):
 def get_file_url(
     link,  # type: Link
     download_dir=None,  # type: Optional[str]
-    hashes=None  # type: Optional[Hashes]
+    hashes=None,  # type: Optional[Hashes]
 ):
     # type: (...) -> File
-    """Get file and optionally check its hash.
-    """
+    """Get file and optionally check its hash."""
     # If a download dir is specified, is the file already there and valid?
     already_downloaded_path = None
     if download_dir:
-        already_downloaded_path = _check_download_dir(
-            link, download_dir, hashes
-        )
+        already_downloaded_path = _check_download_dir(link, download_dir, hashes)
 
     if already_downloaded_path:
         from_path = already_downloaded_path
@@ -277,20 +274,20 @@ def _download_http_url(
     download = downloader(link)
 
     file_path = os.path.join(temp_dir, download.filename)
-    with open(file_path, 'wb') as content_file:
+    with open(file_path, "wb") as content_file:
         for chunk in download.chunks:
             content_file.write(chunk)
 
     if hashes:
         hashes.check_against_path(file_path)
 
-    return file_path, download.response.headers.get('content-type', '')
+    return file_path, download.response.headers.get("content-type", "")
 
 
 def _check_download_dir(link, download_dir, hashes):
     # type: (Link, str, Optional[Hashes]) -> Optional[str]
-    """ Check download_dir for previously downloaded file with correct hash
-        If a correct file is found return its path else None
+    """Check download_dir for previously downloaded file with correct hash
+    If a correct file is found return its path else None
     """
     download_path = os.path.join(download_dir, link.filename)
 
@@ -298,15 +295,14 @@ def _check_download_dir(link, download_dir, hashes):
         return None
 
     # If already downloaded, does its hash match?
-    logger.info('File was already downloaded %s', download_path)
+    logger.info("File was already downloaded %s", download_path)
     if hashes:
         try:
             hashes.check_against_path(download_path)
         except HashMismatch:
             logger.warning(
-                'Previously-downloaded file %s has bad hash. '
-                'Re-downloading.',
-                download_path
+                "Previously-downloaded file %s has bad hash. " "Re-downloading.",
+                download_path,
             )
             os.unlink(download_path)
             return None
@@ -314,8 +310,7 @@ def _check_download_dir(link, download_dir, hashes):
 
 
 class RequirementPreparer(object):
-    """Prepares a Requirement
-    """
+    """Prepares a Requirement"""
 
     def __init__(
         self,
@@ -371,27 +366,26 @@ class RequirementPreparer(object):
         if os.path.exists(self.download_dir):
             return True
 
-        logger.critical('Could not find download directory')
+        logger.critical("Could not find download directory")
         raise InstallationError(
-            "Could not find or access download directory '{}'"
-            .format(self.download_dir))
+            "Could not find or access download directory '{}'".format(self.download_dir)
+        )
 
     def prepare_linked_requirement(
         self,
         req,  # type: InstallRequirement
     ):
         # type: (...) -> AbstractDistribution
-        """Prepare a requirement that would be obtained from req.link
-        """
+        """Prepare a requirement that would be obtained from req.link"""
         assert req.link
         link = req.link
 
         # TODO: Breakup into smaller functions
-        if link.scheme == 'file':
+        if link.scheme == "file":
             path = link.file_path
-            logger.info('Processing %s', display_path(path))
+            logger.info("Processing %s", display_path(path))
         else:
-            logger.info('Collecting %s', req.req or req)
+            logger.info("Collecting %s", req.req or req)
 
         download_dir = self.download_dir
         if link.is_wheel and self.wheel_download_dir:
@@ -421,14 +415,15 @@ class RequirementPreparer(object):
             # installation.
             # FIXME: this won't upgrade when there's an existing
             # package unpacked in `req.source_dir`
-            if os.path.exists(os.path.join(req.source_dir, 'setup.py')):
+            if os.path.exists(os.path.join(req.source_dir, "setup.py")):
                 raise PreviousBuildDirError(
                     "pip can't proceed with requirements '{}' due to a"
                     " pre-existing build directory ({}). This is "
                     "likely due to a previous installation that failed"
                     ". pip is being responsible and not assuming it "
-                    "can delete this. Please delete it and try again."
-                    .format(req, req.source_dir)
+                    "can delete this. Please delete it and try again.".format(
+                        req, req.source_dir
+                    )
                 )
 
             # Now that we have the real link, we can tell what kind of
@@ -465,18 +460,21 @@ class RequirementPreparer(object):
 
             try:
                 local_file = unpack_url(
-                    link, req.source_dir, self.downloader, download_dir,
+                    link,
+                    req.source_dir,
+                    self.downloader,
+                    download_dir,
                     hashes=hashes,
                 )
             except requests.HTTPError as exc:
                 logger.critical(
-                    'Could not install requirement %s because of error %s',
+                    "Could not install requirement %s because of error %s",
                     req,
                     exc,
                 )
                 raise InstallationError(
-                    'Could not install requirement {} because of HTTP '
-                    'error {} for URL {}'.format(req, exc, link)
+                    "Could not install requirement {} because of HTTP "
+                    "error {} for URL {}".format(req, exc, link)
                 )
 
             # For use in later processing, preserve the file path on the
@@ -485,21 +483,20 @@ class RequirementPreparer(object):
                 req.local_file_path = local_file.path
 
             abstract_dist = _get_prepared_distribution(
-                req, self.req_tracker, self.finder, self.build_isolation,
+                req,
+                self.req_tracker,
+                self.finder,
+                self.build_isolation,
             )
 
             if download_dir:
                 if link.is_existing_dir():
-                    logger.info('Link is a directory, ignoring download_dir')
+                    logger.info("Link is a directory, ignoring download_dir")
                 elif local_file:
-                    download_location = os.path.join(
-                        download_dir, link.filename
-                    )
+                    download_location = os.path.join(download_dir, link.filename)
                     if not os.path.exists(download_location):
                         shutil.copy(local_file.path, download_location)
-                        logger.info(
-                            'Saved %s', display_path(download_location)
-                        )
+                        logger.info("Saved %s", display_path(download_location))
 
             if self._download_should_save:
                 # Make a .zip of the source_dir we already created.
@@ -512,24 +509,26 @@ class RequirementPreparer(object):
         req,  # type: InstallRequirement
     ):
         # type: (...) -> AbstractDistribution
-        """Prepare an editable requirement
-        """
+        """Prepare an editable requirement"""
         assert req.editable, "cannot prepare a non-editable req as editable"
 
-        logger.info('Obtaining %s', req)
+        logger.info("Obtaining %s", req)
 
         with indent_log():
             if self.require_hashes:
                 raise InstallationError(
-                    'The editable requirement {} cannot be installed when '
-                    'requiring hashes, because there is no single file to '
-                    'hash.'.format(req)
+                    "The editable requirement {} cannot be installed when "
+                    "requiring hashes, because there is no single file to "
+                    "hash.".format(req)
                 )
             req.ensure_has_source_dir(self.src_dir)
             req.update_editable(not self._download_should_save)
 
             abstract_dist = _get_prepared_distribution(
-                req, self.req_tracker, self.finder, self.build_isolation,
+                req,
+                self.req_tracker,
+                self.finder,
+                self.build_isolation,
             )
 
             if self._download_should_save:
@@ -541,27 +540,25 @@ class RequirementPreparer(object):
     def prepare_installed_requirement(
         self,
         req,  # type: InstallRequirement
-        skip_reason  # type: str
+        skip_reason,  # type: str
     ):
         # type: (...) -> AbstractDistribution
-        """Prepare an already-installed requirement
-        """
+        """Prepare an already-installed requirement"""
         assert req.satisfied_by, "req should have been satisfied but isn't"
         assert skip_reason is not None, (
             "did not get skip reason skipped but req.satisfied_by "
             "is set to {}".format(req.satisfied_by)
         )
         logger.info(
-            'Requirement %s: %s (%s)',
-            skip_reason, req, req.satisfied_by.version
+            "Requirement %s: %s (%s)", skip_reason, req, req.satisfied_by.version
         )
         with indent_log():
             if self.require_hashes:
                 logger.debug(
-                    'Since it is already installed, we are trusting this '
-                    'package without checking its hash. To ensure a '
-                    'completely repeatable environment, install into an '
-                    'empty virtualenv.'
+                    "Since it is already installed, we are trusting this "
+                    "package without checking its hash. To ensure a "
+                    "completely repeatable environment, install into an "
+                    "empty virtualenv."
                 )
             abstract_dist = InstalledDistribution(req)
 

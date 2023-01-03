@@ -1,4 +1,3 @@
-
 from types import ModuleType
 
 from fetchcode.vcs.pip._vendor.six import text_type
@@ -9,9 +8,14 @@ except ImportError:
     import xml.etree.ElementTree as default_etree
 
 
-__all__ = ["default_etree", "MethodDispatcher", "isSurrogatePair",
-           "surrogatePairToCodepoint", "moduleFactoryFactory",
-           "supports_lone_surrogates"]
+__all__ = [
+    "default_etree",
+    "MethodDispatcher",
+    "isSurrogatePair",
+    "surrogatePairToCodepoint",
+    "moduleFactoryFactory",
+    "supports_lone_surrogates",
+]
 
 
 # Platforms not supporting lone surrogates (\uD800-\uDFFF) should be
@@ -67,16 +71,21 @@ class MethodDispatcher(dict):
 # Some utility functions to deal with weirdness around UCS2 vs UCS4
 # python builds
 
+
 def isSurrogatePair(data):
-    return (len(data) == 2 and
-            ord(data[0]) >= 0xD800 and ord(data[0]) <= 0xDBFF and
-            ord(data[1]) >= 0xDC00 and ord(data[1]) <= 0xDFFF)
+    return (
+        len(data) == 2
+        and ord(data[0]) >= 0xD800
+        and ord(data[0]) <= 0xDBFF
+        and ord(data[1]) >= 0xDC00
+        and ord(data[1]) <= 0xDFFF
+    )
 
 
 def surrogatePairToCodepoint(data):
-    char_val = (0x10000 + (ord(data[0]) - 0xD800) * 0x400 +
-                (ord(data[1]) - 0xDC00))
+    char_val = 0x10000 + (ord(data[0]) - 0xD800) * 0x400 + (ord(data[1]) - 0xDC00)
     return char_val
+
 
 # Module Factory Factory (no, this isn't Java, I know)
 # Here to stop this being duplicated all over the place.

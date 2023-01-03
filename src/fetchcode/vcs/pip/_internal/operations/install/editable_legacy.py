@@ -3,7 +3,9 @@
 import logging
 
 from fetchcode.vcs.pip._internal.utils.logging import indent_log
-from fetchcode.vcs.pip._internal.utils.setuptools_build import make_setuptools_develop_args
+from fetchcode.vcs.pip._internal.utils.setuptools_build import (
+    make_setuptools_develop_args,
+)
 from fetchcode.vcs.pip._internal.utils.subprocess import call_subprocess
 from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
 
@@ -32,7 +34,7 @@ def install_editable(
     """Install a package in editable mode. Most arguments are pass-through
     to setuptools.
     """
-    logger.info('Running setup.py develop for %s', name)
+    logger.info("Running setup.py develop for %s", name)
 
     args = make_setuptools_develop_args(
         setup_py_path,

@@ -26,7 +26,7 @@ RequestHistory = namedtuple(
 
 
 class Retry(object):
-    """ Retry configuration.
+    """Retry configuration.
 
     Each retry attempt will create a new Retry object with updated values, so
     they can be safely reused.
@@ -216,7 +216,7 @@ class Retry(object):
 
     @classmethod
     def from_int(cls, retries, redirect=True, default=None):
-        """ Backwards-compatibility for the old retries format."""
+        """Backwards-compatibility for the old retries format."""
         if retries is None:
             retries = default if default is not None else cls.DEFAULT
 
@@ -229,7 +229,7 @@ class Retry(object):
         return new_retries
 
     def get_backoff_time(self):
-        """ Formula for computing the current backoff
+        """Formula for computing the current backoff
 
         :rtype: float
         """
@@ -262,7 +262,7 @@ class Retry(object):
         return seconds
 
     def get_retry_after(self, response):
-        """ Get the value of Retry-After in seconds. """
+        """Get the value of Retry-After in seconds."""
 
         retry_after = response.getheader("Retry-After")
 
@@ -286,7 +286,7 @@ class Retry(object):
         time.sleep(backoff)
 
     def sleep(self, response=None):
-        """ Sleep between retry attempts.
+        """Sleep between retry attempts.
 
         This method will respect a server's ``Retry-After`` response header
         and sleep the duration of the time requested. If that is not present, it
@@ -302,19 +302,19 @@ class Retry(object):
         self._sleep_backoff()
 
     def _is_connection_error(self, err):
-        """ Errors when we're fairly sure that the server did not receive the
+        """Errors when we're fairly sure that the server did not receive the
         request, so it should be safe to retry.
         """
         return isinstance(err, ConnectTimeoutError)
 
     def _is_read_error(self, err):
-        """ Errors that occur after the request has been started, so we should
+        """Errors that occur after the request has been started, so we should
         assume that the server began processing it.
         """
         return isinstance(err, (ReadTimeoutError, ProtocolError))
 
     def _is_method_retryable(self, method):
-        """ Checks if a given HTTP method should be retried upon, depending if
+        """Checks if a given HTTP method should be retried upon, depending if
         it is included on the method whitelist.
         """
         if self.method_whitelist and method.upper() not in self.method_whitelist:
@@ -323,7 +323,7 @@ class Retry(object):
         return True
 
     def is_retry(self, method, status_code, has_retry_after=False):
-        """ Is this method/status code retryable? (Based on whitelists and control
+        """Is this method/status code retryable? (Based on whitelists and control
         variables such as the number of total retries to allow, whether to
         respect the Retry-After header, whether this header is present, and
         whether the returned status code is on the list of status codes to
@@ -343,7 +343,7 @@ class Retry(object):
         )
 
     def is_exhausted(self):
-        """ Are we out of retries? """
+        """Are we out of retries?"""
         retry_counts = (self.total, self.connect, self.read, self.redirect, self.status)
         retry_counts = list(filter(None, retry_counts))
         if not retry_counts:
@@ -360,7 +360,7 @@ class Retry(object):
         _pool=None,
         _stacktrace=None,
     ):
-        """ Return a new Retry object with incremented retry counters.
+        """Return a new Retry object with incremented retry counters.
 
         :param response: A response object, or None, if the server did not
             return a response.

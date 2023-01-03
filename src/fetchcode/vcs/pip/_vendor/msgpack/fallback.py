@@ -12,7 +12,6 @@ if PY2:
     def dict_iteritems(d):
         return d.iteritems()
 
-
 else:
     int_types = int
     unicode = str
@@ -32,7 +31,6 @@ if sys.version_info < (3, 5):
             and isinstance(e.args[0], str)
             and e.args[0].startswith("maximum recursion depth exceeded")
         )
-
 
 else:
 
@@ -68,7 +66,6 @@ if hasattr(sys, "pypy_version_info"):
 
         def getvalue(self):
             return self.builder.build()
-
 
 else:
     USING_STRINGBUILDER = False
@@ -143,7 +140,6 @@ if sys.version_info < (2, 7, 6):
     def _unpack_from(f, b, o=0):
         """Explicit type cast for legacy struct.unpack_from"""
         return struct.unpack_from(f, bytes(b), o)
-
 
 else:
     _unpack_from = struct.unpack_from
@@ -291,7 +287,7 @@ class Unpacker(object):
         self._buf_checkpoint = 0
 
         if not max_buffer_size:
-            max_buffer_size = 2 ** 31 - 1
+            max_buffer_size = 2**31 - 1
         if max_str_len == -1:
             max_str_len = max_buffer_size
         if max_bin_len == -1:
@@ -354,7 +350,7 @@ class Unpacker(object):
         self._buffer.extend(view)
 
     def _consume(self):
-        """ Gets rid of the used parts of the buffer. """
+        """Gets rid of the used parts of the buffer."""
         self._stream_offset += self._buff_i - self._buf_checkpoint
         self._buf_checkpoint = self._buff_i
 
@@ -859,20 +855,20 @@ class Packer(object):
                 raise OverflowError("Integer value out of range")
             if check(obj, (bytes, bytearray)):
                 n = len(obj)
-                if n >= 2 ** 32:
+                if n >= 2**32:
                     raise ValueError("%s is too large" % type(obj).__name__)
                 self._pack_bin_header(n)
                 return self._buffer.write(obj)
             if check(obj, unicode):
                 obj = obj.encode("utf-8", self._unicode_errors)
                 n = len(obj)
-                if n >= 2 ** 32:
+                if n >= 2**32:
                     raise ValueError("String is too large")
                 self._pack_raw_header(n)
                 return self._buffer.write(obj)
             if check(obj, memoryview):
                 n = len(obj) * obj.itemsize
-                if n >= 2 ** 32:
+                if n >= 2**32:
                     raise ValueError("Memoryview is too large")
                 self._pack_bin_header(n)
                 return self._buffer.write(obj)
@@ -950,7 +946,7 @@ class Packer(object):
             return ret
 
     def pack_array_header(self, n):
-        if n >= 2 ** 32:
+        if n >= 2**32:
             raise ValueError
         self._pack_array_header(n)
         if self._autoreset:
@@ -959,7 +955,7 @@ class Packer(object):
             return ret
 
     def pack_map_header(self, n):
-        if n >= 2 ** 32:
+        if n >= 2**32:
             raise ValueError
         self._pack_map_header(n)
         if self._autoreset:

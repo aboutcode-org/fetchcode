@@ -36,14 +36,23 @@ Utilities and helpers for data classes.
 """
 
 
-HELP_METADATA = '__field_help'
-LABEL_METADATA = '__field_label'
+HELP_METADATA = "__field_help"
+LABEL_METADATA = "__field_label"
 
 
-def attribute(default=attr.NOTHING, validator=None,
-              repr=False, eq=True, order=True,  # NOQA
-              init=True, type=None, converter=None,  # NOQA
-              help=None, label=None, metadata=None,):  # NOQA
+def attribute(
+    default=attr.NOTHING,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    init=True,
+    type=None,
+    converter=None,  # NOQA
+    help=None,
+    label=None,
+    metadata=None,
+):  # NOQA
     """
     A generic attribute with help metadata and that is not included in the
     representation by default.
@@ -64,12 +73,20 @@ def attribute(default=attr.NOTHING, validator=None,
         init=init,
         metadata=metadata,
         type=type,
-        converter=converter
+        converter=converter,
     )
 
 
-def Boolean(default=False, validator=None, repr=False, eq=True, order=True,  # NOQA
-            converter=None, label=None, help=None,):  # NOQA
+def Boolean(
+    default=False,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    label=None,
+    help=None,
+):  # NOQA
     """
     A boolean attribute.
     """
@@ -87,8 +104,16 @@ def Boolean(default=False, validator=None, repr=False, eq=True, order=True,  # N
     )
 
 
-def TriBoolean(default=None, validator=None, repr=False, eq=True, order=True,  # NOQA
-            converter=None, label=None, help=None,):  # NOQA
+def TriBoolean(
+    default=None,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    label=None,
+    help=None,
+):  # NOQA
     """
     A tri-boolean attribute with possible values of None, True and False.
     """
@@ -106,8 +131,16 @@ def TriBoolean(default=None, validator=None, repr=False, eq=True, order=True,  #
     )
 
 
-def String(default=None, validator=None, repr=False, eq=True, order=True,  # NOQA
-           converter=None, label=None, help=None,):  # NOQA
+def String(
+    default=None,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    label=None,
+    help=None,
+):  # NOQA
     """
     A string attribute.
     """
@@ -125,8 +158,16 @@ def String(default=None, validator=None, repr=False, eq=True, order=True,  # NOQ
     )
 
 
-def Integer(default=0, validator=None, repr=False, eq=True, order=True,  # NOQA
-            converter=None, label=None, help=None,):  # NOQA
+def Integer(
+    default=0,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    label=None,
+    help=None,
+):  # NOQA
     """
     An integer attribute.
     """
@@ -145,8 +186,16 @@ def Integer(default=0, validator=None, repr=False, eq=True, order=True,  # NOQA
     )
 
 
-def Float(default=0.0, validator=None, repr=False, eq=True, order=True,  # NOQA
-          converter=None, label=None, help=None,):  # NOQA
+def Float(
+    default=0.0,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    label=None,
+    help=None,
+):  # NOQA
     """
     A float attribute.
     """
@@ -164,9 +213,17 @@ def Float(default=0.0, validator=None, repr=False, eq=True, order=True,  # NOQA
     )
 
 
-def List(item_type=typing.Any, default=attr.NOTHING, validator=None,
-         repr=False, eq=True, order=True,  # NOQA
-         converter=None, label=None, help=None,):  # NOQA
+def List(
+    item_type=typing.Any,
+    default=attr.NOTHING,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    label=None,
+    help=None,
+):  # NOQA
     """
     A list attribute: the optional item_type defines the type of items it stores.
     """
@@ -187,9 +244,17 @@ def List(item_type=typing.Any, default=attr.NOTHING, validator=None,
     )
 
 
-def Mapping(value_type=typing.Any, default=attr.NOTHING, validator=None,
-            repr=False, eq=True, order=True,  # NOQA
-            converter=None, help=None, label=None):  # NOQA
+def Mapping(
+    value_type=typing.Any,
+    default=attr.NOTHING,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    help=None,
+    label=None,
+):  # NOQA
     """
     A mapping attribute: the optional value_type defines the type of values it
     stores. The key is always a string.
@@ -218,8 +283,17 @@ def Mapping(value_type=typing.Any, default=attr.NOTHING, validator=None,
 # FIXME: add proper support for dates!!!
 ##################################################
 
-def Date(default=None, validator=None, repr=False, eq=True, order=True,  # NOQA
-           converter=None, label=None, help=None,):  # NOQA
+
+def Date(
+    default=None,
+    validator=None,
+    repr=False,
+    eq=True,
+    order=True,  # NOQA
+    converter=None,
+    label=None,
+    help=None,
+):  # NOQA
     """
     A date attribute. It always serializes to an ISO date string.
     Behavior is TBD and for now this is exactly a string.

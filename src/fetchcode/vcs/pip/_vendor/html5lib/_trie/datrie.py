@@ -1,4 +1,3 @@
-
 from datrie import Trie as DATrie
 from fetchcode.vcs.pip._vendor.six import text_type
 

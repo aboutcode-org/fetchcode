@@ -2,49 +2,50 @@ from .core import encode, decode, alabel, ulabel, IDNAError
 import codecs
 import re
 
-_unicode_dots_re = re.compile(u'[\u002e\u3002\uff0e\uff61]')
+_unicode_dots_re = re.compile("[\u002e\u3002\uff0e\uff61]")
+
 
 class Codec(codecs.Codec):
+    def encode(self, data, errors="strict"):
 
-    def encode(self, data, errors='strict'):
-
-        if errors != 'strict':
-            raise IDNAError("Unsupported error handling \"{0}\"".format(errors))
+        if errors != "strict":
+            raise IDNAError('Unsupported error handling "{0}"'.format(errors))
 
         if not data:
             return "", 0
 
         return encode(data), len(data)
 
-    def decode(self, data, errors='strict'):
+    def decode(self, data, errors="strict"):
 
-        if errors != 'strict':
-            raise IDNAError("Unsupported error handling \"{0}\"".format(errors))
+        if errors != "strict":
+            raise IDNAError('Unsupported error handling "{0}"'.format(errors))
 
         if not data:
-            return u"", 0
+            return "", 0
 
         return decode(data), len(data)
 
+
 class IncrementalEncoder(codecs.BufferedIncrementalEncoder):
     def _buffer_encode(self, data, errors, final):
-        if errors != 'strict':
-            raise IDNAError("Unsupported error handling \"{0}\"".format(errors))
+        if errors != "strict":
+            raise IDNAError('Unsupported error handling "{0}"'.format(errors))
 
         if not data:
             return ("", 0)
 
         labels = _unicode_dots_re.split(data)
-        trailing_dot = u''
+        trailing_dot = ""
         if labels:
             if not labels[-1]:
-                trailing_dot = '.'
+                trailing_dot = "."
                 del labels[-1]
             elif not final:
                 # Keep potentially unfinished label until the next call
                 del labels[-1]
                 if labels:
-                    trailing_dot = '.'
+                    trailing_dot = "."
 
         result = []
         size = 0
@@ -59,13 +60,14 @@ class IncrementalEncoder(codecs.BufferedIncrementalEncoder):
         size += len(trailing_dot)
         return (result, size)
 
+
 class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
     def _buffer_decode(self, data, errors, final):
-        if errors != 'strict':
-            raise IDNAError("Unsupported error handling \"{0}\"".format(errors))
+        if errors != "strict":
+            raise IDNAError('Unsupported error handling "{0}"'.format(errors))
 
         if not data:
-            return (u"", 0)
+            return ("", 0)
 
         # IDNA allows decoding to operate on Unicode strings, too.
         if isinstance(data, unicode):
@@ -76,16 +78,16 @@ class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
             unicode(data, "ascii")
             labels = data.split(".")
 
-        trailing_dot = u''
+        trailing_dot = ""
         if labels:
             if not labels[-1]:
-                trailing_dot = u'.'
+                trailing_dot = "."
                 del labels[-1]
             elif not final:
                 # Keep potentially unfinished label until the next call
                 del labels[-1]
                 if labels:
-                    trailing_dot = u'.'
+                    trailing_dot = "."
 
         result = []
         size = 0
@@ -95,7 +97,7 @@ class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
                 size += 1
             size += len(label)
 
-        result = u".".join(result) + trailing_dot
+        result = ".".join(result) + trailing_dot
         size += len(trailing_dot)
         return (result, size)
 
@@ -103,12 +105,14 @@ class IncrementalDecoder(codecs.BufferedIncrementalDecoder):
 class StreamWriter(Codec, codecs.StreamWriter):
     pass
 
+
 class StreamReader(Codec, codecs.StreamReader):
     pass
 
+
 def getregentry():
     return codecs.CodecInfo(
-        name='idna',
+        name="idna",
         encode=Codec().encode,
         decode=Codec().decode,
         incrementalencoder=IncrementalEncoder,

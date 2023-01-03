@@ -1,4 +1,3 @@
-
 from xml.sax.xmlreader import AttributesNSImpl
 
 from ..constants import adjustForeignAttributes, unadjustForeignAttributes
@@ -26,17 +25,14 @@ def to_sax(walker, handler):
         if type == "Doctype":
             continue
         elif type in ("StartTag", "EmptyTag"):
-            attrs = AttributesNSImpl(token["data"],
-                                     unadjustForeignAttributes)
-            handler.startElementNS((token["namespace"], token["name"]),
-                                   token["name"],
-                                   attrs)
+            attrs = AttributesNSImpl(token["data"], unadjustForeignAttributes)
+            handler.startElementNS(
+                (token["namespace"], token["name"]), token["name"], attrs
+            )
             if type == "EmptyTag":
-                handler.endElementNS((token["namespace"], token["name"]),
-                                     token["name"])
+                handler.endElementNS((token["namespace"], token["name"]), token["name"])
         elif type == "EndTag":
-            handler.endElementNS((token["namespace"], token["name"]),
-                                 token["name"])
+            handler.endElementNS((token["namespace"], token["name"]), token["name"])
         elif type in ("Characters", "SpaceCharacters"):
             handler.characters(token["data"])
         elif type == "Comment":

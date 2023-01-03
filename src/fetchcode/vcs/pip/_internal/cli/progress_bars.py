@@ -1,10 +1,13 @@
-
 import itertools
 import sys
 from signal import SIGINT, default_int_handler, signal
 
 from fetchcode.vcs.pip._vendor import six
-from fetchcode.vcs.pip._vendor.progress.bar import Bar, FillingCirclesBar, IncrementalBar
+from fetchcode.vcs.pip._vendor.progress.bar import (
+    Bar,
+    FillingCirclesBar,
+    IncrementalBar,
+)
 from fetchcode.vcs.pip._vendor.progress.spinner import Spinner
 
 from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
@@ -77,10 +80,7 @@ class InterruptibleMixin(object):
         """
         Save the original SIGINT handler for later.
         """
-        super(InterruptibleMixin, self).__init__(  # type: ignore
-            *args,
-            **kwargs
-        )
+        super(InterruptibleMixin, self).__init__(*args, **kwargs)  # type: ignore
 
         self.original_handler = signal(SIGINT, self.handle_sigint)
 
@@ -115,7 +115,6 @@ class InterruptibleMixin(object):
 
 
 class SilentBar(Bar):
-
     def update(self):
         # type: () -> None
         pass
@@ -126,20 +125,14 @@ class BlueEmojiBar(IncrementalBar):
     suffix = "%(percent)d%%"
     bar_prefix = " "
     bar_suffix = " "
-    phases = (u"\U0001F539", u"\U0001F537", u"\U0001F535")  # type: Any
+    phases = ("\U0001F539", "\U0001F537", "\U0001F535")  # type: Any
 
 
 class DownloadProgressMixin(object):
-
     def __init__(self, *args, **kwargs):
         # type: (List[Any], Dict[Any, Any]) -> None
-        super(DownloadProgressMixin, self).__init__(  # type: ignore
-            *args,
-            **kwargs
-        )
-        self.message = (" " * (
-            get_indentation() + 2
-        )) + self.message  # type: str
+        super(DownloadProgressMixin, self).__init__(*args, **kwargs)  # type: ignore
+        self.message = (" " * (get_indentation() + 2)) + self.message  # type: str
 
     @property
     def downloaded(self):
@@ -169,7 +162,6 @@ class DownloadProgressMixin(object):
 
 
 class WindowsMixin(object):
-
     def __init__(self, *args, **kwargs):
         # type: (List[Any], Dict[Any, Any]) -> None
         # The Windows terminal does not support the hide/show cursor ANSI codes
@@ -198,19 +190,18 @@ class WindowsMixin(object):
             self.file.flush = lambda: self.file.wrapped.flush()
 
 
-class BaseDownloadProgressBar(WindowsMixin, InterruptibleMixin,
-                              DownloadProgressMixin):
+class BaseDownloadProgressBar(WindowsMixin, InterruptibleMixin, DownloadProgressMixin):
 
     file = sys.stdout
     message = "%(percent)d%%"
     suffix = "%(downloaded)s %(download_speed)s %(pretty_eta)s"
 
+
 # NOTE: The "type: ignore" comments on the following classes are there to
 #       work around https://github.com/python/typing/issues/241
 
 
-class DefaultDownloadProgressBar(BaseDownloadProgressBar,
-                                 _BaseBar):
+class DefaultDownloadProgressBar(BaseDownloadProgressBar, _BaseBar):
     pass
 
 
@@ -218,23 +209,25 @@ class DownloadSilentBar(BaseDownloadProgressBar, SilentBar):  # type: ignore
     pass
 
 
-class DownloadBar(BaseDownloadProgressBar,  # type: ignore
-                  Bar):
+class DownloadBar(BaseDownloadProgressBar, Bar):  # type: ignore
     pass
 
 
-class DownloadFillingCirclesBar(BaseDownloadProgressBar,  # type: ignore
-                                FillingCirclesBar):
+class DownloadFillingCirclesBar(
+    BaseDownloadProgressBar, FillingCirclesBar  # type: ignore
+):
     pass
 
 
-class DownloadBlueEmojiProgressBar(BaseDownloadProgressBar,  # type: ignore
-                                   BlueEmojiBar):
+class DownloadBlueEmojiProgressBar(
+    BaseDownloadProgressBar, BlueEmojiBar  # type: ignore
+):
     pass
 
 
-class DownloadProgressSpinner(WindowsMixin, InterruptibleMixin,
-                              DownloadProgressMixin, Spinner):
+class DownloadProgressSpinner(
+    WindowsMixin, InterruptibleMixin, DownloadProgressMixin, Spinner
+):
 
     file = sys.stdout
     suffix = "%(downloaded)s %(download_speed)s"
@@ -249,13 +242,15 @@ class DownloadProgressSpinner(WindowsMixin, InterruptibleMixin,
         message = self.message % self
         phase = self.next_phase()
         suffix = self.suffix % self
-        line = ''.join([
-            message,
-            " " if message else "",
-            phase,
-            " " if suffix else "",
-            suffix,
-        ])
+        line = "".join(
+            [
+                message,
+                " " if message else "",
+                phase,
+                " " if suffix else "",
+                suffix,
+            ]
+        )
 
         self.writeln(line)
 
@@ -265,7 +260,7 @@ BAR_TYPES = {
     "on": (DefaultDownloadProgressBar, DownloadProgressSpinner),
     "ascii": (DownloadBar, DownloadProgressSpinner),
     "pretty": (DownloadFillingCirclesBar, DownloadProgressSpinner),
-    "emoji": (DownloadBlueEmojiProgressBar, DownloadProgressSpinner)
+    "emoji": (DownloadBlueEmojiProgressBar, DownloadProgressSpinner),
 }
 
 
