@@ -1,7 +1,6 @@
 # The following comment should be removed at some point in the future.
 # mypy: disallow-untyped-defs=False
 
-from __future__ import absolute_import
 
 from fetchcode.vcs.pip._internal.cli.base_command import Command
 from fetchcode.vcs.pip._internal.cli.status_codes import SUCCESS

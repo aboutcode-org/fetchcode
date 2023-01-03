@@ -29,7 +29,6 @@ license and by oscrypto's:
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 """
-from __future__ import absolute_import
 
 import platform
 from ctypes.util import find_library

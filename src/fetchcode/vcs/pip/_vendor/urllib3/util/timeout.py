@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 
 # The default socket timeout, used by httplib to indicate that no timeout was
 # specified by the user

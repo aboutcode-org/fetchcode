@@ -1,4 +1,3 @@
-from __future__ import division
 
 from datetime import datetime
 from fetchcode.vcs.pip._vendor.cachecontrol.cache import BaseCache

@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 import socket
 from .wait import NoWayToWaitForSocketError, wait_for_read
 from ..contrib import _appengine_environ

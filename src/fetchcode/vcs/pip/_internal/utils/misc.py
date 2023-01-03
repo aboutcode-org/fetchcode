@@ -2,7 +2,6 @@
 # mypy: strict-optional=False
 # mypy: disallow-untyped-defs=False
 
-from __future__ import absolute_import
 
 import contextlib
 import errno

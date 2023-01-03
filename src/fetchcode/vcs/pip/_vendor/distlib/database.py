@@ -5,7 +5,6 @@
 #
 """PEP 376 implementation."""
 
-from __future__ import unicode_literals
 
 import base64
 import codecs

@@ -7,7 +7,6 @@
 
 Supports all metadata formats (1.0, 1.1, 1.2, and 2.0 experimental).
 """
-from __future__ import unicode_literals
 
 import codecs
 from email import message_from_file

@@ -1,4 +1,3 @@
-from __future__ import absolute_import, division, unicode_literals
 # pylint:disable=protected-access
 
 from fetchcode.vcs.pip._vendor.six import text_type

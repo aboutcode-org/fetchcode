@@ -1,7 +1,6 @@
 """Generate and work with PEP 425 Compatibility Tags.
 """
 
-from __future__ import absolute_import
 
 import logging
 import re

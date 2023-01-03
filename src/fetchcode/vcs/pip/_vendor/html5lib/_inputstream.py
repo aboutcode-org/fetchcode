@@ -1,4 +1,3 @@
-from __future__ import absolute_import, division, unicode_literals
 
 from fetchcode.vcs.pip._vendor.six import text_type, binary_type
 from fetchcode.vcs.pip._vendor.six.moves import http_client, urllib

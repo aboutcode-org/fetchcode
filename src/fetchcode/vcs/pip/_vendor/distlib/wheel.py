@@ -4,7 +4,6 @@
 # Licensed to the Python Software Foundation under a contributor agreement.
 # See LICENSE.txt and CONTRIBUTORS.txt.
 #
-from __future__ import unicode_literals
 
 import base64
 import codecs
