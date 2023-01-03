@@ -313,7 +313,7 @@ def get_rubygems_data_from_purl(purl):
     response = get_response(api_url)
     declared_license = response.get("licenses") or None
     version = response.get("version")
-    version_purl = PackageURL(
+    new_purl = PackageURL(
         type=purl.type, name=name, version=version
     )
     homepage_url = response.get("homepage_uri")
@@ -329,7 +329,7 @@ def get_rubygems_data_from_purl(purl):
         declared_license=declared_license,
         download_url=download_url,
         release_date=release_date,
-        **version_purl.to_dict()
+        **new_purl.to_dict()
     )
 
     releases_url = f"https://rubygems.org/api/v1/versions/{name}.json"
