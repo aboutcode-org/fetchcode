@@ -24,7 +24,7 @@ import requests
 
 
 class Response:
-    def __init__(self, location, content_type, size, url):
+    def __init__(self, location, content_type, size, url, success=True):
         """
         Represent the response from fetching a URL with:
         - `location`: the absolute location of the files that was fetched
@@ -36,6 +36,7 @@ class Response:
         self.size = size
         self.content_type = content_type
         self.location = location
+        self.success = success
 
 
 def fetch_http(url, location):
@@ -43,7 +44,16 @@ def fetch_http(url, location):
     Return a `Response` object built from fetching the content at a HTTP/HTTPS based `url` URL string
     saving the content in a file at `location`   
     """
-    r = requests.get(url)
+    try:
+        r = requests.get(url)
+    except ConnectionError:
+        raise Exception(f"Failed to fetch: {url}")
+
+    if r.status_code != 200:
+        success = False
+    else:
+        success = True
+
     with open(location, 'wb') as f:
         f.write(r.content)
 
@@ -51,7 +61,7 @@ def fetch_http(url, location):
     size = r.headers.get('content-length')
     size = int(size) if size else None
 
-    resp = Response(location=location, content_type=content_type, size=size, url=url)
+    resp = Response(location=location, content_type=content_type, size=size, url=url, success=success)
 
     return resp
 

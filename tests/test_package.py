@@ -15,8 +15,9 @@
 # specific language governing permissions and limitations under the License.
 
 import json
-import pytest
 from unittest import mock
+
+import pytest
 
 from fetchcode.package import info
 
@@ -24,7 +25,14 @@ from fetchcode.package import info
 def file_data(file_name):
     with open(file_name) as file:
         data = file.read()
+        # return data
         return json.loads(data)
+
+
+def return_file(file_name):
+    with open(file_name, "rb") as file:
+        data = file.read()
+        return data
 
 
 def match_data(packages, expected_data):
@@ -106,3 +114,16 @@ def test_tuby_package_with_invalid_url(mock_get):
         purl = "pkg:ruby/file"
         packages = list(info(purl))
         assert "Failed to fetch: https://rubygems.org/api/v1/gems/file.json" == e_info
+
+
+@mock.patch("fetchcode.utils.fetch")
+def test_debian_packages(mock_get):
+    side_effect = [
+        return_file("tests/data/ls-lR_mock_data.gz"),
+        return_file("tests/data/libghc-curl-prof_1.3.8-11+b3_armel_mock_data.deb")
+    ]
+    mock_get.side_effect = side_effect
+    purl = "pkg:deb/libghc-curl-prof@1.3.8-11%2Bb3_armel"
+    packages = list(info(purl))
+    expected_data = file_data("tests/data/debian-expected-data.json")
+    match_data(packages, expected_data)

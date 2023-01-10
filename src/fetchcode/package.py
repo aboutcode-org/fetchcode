@@ -13,15 +13,11 @@
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
-
-from attr import attrs, attrib
-
 from packageurl.contrib.route import NoRouteAvailable
-from packageurl import PackageURL
 from packageurl.contrib.route import Router
-import requests
 
 from fetchcode.packagedcode_models import Package
+from src.fetchcode.utils import *
 
 router = Router()
 
@@ -36,35 +32,6 @@ def info(url):
             return router.process(url)
         except NoRouteAvailable:
             return
-
-
-def get_response(url):
-    """
-    Generate `Package` object for a `url` string
-    """
-    resp = requests.get(url)
-    if resp.status_code == 200:
-        return resp.json()
-
-    raise Exception(f"Failed to fetch: {url}")
-
-
-def get_pypi_bugtracker_url(project_urls):
-    bug_tracking_url = project_urls.get("Tracker")
-    if not (bug_tracking_url):
-        bug_tracking_url = project_urls.get("Issue Tracker")
-    if not (bug_tracking_url):
-        bug_tracking_url = project_urls.get("Bug Tracker")
-    return bug_tracking_url
-
-
-def get_pypi_codeview_url(project_urls):
-    code_view_url = project_urls.get("Source")
-    if not (code_view_url):
-        code_view_url = project_urls.get("Code")
-    if not (code_view_url):
-        code_view_url = project_urls.get("Source Code")
-    return code_view_url
 
 
 @router.route("pkg:cargo/.*")
@@ -313,6 +280,7 @@ def get_rubygems_data_from_purl(purl):
     name = purl.name
     api_url = f"https://rubygems.org/api/v1/gems/{name}.json"
     response = get_response(api_url)
+    print(response.get("name"))
     declared_license = response.get("licenses") or None
     homepage_url = response.get("homepage_uri")
     code_view_url = response.get("source_code_uri")
@@ -326,4 +294,43 @@ def get_rubygems_data_from_purl(purl):
         declared_license=declared_license,
         download_url=download_url,
         **purl.to_dict(),
+    )
+
+
+@router.route("pkg:deb/.*")
+def get_debian_packages(purl):
+    purl = PackageURL.from_string(purl)
+    name = purl.name
+    version = purl.version
+
+    # If no arch is provided just return PackageInfo for source package if available.
+    arch = purl.qualifiers.get("arch")
+    base_path = f"https://ftp.debian.org/debian/pool/main"
+
+    source = False
+
+    name_parts = name.split("_")
+    version_parts = version.split("_")
+    if len(name_parts) == 3:
+        arch = name_parts[2]
+        version = name_parts[1]
+        name = name_parts[0]
+    elif len(version_parts) == 2:
+        arch = version_parts[1]
+        version = version_parts[0]
+
+    if arch is None:
+        package_name = f"{name}_{version}.debian.tar.gz"
+        source = True
+    else:
+        # The Debian binary package file names conform to the following convention:
+        # <foo>_<VersionNumber>-<DebianRevisionNumber>_<DebianArchitecture>.deb
+        package_name = f"{name}_{version}_{arch}.deb"
+
+    debian_processed_data = process_debian_data(package_name, source)
+
+    # FIXME: What to do when there are multiple licenses
+    yield Package(
+        **debian_processed_data,
+        **purl.to_dict()
     )
