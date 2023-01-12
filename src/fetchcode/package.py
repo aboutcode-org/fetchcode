@@ -280,7 +280,6 @@ def get_rubygems_data_from_purl(purl):
     name = purl.name
     api_url = f"https://rubygems.org/api/v1/gems/{name}.json"
     response = get_response(api_url)
-    print(response.get("name"))
     declared_license = response.get("licenses") or None
     homepage_url = response.get("homepage_uri")
     code_view_url = response.get("source_code_uri")

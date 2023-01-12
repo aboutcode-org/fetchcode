@@ -171,7 +171,7 @@ def process_debian_data(package_name, source):
     index_file_response = fetch(f"{base_path}/ls-lR.gz")
     if not index_file_response.success:
         return Exception(f"Unable to fetch {base_path}/ls-lR.gz")
-    print(index_file_response.location)
+
     index_content = extract_gzip_data(index_file_response.location)
     entries = ls.parse_directory_listing(index_content)
 
