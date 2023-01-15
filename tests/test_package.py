@@ -119,7 +119,7 @@ def test_tuby_package_with_invalid_url(mock_get):
 @mock.patch("fetchcode.utils.fetch")
 def test_debian_binary_packages(mock_get):
     side_effect = [
-        return_file("tests/data/debian_test_data/ls-lR_mock_data.gz"),
+        return_file("tests/data/debian_test_data/ls-lR_mock.gz"),
         return_file("tests/data/debian_test_data/libghc-curl-prof_1.3.8-11+b3_armel_mock_data.deb")
     ]
     mock_get.side_effect = side_effect
@@ -133,7 +133,7 @@ def test_debian_binary_packages(mock_get):
 def test_debian_source_packages(mock_get):
     purl = "pkg:deb/debian/leatherman@1.4.0%2Bdfsg-1~bpo9%2B1?arch=source"
     side_effect = [
-        return_file("tests/data/debian_test_data/ls-lR_mock_data.gz"),
+        return_file("tests/data/debian_test_data/ls-lR_mock.gz"),
         return_file("tests/data/debian_test_data/leatherman_1.4.0+dfsg-1_bpo9+1.debian.tar.xz")
     ]
     mock_get.side_effect = side_effect
