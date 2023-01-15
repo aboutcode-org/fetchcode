@@ -303,7 +303,7 @@ def get_debian_packages(purl):
     version = purl.version
 
     # If no arch is provided just return PackageInfo for source package if available.
-    arch = purl.qualifiers.get("arch")
+    arch = purl.qualifiers.get("arch", "source")
     base_path = f"https://ftp.debian.org/debian/pool/main"
 
     source = False
@@ -318,8 +318,9 @@ def get_debian_packages(purl):
         arch = version_parts[1]
         version = version_parts[0]
 
-    if arch is None:
-        package_name = f"{name}_{version}.debian.tar.gz"
+    if arch == "source":
+        # This can be either .gz or .xz
+        package_name = f"{name}_{version}.debian.tar"
         source = True
     else:
         # The Debian binary package file names conform to the following convention:

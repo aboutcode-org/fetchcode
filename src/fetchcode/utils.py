@@ -177,12 +177,26 @@ def process_debian_data(package_name, source):
 
     package_entry = None
 
-    for entry in entries:
-        if entry.type == ls.FILE:
-            if entry.path.startswith("pool/main") and entry.path.endswith(package_name):
-                package_entry = entry
-            if package_entry is not None:
-                break
+    if not source:
+        for entry in entries:
+            if entry.type == ls.FILE:
+                if entry.path.startswith("pool/main") and entry.path.endswith(
+                    package_name
+                ):
+                    package_entry = entry
+                    break
+    else:
+        # We need to this because debian source package can end with .gz or .xz
+        for entry in entries:
+            if entry.type == ls.FILE:
+                if (
+                    entry.path.startswith("pool/main")
+                    and entry.path.endswith(package_name + ".gz")
+                    or entry.path.endswith(package_name + ".xz")
+                ):
+                    package_entry = entry
+                    package_name = package_entry.path.split("/")[-1]
+                    break
 
     if package_entry is None:
         raise Exception(f"Unable to find {package_name} in Debian Pool")
@@ -206,6 +220,8 @@ def process_debian_data(package_name, source):
 
     # If the requested package is a binary Package
     else:
+
+        # Doing this because file name can be control.tar.gz-extract or control.tar.xz-extract
         control_folder = "control.tar.gz-extract"
         for folder in os.listdir(extracted_package_location):
             if folder.startswith("control") and folder.endswith("extract"):
