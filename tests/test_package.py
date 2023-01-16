@@ -131,10 +131,10 @@ def test_debian_binary_packages(mock_get):
 
 @mock.patch("fetchcode.utils.fetch")
 def test_debian_source_packages(mock_get):
-    purl = "pkg:deb/debian/leatherman@1.4.0%2Bdfsg-1~bpo9%2B1?arch=source"
+    purl = "pkg:deb/debian/leatherman@1.12.1%2Bdfsg-1.2?arch=source"
     side_effect = [
         return_file("tests/data/debian_test_data/ls-lR_mock.gz"),
-        return_file("tests/data/debian_test_data/leatherman_1.4.0+dfsg-1_bpo9+1.debian.tar.xz")
+        return_file("tests/data/debian_test_data/leatherman_1.12.1+dfsg-1.2.debian.tar.xz")
     ]
     mock_get.side_effect = side_effect
     packages = list(info(purl))
