@@ -47,7 +47,6 @@ def match_data(packages, expected_data):
     data = [dict(p.to_dict()) for p in packages]
     expected_data_dict = dict(expected_data)
     expected_data = [dict(expected_data_dict[p]) for p in expected_data_dict]
-    print(p for p in expected_data_dict)
     assert expected_data == data
 
 
