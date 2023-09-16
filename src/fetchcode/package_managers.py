@@ -27,6 +27,7 @@ from dateutil import parser as dateparser
 from packageurl import PackageURL
 from packageurl.contrib.route import NoRouteAvailable
 from packageurl.contrib.route import Router
+import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -61,7 +62,7 @@ def get_response(url, content_type="json", headers=None):
     Fetch ``url`` and return its content as ``content_type`` which is one of
     binary, text or json.
     """
-    assert content_type in ("binary", "text", "json")
+    assert content_type in ("binary", "text", "json", "yaml")
 
     try:
         resp = requests.get(url=url, headers=headers)
@@ -78,6 +79,10 @@ def get_response(url, content_type="json", headers=None):
         return resp.text
     elif content_type == "json":
         return resp.json()
+    elif content_type == "yaml":
+        content = resp.content.decode("utf-8")
+        return yaml.safe_load(content)
+
 
 
 def remove_debian_default_epoch(version):
@@ -294,17 +299,18 @@ def get_hex_versions_from_purl(purl):
         )
 
 
-# @router.route("pkg:conan/.*")
-# def get_conan_versions_from_purl(purl):
-#     """
-#     Fetch versions of ``conan`` packages from the Conan API
-#     """
-#     response = get_response(
-#         url=f"https://conan.io/center/api/ui/details?name={pkg}&user=_&channel=_",
-#         content_type="json",
-#     )
-#     for release in response["versions"]:
-#         yield PackageVersion(value=release["version"])
+@router.route("pkg:conan/.*")
+def get_conan_versions_from_purl(purl):
+    """
+    Fetch versions of ``conan`` packages from the Conan API
+    """
+    purl = PackageURL.from_string(purl)
+    response = get_response(
+        url=f"https://raw.githubusercontent.com/conan-io/conan-center-index/master/recipes/{purl.name}/config.yml",
+        content_type="yaml",
+    )
+    for version in response["versions"].keys():
+        yield PackageVersion(value=version)
 
 # @router.route("pkg:golang/.*")
 # def get_golang_versions_from_purl(purl):
