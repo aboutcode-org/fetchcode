@@ -259,6 +259,21 @@ def get_conan_versions_from_purl(purl):
         yield PackageVersion(value=version)
 
 
+@router.route("pkg:github/.*")
+def get_conan_versions_from_purl(purl):
+    """Fetch versions of ``github`` packages using GitHub REST API."""
+    purl = PackageURL.from_string(purl)
+    response = get_response(
+        url=(f"https://api.github.com/repos/{purl.namespace}/{purl.name}/releases"),
+        content_type="json",
+    )
+    for release in response:
+        yield PackageVersion(
+            value=release["tag_name"],
+            release_date=dateparser.parse(release["published_at"]),
+        )
+
+
 @router.route("pkg:golang/.*")
 def get_golang_versions_from_purl(purl):
     """Fetch versions of Go "golang" packages from the Go proxy API."""
