@@ -21,6 +21,7 @@ import xml.etree.ElementTree as ET
 from datetime import datetime
 from typing import Iterable
 from typing import Optional
+from urllib.parse import urlparse
 
 import requests
 from dateutil import parser as dateparser
@@ -34,14 +35,11 @@ logger = logging.getLogger(__name__)
 router = Router()
 
 
-def versions(url):
-    """
-    Return data according to the `url` string
-    `url` string can be purl too
-    """
-    if url:
+def versions(purl):
+    """Return all version for a PURL."""
+    if purl:
         try:
-            return router.process(url)
+            return router.process(purl)
         except NoRouteAvailable:
             return
 
@@ -57,46 +55,9 @@ class PackageVersion:
         return dict(value=self.value, release_date=release_date)
 
 
-def get_response(url, content_type="json", headers=None):
-    """
-    Fetch ``url`` and return its content as ``content_type`` which is one of
-    binary, text or json.
-    """
-    assert content_type in ("binary", "text", "json", "yaml")
-
-    try:
-        resp = requests.get(url=url, headers=headers)
-    except:
-        logger.error(traceback.format_exc())
-        return
-    if not resp.status_code == 200:
-        logger.error(f"Error while fetching {url!r}: {resp.status_code!r}")
-        return
-
-    if content_type == "binary":
-        return resp.content
-    elif content_type == "text":
-        return resp.text
-    elif content_type == "json":
-        return resp.json()
-    elif content_type == "yaml":
-        content = resp.content.decode("utf-8")
-        return yaml.safe_load(content)
-
-
-
-def remove_debian_default_epoch(version):
-    """
-    Remove the default epoch from a Debian ``version`` string.
-    """
-    return version and version.replace("0:", "")
-
-
 @router.route("pkg:deb/ubuntu/.*")
 def get_launchpad_versions_from_purl(purl):
-    """
-    Fetch versions of Ubuntu debian packages from Launchpad
-    """
+    """Fetch versions of Ubuntu debian packages from Launchpad."""
     purl = PackageURL.from_string(purl)
     url = (
         f"https://api.launchpad.net/1.0/ubuntu/+archive/primary?"
@@ -134,9 +95,7 @@ def get_launchpad_versions_from_purl(purl):
 
 @router.route("pkg:pypi/.*")
 def get_pypi_versions_from_purl(purl):
-    """
-    Fetch versions of Python pypi packages from the PyPI API.
-    """
+    """Fetch versions of Python pypi packages from the PyPI API."""
     purl = PackageURL.from_string(purl)
     response = get_response(url=f"https://pypi.org/pypi/{purl.name}/json")
     if not response:
@@ -157,9 +116,7 @@ def get_pypi_versions_from_purl(purl):
 
 @router.route("pkg:cargo/.*")
 def get_cargo_versions_from_purl(purl):
-    """
-    Fetch versions of Rust cargo packages from the crates.io API.
-    """
+    """Fetch versions of Rust cargo packages from the crates.io API."""
     purl = PackageURL.from_string(purl)
     url = f"https://crates.io/api/v1/crates/{purl.name}"
     response = get_response(url=url, content_type="json")
@@ -173,9 +130,7 @@ def get_cargo_versions_from_purl(purl):
 
 @router.route("pkg:gem/.*")
 def get_gem_versions_from_purl(purl):
-    """
-    Fetch versions of Rubygems packages from the rubygems API.
-    """
+    """Fetch versions of Rubygems packages from the rubygems API."""
     purl = PackageURL.from_string(purl)
     url = f"https://rubygems.org/api/v1/versions/{purl.name}.json"
     response = get_response(url=url, content_type="json")
@@ -189,18 +144,14 @@ def get_gem_versions_from_purl(purl):
         else:
             release_date = None
         if release.get("number"):
-            yield PackageVersion(
-                value=release["number"], release_date=release_date
-            )
+            yield PackageVersion(value=release["number"], release_date=release_date)
         else:
             logger.error(f"Failed to parse release {release} from url: {url}")
 
 
 @router.route("pkg:npm/.*")
 def get_npm_versions_from_purl(purl):
-    """
-    Fetch versions of npm packages from the npm registry API.
-    """
+    """Fetch versions of npm packages from the npm registry API."""
     purl = PackageURL.from_string(purl)
     url = f"https://registry.npmjs.org/{purl.name}"
     response = get_response(url=url, content_type="json")
@@ -216,7 +167,7 @@ def get_npm_versions_from_purl(purl):
 @router.route("pkg:deb/debian/.*")
 def get_deb_versions_from_purl(purl):
     """
-    Fetch versions of Debian debian packages from the sources.debian.org API
+    Fetch versions of Debian debian packages from the sources.debian.org API.
     """
     purl = PackageURL.from_string(purl)
     # Need to set the headers, because the Debian API upgrades
@@ -237,9 +188,7 @@ def get_deb_versions_from_purl(purl):
 
 @router.route("pkg:maven/.*")
 def get_maven_versions_from_purl(purl):
-    """
-    Fetch versions of Maven packages from Maven Central maven-metadata.xml data
-    """
+    """Fetch versions of Maven packages from Maven Central maven-metadata.xml data."""
     purl = PackageURL.from_string(purl)
     group_id = purl.namespace
     artifact_id = purl.name
@@ -247,7 +196,9 @@ def get_maven_versions_from_purl(purl):
         return
 
     group_url = group_id.replace(".", "/")
-    endpoint = f"https://repo1.maven.org/maven2/{group_url}/{artifact_id}/maven-metadata.xml"
+    endpoint = (
+        f"https://repo1.maven.org/maven2/{group_url}/{artifact_id}/maven-metadata.xml"
+    )
     response = get_response(url=endpoint, content_type="binary")
     if response:
         xml_resp = ET.ElementTree(ET.fromstring(response.decode("utf-8")))
@@ -256,9 +207,7 @@ def get_maven_versions_from_purl(purl):
 
 @router.route("pkg:nuget/.*")
 def get_nuget_versions_from_purl(purl):
-    """
-    Fetch versions of NuGet packages from the nuget.org API
-    """
+    """Fetch versions of NuGet packages from the nuget.org API."""
     purl = PackageURL.from_string(purl)
     pkg = purl.name.lower()
     url = f"https://api.nuget.org/v3/registration5-semver1/{pkg}/index.json"
@@ -269,9 +218,7 @@ def get_nuget_versions_from_purl(purl):
 
 @router.route("pkg:composer/.*")
 def get_composer_versions_from_purl(purl):
-    """
-    Fetch versions of PHP Composer packages from the packagist.org API
-    """
+    """Fetch versions of PHP Composer packages from the packagist.org API."""
     purl = PackageURL.from_string(purl)
     if not purl.namespace:
         return
@@ -284,9 +231,7 @@ def get_composer_versions_from_purl(purl):
 
 @router.route("pkg:hex/.*")
 def get_hex_versions_from_purl(purl):
-    """
-    Fetch versions of Erlang packages from the hex API
-    """
+    """Fetch versions of Erlang packages from the hex API."""
     purl = PackageURL.from_string(purl)
     response = get_response(
         url=f"https://hex.pm/api/packages/{purl.name}",
@@ -301,136 +246,129 @@ def get_hex_versions_from_purl(purl):
 
 @router.route("pkg:conan/.*")
 def get_conan_versions_from_purl(purl):
-    """
-    Fetch versions of ``conan`` packages from the Conan API
-    """
+    """Fetch versions of ``conan`` packages from the Conan API."""
     purl = PackageURL.from_string(purl)
     response = get_response(
-        url=f"https://raw.githubusercontent.com/conan-io/conan-center-index/master/recipes/{purl.name}/config.yml",
+        url=(
+            "https://raw.githubusercontent.com/conan-io/conan-center-index/"
+            f"master/recipes/{purl.name}/config.yml"
+        ),
         content_type="yaml",
     )
     for version in response["versions"].keys():
         yield PackageVersion(value=version)
 
-# @router.route("pkg:golang/.*")
-# def get_golang_versions_from_purl(purl):
-#     """
-#     Fetch versions of Go "golang" packages from the Go proxy API
-#     """
-#     purl = PackageURL.from_string(purl)
-#     pkg = f"{purl.namespace}/{purl.name}"
-#     # escape uppercase in module path
-#     escaped_pkg = escape_path(pkg)
-#     trimmed_pkg = pkg
-#     response = None
-#     # resolve module name from package name, see https://go.dev/ref/mod#resolve-pkg-mod
-#     while escaped_pkg is not None:
-#         url = f"https://proxy.golang.org/{escaped_pkg}/@v/list"
-#         response = get_response(url=url, content_type="text")
-#         if not response:
-#             trimmed_escaped_pkg = trim_go_url_path(escaped_pkg)
-#             trimmed_pkg = trim_go_url_path(trimmed_pkg) or ""
-#             if trimmed_escaped_pkg == escaped_pkg:
-#                 break
 
-#             escaped_pkg = trimmed_escaped_pkg
-#             continue
+@router.route("pkg:golang/.*")
+def get_golang_versions_from_purl(purl):
+    """Fetch versions of Go "golang" packages from the Go proxy API."""
+    purl = PackageURL.from_string(purl)
+    package_slug = f"{purl.namespace}/{purl.name}"
+    # escape uppercase in module path
+    escaped_pkg = escape_path(package_slug)
+    trimmed_pkg = package_slug
+    response = None
+    # resolve module name from package name, see https://go.dev/ref/mod#resolve-pkg-mod
+    while escaped_pkg is not None:
+        url = f"https://proxy.golang.org/{escaped_pkg}/@v/list"
+        response = get_response(url=url, content_type="text")
+        if not response:
+            trimmed_escaped_pkg = trim_go_url_path(escaped_pkg)
+            trimmed_pkg = trim_go_url_path(trimmed_pkg) or ""
+            if trimmed_escaped_pkg == escaped_pkg:
+                break
 
-#         break
+            escaped_pkg = trimmed_escaped_pkg
+            continue
 
-#     if response is None or escaped_pkg is None or trimmed_pkg is None:
-#         logger.error(f"Error while fetching versions for {pkg!r} from goproxy")
-#         return
-#     # self.module_name_by_package_name[pkg] = trimmed_pkg
-#     for version_info in response.split("\n"):
-#         version = fetch_version_info(version_info, escaped_pkg)
-#         if version:
-#             yield version
+        break
 
-#     # def __init__(self):
-#     #     self.module_name_by_package_name = {}
+    if response is None or escaped_pkg is None or trimmed_pkg is None:
+        logger.error(f"Error while fetching versions for {package_slug!r} from goproxy")
+        return
+
+    for version_info in response.split("\n"):
+        version = fetch_version_info(version_info, escaped_pkg)
+        if version:
+            yield version
 
 
-# def trim_go_url_path(url_path: str) -> Optional[str]:
-#     """
-#     Return a trimmed Go `url_path` removing trailing
-#     package references and keeping only the module
-#     references.
+def trim_go_url_path(url_path: str) -> Optional[str]:
+    """
+    Return a trimmed Go `url_path` removing trailing
+    package references and keeping only the module
+    references.
 
-#     Github advisories for Go are using package names
-#     such as "https://github.com/nats-io/nats-server/v2/server"
-#     (e.g., https://github.com/advisories/GHSA-jp4j-47f9-2vc3 ),
-#     yet goproxy works with module names instead such as
-#     "https://github.com/nats-io/nats-server" (see for details
-#     https://golang.org/ref/mod#goproxy-protocol ).
-#     This functions trims the trailing part(s) of a package URL
-#     and returns the remaining the module name.
-#     For example:
-#     >>> module = "github.com/xx/a"
-#     >>> assert GoproxyVersionAPI.trim_go_url_path("https://github.com/xx/a/b") == module
-#     """
-#     # some advisories contains this prefix in package name, e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
-#     if url_path.startswith("https://pkg.go.dev/"):
-#         url_path = url_path[len("https://pkg.go.dev/") :]
-#     parsed_url_path = urlparse(url_path)
-#     path = parsed_url_path.path
-#     parts = path.split("/")
-#     if len(parts) < 3:
-#         logger.error(f"Not a valid Go URL path {url_path} trim_go_url_path")
-#         return
-#     else:
-#         joined_path = "/".join(parts[:3])
-#         return f"{parsed_url_path.netloc}{joined_path}"
-
-
-# def escape_path(path: str) -> str:
-#     """
-#     Return an case-encoded module path or version name.
-
-#     This is done by replacing every uppercase letter with an exclamation
-#     mark followed by the corresponding lower-case letter, in order to
-#     avoid ambiguity when serving from case-insensitive file systems.
-#     Refer to https://golang.org/ref/mod#goproxy-protocol.
-#     """
-#     escaped_path = ""
-#     for c in path:
-#         if c >= "A" and c <= "Z":
-#             # replace uppercase with !lowercase
-#             escaped_path += "!" + chr(ord(c) + ord("a") - ord("A"))
-#         else:
-#             escaped_path += c
-#     return escaped_path
+    Github advisories for Go are using package names
+    such as "https://github.com/nats-io/nats-server/v2/server"
+    (e.g., https://github.com/advisories/GHSA-jp4j-47f9-2vc3 ),
+    yet goproxy works with module names instead such as
+    "https://github.com/nats-io/nats-server" (see for details
+    https://golang.org/ref/mod#goproxy-protocol ).
+    This functions trims the trailing part(s) of a package URL
+    and returns the remaining the module name.
+    For example:
+    >>> module = "github.com/xx/a"
+    >>> assert GoproxyVersionAPI.trim_go_url_path("https://github.com/xx/a/b") == module
+    """
+    # some advisories contains this prefix in package name, e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
+    if url_path.startswith("https://pkg.go.dev/"):
+        url_path = url_path[len("https://pkg.go.dev/") :]
+    parsed_url_path = urlparse(url_path)
+    path = parsed_url_path.path
+    parts = path.split("/")
+    if len(parts) < 3:
+        logger.error(f"Not a valid Go URL path {url_path} trim_go_url_path")
+        return
+    else:
+        joined_path = "/".join(parts[:3])
+        return f"{parsed_url_path.netloc}{joined_path}"
 
 
-# def fetch_version_info(
-#     version_info: str, escaped_pkg: str
-# ) -> Optional[PackageVersion]:
-#     v = version_info.split()
-#     if not v:
-#         return None
+def escape_path(path: str) -> str:
+    """
+    Return an case-encoded module path or version name.
 
-#     value = v[0]
-#     if len(v) > 1:
-#         # get release date from the second part. see
-#         # https://github.com/golang/go/blob/master/src/cmd/go/internal/modfetch/proxy.go#latest()
-#         release_date = parse_datetime(v[1])
-#     else:
-#         escaped_ver = escape_path(value)
-#         response = get_response(
-#             url=f"https://proxy.golang.org/{escaped_pkg}/@v/{escaped_ver}.info",
-#             content_type="json",
-#         )
+    This is done by replacing every uppercase letter with an exclamation
+    mark followed by the corresponding lower-case letter, in order to
+    avoid ambiguity when serving from case-insensitive file systems.
+    Refer to https://golang.org/ref/mod#goproxy-protocol.
+    """
+    escaped_path = ""
+    for c in path:
+        if c >= "A" and c <= "Z":
+            # replace uppercase with !lowercase
+            escaped_path += "!" + chr(ord(c) + ord("a") - ord("A"))
+        else:
+            escaped_path += c
+    return escaped_path
 
-#         if not response:
-#             logger.error(
-#                 f"Error while fetching version info for {escaped_pkg}/{escaped_ver} "
-#                 f"from goproxy:\n{traceback.format_exc()}"
-#             )
-#         release_date = (
-#             parse_datetime(response.get("Time", "")) if response else None
-#         )
 
-#     return PackageVersion(value=value, release_date=release_date)
+def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageVersion]:
+    v = version_info.split()
+    if not v:
+        return None
+
+    value = v[0]
+    if len(v) > 1:
+        # get release date from the second part. see
+        # https://github.com/golang/go/blob/master/src/cmd/go/internal/modfetch/proxy.go#latest()
+        release_date = dateparser.parse(v[1])
+    else:
+        escaped_ver = escape_path(value)
+        response = get_response(
+            url=f"https://proxy.golang.org/{escaped_pkg}/@v/{escaped_ver}.info",
+            content_type="json",
+        )
+
+        if not response:
+            logger.error(
+                f"Error while fetching version info for {escaped_pkg}/{escaped_ver} "
+                f"from goproxy:\n{traceback.format_exc()}"
+            )
+        release_date = dateparser.parse(response.get("Time", "")) if response else None
+
+    return PackageVersion(value=value, release_date=release_date)
 
 
 def composer_extract_versions(resp: dict, pkg: str) -> Iterable[PackageVersion]:
@@ -450,7 +388,7 @@ def composer_extract_versions(resp: dict, pkg: str) -> Iterable[PackageVersion]:
 
 def get_item(dictionary: dict, *attributes):
     """
-    Return `item` by going through all the `attributes` present in the `dictionary`
+    Return `item` by going through all the `attributes` present in the `dictionary`.
 
     Do a DFS for the `item` in the `dictionary` by traversing the `attributes`
     and return None if can not traverse through the `attributes`
@@ -473,9 +411,7 @@ def get_item(dictionary: dict, *attributes):
 
 
 def cleaned_version(version):
-    """
-    Return a ``version`` string stripped from leading "v" prefix.
-    """
+    """Return a ``version`` string stripped from leading "v" prefix."""
     return version.lstrip("vV")
 
 
@@ -532,3 +468,32 @@ def get_pypi_latest_date(downloads):
             if current_date > latest_date:
                 latest_date = current_date
     return latest_date
+
+
+def get_response(url, content_type="json", headers=None):
+    """Fetch ``url`` and return its content as ``content_type`` which is one of binary, text or json."""
+    assert content_type in ("binary", "text", "json", "yaml")
+
+    try:
+        resp = requests.get(url=url, headers=headers)
+    except:
+        logger.error(traceback.format_exc())
+        return
+    if not resp.status_code == 200:
+        logger.error(f"Error while fetching {url!r}: {resp.status_code!r}")
+        return
+
+    if content_type == "binary":
+        return resp.content
+    elif content_type == "text":
+        return resp.text
+    elif content_type == "json":
+        return resp.json()
+    elif content_type == "yaml":
+        content = resp.content.decode("utf-8")
+        return yaml.safe_load(content)
+
+
+def remove_debian_default_epoch(version):
+    """Remove the default epoch from a Debian ``version`` string."""
+    return version and version.replace("0:", "")
