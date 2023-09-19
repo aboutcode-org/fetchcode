@@ -1,0 +1,77 @@
+{
+    "categories": [],
+    "crate": {
+        "badges": [],
+        "categories": [],
+        "created_at": "2023-09-11T15:54:25.449371+00:00",
+        "description": "A modifying, multiplexer tcp proxy server tool and library.",
+        "documentation": null,
+        "downloads": 18,
+        "exact_match": false,
+        "homepage": null,
+        "id": "yprox",
+        "keywords": [],
+        "links": {
+            "owner_team": "/api/v1/crates/yprox/owner_team",
+            "owner_user": "/api/v1/crates/yprox/owner_user",
+            "owners": "/api/v1/crates/yprox/owners",
+            "reverse_dependencies": "/api/v1/crates/yprox/reverse_dependencies",
+            "version_downloads": "/api/v1/crates/yprox/downloads",
+            "versions": null
+        },
+        "max_stable_version": "0.1.0",
+        "max_version": "0.1.0",
+        "name": "yprox",
+        "newest_version": "0.1.0",
+        "recent_downloads": 18,
+        "repository": null,
+        "updated_at": "2023-09-11T15:54:25.449371+00:00",
+        "versions": [
+            894733
+        ]
+    },
+    "keywords": [],
+    "versions": [
+        {
+            "audit_actions": [
+                {
+                    "action": "publish",
+                    "time": "2023-09-11T15:54:25.449371+00:00",
+                    "user": {
+                        "avatar": "https://avatars.githubusercontent.com/u/1371?v=4",
+                        "id": 113702,
+                        "login": "fcoury",
+                        "name": "Felipe Coury",
+                        "url": "https://github.com/fcoury"
+                    }
+                }
+            ],
+            "checksum": "3bfd439f8a741deb724fbe9db205135f7b7967db7737adede2101ed7c512e5f2",
+            "crate": "yprox",
+            "crate_size": 39483,
+            "created_at": "2023-09-11T15:54:25.449371+00:00",
+            "dl_path": "/api/v1/crates/yprox/0.1.0/download",
+            "downloads": 18,
+            "features": {},
+            "id": 894733,
+            "license": "MIT",
+            "links": {
+                "authors": "/api/v1/crates/yprox/0.1.0/authors",
+                "dependencies": "/api/v1/crates/yprox/0.1.0/dependencies",
+                "version_downloads": "/api/v1/crates/yprox/0.1.0/downloads"
+            },
+            "num": "0.1.0",
+            "published_by": {
+                "avatar": "https://avatars.githubusercontent.com/u/1371?v=4",
+                "id": 113702,
+                "login": "fcoury",
+                "name": "Felipe Coury",
+                "url": "https://github.com/fcoury"
+            },
+            "readme_path": "/api/v1/crates/yprox/0.1.0/readme",
+            "rust_version": null,
+            "updated_at": "2023-09-11T15:54:25.449371+00:00",
+            "yanked": false
+        }
+    ]
+}

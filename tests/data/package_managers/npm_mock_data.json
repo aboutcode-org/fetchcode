@@ -1,0 +1,419 @@
+{
+    "_id": "animation",
+    "_rev": "15-ec02df0b640a265b7aa31573b292e056",
+    "name": "animation",
+    "description": "animation timing & handling",
+    "dist-tags": {
+        "latest": "0.1.3"
+    },
+    "versions": {
+        "0.0.1": {
+            "name": "animation",
+            "description": "animation timing & handling",
+            "version": "0.0.1",
+            "homepage": "https://github.com/dodo/node-animation",
+            "author": {
+                "name": "dodo",
+                "url": "https://github.com/dodo"
+            },
+            "repository": {
+                "type": "git",
+                "url": "git://github.com/dodo/node-animation.git"
+            },
+            "main": "animation.js",
+            "engines": {
+                "node": ">= 0.4.x"
+            },
+            "keywords": [
+                "request",
+                "animation",
+                "frame",
+                "interval",
+                "node",
+                "browser"
+            ],
+            "scripts": {
+                "prepublish": "cake build"
+            },
+            "dependencies": {
+                "ms": ">= 0.1.0",
+                "request-animation-frame": ">= 0.0.1"
+            },
+            "devDependencies": {
+                "muffin": ">= 0.2.6",
+                "coffee-script": ">= 1.1.2"
+            },
+            "_npmUser": {
+                "name": "dodo",
+                "email": "dodo@blacksec.org"
+            },
+            "_id": "animation@0.0.1",
+            "_engineSupported": true,
+            "_npmVersion": "1.0.106",
+            "_nodeVersion": "v0.4.12",
+            "_defaultsLoaded": true,
+            "dist": {
+                "shasum": "5a2561296c8f48718113c872348427036251b923",
+                "tarball": "https://registry.npmjs.org/animation/-/animation-0.0.1.tgz",
+                "integrity": "sha512-9lKYCZS7+z0nZD1iUe8FgyJYhu+QcbMYlL35GbZB8CR9YyB/x8Z+t8KMbbdwCMZ+2SM+akPDKWCuoAGgssJbDQ==",
+                "signatures": [
+                    {
+                        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+                        "sig": "MEUCIQCNO6U9Pdnb5+q7Wnb9l1EC5mL8dwMQybbV4JAoRk0dHAIgD+e03Z8zvfZcZV7X3kRoCIAezAR6+x9w8pRD/kgYBXQ="
+                    }
+                ]
+            },
+            "maintainers": [
+                {
+                    "name": "dodo",
+                    "email": "dodo@blacksec.org"
+                }
+            ]
+        },
+        "0.0.2": {
+            "name": "animation",
+            "description": "animation timing & handling",
+            "version": "0.0.2",
+            "homepage": "https://github.com/dodo/node-animation",
+            "author": {
+                "name": "dodo",
+                "url": "https://github.com/dodo"
+            },
+            "repository": {
+                "type": "git",
+                "url": "git://github.com/dodo/node-animation.git"
+            },
+            "main": "animation.js",
+            "engines": {
+                "node": ">= 0.4.x"
+            },
+            "keywords": [
+                "request",
+                "animation",
+                "frame",
+                "interval",
+                "node",
+                "browser"
+            ],
+            "scripts": {
+                "prepublish": "cake build"
+            },
+            "dependencies": {
+                "ms": ">= 0.1.0",
+                "request-animation-frame": ">= 0.0.1"
+            },
+            "devDependencies": {
+                "muffin": ">= 0.2.6",
+                "coffee-script": ">= 1.1.2"
+            },
+            "_npmUser": {
+                "name": "dodo",
+                "email": "dodo@blacksec.org"
+            },
+            "_id": "animation@0.0.2",
+            "_engineSupported": true,
+            "_npmVersion": "1.0.106",
+            "_nodeVersion": "v0.4.12",
+            "_defaultsLoaded": true,
+            "dist": {
+                "shasum": "b427205b3c7c7e612aeb0ae264e7b54261908674",
+                "tarball": "https://registry.npmjs.org/animation/-/animation-0.0.2.tgz",
+                "integrity": "sha512-3iS2osrUJ5u3aT0WLnIxmhZVfA8UiK1HOk6+lVxmrZxGu6FHDOX86/KyXzMFHNFUChoHsM34l5sl1fW4BhO1Xw==",
+                "signatures": [
+                    {
+                        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+                        "sig": "MEYCIQD9tzdddGqKDOkhaFreOWlXcxEci8HrA3rSceShT3aP8AIhAJhqEn8CZtv3dcW2Hm+tSgm8G3ZOP29Ak8nEmWJO9Nix"
+                    }
+                ]
+            },
+            "maintainers": [
+                {
+                    "name": "dodo",
+                    "email": "dodo@blacksec.org"
+                }
+            ]
+        },
+        "0.1.0": {
+            "name": "animation",
+            "description": "animation timing & handling",
+            "version": "0.1.0",
+            "homepage": "https://github.com/dodo/node-animation",
+            "author": {
+                "name": "dodo",
+                "url": "https://github.com/dodo"
+            },
+            "repository": {
+                "type": "git",
+                "url": "git://github.com/dodo/node-animation.git"
+            },
+            "main": "animation.js",
+            "engines": {
+                "node": ">= 0.4.x"
+            },
+            "keywords": [
+                "request",
+                "animation",
+                "frame",
+                "interval",
+                "node",
+                "browser"
+            ],
+            "scripts": {
+                "prepublish": "cake build"
+            },
+            "dependencies": {
+                "ms": ">= 0.1.0",
+                "request-animation-frame": ">= 0.1.0"
+            },
+            "devDependencies": {
+                "muffin": ">= 0.2.6",
+                "coffee-script": ">= 1.1.2"
+            },
+            "_npmUser": {
+                "name": "dodo",
+                "email": "dodo@blacksec.org"
+            },
+            "_id": "animation@0.1.0",
+            "_engineSupported": true,
+            "_npmVersion": "1.1.0-beta-10",
+            "_nodeVersion": "v0.6.7",
+            "_defaultsLoaded": true,
+            "dist": {
+                "shasum": "bf24adc79a1971d9f7e97cbe3d59174240a5e6dc",
+                "tarball": "https://registry.npmjs.org/animation/-/animation-0.1.0.tgz",
+                "integrity": "sha512-EPra4t5pJQqjgof2ovtNX/7A2cpxS9qmdZbr/MmCHGT9NQLHFTT+2JkOl2/Vx1yLcKWRLaQzKO5dv0eSWX8D6g==",
+                "signatures": [
+                    {
+                        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+                        "sig": "MEQCIGHBwxJSXJNFxkpZyXON3JHgB0dbilm5NjmfL2mU7U2gAiASgtS3miAilWvfEST/29TSLEUzrmrZ4Vc+4D2lOIy8qw=="
+                    }
+                ]
+            },
+            "maintainers": [
+                {
+                    "name": "dodo",
+                    "email": "dodo@blacksec.org"
+                }
+            ]
+        },
+        "0.1.1": {
+            "name": "animation",
+            "description": "animation timing & handling",
+            "version": "0.1.1",
+            "homepage": "https://github.com/dodo/node-animation",
+            "author": {
+                "name": "dodo",
+                "url": "https://github.com/dodo"
+            },
+            "repository": {
+                "type": "git",
+                "url": "git://github.com/dodo/node-animation.git"
+            },
+            "main": "animation.js",
+            "engines": {
+                "node": ">= 0.4.x"
+            },
+            "keywords": [
+                "request",
+                "animation",
+                "frame",
+                "interval",
+                "node",
+                "browser"
+            ],
+            "scripts": {
+                "prepublish": "cake build"
+            },
+            "dependencies": {
+                "ms": ">= 0.1.0",
+                "request-animation-frame": ">= 0.1.0"
+            },
+            "devDependencies": {
+                "muffin": ">= 0.2.6",
+                "coffee-script": ">= 1.1.2"
+            },
+            "_npmUser": {
+                "name": "dodo",
+                "email": "dodo@blacksec.org"
+            },
+            "_id": "animation@0.1.1",
+            "optionalDependencies": {},
+            "_engineSupported": true,
+            "_npmVersion": "1.1.16",
+            "_nodeVersion": "v0.6.15",
+            "_defaultsLoaded": true,
+            "dist": {
+                "shasum": "34c4236e8c9e0093f94733d5244467802eadea03",
+                "tarball": "https://registry.npmjs.org/animation/-/animation-0.1.1.tgz",
+                "integrity": "sha512-vl7rahQZRjd3M7tNINyCtaKXAWVVh4zzTosu7EAzSc0VrHzLJp+QBWWL+sHyzbOt3MikNRxDpFCoCKaF9d5Asw==",
+                "signatures": [
+                    {
+                        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+                        "sig": "MEUCICWQyFUghFEpKesXdlHOT4Yb8AyJf5VcLVrmf/wKWP0TAiEAlwsJfky5IwRplCuVsxDoNqrK7xjKM2IkYiaJNEa1htM="
+                    }
+                ]
+            },
+            "maintainers": [
+                {
+                    "name": "dodo",
+                    "email": "dodo@blacksec.org"
+                }
+            ]
+        },
+        "0.1.2": {
+            "name": "animation",
+            "description": "animation timing & handling",
+            "version": "0.1.2",
+            "homepage": "https://github.com/dodo/node-animation",
+            "author": {
+                "name": "dodo",
+                "url": "https://github.com/dodo"
+            },
+            "repository": {
+                "type": "git",
+                "url": "git://github.com/dodo/node-animation.git"
+            },
+            "main": "animation.js",
+            "engines": {
+                "node": ">= 0.4.x"
+            },
+            "keywords": [
+                "request",
+                "animation",
+                "frame",
+                "interval",
+                "node",
+                "browser"
+            ],
+            "scripts": {
+                "prepublish": "cake build"
+            },
+            "dependencies": {
+                "ms": ">= 0.1.0",
+                "request-animation-frame": ">= 0.1.0"
+            },
+            "devDependencies": {
+                "muffin": ">= 0.2.6",
+                "coffee-script": ">= 1.1.2"
+            },
+            "_npmUser": {
+                "name": "dodo",
+                "email": "dodo@blacksec.org"
+            },
+            "_id": "animation@0.1.2",
+            "optionalDependencies": {},
+            "_engineSupported": true,
+            "_npmVersion": "1.1.16",
+            "_nodeVersion": "v0.6.15",
+            "_defaultsLoaded": true,
+            "dist": {
+                "shasum": "bb1e310a077e20237f9dff4a6dac4d8fe3277b45",
+                "tarball": "https://registry.npmjs.org/animation/-/animation-0.1.2.tgz",
+                "integrity": "sha512-xAZL5uih1RnfPkKhIqKym3yHPQ/wn1ihqSI8M5ywzS+NX3jKCErM1Ov375aEDkzLp1qmtbHmLIpQaX4iVzArBQ==",
+                "signatures": [
+                    {
+                        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+                        "sig": "MEUCIBTEh668iayVPPaHsS9haUYeH+LAQxGkLoFjiAwB62f8AiEAvnd7OWigoHFFpb2fQH0ZFOXpVBjgHixk7cN7BDu91nI="
+                    }
+                ]
+            },
+            "maintainers": [
+                {
+                    "name": "dodo",
+                    "email": "dodo@blacksec.org"
+                }
+            ]
+        },
+        "0.1.3": {
+            "name": "animation",
+            "description": "animation timing & handling",
+            "version": "0.1.3",
+            "homepage": "https://github.com/dodo/node-animation",
+            "author": {
+                "name": "dodo",
+                "url": "https://github.com/dodo"
+            },
+            "repository": {
+                "type": "git",
+                "url": "git://github.com/dodo/node-animation.git"
+            },
+            "main": "animation.js",
+            "engines": {
+                "node": ">= 0.4.x"
+            },
+            "keywords": [
+                "request",
+                "animation",
+                "frame",
+                "interval",
+                "node",
+                "browser"
+            ],
+            "scripts": {
+                "prepublish": "cake build"
+            },
+            "dependencies": {
+                "ms": ">= 0.1.0",
+                "request-animation-frame": ">= 0.1.0"
+            },
+            "devDependencies": {
+                "muffin": ">= 0.2.6",
+                "browserify": "1.6.1",
+                "scopify": ">= 0.1.0",
+                "coffee-script": ">= 1.1.2"
+            },
+            "_npmUser": {
+                "name": "dodo",
+                "email": "dodo@blacksec.org"
+            },
+            "_id": "animation@0.1.3",
+            "optionalDependencies": {},
+            "_engineSupported": true,
+            "_npmVersion": "1.1.21",
+            "_nodeVersion": "v0.6.17",
+            "_defaultsLoaded": true,
+            "dist": {
+                "shasum": "132bdfde017464b0daa7dfa138eec0608770e45e",
+                "tarball": "https://registry.npmjs.org/animation/-/animation-0.1.3.tgz",
+                "integrity": "sha512-lDxVxJV6YA0JRvBJovS14KcnZmPmI451gD2a5e4a75rAtAQbNRs6TPpjgonXGOYR9dO7qY4V6ipcW6tu2frHSg==",
+                "signatures": [
+                    {
+                        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+                        "sig": "MEUCIQCne6JUEcQx/Yfyq3TGaD2RTZexJ89L646eb9v27JDpMQIgJvr4put3G8Au+imM05Q6eTPkHF7APZ0evrOHW/MFqnQ="
+                    }
+                ]
+            },
+            "maintainers": [
+                {
+                    "name": "dodo",
+                    "email": "dodo@blacksec.org"
+                }
+            ]
+        }
+    },
+    "readme": "# [animation](https://github.com/dodo/node-animation/)\n\nHandles Animation Timing and Handling for you.\n\nUses requesAnimationFrame when running on browser side.\n\n## Installation\n\n```bash\n$ npm install animation\n```\n\n## Usage\n\n```javascript\nanimation = new Animation({frame:'100ms'});\nanimation.on('tick', function (dt) { \u2026 });\nanimation.start();\n```\n\n[surrender-cube](https://github.com/dodo/node-surrender-cube/blob/master/src/index.coffee) uses this module to draw a rotating wireframe cube in terminal.\n\n## Animation\n\n```javascript\nanimation = new Animation({\n    // defaults\n    execution: '5ms', // allowed execution time per animation tick\n    timeout:   null,  // maximum time of a animation tick interval\n    toggle:    false, // if true animation pauses and resumes itself when render queue gets empty or filled\n    frame:     '16ms' // time per frame\n});\n```\n\nCreates a new Animation controller.\n\n### animation.start\n\n```javascript\nanimation.start();\n```\n\nStarts animation.\n\n### animation.stop\n\n```javascript\nanimation.stop();\n```\n\nStops animation.\n\n### animation.pause\n\n```javascript\nanimation.pause();\n```\nWhen autotoggle is enabled the Animation pauses itself if the render queue is empty.\n\n### animation.resume\n\n```javascript\nanimation.resume();\n```\n\nWhen autotoggle is enabled the Animation resumes itself when the render queue gets filled again after it was emtpy.\n\n### animation.nextTick\n\n```javascript\nanimation.nextTick(function (dt) { \u2026 });\n```\n\nGiven callback gets called on next animation tick when running and not paused.\n\n## Events\n\n### 'start'\n\n```javascript\nanimation.on('start', function () { \u2026 });\n```\n\nEmits `start` event every time the animation gets started.\n\n### 'stop'\n\n```javascript\nanimation.on('stop', function () { \u2026 });\n```\n\nEmits `stop` event every time the animation gets stopped.\n\n### 'pause'\n\n```javascript\nanimation.on('pause', function () { \u2026 });\n```\n\nEmits `pause` event every time the animation gets paused.\n\n### 'resume'\n\n```javascript\nanimation.on('resume', function () { \u2026 });\n```\n\nEmits `resume` event every time the animation gets resumed.\n\n### 'tick'\n\n```javascript\nanimation.on('tick', function (dt) { \u2026 });\n```\n\nEmits `tick` event every time the animation executes a animation tick.\n\n`dt` is the time since last animation tick.\n\nUse this to do your animation stuff.\n\n\n\n\n\n",
+    "maintainers": [
+        {
+            "name": "dodo",
+            "email": "dodo@blacksec.org"
+        }
+    ],
+    "time": {
+        "modified": "2022-06-13T03:04:09.821Z",
+        "created": "2012-02-12T23:07:07.612Z",
+        "0.0.1": "2012-02-12T23:07:09.384Z",
+        "0.0.2": "2012-02-13T11:19:24.540Z",
+        "0.1.0": "2012-02-14T21:25:04.269Z",
+        "0.1.1": "2012-04-23T21:15:21.873Z",
+        "0.1.2": "2012-04-26T19:15:38.073Z",
+        "0.1.3": "2012-07-15T02:34:48.720Z"
+    },
+    "author": {
+        "name": "dodo",
+        "url": "https://github.com/dodo"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/dodo/node-animation.git"
+    }
+}
