@@ -119,7 +119,9 @@ def get_cargo_versions_from_purl(purl):
     """Fetch versions of Rust cargo packages from the crates.io API."""
     purl = PackageURL.from_string(purl)
     url = f"https://crates.io/api/v1/crates/{purl.name}"
-    response = get_response(url=url, content_type="json")
+    response = get_response(
+        url=url, content_type="json", headers={"User-Agent": "pm_bot"}
+    )
 
     for version_info in response.get("versions"):
         yield PackageVersion(
@@ -260,7 +262,7 @@ def get_conan_versions_from_purl(purl):
 
 
 @router.route("pkg:github/.*")
-def get_conan_versions_from_purl(purl):
+def get_github_versions_from_purl(purl):
     """Fetch versions of ``github`` packages using GitHub REST API."""
     purl = PackageURL.from_string(purl)
     response = get_response(
@@ -324,7 +326,7 @@ def trim_go_url_path(url_path: str) -> Optional[str]:
     and returns the remaining the module name.
     For example:
     >>> module = "github.com/xx/a"
-    >>> assert GoproxyVersionAPI.trim_go_url_path("https://github.com/xx/a/b") == module
+    >>> assert trim_go_url_path("https://github.com/xx/a/b") == module
     """
     # some advisories contains this prefix in package name, e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
     if url_path.startswith("https://pkg.go.dev/"):
