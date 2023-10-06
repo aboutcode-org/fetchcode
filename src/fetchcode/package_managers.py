@@ -87,8 +87,10 @@ def get_launchpad_versions_from_purl(purl):
                     value=source_package_version,
                     release_date=release_date,
                 )
-        if response.get("next_collection_link"):
-            url = response["next_collection_link"]
+
+        next_collection_link = response.get("next_collection_link")
+        if next_collection_link:
+            url = next_collection_link
         else:
             break
 
@@ -99,7 +101,6 @@ def get_pypi_versions_from_purl(purl):
     purl = PackageURL.from_string(purl)
     response = get_response(url=f"https://pypi.org/pypi/{purl.name}/json")
     if not response:
-        # FIXME: raise!
         return
 
     releases = response.get("releases") or {}
@@ -139,14 +140,18 @@ def get_gem_versions_from_purl(purl):
     if not response:
         return
     for release in response:
-        if release.get("published_at"):
-            release_date = dateparser.parse(release["published_at"])
-        elif release.get("created_at"):
-            release_date = dateparser.parse(release["created_at"])
-        else:
-            release_date = None
-        if release.get("number"):
-            yield PackageVersion(value=release["number"], release_date=release_date)
+        published_at = release.get("published_at")
+        created_at = release.get("created_at")
+        number = release.get("number")
+        release_date = None
+
+        if published_at:
+            release_date = dateparser.parse(published_at)
+        elif created_at:
+            release_date = dateparser.parse(created_at)
+
+        if number:
+            yield PackageVersion(value=number, release_date=release_date)
         else:
             logger.error(f"Failed to parse release {release} from url: {url}")
 
@@ -329,8 +334,10 @@ def trim_go_url_path(url_path: str) -> Optional[str]:
     >>> assert trim_go_url_path("https://github.com/xx/a/b") == module
     """
     # some advisories contains this prefix in package name, e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
-    if url_path.startswith("https://pkg.go.dev/"):
-        url_path = url_path[len("https://pkg.go.dev/") :]
+    go_url_prefix = "https://pkg.go.dev/"
+    if url_path.startswith(go_url_prefix):
+        url_path = url_path[len(go_url_prefix):]
+
     parsed_url_path = urlparse(url_path)
     path = parsed_url_path.path
     parts = path.split("/")
