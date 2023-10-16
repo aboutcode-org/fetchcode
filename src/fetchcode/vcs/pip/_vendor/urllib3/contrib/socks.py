@@ -34,7 +34,6 @@ with the proxy::
     proxy_url="socks5h://<username>:<password>@proxy-host"
 
 """
-from __future__ import absolute_import
 
 try:
     import socks

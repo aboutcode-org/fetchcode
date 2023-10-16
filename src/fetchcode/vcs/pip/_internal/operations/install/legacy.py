@@ -9,7 +9,9 @@ from distutils.util import change_root
 from fetchcode.vcs.pip._internal.utils.deprecation import deprecated
 from fetchcode.vcs.pip._internal.utils.logging import indent_log
 from fetchcode.vcs.pip._internal.utils.misc import ensure_dir
-from fetchcode.vcs.pip._internal.utils.setuptools_build import make_setuptools_install_args
+from fetchcode.vcs.pip._internal.utils.setuptools_build import (
+    make_setuptools_install_args,
+)
 from fetchcode.vcs.pip._internal.utils.subprocess import runner_with_spinner_message
 from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
 from fetchcode.vcs.pip._internal.utils.typing import MYPY_CHECK_RUNNING
@@ -52,7 +54,7 @@ def install(
 
     with TempDirectory(kind="record") as temp_dir:
         try:
-            record_filename = os.path.join(temp_dir.path, 'install-record.txt')
+            record_filename = os.path.join(temp_dir.path, "install-record.txt")
             install_args = make_setuptools_install_args(
                 setup_py_path,
                 global_options=global_options,
@@ -77,7 +79,7 @@ def install(
                 )
 
             if not os.path.exists(record_filename):
-                logger.debug('Record file %s not found', record_filename)
+                logger.debug("Record file %s not found", record_filename)
                 # Signal to the caller that we didn't install the new package
                 return False
 
@@ -102,7 +104,7 @@ def install(
 
     for line in record_lines:
         directory = os.path.dirname(line)
-        if directory.endswith('.egg-info'):
+        if directory.endswith(".egg-info"):
             egg_info_dir = prepend_root(directory)
             break
     else:
@@ -115,9 +117,7 @@ def install(
             replacement=(
                 "for maintainers: updating the setup.py of {0}. "
                 "For users: contact the maintainers of {0} to let "
-                "them know to update their setup.py.".format(
-                    req_name
-                )
+                "them know to update their setup.py.".format(req_name)
             ),
             gone_in="20.2",
             issue=6998,
@@ -130,13 +130,11 @@ def install(
         filename = line.strip()
         if os.path.isdir(filename):
             filename += os.path.sep
-        new_lines.append(
-            os.path.relpath(prepend_root(filename), egg_info_dir)
-        )
+        new_lines.append(os.path.relpath(prepend_root(filename), egg_info_dir))
     new_lines.sort()
     ensure_dir(egg_info_dir)
-    inst_files_path = os.path.join(egg_info_dir, 'installed-files.txt')
-    with open(inst_files_path, 'w') as f:
-        f.write('\n'.join(new_lines) + '\n')
+    inst_files_path = os.path.join(egg_info_dir, "installed-files.txt")
+    with open(inst_files_path, "w") as f:
+        f.write("\n".join(new_lines) + "\n")
 
     return True

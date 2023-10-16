@@ -13,7 +13,11 @@ from collections import OrderedDict
 
 from fetchcode.vcs.pip._vendor import html5lib, requests
 from fetchcode.vcs.pip._vendor.distlib.compat import unescape
-from fetchcode.vcs.pip._vendor.requests.exceptions import HTTPError, RetryError, SSLError
+from fetchcode.vcs.pip._vendor.requests.exceptions import (
+    HTTPError,
+    RetryError,
+    SSLError,
+)
 from fetchcode.vcs.pip._vendor.six.moves.urllib import parse as urllib_parse
 from fetchcode.vcs.pip._vendor.six.moves.urllib import request as urllib_request
 
@@ -26,8 +30,16 @@ from fetchcode.vcs.pip._internal.vcs import is_url, vcs
 
 if MYPY_CHECK_RUNNING:
     from typing import (
-        Callable, Iterable, List, MutableMapping, Optional,
-        Protocol, Sequence, Tuple, TypeVar, Union,
+        Callable,
+        Iterable,
+        List,
+        MutableMapping,
+        Optional,
+        Protocol,
+        Sequence,
+        Tuple,
+        TypeVar,
+        Union,
     )
     import xml.etree.ElementTree
 
@@ -40,7 +52,7 @@ if MYPY_CHECK_RUNNING:
     ResponseHeaders = MutableMapping[str, str]
 
     # Used in the @lru_cache polyfill.
-    F = TypeVar('F')
+    F = TypeVar("F")
 
     class LruCache(Protocol):
         def __call__(self, maxsize=None):
@@ -58,6 +70,7 @@ def noop_lru_cache(maxsize=None):
     def _wrapper(f):
         # type: (F) -> F
         return f
+
     return _wrapper
 
 
@@ -71,15 +84,14 @@ def _match_vcs_scheme(url):
     Returns the matched VCS scheme, or None if there's no match.
     """
     for scheme in vcs.schemes:
-        if url.lower().startswith(scheme) and url[len(scheme)] in '+:':
+        if url.lower().startswith(scheme) and url[len(scheme)] in "+:":
             return scheme
     return None
 
 
 def _is_url_like_archive(url):
     # type: (str) -> bool
-    """Return whether the URL looks like an archive.
-    """
+    """Return whether the URL looks like an archive."""
     filename = Link(url).filename
     for bad_ext in ARCHIVE_EXTENSIONS:
         if filename.endswith(bad_ext):
@@ -118,7 +130,7 @@ def _ensure_html_response(url, session):
     `_NotHTML` if the content type is not text/html.
     """
     scheme, netloc, path, query, fragment = urllib_parse.urlsplit(url)
-    if scheme not in {'http', 'https'}:
+    if scheme not in {"http", "https"}:
         raise _NotHTTP()
 
     resp = session.head(url, allow_redirects=True)
@@ -144,7 +156,7 @@ def _get_html_response(url, session):
     if _is_url_like_archive(url):
         _ensure_html_response(url, session=session)
 
-    logger.debug('Getting page %s', redact_auth_from_url(url))
+    logger.debug("Getting page %s", redact_auth_from_url(url))
 
     resp = session.get(
         url,
@@ -180,12 +192,11 @@ def _get_html_response(url, session):
 
 def _get_encoding_from_headers(headers):
     # type: (ResponseHeaders) -> Optional[str]
-    """Determine if we have any encoding information in our headers.
-    """
+    """Determine if we have any encoding information in our headers."""
     if headers and "Content-Type" in headers:
         content_type, params = cgi.parse_header(headers["Content-Type"])
         if "charset" in params:
-            return params['charset']
+            return params["charset"]
     return None
 
 
@@ -233,7 +244,7 @@ def _clean_file_url_path(part):
 
 
 # percent-encoded:                   /
-_reserved_chars_re = re.compile('(@|%2F)', re.IGNORECASE)
+_reserved_chars_re = re.compile("(@|%2F)", re.IGNORECASE)
 
 
 def _clean_url_path(path, is_local_path):
@@ -251,12 +262,12 @@ def _clean_url_path(path, is_local_path):
     parts = _reserved_chars_re.split(path)
 
     cleaned_parts = []
-    for to_clean, reserved in pairwise(itertools.chain(parts, [''])):
+    for to_clean, reserved in pairwise(itertools.chain(parts, [""])):
         cleaned_parts.append(clean_func(to_clean))
         # Normalize %xx escapes (e.g. %2f -> %2F)
         cleaned_parts.append(reserved.upper())
 
-    return ''.join(cleaned_parts)
+    return "".join(cleaned_parts)
 
 
 def _clean_link(url):
@@ -276,7 +287,7 @@ def _clean_link(url):
 
 
 def _create_link_from_element(
-    anchor,    # type: HTMLElement
+    anchor,  # type: HTMLElement
     page_url,  # type: str
     base_url,  # type: str
 ):
@@ -289,10 +300,10 @@ def _create_link_from_element(
         return None
 
     url = _clean_link(urllib_parse.urljoin(base_url, href))
-    pyrequire = anchor.get('data-requires-python')
+    pyrequire = anchor.get("data-requires-python")
     pyrequire = unescape(pyrequire) if pyrequire else None
 
-    yanked_reason = anchor.get('data-yanked')
+    yanked_reason = anchor.get("data-yanked")
     if yanked_reason:
         # This is a unicode string in Python 2 (and 3).
         yanked_reason = unescape(yanked_reason)
@@ -315,8 +326,7 @@ class CacheablePageContent(object):
 
     def __eq__(self, other):
         # type: (object) -> bool
-        return (isinstance(other, type(self)) and
-                self.page.url == other.page.url)
+        return isinstance(other, type(self)) and self.page.url == other.page.url
 
     def __hash__(self):
         # type: () -> int
@@ -324,7 +334,7 @@ class CacheablePageContent(object):
 
 
 def with_cached_html_pages(
-    fn,    # type: Callable[[HTMLPage], Iterable[Link]]
+    fn,  # type: Callable[[HTMLPage], Iterable[Link]]
 ):
     # type: (...) -> Callable[[HTMLPage], List[Link]]
     """
@@ -378,9 +388,9 @@ class HTMLPage(object):
 
     def __init__(
         self,
-        content,                  # type: bytes
-        encoding,                 # type: Optional[str]
-        url,                      # type: str
+        content,  # type: bytes
+        encoding,  # type: Optional[str]
+        url,  # type: str
         cache_link_parsing=True,  # type: bool
     ):
         # type: (...) -> None
@@ -404,7 +414,7 @@ class HTMLPage(object):
 def _handle_get_page_fail(
     link,  # type: Link
     reason,  # type: Union[str, Exception]
-    meth=None  # type: Optional[Callable[..., None]]
+    meth=None,  # type: Optional[Callable[..., None]]
 ):
     # type: (...) -> None
     if meth is None:
@@ -419,7 +429,8 @@ def _make_html_page(response, cache_link_parsing=True):
         response.content,
         encoding=encoding,
         url=response.url,
-        cache_link_parsing=cache_link_parsing)
+        cache_link_parsing=cache_link_parsing,
+    )
 
 
 def _get_html_page(link, session=None):
@@ -429,35 +440,38 @@ def _get_html_page(link, session=None):
             "_get_html_page() missing 1 required keyword argument: 'session'"
         )
 
-    url = link.url.split('#', 1)[0]
+    url = link.url.split("#", 1)[0]
 
     # Check for VCS schemes that do not support lookup as web pages.
     vcs_scheme = _match_vcs_scheme(url)
     if vcs_scheme:
-        logger.debug('Cannot look at %s URL %s', vcs_scheme, link)
+        logger.debug("Cannot look at %s URL %s", vcs_scheme, link)
         return None
 
     # Tack index.html onto file:// URLs that point to directories
     scheme, _, path, _, _, _ = urllib_parse.urlparse(url)
-    if (scheme == 'file' and os.path.isdir(urllib_request.url2pathname(path))):
+    if scheme == "file" and os.path.isdir(urllib_request.url2pathname(path)):
         # add trailing slash if not present so urljoin doesn't trim
         # final segment
-        if not url.endswith('/'):
-            url += '/'
-        url = urllib_parse.urljoin(url, 'index.html')
-        logger.debug(' file: URL is directory, getting %s', url)
+        if not url.endswith("/"):
+            url += "/"
+        url = urllib_parse.urljoin(url, "index.html")
+        logger.debug(" file: URL is directory, getting %s", url)
 
     try:
         resp = _get_html_response(url, session=session)
     except _NotHTTP:
         logger.debug(
-            'Skipping page %s because it looks like an archive, and cannot '
-            'be checked by HEAD.', link,
+            "Skipping page %s because it looks like an archive, and cannot "
+            "be checked by HEAD.",
+            link,
         )
     except _NotHTML as exc:
         logger.debug(
-            'Skipping page %s because the %s request got Content-Type: %s',
-            link, exc.request_desc, exc.content_type,
+            "Skipping page %s because the %s request got Content-Type: %s",
+            link,
+            exc.request_desc,
+            exc.content_type,
         )
     except HTTPError as exc:
         _handle_get_page_fail(link, exc)
@@ -472,8 +486,7 @@ def _get_html_page(link, session=None):
     except requests.Timeout:
         _handle_get_page_fail(link, "timed out")
     else:
-        return _make_html_page(resp,
-                               cache_link_parsing=link.cache_link_parsing)
+        return _make_html_page(resp, cache_link_parsing=link.cache_link_parsing)
     return None
 
 
@@ -500,7 +513,7 @@ def group_locations(locations, expand_dir=False):
     def sort_path(path):
         # type: (str) -> None
         url = path_to_url(path)
-        if mimetypes.guess_type(url, strict=False)[0] == 'text/html':
+        if mimetypes.guess_type(url, strict=False)[0] == "text/html":
             urls.append(url)
         else:
             files.append(url)
@@ -508,7 +521,7 @@ def group_locations(locations, expand_dir=False):
     for url in locations:
 
         is_local_path = os.path.exists(url)
-        is_file_url = url.startswith('file:')
+        is_file_url = url.startswith("file:")
 
         if is_local_path or is_file_url:
             if is_local_path:
@@ -524,15 +537,14 @@ def group_locations(locations, expand_dir=False):
                     urls.append(url)
                 else:
                     logger.warning(
-                        "Path '{0}' is ignored: "
-                        "it is a directory.".format(path),
+                        "Path '{0}' is ignored: " "it is a directory.".format(path),
                     )
             elif os.path.isfile(path):
                 sort_path(path)
             else:
                 logger.warning(
-                    "Url '%s' is ignored: it is neither a file "
-                    "nor a directory.", url,
+                    "Url '%s' is ignored: it is neither a file " "nor a directory.",
+                    url,
                 )
         elif is_url(url):
             # Only add url with clear scheme
@@ -540,7 +552,8 @@ def group_locations(locations, expand_dir=False):
         else:
             logger.warning(
                 "Url '%s' is ignored. It is either a non-existing "
-                "path or lacks a specific scheme.", url,
+                "path or lacks a specific scheme.",
+                url,
             )
 
     return files, urls
@@ -565,8 +578,8 @@ class CollectedLinks(object):
 
     def __init__(
         self,
-        files,         # type: List[Link]
-        find_links,    # type: List[Link]
+        files,  # type: List[Link]
+        find_links,  # type: List[Link]
         project_urls,  # type: List[Link]
     ):
         # type: (...) -> None
@@ -592,7 +605,7 @@ class LinkCollector(object):
 
     def __init__(
         self,
-        session,       # type: PipSession
+        session,  # type: PipSession
         search_scope,  # type: SearchScope
     ):
         # type: (...) -> None
@@ -621,21 +634,21 @@ class LinkCollector(object):
         index_locations = search_scope.get_index_urls_locations(project_name)
         index_file_loc, index_url_loc = group_locations(index_locations)
         fl_file_loc, fl_url_loc = group_locations(
-            self.find_links, expand_dir=True,
+            self.find_links,
+            expand_dir=True,
         )
 
-        file_links = [
-            Link(url) for url in itertools.chain(index_file_loc, fl_file_loc)
-        ]
+        file_links = [Link(url) for url in itertools.chain(index_file_loc, fl_file_loc)]
 
         # We trust every directly linked archive in find_links
-        find_link_links = [Link(url, '-f') for url in self.find_links]
+        find_link_links = [Link(url, "-f") for url in self.find_links]
 
         # We trust every url that the user has given us whether it was given
         # via --index-url or --find-links.
         # We want to filter out anything that does not have a secure origin.
         url_locations = [
-            link for link in itertools.chain(
+            link
+            for link in itertools.chain(
                 # Mark PyPI indices as "cache_link_parsing == False" -- this
                 # will avoid caching the result of parsing the page for links.
                 (Link(url, cache_link_parsing=False) for url in index_url_loc),
@@ -646,13 +659,14 @@ class LinkCollector(object):
 
         url_locations = _remove_duplicate_links(url_locations)
         lines = [
-            '{} location(s) to search for versions of {}:'.format(
-                len(url_locations), project_name,
+            "{} location(s) to search for versions of {}:".format(
+                len(url_locations),
+                project_name,
             ),
         ]
         for link in url_locations:
-            lines.append('* {}'.format(link))
-        logger.debug('\n'.join(lines))
+            lines.append("* {}".format(link))
+        logger.debug("\n".join(lines))
 
         return CollectedLinks(
             files=file_links,

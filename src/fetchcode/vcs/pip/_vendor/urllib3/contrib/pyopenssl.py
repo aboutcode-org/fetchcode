@@ -41,7 +41,6 @@ set the ``urllib3.contrib.pyopenssl.DEFAULT_SSL_CIPHER_LIST`` variable.
 .. _sni: https://en.wikipedia.org/wiki/Server_Name_Indication
 .. _crime attack: https://en.wikipedia.org/wiki/CRIME_(security_exploit)
 """
-from __future__ import absolute_import
 
 import OpenSSL.SSL
 from cryptography import x509
@@ -185,7 +184,7 @@ def _dnsname_to_stdlib(name):
         from fetchcode.vcs.pip._vendor import idna
 
         try:
-            for prefix in [u"*.", u"."]:
+            for prefix in ["*.", "."]:
                 if name.startswith(prefix):
                     name = name[len(prefix) :]
                     return prefix.encode("ascii") + idna.encode(name)
@@ -399,7 +398,6 @@ if _fileobject:  # Platform-specific: Python 2
     def makefile(self, mode, bufsize=-1):
         self._makefile_refs += 1
         return _fileobject(self, mode, bufsize, close=True)
-
 
 else:  # Platform-specific: Python 3
     makefile = backport_makefile

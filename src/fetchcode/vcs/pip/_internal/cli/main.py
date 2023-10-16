@@ -1,6 +1,5 @@
 """Primary application entrypoint.
 """
-from __future__ import absolute_import
 
 import locale
 import logging
@@ -46,6 +45,7 @@ logger = logging.getLogger(__name__)
 # call to main. As it is not safe to do any processing after calling
 # main, this should not be an issue in practice.
 
+
 def main(args=None):
     # type: (Optional[List[str]]) -> int
     if args is None:
@@ -66,7 +66,7 @@ def main(args=None):
     # Needed for locale.getpreferredencoding(False) to work
     # in pip._internal.utils.encoding.auto_decode
     try:
-        locale.setlocale(locale.LC_ALL, '')
+        locale.setlocale(locale.LC_ALL, "")
     except locale.Error as e:
         # setlocale can apparently crash if locale are uninitialized
         logger.debug("Ignoring error %s when setting locale", e)

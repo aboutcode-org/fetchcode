@@ -1,7 +1,6 @@
 # This file is dual licensed under the terms of the Apache License, Version
 # 2.0, and the BSD License. See the LICENSE file in the root of this repository
 # for complete details.
-from __future__ import absolute_import, division, print_function
 
 import abc
 import functools
@@ -311,7 +310,7 @@ class LegacySpecifier(_IndividualSpecifier):
 
 
 def _require_version_compare(
-    fn  # type: (Callable[[Specifier, ParsedVersion, str], bool])
+    fn,  # type: (Callable[[Specifier, ParsedVersion, str], bool])
 ):
     # type: (...) -> Callable[[Specifier, ParsedVersion, str], bool]
     @functools.wraps(fn)

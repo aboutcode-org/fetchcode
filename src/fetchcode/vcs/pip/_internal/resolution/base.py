@@ -5,9 +5,7 @@ if MYPY_CHECK_RUNNING:
     from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
     from fetchcode.vcs.pip._internal.req.req_set import RequirementSet
 
-    InstallRequirementProvider = Callable[
-        [str, InstallRequirement], InstallRequirement
-    ]
+    InstallRequirementProvider = Callable[[str, InstallRequirement], InstallRequirement]
 
 
 class BaseResolver(object):

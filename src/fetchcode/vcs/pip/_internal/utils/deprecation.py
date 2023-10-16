@@ -5,7 +5,6 @@ A module that implements tooling to enable easy warnings about deprecations.
 # The following comment should be removed at some point in the future.
 # mypy: disallow-untyped-defs=False
 
-from __future__ import absolute_import
 
 import logging
 import warnings
@@ -34,7 +33,12 @@ def _showwarning(message, category, filename, lineno, file=None, line=None):
     if file is not None:
         if _original_showwarning is not None:
             _original_showwarning(
-                message, category, filename, lineno, file, line,
+                message,
+                category,
+                filename,
+                lineno,
+                file,
+                line,
             )
     elif issubclass(category, PipDeprecationWarning):
         # We use a specially named logger which will handle all of the
@@ -43,7 +47,12 @@ def _showwarning(message, category, filename, lineno, file=None, line=None):
         logger.warning(message)
     else:
         _original_showwarning(
-            message, category, filename, lineno, file, line,
+            message,
+            category,
+            filename,
+            lineno,
+            file,
+            line,
         )
 
 
@@ -88,10 +97,13 @@ def deprecated(reason, replacement, gone_in, issue=None):
         (reason, DEPRECATION_MSG_PREFIX + "{}"),
         (gone_in, "pip {} will remove support for this functionality."),
         (replacement, "A possible replacement is {}."),
-        (issue, (
-            "You can find discussion regarding this at "
-            "https://github.com/pypa/pip/issues/{}."
-        )),
+        (
+            issue,
+            (
+                "You can find discussion regarding this at "
+                "https://github.com/pypa/pip/issues/{}."
+            ),
+        ),
     ]
     message = " ".join(
         template.format(val) for val, template in sentences if val is not None

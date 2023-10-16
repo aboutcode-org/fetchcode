@@ -33,7 +33,7 @@ class PipProvider(AbstractProvider):
         self,
         resolution,  # type: Optional[Candidate]
         candidates,  # type: Sequence[Candidate]
-        information  # type: Sequence[Tuple[Requirement, Candidate]]
+        information,  # type: Sequence[Tuple[Requirement, Candidate]]
     ):
         # type: (...) -> Any
         # Use the "usual" value for now

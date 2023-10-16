@@ -2,7 +2,6 @@
 # 2.0, and the BSD License. See the LICENSE file in the root of this repository
 # for complete details.
 
-from __future__ import absolute_import
 
 import distutils.util
 
@@ -54,7 +53,7 @@ INTERPRETER_SHORT_NAMES = {
 }  # type: Dict[str, str]
 
 
-_32_BIT_INTERPRETER = sys.maxsize <= 2 ** 32
+_32_BIT_INTERPRETER = sys.maxsize <= 2**32
 
 
 class Tag(object):
@@ -541,7 +540,7 @@ class _ELFFileHeader(object):
         def unpack(fmt):
             # type: (str) -> int
             try:
-                result, = struct.unpack(
+                (result,) = struct.unpack(
                     fmt, file.read(struct.calcsize(fmt))
                 )  # type: (int, )
             except struct.error:

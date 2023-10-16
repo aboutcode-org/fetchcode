@@ -42,7 +42,6 @@ if sys.version_info >= (3, 5):
     def _retry_on_intr(fn, timeout):
         return fn(timeout)
 
-
 else:
     # Old and broken Pythons.
     def _retry_on_intr(fn, timeout):
@@ -140,14 +139,14 @@ def wait_for_socket(*args, **kwargs):
 
 
 def wait_for_read(sock, timeout=None):
-    """ Waits for reading to be available on a given socket.
+    """Waits for reading to be available on a given socket.
     Returns True if the socket is readable, or False if the timeout expired.
     """
     return wait_for_socket(sock, read=True, timeout=timeout)
 
 
 def wait_for_write(sock, timeout=None):
-    """ Waits for writing to be available on a given socket.
+    """Waits for writing to be available on a given socket.
     Returns True if the socket is readable, or False if the timeout expired.
     """
     return wait_for_socket(sock, write=True, timeout=timeout)

@@ -1,4 +1,3 @@
-from __future__ import absolute_import
 import errno
 import logging
 import sys
@@ -312,7 +311,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
         pass
 
     def _get_timeout(self, timeout):
-        """ Helper that always returns a :class:`urllib3.util.Timeout` """
+        """Helper that always returns a :class:`urllib3.util.Timeout`"""
         if timeout is _Default:
             return self.timeout.clone()
 

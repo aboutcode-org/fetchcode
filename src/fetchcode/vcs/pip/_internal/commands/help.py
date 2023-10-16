@@ -1,7 +1,6 @@
 # The following comment should be removed at some point in the future.
 # mypy: disallow-untyped-defs=False
 
-from __future__ import absolute_import
 
 from fetchcode.vcs.pip._internal.cli.base_command import Command
 from fetchcode.vcs.pip._internal.cli.status_codes import SUCCESS
@@ -17,7 +16,9 @@ class HelpCommand(Command):
 
     def run(self, options, args):
         from fetchcode.vcs.pip._internal.commands import (
-            commands_dict, create_command, get_similar_commands,
+            commands_dict,
+            create_command,
+            get_similar_commands,
         )
 
         try:
@@ -33,7 +34,7 @@ class HelpCommand(Command):
             if guess:
                 msg.append('maybe you meant "{}"'.format(guess))
 
-            raise CommandError(' - '.join(msg))
+            raise CommandError(" - ".join(msg))
 
         command = create_command(cmd_name)
         command.parser.print_help()

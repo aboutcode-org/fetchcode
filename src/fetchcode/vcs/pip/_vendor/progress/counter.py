@@ -14,7 +14,6 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-from __future__ import unicode_literals
 from . import Infinite, Progress
 
 
@@ -29,7 +28,7 @@ class Countdown(Progress):
 
 
 class Stack(Progress):
-    phases = (' ', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█')
+    phases = (" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█")
 
     def update(self):
         nphases = len(self.phases)
@@ -38,4 +37,4 @@ class Stack(Progress):
 
 
 class Pie(Stack):
-    phases = ('○', '◔', '◑', '◕', '●')
+    phases = ("○", "◔", "◑", "◕", "●")

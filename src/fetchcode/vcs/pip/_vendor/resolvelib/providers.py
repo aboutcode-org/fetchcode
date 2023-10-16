@@ -1,6 +1,5 @@
 class AbstractProvider(object):
-    """Delegate class to provide requirement interface for the resolver.
-    """
+    """Delegate class to provide requirement interface for the resolver."""
 
     def identify(self, dependency):
         """Given a dependency, return an identifier for it.
@@ -80,8 +79,7 @@ class AbstractProvider(object):
 
 
 class AbstractResolver(object):
-    """The thing that performs the actual resolution work.
-    """
+    """The thing that performs the actual resolution work."""
 
     base_exception = Exception
 

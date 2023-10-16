@@ -14,12 +14,11 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-from __future__ import unicode_literals
 from . import Infinite
 
 
 class Spinner(Infinite):
-    phases = ('-', '\\', '|', '/')
+    phases = ("-", "\\", "|", "/")
     hide_cursor = True
 
     def update(self):
@@ -28,16 +27,16 @@ class Spinner(Infinite):
 
 
 class PieSpinner(Spinner):
-    phases = ['◷', '◶', '◵', '◴']
+    phases = ["◷", "◶", "◵", "◴"]
 
 
 class MoonSpinner(Spinner):
-    phases = ['◑', '◒', '◐', '◓']
+    phases = ["◑", "◒", "◐", "◓"]
 
 
 class LineSpinner(Spinner):
-    phases = ['⎺', '⎻', '⎼', '⎽', '⎼', '⎻']
+    phases = ["⎺", "⎻", "⎼", "⎽", "⎼", "⎻"]
 
 
 class PixelSpinner(Spinner):
-    phases = ['⣾', '⣷', '⣯', '⣟', '⡿', '⢿', '⣻', '⣽']
+    phases = ["⣾", "⣷", "⣯", "⣟", "⡿", "⢿", "⣻", "⣽"]

@@ -49,7 +49,6 @@ license and by oscrypto's:
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
 """
-from __future__ import absolute_import
 
 import contextlib
 import ctypes
@@ -725,7 +724,6 @@ if _fileobject:  # Platform-specific: Python 2
     def makefile(self, mode, bufsize=-1):
         self._makefile_refs += 1
         return _fileobject(self, mode, bufsize, close=True)
-
 
 else:  # Platform-specific: Python 3
 

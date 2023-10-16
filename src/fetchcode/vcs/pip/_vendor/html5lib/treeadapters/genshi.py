@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, unicode_literals
-
 from genshi.core import QName, Attrs
 from genshi.core import START, END, TEXT, COMMENT, DOCTYPE
 
@@ -26,8 +24,12 @@ def to_genshi(walker):
                 name = "{%s}%s" % (token["namespace"], token["name"])
             else:
                 name = token["name"]
-            attrs = Attrs([(QName("{%s}%s" % attr if attr[0] is not None else attr[1]), value)
-                           for attr, value in token["data"].items()])
+            attrs = Attrs(
+                [
+                    (QName("{%s}%s" % attr if attr[0] is not None else attr[1]), value)
+                    for attr, value in token["data"].items()
+                ]
+            )
             yield (START, (QName(name), attrs), (None, -1, -1))
             if type == "EmptyTag":
                 type = "EndTag"
@@ -44,8 +46,11 @@ def to_genshi(walker):
             yield COMMENT, token["data"], (None, -1, -1)
 
         elif type == "Doctype":
-            yield DOCTYPE, (token["name"], token["publicId"],
-                            token["systemId"]), (None, -1, -1)
+            yield DOCTYPE, (token["name"], token["publicId"], token["systemId"]), (
+                None,
+                -1,
+                -1,
+            )
 
         else:
             pass  # FIXME: What to do?

@@ -1,7 +1,6 @@
 # The following comment should be removed at some point in the future.
 # mypy: disallow-untyped-defs=False
 
-from __future__ import absolute_import
 
 import logging
 import os
@@ -10,7 +9,11 @@ from fetchcode.vcs.pip._internal.cli import cmdoptions
 from fetchcode.vcs.pip._internal.cli.cmdoptions import make_target_python
 from fetchcode.vcs.pip._internal.cli.req_command import RequirementCommand, with_cleanup
 from fetchcode.vcs.pip._internal.req.req_tracker import get_requirement_tracker
-from fetchcode.vcs.pip._internal.utils.misc import ensure_dir, normalize_path, write_output
+from fetchcode.vcs.pip._internal.utils.misc import (
+    ensure_dir,
+    normalize_path,
+    write_output,
+)
 from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
 
 logger = logging.getLogger(__name__)
@@ -58,9 +61,12 @@ class DownloadCommand(RequirementCommand):
         cmd_opts.add_option(cmdoptions.no_use_pep517())
 
         cmd_opts.add_option(
-            '-d', '--dest', '--destination-dir', '--destination-directory',
-            dest='download_dir',
-            metavar='dir',
+            "-d",
+            "--dest",
+            "--destination-dir",
+            "--destination-directory",
+            dest="download_dir",
+            metavar="dir",
             default=os.curdir,
             help=("Download packages into <dir>."),
         )
@@ -96,7 +102,7 @@ class DownloadCommand(RequirementCommand):
             session=session,
             target_python=target_python,
         )
-        build_delete = (not (options.no_clean or options.build_dir))
+        build_delete = not (options.no_clean or options.build_dir)
 
         req_tracker = self.enter_context(get_requirement_tracker())
 
@@ -128,15 +134,16 @@ class DownloadCommand(RequirementCommand):
 
         self.trace_basic_info(finder)
 
-        requirement_set = resolver.resolve(
-            reqs, check_supported_wheels=True
-        )
+        requirement_set = resolver.resolve(reqs, check_supported_wheels=True)
 
-        downloaded = ' '.join([
-            req.name for req in requirement_set.requirements.values()
-            if req.successfully_downloaded
-        ])
+        downloaded = " ".join(
+            [
+                req.name
+                for req in requirement_set.requirements.values()
+                if req.successfully_downloaded
+            ]
+        )
         if downloaded:
-            write_output('Successfully downloaded %s', downloaded)
+            write_output("Successfully downloaded %s", downloaded)
 
         return requirement_set

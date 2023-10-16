@@ -14,6 +14,7 @@ _spec_ = "0.4.0"
 
 class TomlDecodeError(Exception):
     """Base toml Exception / Error."""
+
     pass
 
 
@@ -23,7 +24,7 @@ class TomlTz(datetime.tzinfo):
             self._raw_offset = "+00:00"
         else:
             self._raw_offset = toml_offset
-        self._sign = -1 if self._raw_offset[0] == '-' else 1
+        self._sign = -1 if self._raw_offset[0] == "-" else 1
         self._hours = int(self._raw_offset[1:3])
         self._minutes = int(self._raw_offset[4:6])
 
@@ -31,8 +32,7 @@ class TomlTz(datetime.tzinfo):
         return "UTC" + self._raw_offset
 
     def utcoffset(self, dt):
-        return self._sign * datetime.timedelta(hours=self._hours,
-                                               minutes=self._minutes)
+        return self._sign * datetime.timedelta(hours=self._hours, minutes=self._minutes)
 
     def dst(self, dt):
         return datetime.timedelta(0)
@@ -85,34 +85,36 @@ def load(f, _dict=dict):
     """
 
     if isinstance(f, basestring):
-        with io.open(f, encoding='utf-8') as ffile:
+        with io.open(f, encoding="utf-8") as ffile:
             return loads(ffile.read(), _dict)
     elif isinstance(f, list):
         from os import path as op
         from warnings import warn
+
         if not [path for path in f if op.exists(path)]:
             error_msg = "Load expects a list to contain filenames only."
             error_msg += linesep
-            error_msg += ("The list needs to contain the path of at least one "
-                          "existing file.")
+            error_msg += (
+                "The list needs to contain the path of at least one " "existing file."
+            )
             raise FNFError(error_msg)
         d = _dict()
         for l in f:
             if op.exists(l):
                 d.update(load(l))
             else:
-                warn("Non-existent filename in list with at least one valid "
-                     "filename")
+                warn(
+                    "Non-existent filename in list with at least one valid " "filename"
+                )
         return d
     else:
         try:
             return loads(f.read(), _dict)
         except AttributeError:
-            raise TypeError("You can only load a file descriptor, filename or "
-                            "list")
+            raise TypeError("You can only load a file descriptor, filename or " "list")
 
 
-_groupname_re = re.compile(r'^[A-Za-z0-9_-]+$')
+_groupname_re = re.compile(r"^[A-Za-z0-9_-]+$")
 
 
 def loads(s, _dict=dict):
@@ -137,7 +139,7 @@ def loads(s, _dict=dict):
         raise TypeError("Expecting something like a string")
 
     if not isinstance(s, unicode):
-        s = s.decode('utf8')
+        s = s.decode("utf8")
 
     sl = list(s)
     openarr = 0
@@ -149,13 +151,14 @@ def loads(s, _dict=dict):
     keygroup = False
     keyname = 0
     for i, item in enumerate(sl):
-        if item == '\r' and sl[i + 1] == '\n':
-            sl[i] = ' '
+        if item == "\r" and sl[i + 1] == "\n":
+            sl[i] = " "
             continue
         if keyname:
-            if item == '\n':
-                raise TomlDecodeError("Key name found without value."
-                                      " Reached end of line.")
+            if item == "\n":
+                raise TomlDecodeError(
+                    "Key name found without value." " Reached end of line."
+                )
             if openstring:
                 if item == openstrchar:
                     keyname = 2
@@ -166,15 +169,18 @@ def loads(s, _dict=dict):
                 if item.isspace():
                     keyname = 2
                     continue
-                elif item.isalnum() or item == '_' or item == '-':
+                elif item.isalnum() or item == "_" or item == "-":
                     continue
             elif keyname == 2 and item.isspace():
                 continue
-            if item == '=':
+            if item == "=":
                 keyname = 0
             else:
-                raise TomlDecodeError("Found invalid character in key name: '" +
-                                      item + "'. Try quoting the key name.")
+                raise TomlDecodeError(
+                    "Found invalid character in key name: '"
+                    + item
+                    + "'. Try quoting the key name."
+                )
         if item == "'" and openstrchar != '"':
             k = 1
             try:
@@ -204,7 +210,7 @@ def loads(s, _dict=dict):
                         tripquote = True
                         break
                 if k == 1 or (k == 3 and tripquote):
-                    while sl[i - k] == '\\':
+                    while sl[i - k] == "\\":
                         oddbackslash = not oddbackslash
                         k += 1
             except IndexError:
@@ -219,58 +225,55 @@ def loads(s, _dict=dict):
                 openstrchar = '"'
             else:
                 openstrchar = ""
-        if item == '#' and (not openstring and not keygroup and
-                            not arrayoftables):
+        if item == "#" and (not openstring and not keygroup and not arrayoftables):
             j = i
             try:
-                while sl[j] != '\n':
-                    sl[j] = ' '
+                while sl[j] != "\n":
+                    sl[j] = " "
                     j += 1
             except IndexError:
                 break
-        if item == '[' and (not openstring and not keygroup and
-                            not arrayoftables):
+        if item == "[" and (not openstring and not keygroup and not arrayoftables):
             if beginline:
-                if len(sl) > i + 1 and sl[i + 1] == '[':
+                if len(sl) > i + 1 and sl[i + 1] == "[":
                     arrayoftables = True
                 else:
                     keygroup = True
             else:
                 openarr += 1
-        if item == ']' and not openstring:
+        if item == "]" and not openstring:
             if keygroup:
                 keygroup = False
             elif arrayoftables:
-                if sl[i - 1] == ']':
+                if sl[i - 1] == "]":
                     arrayoftables = False
             else:
                 openarr -= 1
-        if item == '\n':
+        if item == "\n":
             if openstring or multilinestr:
                 if not multilinestr:
                     raise TomlDecodeError("Unbalanced quotes")
-                if ((sl[i - 1] == "'" or sl[i - 1] == '"') and (
-                        sl[i - 2] == sl[i - 1])):
+                if (sl[i - 1] == "'" or sl[i - 1] == '"') and (sl[i - 2] == sl[i - 1]):
                     sl[i] = sl[i - 1]
                     if sl[i - 3] == sl[i - 1]:
-                        sl[i - 3] = ' '
+                        sl[i - 3] = " "
             elif openarr:
-                sl[i] = ' '
+                sl[i] = " "
             else:
                 beginline = True
-        elif beginline and sl[i] != ' ' and sl[i] != '\t':
+        elif beginline and sl[i] != " " and sl[i] != "\t":
             beginline = False
             if not keygroup and not arrayoftables:
-                if sl[i] == '=':
+                if sl[i] == "=":
                     raise TomlDecodeError("Found empty keyname. ")
                 keyname = 1
-    s = ''.join(sl)
-    s = s.split('\n')
+    s = "".join(sl)
+    s = s.split("\n")
     multikey = None
     multilinestr = ""
     multibackslash = False
     for line in s:
-        if not multilinestr or multibackslash or '\n' not in multilinestr:
+        if not multilinestr or multibackslash or "\n" not in multilinestr:
             line = line.strip()
         if line == "" and (not multikey or multibackslash):
             continue
@@ -280,9 +283,11 @@ def loads(s, _dict=dict):
             else:
                 multilinestr += line
             multibackslash = False
-            if len(line) > 2 and (line[-1] == multilinestr[0] and
-                                  line[-2] == multilinestr[0] and
-                                  line[-3] == multilinestr[0]):
+            if len(line) > 2 and (
+                line[-1] == multilinestr[0]
+                and line[-2] == multilinestr[0]
+                and line[-3] == multilinestr[0]
+            ):
                 try:
                     value, vtype = _load_value(multilinestr, _dict)
                 except ValueError as err:
@@ -292,7 +297,7 @@ def loads(s, _dict=dict):
                 multilinestr = ""
             else:
                 k = len(multilinestr) - 1
-                while k > -1 and multilinestr[k] == '\\':
+                while k > -1 and multilinestr[k] == "\\":
                     multibackslash = not multibackslash
                     k -= 1
                 if multibackslash:
@@ -300,18 +305,17 @@ def loads(s, _dict=dict):
                 else:
                     multilinestr += "\n"
             continue
-        if line[0] == '[':
+        if line[0] == "[":
             arrayoftables = False
             if len(line) == 1:
-                raise TomlDecodeError("Opening key group bracket on line by "
-                                      "itself.")
-            if line[1] == '[':
+                raise TomlDecodeError("Opening key group bracket on line by " "itself.")
+            if line[1] == "[":
                 arrayoftables = True
                 line = line[2:]
-                splitstr = ']]'
+                splitstr = "]]"
             else:
                 line = line[1:]
-                splitstr = ']'
+                splitstr = "]"
             i = 1
             quotesplits = _get_split_on_quotes(line)
             quoted = False
@@ -323,48 +327,54 @@ def loads(s, _dict=dict):
             line = line.split(splitstr, i)
             if len(line) < i + 1 or line[-1].strip() != "":
                 raise TomlDecodeError("Key group not on a line by itself.")
-            groups = splitstr.join(line[:-1]).split('.')
+            groups = splitstr.join(line[:-1]).split(".")
             i = 0
             while i < len(groups):
                 groups[i] = groups[i].strip()
-                if len(groups[i]) > 0 and (groups[i][0] == '"' or
-                                           groups[i][0] == "'"):
+                if len(groups[i]) > 0 and (groups[i][0] == '"' or groups[i][0] == "'"):
                     groupstr = groups[i]
                     j = i + 1
                     while not groupstr[0] == groupstr[-1]:
                         j += 1
                         if j > len(groups) + 2:
-                            raise TomlDecodeError("Invalid group name '" +
-                                                  groupstr + "' Something " +
-                                                  "went wrong.")
-                        groupstr = '.'.join(groups[i:j]).strip()
+                            raise TomlDecodeError(
+                                "Invalid group name '"
+                                + groupstr
+                                + "' Something "
+                                + "went wrong."
+                            )
+                        groupstr = ".".join(groups[i:j]).strip()
                     groups[i] = groupstr[1:-1]
-                    groups[i + 1:j] = []
+                    groups[i + 1 : j] = []
                 else:
                     if not _groupname_re.match(groups[i]):
-                        raise TomlDecodeError("Invalid group name '" +
-                                              groups[i] + "'. Try quoting it.")
+                        raise TomlDecodeError(
+                            "Invalid group name '" + groups[i] + "'. Try quoting it."
+                        )
                 i += 1
             currentlevel = retval
             for i in _range(len(groups)):
                 group = groups[i]
                 if group == "":
-                    raise TomlDecodeError("Can't have a keygroup with an empty "
-                                          "name")
+                    raise TomlDecodeError("Can't have a keygroup with an empty " "name")
                 try:
                     currentlevel[group]
                     if i == len(groups) - 1:
                         if group in implicitgroups:
                             implicitgroups.remove(group)
                             if arrayoftables:
-                                raise TomlDecodeError("An implicitly defined "
-                                                      "table can't be an array")
+                                raise TomlDecodeError(
+                                    "An implicitly defined " "table can't be an array"
+                                )
                         elif arrayoftables:
                             currentlevel[group].append(_dict())
                         else:
-                            raise TomlDecodeError("What? " + group +
-                                                  " already exists?" +
-                                                  str(currentlevel))
+                            raise TomlDecodeError(
+                                "What? "
+                                + group
+                                + " already exists?"
+                                + str(currentlevel)
+                            )
                 except TypeError:
                     currentlevel = currentlevel[-1]
                     try:
@@ -387,17 +397,14 @@ def loads(s, _dict=dict):
                         pass
         elif line[0] == "{":
             if line[-1] != "}":
-                raise TomlDecodeError("Line breaks are not allowed in inline"
-                                      "objects")
+                raise TomlDecodeError("Line breaks are not allowed in inline" "objects")
             try:
-                _load_inline_object(line, currentlevel, _dict, multikey,
-                                    multibackslash)
+                _load_inline_object(line, currentlevel, _dict, multikey, multibackslash)
             except ValueError as err:
                 raise TomlDecodeError(str(err))
         elif "=" in line:
             try:
-                ret = _load_line(line, currentlevel, _dict, multikey,
-                                 multibackslash)
+                ret = _load_line(line, currentlevel, _dict, multikey, multibackslash)
             except ValueError as err:
                 raise TomlDecodeError(str(err))
             if ret is not None:
@@ -405,8 +412,9 @@ def loads(s, _dict=dict):
     return retval
 
 
-def _load_inline_object(line, currentlevel, _dict, multikey=False,
-                        multibackslash=False):
+def _load_inline_object(
+    line, currentlevel, _dict, multikey=False, multibackslash=False
+):
     candidate_groups = line[1:-1].split(",")
     groups = []
     if len(candidate_groups) == 1 and not candidate_groups[0].strip():
@@ -414,50 +422,50 @@ def _load_inline_object(line, currentlevel, _dict, multikey=False,
     while len(candidate_groups) > 0:
         candidate_group = candidate_groups.pop(0)
         try:
-            _, value = candidate_group.split('=', 1)
+            _, value = candidate_group.split("=", 1)
         except ValueError:
             raise ValueError("Invalid inline table encountered")
         value = value.strip()
-        if ((value[0] == value[-1] and value[0] in ('"', "'")) or (
-                value[0] in '-0123456789' or
-                value in ('true', 'false') or
-                (value[0] == "[" and value[-1] == "]") or
-                (value[0] == '{' and value[-1] == '}'))):
+        if (value[0] == value[-1] and value[0] in ('"', "'")) or (
+            value[0] in "-0123456789"
+            or value in ("true", "false")
+            or (value[0] == "[" and value[-1] == "]")
+            or (value[0] == "{" and value[-1] == "}")
+        ):
             groups.append(candidate_group)
         elif len(candidate_groups) > 0:
             candidate_groups[0] = candidate_group + "," + candidate_groups[0]
         else:
             raise ValueError("Invalid inline table value encountered")
     for group in groups:
-        status = _load_line(group, currentlevel, _dict, multikey,
-                            multibackslash)
+        status = _load_line(group, currentlevel, _dict, multikey, multibackslash)
         if status is not None:
             break
 
 
 # Matches a TOML number, which allows underscores for readability
-_number_with_underscores = re.compile('([0-9])(_([0-9]))*')
+_number_with_underscores = re.compile("([0-9])(_([0-9]))*")
 
 
 def _strictly_valid_num(n):
     n = n.strip()
     if not n:
         return False
-    if n[0] == '_':
+    if n[0] == "_":
         return False
-    if n[-1] == '_':
+    if n[-1] == "_":
         return False
     if "_." in n or "._" in n:
         return False
     if len(n) == 1:
         return True
-    if n[0] == '0' and n[1] != '.':
+    if n[0] == "0" and n[1] != ".":
         return False
-    if n[0] == '+' or n[0] == '-':
+    if n[0] == "+" or n[0] == "-":
         n = n[1:]
-        if n[0] == '0' and n[1] != '.':
+        if n[0] == "0" and n[1] != ".":
             return False
-    if '__' in n:
+    if "__" in n:
         return False
     return True
 
@@ -473,8 +481,9 @@ def _get_split_on_quotes(line):
             singlequotesplits[-1] += '"' + doublequotesplits[0]
             doublequotesplits = doublequotesplits[1:]
             if "'" in singlequotesplits[-1]:
-                singlequotesplits = (singlequotesplits[:-1] +
-                                     singlequotesplits[-1].split("'"))
+                singlequotesplits = singlequotesplits[:-1] + singlequotesplits[
+                    -1
+                ].split("'")
         quotesplits += singlequotesplits
     for doublequotesplit in doublequotesplits:
         if quoted:
@@ -490,18 +499,24 @@ def _load_line(line, currentlevel, _dict, multikey, multibackslash):
     quotesplits = _get_split_on_quotes(line)
     quoted = False
     for quotesplit in quotesplits:
-        if not quoted and '=' in quotesplit:
+        if not quoted and "=" in quotesplit:
             break
-        i += quotesplit.count('=')
+        i += quotesplit.count("=")
         quoted = not quoted
-    pair = line.split('=', i)
+    pair = line.split("=", i)
     strictly_valid = _strictly_valid_num(pair[-1])
     if _number_with_underscores.match(pair[-1]):
-        pair[-1] = pair[-1].replace('_', '')
-    while len(pair[-1]) and (pair[-1][0] != ' ' and pair[-1][0] != '\t' and
-                             pair[-1][0] != "'" and pair[-1][0] != '"' and
-                             pair[-1][0] != '[' and pair[-1][0] != '{' and
-                             pair[-1] != 'true' and pair[-1] != 'false'):
+        pair[-1] = pair[-1].replace("_", "")
+    while len(pair[-1]) and (
+        pair[-1][0] != " "
+        and pair[-1][0] != "\t"
+        and pair[-1][0] != "'"
+        and pair[-1][0] != '"'
+        and pair[-1][0] != "["
+        and pair[-1][0] != "{"
+        and pair[-1] != "true"
+        and pair[-1] != "false"
+    ):
         try:
             float(pair[-1])
             break
@@ -511,24 +526,29 @@ def _load_line(line, currentlevel, _dict, multikey, multibackslash):
             break
         i += 1
         prev_val = pair[-1]
-        pair = line.split('=', i)
+        pair = line.split("=", i)
         if prev_val == pair[-1]:
             raise ValueError("Invalid date or number")
         if strictly_valid:
             strictly_valid = _strictly_valid_num(pair[-1])
-    pair = ['='.join(pair[:-1]).strip(), pair[-1].strip()]
-    if (pair[0][0] == '"' or pair[0][0] == "'") and \
-            (pair[0][-1] == '"' or pair[0][-1] == "'"):
+    pair = ["=".join(pair[:-1]).strip(), pair[-1].strip()]
+    if (pair[0][0] == '"' or pair[0][0] == "'") and (
+        pair[0][-1] == '"' or pair[0][-1] == "'"
+    ):
         pair[0] = pair[0][1:-1]
-    if len(pair[1]) > 2 and ((pair[1][0] == '"' or pair[1][0] == "'") and
-                             pair[1][1] == pair[1][0] and
-                             pair[1][2] == pair[1][0] and
-                             not (len(pair[1]) > 5 and
-                                  pair[1][-1] == pair[1][0] and
-                                  pair[1][-2] == pair[1][0] and
-                                  pair[1][-3] == pair[1][0])):
+    if len(pair[1]) > 2 and (
+        (pair[1][0] == '"' or pair[1][0] == "'")
+        and pair[1][1] == pair[1][0]
+        and pair[1][2] == pair[1][0]
+        and not (
+            len(pair[1]) > 5
+            and pair[1][-1] == pair[1][0]
+            and pair[1][-2] == pair[1][0]
+            and pair[1][-3] == pair[1][0]
+        )
+    ):
         k = len(pair[1]) - 1
-        while k > -1 and pair[1][k] == '\\':
+        while k > -1 and pair[1][k] == "\\":
             multibackslash = not multibackslash
             k -= 1
         if multibackslash:
@@ -553,23 +573,22 @@ def _load_date(val):
     tz = None
     try:
         if len(val) > 19:
-            if val[19] == '.':
-                if val[-1].upper() == 'Z':
+            if val[19] == ".":
+                if val[-1].upper() == "Z":
                     subsecondval = val[20:-1]
                     tzval = "Z"
                 else:
                     subsecondvalandtz = val[20:]
-                    if '+' in subsecondvalandtz:
-                        splitpoint = subsecondvalandtz.index('+')
+                    if "+" in subsecondvalandtz:
+                        splitpoint = subsecondvalandtz.index("+")
                         subsecondval = subsecondvalandtz[:splitpoint]
                         tzval = subsecondvalandtz[splitpoint:]
-                    elif '-' in subsecondvalandtz:
-                        splitpoint = subsecondvalandtz.index('-')
+                    elif "-" in subsecondvalandtz:
+                        splitpoint = subsecondvalandtz.index("-")
                         subsecondval = subsecondvalandtz[:splitpoint]
                         tzval = subsecondvalandtz[splitpoint:]
                 tz = TomlTz(tzval)
-                microsecond = int(int(subsecondval) *
-                                  (10 ** (6 - len(subsecondval))))
+                microsecond = int(int(subsecondval) * (10 ** (6 - len(subsecondval))))
             else:
                 tz = TomlTz(val[19:])
     except ValueError:
@@ -578,9 +597,15 @@ def _load_date(val):
         return None
     try:
         d = datetime.datetime(
-            int(val[:4]), int(val[5:7]),
-            int(val[8:10]), int(val[11:13]),
-            int(val[14:16]), int(val[17:19]), microsecond, tz)
+            int(val[:4]),
+            int(val[5:7]),
+            int(val[8:10]),
+            int(val[11:13]),
+            int(val[14:16]),
+            int(val[17:19]),
+            microsecond,
+            tz,
+        )
     except ValueError:
         return None
     return d
@@ -589,14 +614,14 @@ def _load_date(val):
 def _load_unicode_escapes(v, hexbytes, prefix):
     skip = False
     i = len(v) - 1
-    while i > -1 and v[i] == '\\':
+    while i > -1 and v[i] == "\\":
         skip = not skip
         i -= 1
     for hx in hexbytes:
         if skip:
             skip = False
             i = len(hx) - 1
-            while i > -1 and hx[i] == '\\':
+            while i > -1 and hx[i] == "\\":
                 skip = not skip
                 i -= 1
             v += prefix
@@ -607,23 +632,26 @@ def _load_unicode_escapes(v, hexbytes, prefix):
         hxblen = 4
         if prefix == "\\U":
             hxblen = 8
-        hxb = ''.join(hx[i:i + hxblen]).lower()
-        if hxb.strip('0123456789abcdef'):
+        hxb = "".join(hx[i : i + hxblen]).lower()
+        if hxb.strip("0123456789abcdef"):
             raise ValueError("Invalid escape sequence: " + hxb)
-        if hxb[0] == "d" and hxb[1].strip('01234567'):
-            raise ValueError("Invalid escape sequence: " + hxb +
-                             ". Only scalar unicode points are allowed.")
+        if hxb[0] == "d" and hxb[1].strip("01234567"):
+            raise ValueError(
+                "Invalid escape sequence: "
+                + hxb
+                + ". Only scalar unicode points are allowed."
+            )
         v += unichr(int(hxb, 16))
-        v += unicode(hx[len(hxb):])
+        v += unicode(hx[len(hxb) :])
     return v
 
 
 # Unescape TOML string values.
 
 # content after the \
-_escapes = ['0', 'b', 'f', 'n', 'r', 't', '"']
+_escapes = ["0", "b", "f", "n", "r", "t", '"']
 # What it should be replaced by
-_escapedchars = ['\0', '\b', '\f', '\n', '\r', '\t', '\"']
+_escapedchars = ["\0", "\b", "\f", "\n", "\r", "\t", '"']
 # Used for substitution
 _escape_to_escapedchars = dict(zip(_escapes, _escapedchars))
 
@@ -636,15 +664,15 @@ def _unescape(v):
         if backslash:
             backslash = False
             if v[i] in _escapes:
-                v = v[:i - 1] + _escape_to_escapedchars[v[i]] + v[i + 1:]
-            elif v[i] == '\\':
-                v = v[:i - 1] + v[i:]
-            elif v[i] == 'u' or v[i] == 'U':
+                v = v[: i - 1] + _escape_to_escapedchars[v[i]] + v[i + 1 :]
+            elif v[i] == "\\":
+                v = v[: i - 1] + v[i:]
+            elif v[i] == "u" or v[i] == "U":
                 i += 1
             else:
                 raise ValueError("Reserved escape sequence used")
             continue
-        elif v[i] == '\\':
+        elif v[i] == "\\":
             backslash = True
         i += 1
     return v
@@ -653,20 +681,20 @@ def _unescape(v):
 def _load_value(v, _dict, strictly_valid=True):
     if not v:
         raise ValueError("Empty value is invalid")
-    if v == 'true':
+    if v == "true":
         return (True, "bool")
-    elif v == 'false':
+    elif v == "false":
         return (False, "bool")
     elif v[0] == '"':
         testv = v[1:].split('"')
         triplequote = False
         triplequotecount = 0
-        if len(testv) > 1 and testv[0] == '' and testv[1] == '':
+        if len(testv) > 1 and testv[0] == "" and testv[1] == "":
             testv = testv[2:]
             triplequote = True
         closed = False
         for tv in testv:
-            if tv == '':
+            if tv == "":
                 if triplequote:
                     triplequotecount += 1
                 else:
@@ -676,7 +704,7 @@ def _load_value(v, _dict, strictly_valid=True):
                 try:
                     i = -1
                     j = tv[i]
-                    while j == '\\':
+                    while j == "\\":
                         oddbackslash = not oddbackslash
                         i -= 1
                         j = tv[i]
@@ -690,14 +718,15 @@ def _load_value(v, _dict, strictly_valid=True):
                             closed = True
                         else:
                             triplequotecount = 0
-        escapeseqs = v.split('\\')[1:]
+        escapeseqs = v.split("\\")[1:]
         backslash = False
         for i in escapeseqs:
-            if i == '':
+            if i == "":
                 backslash = not backslash
             else:
-                if i[0] not in _escapes and (i[0] != 'u' and i[0] != 'U' and
-                                             not backslash):
+                if i[0] not in _escapes and (
+                    i[0] != "u" and i[0] != "U" and not backslash
+                ):
                     raise ValueError("Reserved escape sequence used")
                 if backslash:
                     backslash = False
@@ -713,9 +742,9 @@ def _load_value(v, _dict, strictly_valid=True):
         if v[1] == "'" and (len(v) < 3 or v[1] == v[2]):
             v = v[2:-2]
         return (v[1:-1], "str")
-    elif v[0] == '[':
+    elif v[0] == "[":
         return (_load_array(v, _dict), "array")
-    elif v[0] == '{':
+    elif v[0] == "{":
         inline_object = _get_empty_inline_table(_dict)
         _load_inline_object(v, inline_object, _dict)
         return (inline_object, "inline_object")
@@ -724,21 +753,21 @@ def _load_value(v, _dict, strictly_valid=True):
         if parsed_date is not None:
             return (parsed_date, "date")
         if not strictly_valid:
-            raise ValueError("Weirdness with leading zeroes or "
-                             "underscores in your number.")
+            raise ValueError(
+                "Weirdness with leading zeroes or " "underscores in your number."
+            )
         itype = "int"
         neg = False
-        if v[0] == '-':
+        if v[0] == "-":
             neg = True
             v = v[1:]
-        elif v[0] == '+':
+        elif v[0] == "+":
             v = v[1:]
-        v = v.replace('_', '')
-        if '.' in v or 'e' in v or 'E' in v:
-            if '.' in v and v.split('.', 1)[1] == '':
-                raise ValueError("This float is missing digits after "
-                                 "the point")
-            if v[0] not in '0123456789':
+        v = v.replace("_", "")
+        if "." in v or "e" in v or "E" in v:
+            if "." in v and v.split(".", 1)[1] == "":
+                raise ValueError("This float is missing digits after " "the point")
+            if v[0] not in "0123456789":
                 raise ValueError("This float doesn't have a leading digit")
             v = float(v)
             itype = "float"
@@ -769,13 +798,13 @@ def _load_array(a, _dict):
     atype = None
     retval = []
     a = a.strip()
-    if '[' not in a[1:-1] or "" != a[1:-1].split('[')[0].strip():
+    if "[" not in a[1:-1] or "" != a[1:-1].split("[")[0].strip():
         strarray = False
         tmpa = a[1:-1].strip()
-        if tmpa != '' and (tmpa[0] == '"' or tmpa[0] == "'"):
+        if tmpa != "" and (tmpa[0] == '"' or tmpa[0] == "'"):
             strarray = True
-        if not a[1:-1].strip().startswith('{'):
-            a = a[1:-1].split(',')
+        if not a[1:-1].strip().startswith("{"):
+            a = a[1:-1].split(",")
         else:
             # a is an inline object, we must find the matching parenthesis
             # to define groups
@@ -787,12 +816,11 @@ def _load_array(a, _dict):
                 if a[end_group_index] == '"' or a[end_group_index] == "'":
                     if in_str:
                         backslash_index = end_group_index - 1
-                        while (backslash_index > -1 and
-                               a[backslash_index] == '\\'):
+                        while backslash_index > -1 and a[backslash_index] == "\\":
                             in_str = not in_str
                             backslash_index -= 1
                     in_str = not in_str
-                if in_str or a[end_group_index] != '}':
+                if in_str or a[end_group_index] != "}":
                     end_group_index += 1
                     continue
 
@@ -804,8 +832,7 @@ def _load_array(a, _dict):
                 # closing bracket can be followed by a comma since we are in
                 # an array.
                 start_group_index = end_group_index + 1
-                while (start_group_index < len(a[1:]) and
-                       a[start_group_index] != '{'):
+                while start_group_index < len(a[1:]) and a[start_group_index] != "{":
                     start_group_index += 1
                 end_group_index = start_group_index + 1
             a = new_a
@@ -813,17 +840,18 @@ def _load_array(a, _dict):
         if strarray:
             while b < len(a) - 1:
                 ab = a[b].strip()
-                while (not _bounded_string(ab) or
-                       (len(ab) > 2 and
-                        ab[0] == ab[1] == ab[2] and
-                        ab[-2] != ab[0] and
-                        ab[-3] != ab[0])):
-                    a[b] = a[b] + ',' + a[b + 1]
+                while not _bounded_string(ab) or (
+                    len(ab) > 2
+                    and ab[0] == ab[1] == ab[2]
+                    and ab[-2] != ab[0]
+                    and ab[-3] != ab[0]
+                ):
+                    a[b] = a[b] + "," + a[b + 1]
                     ab = a[b].strip()
                     if b < len(a) - 2:
-                        a = a[:b + 1] + a[b + 2:]
+                        a = a[: b + 1] + a[b + 2 :]
                     else:
-                        a = a[:b + 1]
+                        a = a[: b + 1]
                 b += 1
     else:
         al = list(a[1:-1])
@@ -831,17 +859,17 @@ def _load_array(a, _dict):
         openarr = 0
         j = 0
         for i in _range(len(al)):
-            if al[i] == '[':
+            if al[i] == "[":
                 openarr += 1
-            elif al[i] == ']':
+            elif al[i] == "]":
                 openarr -= 1
-            elif al[i] == ',' and not openarr:
-                a.append(''.join(al[j:i]))
+            elif al[i] == "," and not openarr:
+                a.append("".join(al[j:i]))
                 j = i + 1
-        a.append(''.join(al[j:]))
+        a.append("".join(al[j:]))
     for i in _range(len(a)):
         a[i] = a[i].strip()
-        if a[i] != '':
+        if a[i] != "":
             nval, ntype = _load_value(a[i], _dict)
             if atype:
                 if ntype != atype:
@@ -891,8 +919,9 @@ def dumps(o, preserve=False):
     while sections != {}:
         newsections = {}
         for section in sections:
-            addtoretval, addtosections = _dump_sections(sections[section],
-                                                        section, preserve)
+            addtoretval, addtosections = _dump_sections(
+                sections[section], section, preserve
+            )
             if addtoretval or (not addtoretval and not addtosections):
                 if retval and retval[-2:] != "\n\n":
                     retval += "\n"
@@ -908,13 +937,13 @@ def dumps(o, preserve=False):
 def _dump_sections(o, sup, preserve=False):
     retstr = ""
     if sup != "" and sup[-1] != ".":
-        sup += '.'
+        sup += "."
     retdict = o.__class__()
     arraystr = ""
     for section in o:
         section = unicode(section)
         qsection = section
-        if not re.match(r'^[A-Za-z0-9_-]+$', section):
+        if not re.match(r"^[A-Za-z0-9_-]+$", section):
             if '"' in section:
                 qsection = "'" + section + "'"
             else:
@@ -938,11 +967,11 @@ def _dump_sections(o, sup, preserve=False):
                     while d != {}:
                         newd = {}
                         for dsec in d:
-                            s1, d1 = _dump_sections(d[dsec], sup + qsection +
-                                                    "." + dsec)
+                            s1, d1 = _dump_sections(
+                                d[dsec], sup + qsection + "." + dsec
+                            )
                             if s1:
-                                arraytabstr += ("[" + sup + qsection + "." +
-                                                dsec + "]\n")
+                                arraytabstr += "[" + sup + qsection + "." + dsec + "]\n"
                                 arraytabstr += s1
                             for s1 in d1:
                                 newd[dsec + "." + s1] = d1[s1]
@@ -950,10 +979,9 @@ def _dump_sections(o, sup, preserve=False):
                     arraystr += arraytabstr
             else:
                 if o[section] is not None:
-                    retstr += (qsection + " = " +
-                               unicode(_dump_value(o[section])) + '\n')
+                    retstr += qsection + " = " + unicode(_dump_value(o[section])) + "\n"
         elif preserve and isinstance(o[section], InlineTableDict):
-            retstr += (qsection + " = " + _dump_inline_table(o[section]))
+            retstr += qsection + " = " + _dump_inline_table(o[section])
         else:
             retdict[qsection] = o[section]
     retstr += arraystr
@@ -986,21 +1014,21 @@ def _dump_value(v):
         int: lambda v: v,
         bool: lambda v: unicode(v).lower(),
         float: _dump_float,
-        datetime.datetime: lambda v: v.isoformat().replace('+00:00', 'Z'),
+        datetime.datetime: lambda v: v.isoformat().replace("+00:00", "Z"),
     }
     # Lookup function corresponding to v's type
     dump_fn = dump_funcs.get(type(v))
-    if dump_fn is None and hasattr(v, '__iter__'):
+    if dump_fn is None and hasattr(v, "__iter__"):
         dump_fn = dump_funcs[list]
     # Evaluate function (if it exists) else return v
     return dump_fn(v) if dump_fn is not None else dump_funcs[str](v)
 
 
 def _dump_str(v):
-    if sys.version_info < (3,) and hasattr(v, 'decode') and isinstance(v, str):
-        v = v.decode('utf-8')
+    if sys.version_info < (3,) and hasattr(v, "decode") and isinstance(v, str):
+        v = v.decode("utf-8")
     v = "%r" % v
-    if v[0] == 'u':
+    if v[0] == "u":
         v = v[1:]
     singlequote = v.startswith("'")
     if singlequote or v.startswith('"'):

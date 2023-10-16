@@ -1,5 +1,3 @@
-from __future__ import absolute_import
-
 try:
     from collections.abc import Mapping, MutableMapping
 except ImportError:
@@ -190,7 +188,7 @@ class HTTPHeaderDict(MutableMapping):
 
     def pop(self, key, default=__marker):
         """D.pop(k[,d]) -> v, remove specified key and return the corresponding value.
-          If key is not found, d is returned if given, otherwise KeyError is raised.
+        If key is not found, d is returned if given, otherwise KeyError is raised.
         """
         # Using the MutableMapping function directly fails due to the private marker.
         # Using ordinary dict.pop would expose the internal structures.

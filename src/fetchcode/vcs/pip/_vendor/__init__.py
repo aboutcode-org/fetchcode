@@ -5,7 +5,6 @@ depend on something external.
 Files inside of pip._vendor should be considered immutable and should only be
 updated to versions from upstream.
 """
-from __future__ import absolute_import
 
 import glob
 import os.path
@@ -94,8 +93,7 @@ if DEBUNDLED:
     vendored("requests.packages.urllib3.packages.ordered_dict")
     vendored("requests.packages.urllib3.packages.six")
     vendored("requests.packages.urllib3.packages.ssl_match_hostname")
-    vendored("requests.packages.urllib3.packages.ssl_match_hostname."
-             "_implementation")
+    vendored("requests.packages.urllib3.packages.ssl_match_hostname." "_implementation")
     vendored("requests.packages.urllib3.poolmanager")
     vendored("requests.packages.urllib3.request")
     vendored("requests.packages.urllib3.response")

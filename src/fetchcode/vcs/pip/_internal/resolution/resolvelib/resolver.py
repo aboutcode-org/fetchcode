@@ -72,8 +72,7 @@ class Resolver(BaseResolver):
         resolver = RLResolver(provider, reporter)
 
         requirements = [
-            self.factory.make_requirement_from_install_req(r)
-            for r in root_reqs
+            self.factory.make_requirement_from_install_req(r) for r in root_reqs
         ]
 
         try:
@@ -88,16 +87,14 @@ class Resolver(BaseResolver):
                 # using here.
                 for req, parent in e.causes:
                     logger.critical(
-                        "Could not find a version that satisfies " +
-                        "the requirement " +
-                        str(req) +
-                        ("" if parent is None else " (from {})".format(
-                            parent.name
-                        ))
+                        "Could not find a version that satisfies "
+                        + "the requirement "
+                        + str(req)
+                        + ("" if parent is None else " (from {})".format(parent.name))
                     )
                 raise InstallationError(
-                    "No matching distribution found for " +
-                    ", ".join([r.name for r, _ in e.causes])
+                    "No matching distribution found for "
+                    + ", ".join([r.name for r, _ in e.causes])
                 )
                 raise
             six.raise_from(error, e)
@@ -160,7 +157,7 @@ class Resolver(BaseResolver):
 
 
 def _req_set_item_sorter(
-    item,     # type: Tuple[str, InstallRequirement]
+    item,  # type: Tuple[str, InstallRequirement]
     weights,  # type: Dict[Optional[str], int]
 ):
     # type: (...) -> Tuple[int, str]
