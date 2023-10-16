@@ -15,8 +15,9 @@
 # specific language governing permissions and limitations under the License.
 
 import json
-import pytest
 from unittest import mock
+
+import pytest
 
 from fetchcode.package import info
 
@@ -25,6 +26,21 @@ def file_data(file_name):
     with open(file_name) as file:
         data = file.read()
         return json.loads(data)
+
+
+def create_tests(packages, path):
+    """
+    Helper function for Creating test files.
+    Takes in list(info(purl)) and path of the test_file.
+    """
+    test_data = {}
+    index = 0
+    test_file = open(path, "w")
+    for package in packages:
+        test_data[index] = dict(package.to_dict())
+        index += 1
+    test_file.write(json.dumps(test_data))
+    test_file.close()
 
 
 def match_data(packages, expected_data):
@@ -92,7 +108,10 @@ def test_bitbucket_packages(mock_get):
 
 @mock.patch("fetchcode.package.get_response")
 def test_rubygems_packages(mock_get):
-    side_effect = [file_data("tests/data/rubygems_mock_data.json")]
+    side_effect = [
+        file_data("tests/data/rubygems_mock_data.json"),
+        file_data("tests/data/rubygems_mock_data_versions.json")
+    ]
     purl = "pkg:rubygems/rubocop"
     expected_data = file_data("tests/data/rubygems.json")
     mock_get.side_effect = side_effect
@@ -101,7 +120,7 @@ def test_rubygems_packages(mock_get):
 
 
 @mock.patch("fetchcode.package.get_response")
-def test_tuby_package_with_invalid_url(mock_get):
+def test_ruby_package_with_invalid_url(mock_get):
     with pytest.raises(Exception) as e_info:
         purl = "pkg:ruby/file"
         packages = list(info(purl))
