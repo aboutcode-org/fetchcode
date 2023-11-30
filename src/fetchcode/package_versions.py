@@ -16,6 +16,7 @@
 
 import dataclasses
 import logging
+import os
 import traceback
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -24,11 +25,11 @@ from typing import Optional
 from urllib.parse import urlparse
 
 import requests
+import yaml
 from dateutil import parser as dateparser
 from packageurl import PackageURL
 from packageurl.contrib.route import NoRouteAvailable
 from packageurl.contrib.route import Router
-import yaml
 
 logger = logging.getLogger(__name__)
 
@@ -270,15 +271,8 @@ def get_conan_versions_from_purl(purl):
 def get_github_versions_from_purl(purl):
     """Fetch versions of ``github`` packages using GitHub REST API."""
     purl = PackageURL.from_string(purl)
-    response = get_response(
-        url=(f"https://api.github.com/repos/{purl.namespace}/{purl.name}/releases"),
-        content_type="json",
-    )
-    for release in response:
-        yield PackageVersion(
-            value=release["tag_name"],
-            release_date=dateparser.parse(release["published_at"]),
-        )
+
+    yield from fetch_github_tags_gql(purl)
 
 
 @router.route("pkg:golang/.*")
@@ -336,7 +330,7 @@ def trim_go_url_path(url_path: str) -> Optional[str]:
     # some advisories contains this prefix in package name, e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
     go_url_prefix = "https://pkg.go.dev/"
     if url_path.startswith(go_url_prefix):
-        url_path = url_path[len(go_url_prefix):]
+        url_path = url_path[len(go_url_prefix) :]
 
     parsed_url_path = urlparse(url_path)
     path = parsed_url_path.path
@@ -521,3 +515,123 @@ def get_response(url, content_type="json", headers=None):
 def remove_debian_default_epoch(version):
     """Remove the default epoch from a Debian ``version`` string."""
     return version and version.replace("0:", "")
+
+
+def fetch_github_tags_gql(purl):
+    """
+    Yield PackageVersion for given github ``purl`` using the GitHub GQL API.
+    """
+    for node in fetch_github_tag_nodes(purl):
+        name = node["name"]
+        target = node["target"]
+
+        # in case the tag is a signed tag, then the commit info is in target['target']
+        if "committedDate" not in target:
+            target = target["target"]
+
+        committed_date = target.get("committedDate")
+        release_date = None
+        if committed_date:
+            release_date = dateparser.parse(committed_date)
+
+        yield PackageVersion(value=name, release_date=release_date)
+
+
+def fetch_github_tag_nodes(purl):
+    """
+    Yield node name/target mappings for Git tags of the ``purl``.
+
+    Each node has this shape:
+        {
+        "name": "v2.6.24-rc5",
+        "target": {
+            "target": {
+            "committedDate": "2007-12-11T03:48:43Z"
+            }
+        }
+        },
+    """
+    GQL_QUERY = """
+    query getTags($name: String!, $owner: String!, $after: String)
+    {
+        repository(name: $name, owner: $owner) {
+            refs(refPrefix: "refs/tags/", first: 100, after: $after) {
+                totalCount
+                pageInfo {
+                    endCursor
+                    hasNextPage
+                }
+                nodes {
+                    name
+                    target {
+                        ... on Commit {
+                            committedDate
+                        }
+                        ... on Tag {
+                                target {
+                                ... on Commit {
+                                    committedDate
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }"""
+
+    variables = {
+        "owner": purl.namespace,
+        "name": purl.name,
+    }
+    graphql_query = {
+        "query": GQL_QUERY,
+        "variables": variables,
+    }
+
+    while True:
+        response = github_response(graphql_query)
+        refs = response["data"]["repository"]["refs"]
+        for node in refs["nodes"]:
+            yield node
+
+        page_info = refs["pageInfo"]
+        if not page_info["hasNextPage"]:
+            break
+
+        # to fetch next page, we just set the after variable to endCursor
+        variables["after"] = page_info["endCursor"]
+
+
+class GitHubTokenError(Exception):
+    pass
+
+
+class GraphQLError(Exception):
+    pass
+
+
+def github_response(graphql_query):
+    gh_token = os.environ.get("GH_TOKEN", None)
+
+    if not gh_token:
+        msg = (
+            "GitHub API Token Not Set\n"
+            "Set your GitHub token in the GH_TOKEN environment variable."
+        )
+        raise GitHubTokenError(msg)
+
+    headers = {"Authorization": f"bearer {gh_token}"}
+
+    endpoint = "https://api.github.com/graphql"
+    response = requests.post(endpoint, headers=headers, json=graphql_query).json()
+
+    message = response.get("message")
+    if message and message == "Bad credentials":
+        raise GitHubTokenError(f"Invalid GitHub token: {message}")
+
+    errors = response.get("errors")
+    if errors:
+        raise GraphQLError(errors)
+
+    return response
