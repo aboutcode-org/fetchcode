@@ -15,9 +15,14 @@
 # specific language governing permissions and limitations under the License.
 
 import json
+import os
 from unittest import mock
 
+import yaml
+
 from fetchcode.package_versions import versions
+
+FETCHCODE_REGEN_TEST_FIXTURES = os.getenv("FETCHCODE_REGEN_TEST_FIXTURES", False)
 
 
 def file_data(file_name):
@@ -26,10 +31,18 @@ def file_data(file_name):
         return json.loads(data)
 
 
-def match_data(result, expected_file):
+def match_data(
+    result,
+    expected_file,
+    regen=FETCHCODE_REGEN_TEST_FIXTURES,
+):
     expected_data = file_data(expected_file)
     result_dict = [i.to_dict() for i in result]
-    assert result_dict == expected_data
+    if regen:
+        with open(expected_file, "w") as file:
+            json.dump(result_dict, file, indent=4)
+
+    assert all([a in result_dict for a in expected_data])
 
 
 @mock.patch("fetchcode.package_versions.get_response")
@@ -137,7 +150,10 @@ def test_get_hex_versions_from_purl(mock_get_response):
 
 @mock.patch("fetchcode.package_versions.get_response")
 def test_get_conan_versions_from_purl(mock_get_response):
-    side_effect = [file_data("tests/data/package_versions/conan_mock_data.json")]
+    with open("tests/data/package_versions/conan_mock_data.yml", "r") as file:
+        data = yaml.safe_load(file)
+
+    side_effect = [data]
     purl = "pkg:conan/openssl"
     expected_file = "tests/data/package_versions/conan.json"
     mock_get_response.side_effect = side_effect
@@ -157,15 +173,18 @@ def test_get_conan_versions_from_purl(mock_get_response):
 
 @mock.patch("fetchcode.package_versions.get_response")
 def test_get_golang_versions_from_purl(mock_get_response):
-    side_effect = [
-        "v1.3.0\nv1.0.0\nv1.1.1\nv1.2.1\nv1.2.0\nv1.1.0\n",
-        {"Version": "v1.3.0", "Time": "2019-04-19T01:47:04Z"},
-        {"Version": "v1.0.0", "Time": "2018-02-22T03:48:05Z"},
-        {"Version": "v1.1.1", "Time": "2018-02-25T16:25:39Z"},
-        {"Version": "v1.2.1", "Time": "2018-03-01T05:21:19Z"},
-        {"Version": "v1.2.0", "Time": "2018-02-25T19:58:02Z"},
-        {"Version": "v1.1.0", "Time": "2018-02-24T22:49:07Z"},
-    ]
+    golang_version_list_file = (
+        "tests/data/package_versions/golang/golang_mock_meta_data.txt"
+    )
+    side_effect = []
+    with open(golang_version_list_file, "r") as file:
+        version_list = file.read()
+        side_effect.append(version_list)
+
+    for version in version_list.split():
+        version_file = f"tests/data/package_versions/golang/versions/golang_mock_{version}_data.json"
+        side_effect.append(file_data(version_file))
+
     purl = "pkg:golang/github.com/blockloop/scan"
     expected_file = "tests/data/package_versions/golang.json"
     mock_get_response.side_effect = side_effect

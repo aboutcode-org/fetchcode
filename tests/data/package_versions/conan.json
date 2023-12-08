@@ -1,6 +1,14 @@
 [
     {
-        "value": "3.1.2",
+        "value": "1.1.1w",
+        "release_date": null
+    },
+    {
+        "value": "3.0.11",
+        "release_date": null
+    },
+    {
+        "value": "3.0.12",
         "release_date": null
     },
     {
@@ -8,43 +16,19 @@
         "release_date": null
     },
     {
-        "value": "3.1.0",
+        "value": "3.1.2",
         "release_date": null
     },
     {
-        "value": "3.0.10",
+        "value": "3.1.3",
         "release_date": null
     },
     {
-        "value": "3.0.9",
+        "value": "3.1.4",
         "release_date": null
     },
     {
-        "value": "3.0.8",
-        "release_date": null
-    },
-    {
-        "value": "1.1.1w",
-        "release_date": null
-    },
-    {
-        "value": "1.1.1v",
-        "release_date": null
-    },
-    {
-        "value": "1.1.1u",
-        "release_date": null
-    },
-    {
-        "value": "1.1.1t",
-        "release_date": null
-    },
-    {
-        "value": "1.1.0l",
-        "release_date": null
-    },
-    {
-        "value": "1.0.2u",
+        "value": "3.2.0",
         "release_date": null
     }
 ]

@@ -18,16 +18,16 @@
                 "source": {
                     "url": "https://github.com/laravel/laravel.git",
                     "type": "git",
-                    "reference": "74c5a01b09b24950cfcffbbc3bad9c2749f7388b"
+                    "reference": "e57d15ac8f71ac65eb974b7a535804b6552bf4f1"
                 },
                 "dist": {
-                    "url": "https://api.github.com/repos/laravel/laravel/zipball/74c5a01b09b24950cfcffbbc3bad9c2749f7388b",
+                    "url": "https://api.github.com/repos/laravel/laravel/zipball/e57d15ac8f71ac65eb974b7a535804b6552bf4f1",
                     "type": "zip",
                     "shasum": "",
-                    "reference": "74c5a01b09b24950cfcffbbc3bad9c2749f7388b"
+                    "reference": "e57d15ac8f71ac65eb974b7a535804b6552bf4f1"
                 },
                 "type": "project",
-                "time": "2023-09-19T14:15:38+00:00",
+                "time": "2023-12-05T19:45:52+00:00",
                 "autoload": {
                     "psr-4": {
                         "App\\": "app/",
@@ -44,9 +44,9 @@
                 "require": {
                     "php": "^8.1",
                     "guzzlehttp/guzzle": "^7.2",
-                    "laravel/sanctum": "^3.2",
                     "laravel/tinker": "^2.8",
-                    "laravel/framework": "^10.10"
+                    "laravel/framework": "^10.10",
+                    "laravel/sanctum": "^3.3"
                 },
                 "require-dev": {
                     "fakerphp/faker": "^1.9.1",
@@ -765,16 +765,16 @@
                 "source": {
                     "url": "https://github.com/laravel/laravel.git",
                     "type": "git",
-                    "reference": "8dc6ced55ba6cfea7e973b1edf9a6d49751b1d8d"
+                    "reference": "b7ae61bb43960f2539776742a2126963effb1fbd"
                 },
                 "dist": {
-                    "url": "https://api.github.com/repos/laravel/laravel/zipball/8dc6ced55ba6cfea7e973b1edf9a6d49751b1d8d",
+                    "url": "https://api.github.com/repos/laravel/laravel/zipball/b7ae61bb43960f2539776742a2126963effb1fbd",
                     "type": "zip",
                     "shasum": "",
-                    "reference": "8dc6ced55ba6cfea7e973b1edf9a6d49751b1d8d"
+                    "reference": "b7ae61bb43960f2539776742a2126963effb1fbd"
                 },
                 "type": "project",
-                "time": "2023-09-13T21:03:34+00:00",
+                "time": "2023-11-30T22:36:08+00:00",
                 "autoload": {
                     "psr-4": {
                         "App\\": "app/",
@@ -794,16 +794,15 @@
                     "guzzlehttp/guzzle": "^7.2",
                     "php": "^8.2",
                     "laravel/framework": "^11.0",
-                    "laravel/sanctum": "dev-develop",
                     "laravel/tinker": "dev-develop"
                 },
                 "require-dev": {
                     "fakerphp/faker": "^1.9.1",
                     "mockery/mockery": "^1.4.4",
                     "laravel/pint": "^1.0",
-                    "nunomaduro/collision": "^7.0",
-                    "laravel/sail": "dev-develop",
-                    "phpunit/phpunit": "^10.1"
+                    "phpunit/phpunit": "^10.1",
+                    "nunomaduro/collision": "^8.0",
+                    "laravel/sail": "^1.26"
                 },
                 "uid": 3969941
             },
@@ -863,121 +862,6 @@
                     "spatie/laravel-ignition": "^2.0"
                 },
                 "uid": 7248306
-            },
-            "dev-revert-6240-revert-6239-10.x": {
-                "name": "laravel/laravel",
-                "description": "The skeleton application for the Laravel framework.",
-                "keywords": [
-                    "framework",
-                    "laravel"
-                ],
-                "homepage": "",
-                "version": "dev-revert-6240-revert-6239-10.x",
-                "version_normalized": "dev-revert-6240-revert-6239-10.x",
-                "license": [
-                    "MIT"
-                ],
-                "authors": [],
-                "source": {
-                    "url": "https://github.com/laravel/laravel.git",
-                    "type": "git",
-                    "reference": "07345458074aec0ff4756c37ba930139e64f56cf"
-                },
-                "dist": {
-                    "url": "https://api.github.com/repos/laravel/laravel/zipball/07345458074aec0ff4756c37ba930139e64f56cf",
-                    "type": "zip",
-                    "shasum": "",
-                    "reference": "07345458074aec0ff4756c37ba930139e64f56cf"
-                },
-                "type": "project",
-                "time": "2023-09-18T15:22:00+00:00",
-                "autoload": {
-                    "psr-4": {
-                        "App\\": "app/",
-                        "Database\\Seeders\\": "database/seeders/",
-                        "Database\\Factories\\": "database/factories/"
-                    }
-                },
-                "extra": {
-                    "laravel": {
-                        "dont-discover": []
-                    }
-                },
-                "require": {
-                    "php": "^8.1",
-                    "guzzlehttp/guzzle": "^7.2",
-                    "laravel/framework": "^10.10",
-                    "laravel/sanctum": "^3.2",
-                    "laravel/tinker": "^2.8"
-                },
-                "require-dev": {
-                    "fakerphp/faker": "^1.9.1",
-                    "laravel/pint": "^1.0",
-                    "laravel/sail": "^1.18",
-                    "mockery/mockery": "^1.4.4",
-                    "nunomaduro/collision": "^7.0",
-                    "phpunit/phpunit": "^10.1",
-                    "spatie/laravel-ignition": "^2.0"
-                },
-                "uid": 7528672
-            },
-            "dev-slim-skeleton-11.x": {
-                "name": "laravel/laravel",
-                "description": "The skeleton application for the Laravel framework.",
-                "keywords": [
-                    "framework",
-                    "laravel"
-                ],
-                "homepage": "",
-                "version": "dev-slim-skeleton-11.x",
-                "version_normalized": "dev-slim-skeleton-11.x",
-                "license": [
-                    "MIT"
-                ],
-                "authors": [],
-                "source": {
-                    "url": "https://github.com/laravel/laravel.git",
-                    "type": "git",
-                    "reference": "58077d049a86bbe1de4218b720474f726363ea59"
-                },
-                "dist": {
-                    "url": "https://api.github.com/repos/laravel/laravel/zipball/58077d049a86bbe1de4218b720474f726363ea59",
-                    "type": "zip",
-                    "shasum": "",
-                    "reference": "58077d049a86bbe1de4218b720474f726363ea59"
-                },
-                "type": "project",
-                "time": "2023-08-31T17:09:38+00:00",
-                "autoload": {
-                    "psr-4": {
-                        "App\\": "app/",
-                        "Database\\Seeders\\": "database/seeders/",
-                        "Database\\Factories\\": "database/factories/"
-                    }
-                },
-                "extra": {
-                    "branch-alias": {
-                        "dev-master": "11.x-dev"
-                    },
-                    "laravel": {
-                        "dont-discover": []
-                    }
-                },
-                "require": {
-                    "php": "^8.2",
-                    "guzzlehttp/guzzle": "^7.2",
-                    "laravel/framework": "^11.0",
-                    "laravel/tinker": "dev-develop"
-                },
-                "require-dev": {
-                    "fakerphp/faker": "^1.9.1",
-                    "laravel/pint": "^1.0",
-                    "laravel/sail": "dev-develop",
-                    "mockery/mockery": "^1.4.4",
-                    "nunomaduro/collision": "^7.0",
-                    "phpunit/phpunit": "^10.1"
-                },
-                "uid": 7251317
             },
             "v10.0.0": {
                 "name": "laravel/laravel",
@@ -1666,6 +1550,63 @@
                 },
                 "uid": 7201140
             },
+            "v10.2.10": {
+                "name": "laravel/laravel",
+                "description": "The skeleton application for the Laravel framework.",
+                "keywords": [
+                    "framework",
+                    "laravel"
+                ],
+                "homepage": "",
+                "version": "v10.2.10",
+                "version_normalized": "10.2.10.0",
+                "license": [
+                    "MIT"
+                ],
+                "authors": [],
+                "source": {
+                    "url": "https://github.com/laravel/laravel.git",
+                    "type": "git",
+                    "reference": "d6a2d8b837fc86af6ba9f57ea6bd2bac1e386e39"
+                },
+                "dist": {
+                    "url": "https://api.github.com/repos/laravel/laravel/zipball/d6a2d8b837fc86af6ba9f57ea6bd2bac1e386e39",
+                    "type": "zip",
+                    "shasum": "",
+                    "reference": "d6a2d8b837fc86af6ba9f57ea6bd2bac1e386e39"
+                },
+                "type": "project",
+                "time": "2023-11-30T22:35:41+00:00",
+                "autoload": {
+                    "psr-4": {
+                        "App\\": "app/",
+                        "Database\\Seeders\\": "database/seeders/",
+                        "Database\\Factories\\": "database/factories/"
+                    }
+                },
+                "extra": {
+                    "laravel": {
+                        "dont-discover": []
+                    }
+                },
+                "require": {
+                    "php": "^8.1",
+                    "guzzlehttp/guzzle": "^7.2",
+                    "laravel/framework": "^10.10",
+                    "laravel/sanctum": "^3.3",
+                    "laravel/tinker": "^2.8"
+                },
+                "require-dev": {
+                    "fakerphp/faker": "^1.9.1",
+                    "laravel/pint": "^1.0",
+                    "laravel/sail": "^1.18",
+                    "mockery/mockery": "^1.4.4",
+                    "nunomaduro/collision": "^7.0",
+                    "phpunit/phpunit": "^10.1",
+                    "spatie/laravel-ignition": "^2.0"
+                },
+                "uid": 7738234
+            },
             "v10.2.2": {
                 "name": "laravel/laravel",
                 "description": "The Laravel Framework.",
@@ -1950,6 +1891,177 @@
                     "spatie/laravel-ignition": "^2.0"
                 },
                 "uid": 7439382
+            },
+            "v10.2.7": {
+                "name": "laravel/laravel",
+                "description": "The skeleton application for the Laravel framework.",
+                "keywords": [
+                    "framework",
+                    "laravel"
+                ],
+                "homepage": "",
+                "version": "v10.2.7",
+                "version_normalized": "10.2.7.0",
+                "license": [
+                    "MIT"
+                ],
+                "authors": [],
+                "source": {
+                    "url": "https://github.com/laravel/laravel.git",
+                    "type": "git",
+                    "reference": "ad1c5fe4c2e60e35d123eb4361a0734d51776e45"
+                },
+                "dist": {
+                    "url": "https://api.github.com/repos/laravel/laravel/zipball/ad1c5fe4c2e60e35d123eb4361a0734d51776e45",
+                    "type": "zip",
+                    "shasum": "",
+                    "reference": "ad1c5fe4c2e60e35d123eb4361a0734d51776e45"
+                },
+                "type": "project",
+                "time": "2023-10-31T14:38:55+00:00",
+                "autoload": {
+                    "psr-4": {
+                        "App\\": "app/",
+                        "Database\\Seeders\\": "database/seeders/",
+                        "Database\\Factories\\": "database/factories/"
+                    }
+                },
+                "extra": {
+                    "laravel": {
+                        "dont-discover": []
+                    }
+                },
+                "require": {
+                    "php": "^8.1",
+                    "guzzlehttp/guzzle": "^7.2",
+                    "laravel/framework": "^10.10",
+                    "laravel/sanctum": "^3.3",
+                    "laravel/tinker": "^2.8"
+                },
+                "require-dev": {
+                    "fakerphp/faker": "^1.9.1",
+                    "laravel/pint": "^1.0",
+                    "laravel/sail": "^1.18",
+                    "mockery/mockery": "^1.4.4",
+                    "nunomaduro/collision": "^7.0",
+                    "phpunit/phpunit": "^10.1",
+                    "spatie/laravel-ignition": "^2.0"
+                },
+                "uid": 7641299
+            },
+            "v10.2.8": {
+                "name": "laravel/laravel",
+                "description": "The skeleton application for the Laravel framework.",
+                "keywords": [
+                    "framework",
+                    "laravel"
+                ],
+                "homepage": "",
+                "version": "v10.2.8",
+                "version_normalized": "10.2.8.0",
+                "license": [
+                    "MIT"
+                ],
+                "authors": [],
+                "source": {
+                    "url": "https://github.com/laravel/laravel.git",
+                    "type": "git",
+                    "reference": "024c86a24bdc8b02c38d41442f3908aae09f31a7"
+                },
+                "dist": {
+                    "url": "https://api.github.com/repos/laravel/laravel/zipball/024c86a24bdc8b02c38d41442f3908aae09f31a7",
+                    "type": "zip",
+                    "shasum": "",
+                    "reference": "024c86a24bdc8b02c38d41442f3908aae09f31a7"
+                },
+                "type": "project",
+                "time": "2023-11-02T13:42:28+00:00",
+                "autoload": {
+                    "psr-4": {
+                        "App\\": "app/",
+                        "Database\\Seeders\\": "database/seeders/",
+                        "Database\\Factories\\": "database/factories/"
+                    }
+                },
+                "extra": {
+                    "laravel": {
+                        "dont-discover": []
+                    }
+                },
+                "require": {
+                    "php": "^8.1",
+                    "guzzlehttp/guzzle": "^7.2",
+                    "laravel/framework": "^10.10",
+                    "laravel/sanctum": "^3.3",
+                    "laravel/tinker": "^2.8"
+                },
+                "require-dev": {
+                    "fakerphp/faker": "^1.9.1",
+                    "laravel/pint": "^1.0",
+                    "laravel/sail": "^1.18",
+                    "mockery/mockery": "^1.4.4",
+                    "nunomaduro/collision": "^7.0",
+                    "phpunit/phpunit": "^10.1",
+                    "spatie/laravel-ignition": "^2.0"
+                },
+                "uid": 7646798
+            },
+            "v10.2.9": {
+                "name": "laravel/laravel",
+                "description": "The skeleton application for the Laravel framework.",
+                "keywords": [
+                    "framework",
+                    "laravel"
+                ],
+                "homepage": "",
+                "version": "v10.2.9",
+                "version_normalized": "10.2.9.0",
+                "license": [
+                    "MIT"
+                ],
+                "authors": [],
+                "source": {
+                    "url": "https://github.com/laravel/laravel.git",
+                    "type": "git",
+                    "reference": "a546b52b3bbbfd06361d9feada3932f95eb5ef82"
+                },
+                "dist": {
+                    "url": "https://api.github.com/repos/laravel/laravel/zipball/a546b52b3bbbfd06361d9feada3932f95eb5ef82",
+                    "type": "zip",
+                    "shasum": "",
+                    "reference": "a546b52b3bbbfd06361d9feada3932f95eb5ef82"
+                },
+                "type": "project",
+                "time": "2023-11-13T16:36:45+00:00",
+                "autoload": {
+                    "psr-4": {
+                        "App\\": "app/",
+                        "Database\\Seeders\\": "database/seeders/",
+                        "Database\\Factories\\": "database/factories/"
+                    }
+                },
+                "extra": {
+                    "laravel": {
+                        "dont-discover": []
+                    }
+                },
+                "require": {
+                    "php": "^8.1",
+                    "guzzlehttp/guzzle": "^7.2",
+                    "laravel/framework": "^10.10",
+                    "laravel/sanctum": "^3.3",
+                    "laravel/tinker": "^2.8"
+                },
+                "require-dev": {
+                    "fakerphp/faker": "^1.9.1",
+                    "laravel/pint": "^1.0",
+                    "laravel/sail": "^1.18",
+                    "mockery/mockery": "^1.4.4",
+                    "nunomaduro/collision": "^7.0",
+                    "phpunit/phpunit": "^10.1",
+                    "spatie/laravel-ignition": "^2.0"
+                },
+                "uid": 7680871
             },
             "v4.0.0": {
                 "name": "laravel/laravel",

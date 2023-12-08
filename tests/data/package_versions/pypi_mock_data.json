@@ -15,15 +15,14 @@
             "Programming Language :: Python :: 3 :: Only",
             "Programming Language :: Python :: 3.10",
             "Programming Language :: Python :: 3.11",
-            "Programming Language :: Python :: 3.8",
-            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.12",
             "Topic :: Internet :: WWW/HTTP",
             "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
             "Topic :: Internet :: WWW/HTTP :: WSGI",
             "Topic :: Software Development :: Libraries :: Application Frameworks",
             "Topic :: Software Development :: Libraries :: Python Modules"
         ],
-        "description": "======\nDjango\n======\n\nDjango is a high-level Python web framework that encourages rapid development\nand clean, pragmatic design. Thanks for checking it out.\n\nAll documentation is in the \"``docs``\" directory and online at\nhttps://docs.djangoproject.com/en/stable/. If you're just getting started,\nhere's how we recommend you read the docs:\n\n* First, read ``docs/intro/install.txt`` for instructions on installing Django.\n\n* Next, work through the tutorials in order (``docs/intro/tutorial01.txt``,\n  ``docs/intro/tutorial02.txt``, etc.).\n\n* If you want to set up an actual deployment server, read\n  ``docs/howto/deployment/index.txt`` for instructions.\n\n* You'll probably want to read through the topical guides (in ``docs/topics``)\n  next; from there you can jump to the HOWTOs (in ``docs/howto``) for specific\n  problems, and check out the reference (``docs/ref``) for gory details.\n\n* See ``docs/README`` for instructions on building an HTML version of the docs.\n\nDocs are updated rigorously. If you find any problems in the docs, or think\nthey should be clarified in any way, please take 30 seconds to fill out a\nticket here: https://code.djangoproject.com/newticket\n\nTo get more help:\n\n* Join the ``#django`` channel on ``irc.libera.chat``. Lots of helpful people\n  hang out there. See https://web.libera.chat if you're new to IRC.\n\n* Join the django-users mailing list, or read the archives, at\n  https://groups.google.com/group/django-users.\n\nTo contribute to Django:\n\n* Check out https://docs.djangoproject.com/en/dev/internals/contributing/ for\n  information about getting involved.\n\nTo run Django's test suite:\n\n* Follow the instructions in the \"Unit tests\" section of\n  ``docs/internals/contributing/writing-code/unit-tests.txt``, published online at\n  https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/#running-the-unit-tests\n\nSupporting the Development of Django\n====================================\n\nDjango's development depends on your contributions. \n\nIf you depend on Django, remember to support the Django Software Foundation: https://www.djangoproject.com/fundraising/\n\n\n",
+        "description": "======\nDjango\n======\n\nDjango is a high-level Python web framework that encourages rapid development\nand clean, pragmatic design. Thanks for checking it out.\n\nAll documentation is in the \"``docs``\" directory and online at\nhttps://docs.djangoproject.com/en/stable/. If you're just getting started,\nhere's how we recommend you read the docs:\n\n* First, read ``docs/intro/install.txt`` for instructions on installing Django.\n\n* Next, work through the tutorials in order (``docs/intro/tutorial01.txt``,\n  ``docs/intro/tutorial02.txt``, etc.).\n\n* If you want to set up an actual deployment server, read\n  ``docs/howto/deployment/index.txt`` for instructions.\n\n* You'll probably want to read through the topical guides (in ``docs/topics``)\n  next; from there you can jump to the HOWTOs (in ``docs/howto``) for specific\n  problems, and check out the reference (``docs/ref``) for gory details.\n\n* See ``docs/README`` for instructions on building an HTML version of the docs.\n\nDocs are updated rigorously. If you find any problems in the docs, or think\nthey should be clarified in any way, please take 30 seconds to fill out a\nticket here: https://code.djangoproject.com/newticket\n\nTo get more help:\n\n* Join the ``#django`` channel on ``irc.libera.chat``. Lots of helpful people\n  hang out there. `Webchat is available <https://web.libera.chat/#django>`_.\n\n* Join the django-users mailing list, or read the archives, at\n  https://groups.google.com/group/django-users.\n\n* Join the `Django Discord community <https://discord.gg/xcRH6mN4fa>`_.\n\n* Join the community on the `Django Forum <https://forum.djangoproject.com/>`_.\n\nTo contribute to Django:\n\n* Check out https://docs.djangoproject.com/en/dev/internals/contributing/ for\n  information about getting involved.\n\nTo run Django's test suite:\n\n* Follow the instructions in the \"Unit tests\" section of\n  ``docs/internals/contributing/writing-code/unit-tests.txt``, published online at\n  https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/unit-tests/#running-the-unit-tests\n\nSupporting the Development of Django\n====================================\n\nDjango's development depends on your contributions.\n\nIf you depend on Django, remember to support the Django Software Foundation: https://www.djangoproject.com/fundraising/\n",
         "description_content_type": "",
         "docs_url": null,
         "download_url": "",
@@ -49,22 +48,21 @@
             "Source": "https://github.com/django/django",
             "Tracker": "https://code.djangoproject.com/"
         },
-        "release_url": "https://pypi.org/project/Django/4.2.5/",
+        "release_url": "https://pypi.org/project/Django/5.0/",
         "requires_dist": [
-            "asgiref (<4,>=3.6.0)",
-            "sqlparse (>=0.3.1)",
-            "backports.zoneinfo ; python_version < \"3.9\"",
+            "asgiref >=3.7.0",
+            "sqlparse >=0.3.1",
             "tzdata ; sys_platform == \"win32\"",
-            "argon2-cffi (>=19.1.0) ; extra == 'argon2'",
+            "argon2-cffi >=19.1.0 ; extra == 'argon2'",
             "bcrypt ; extra == 'bcrypt'"
         ],
-        "requires_python": ">=3.8",
+        "requires_python": ">=3.10",
         "summary": "A high-level Python web framework that encourages rapid development and clean, pragmatic design.",
-        "version": "4.2.5",
+        "version": "5.0",
         "yanked": false,
         "yanked_reason": null
     },
-    "last_serial": 19801515,
+    "last_serial": 20903581,
     "releases": {
         "1.0.1": [],
         "1.0.2": [],
@@ -11030,6 +11028,94 @@
                 "yanked_reason": null
             }
         ],
+        "3.2.22": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "1b2913d5f2a5de460b66a92e4e99b0e2ceb9f3e619da70e51772981268524e0d",
+                    "md5": "eba26762f6788e9d9ad2e707ec956610",
+                    "sha256": "c5e7b668025a6e06cad9ba6d4de1fd1a21212acebb51ea34abb400c6e4d33430"
+                },
+                "downloads": -1,
+                "filename": "Django-3.2.22-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "eba26762f6788e9d9ad2e707ec956610",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.6",
+                "size": 7889667,
+                "upload_time": "2023-10-04T14:59:53",
+                "upload_time_iso_8601": "2023-10-04T14:59:53.611484Z",
+                "url": "https://files.pythonhosted.org/packages/1b/29/13d5f2a5de460b66a92e4e99b0e2ceb9f3e619da70e51772981268524e0d/Django-3.2.22-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "46fa6ff52b6d92e52eec8d5037f79337ff70321eb7831dda1d13da3ad58f53ab",
+                    "md5": "cf9fb498a109855822326fe7cf2a1a28",
+                    "sha256": "83b6d66b06e484807d778263fdc7f9186d4dc1862fcfa6507830446ac6b060ba"
+                },
+                "downloads": -1,
+                "filename": "Django-3.2.22.tar.gz",
+                "has_sig": false,
+                "md5_digest": "cf9fb498a109855822326fe7cf2a1a28",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.6",
+                "size": 9827193,
+                "upload_time": "2023-10-04T15:00:00",
+                "upload_time_iso_8601": "2023-10-04T15:00:00.548503Z",
+                "url": "https://files.pythonhosted.org/packages/46/fa/6ff52b6d92e52eec8d5037f79337ff70321eb7831dda1d13da3ad58f53ab/Django-3.2.22.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
+        "3.2.23": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "c96972663af69f1a70fa186813220c8ec5ce7f9056b6d987077e2c38ed794bee",
+                    "md5": "f0a76afe885b290578337eedca37eecc",
+                    "sha256": "d48608d5f62f2c1e260986835db089fa3b79d6f58510881d316b8d88345ae6e1"
+                },
+                "downloads": -1,
+                "filename": "Django-3.2.23-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "f0a76afe885b290578337eedca37eecc",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.6",
+                "size": 7889872,
+                "upload_time": "2023-11-01T06:59:05",
+                "upload_time_iso_8601": "2023-11-01T06:59:05.105405Z",
+                "url": "https://files.pythonhosted.org/packages/c9/69/72663af69f1a70fa186813220c8ec5ce7f9056b6d987077e2c38ed794bee/Django-3.2.23-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "dd6e7c97a4c54c1a4d3d700fb0d687323c96dc5e9f5e7d2bcac163e2f0c17cb7",
+                    "md5": "eaca9b9fba9106fbb52c26c9b2ec8cfa",
+                    "sha256": "82968f3640e29ef4a773af2c28448f5f7a08d001c6ac05b32d02aeee6509508b"
+                },
+                "downloads": -1,
+                "filename": "Django-3.2.23.tar.gz",
+                "has_sig": false,
+                "md5_digest": "eaca9b9fba9106fbb52c26c9b2ec8cfa",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.6",
+                "size": 9834665,
+                "upload_time": "2023-11-01T06:59:19",
+                "upload_time_iso_8601": "2023-11-01T06:59:19.806570Z",
+                "url": "https://files.pythonhosted.org/packages/dd/6e/7c97a4c54c1a4d3d700fb0d687323c96dc5e9f5e7d2bcac163e2f0c17cb7/Django-3.2.23.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
         "3.2.3": [
             {
                 "comment_text": "",
@@ -12262,6 +12348,94 @@
                 "yanked_reason": null
             }
         ],
+        "4.1.12": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "0dc7cfdf590422a0f7a6a6ae6a4cbb2721456141662af4b203f583286f0dcd62",
+                    "md5": "ba3538987deb35e7843bf334b6c1cfce",
+                    "sha256": "e92ce8f240a856615e96d8b955707f824c29ea0f51dff4f76777caa5e113ec72"
+                },
+                "downloads": -1,
+                "filename": "Django-4.1.12-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "ba3538987deb35e7843bf334b6c1cfce",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.8",
+                "size": 8104099,
+                "upload_time": "2023-10-04T14:59:03",
+                "upload_time_iso_8601": "2023-10-04T14:59:03.784687Z",
+                "url": "https://files.pythonhosted.org/packages/0d/c7/cfdf590422a0f7a6a6ae6a4cbb2721456141662af4b203f583286f0dcd62/Django-4.1.12-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "6876b1cf87eda3bf5b2d7dd9a23bb4df70ea5511e426a54a04ed2c4ca2ff67cd",
+                    "md5": "6f95e92e5e8964c4a1e00e2fcaadf437",
+                    "sha256": "d02483ad49872238fa59875c1269293fe4f17ecee13c121893607cc0b284696b"
+                },
+                "downloads": -1,
+                "filename": "Django-4.1.12.tar.gz",
+                "has_sig": false,
+                "md5_digest": "6f95e92e5e8964c4a1e00e2fcaadf437",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.8",
+                "size": 10502350,
+                "upload_time": "2023-10-04T14:59:09",
+                "upload_time_iso_8601": "2023-10-04T14:59:09.851212Z",
+                "url": "https://files.pythonhosted.org/packages/68/76/b1cf87eda3bf5b2d7dd9a23bb4df70ea5511e426a54a04ed2c4ca2ff67cd/Django-4.1.12.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
+        "4.1.13": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "adac203ce7fd2e03fb0392e0a6160f4b27d0d1efe1614cb65f1d29e6bbf2ef69",
+                    "md5": "70624148d45a821b760811a7e8eb45bc",
+                    "sha256": "04ab3f6f46d084a0bba5a2c9a93a3a2eb3fe81589512367a75f79ee8acf790ce"
+                },
+                "downloads": -1,
+                "filename": "Django-4.1.13-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "70624148d45a821b760811a7e8eb45bc",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.8",
+                "size": 8104299,
+                "upload_time": "2023-11-01T06:59:10",
+                "upload_time_iso_8601": "2023-11-01T06:59:10.387459Z",
+                "url": "https://files.pythonhosted.org/packages/ad/ac/203ce7fd2e03fb0392e0a6160f4b27d0d1efe1614cb65f1d29e6bbf2ef69/Django-4.1.13-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "3409300498ca0a5f37e0621b90a94c71fc8a4227be5488a3bd5550869c6e0049",
+                    "md5": "a16208af2aa54cbe97ff79ec4426da84",
+                    "sha256": "94a3f471e833c8f124ee7a2de11e92f633991d975e3fa5bdd91e8abd66426318"
+                },
+                "downloads": -1,
+                "filename": "Django-4.1.13.tar.gz",
+                "has_sig": false,
+                "md5_digest": "a16208af2aa54cbe97ff79ec4426da84",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.8",
+                "size": 10515104,
+                "upload_time": "2023-11-01T06:59:24",
+                "upload_time_iso_8601": "2023-11-01T06:59:24.955376Z",
+                "url": "https://files.pythonhosted.org/packages/34/09/300498ca0a5f37e0621b90a94c71fc8a4227be5488a3bd5550869c6e0049/Django-4.1.13.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
         "4.1.2": [
             {
                 "comment_text": "",
@@ -13010,6 +13184,138 @@
                 "yanked_reason": null
             }
         ],
+        "4.2.6": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "b945707dfc56f381222c1c798503546cb390934ab246fc45b5051ef66e31099c",
+                    "md5": "db83d48600d6afff838e53f42f9ebebb",
+                    "sha256": "a64d2487cdb00ad7461434320ccc38e60af9c404773a2f95ab0093b4453a3215"
+                },
+                "downloads": -1,
+                "filename": "Django-4.2.6-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "db83d48600d6afff838e53f42f9ebebb",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.8",
+                "size": 7990607,
+                "upload_time": "2023-10-04T14:58:34",
+                "upload_time_iso_8601": "2023-10-04T14:58:34.647748Z",
+                "url": "https://files.pythonhosted.org/packages/b9/45/707dfc56f381222c1c798503546cb390934ab246fc45b5051ef66e31099c/Django-4.2.6-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "237bf47d10d870fabfcaa1fba403460a4e482ab7dbba4d715d43981d1f8c8d85",
+                    "md5": "ad84c2b9bbebaa26427a2a656fe5ceea",
+                    "sha256": "08f41f468b63335aea0d904c5729e0250300f6a1907bf293a65499496cdbc68f"
+                },
+                "downloads": -1,
+                "filename": "Django-4.2.6.tar.gz",
+                "has_sig": false,
+                "md5_digest": "ad84c2b9bbebaa26427a2a656fe5ceea",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.8",
+                "size": 10407018,
+                "upload_time": "2023-10-04T14:58:41",
+                "upload_time_iso_8601": "2023-10-04T14:58:41.808770Z",
+                "url": "https://files.pythonhosted.org/packages/23/7b/f47d10d870fabfcaa1fba403460a4e482ab7dbba4d715d43981d1f8c8d85/Django-4.2.6.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
+        "4.2.7": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "2d6de87236e3c7b2f5911d132034177aebb605f3953910cc429df8061b13bf10",
+                    "md5": "3d2bb75adc0c3c3497328175b301e244",
+                    "sha256": "e1d37c51ad26186de355cbcec16613ebdabfa9689bbade9c538835205a8abbe9"
+                },
+                "downloads": -1,
+                "filename": "Django-4.2.7-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "3d2bb75adc0c3c3497328175b301e244",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.8",
+                "size": 7990980,
+                "upload_time": "2023-11-01T06:59:15",
+                "upload_time_iso_8601": "2023-11-01T06:59:15.299512Z",
+                "url": "https://files.pythonhosted.org/packages/2d/6d/e87236e3c7b2f5911d132034177aebb605f3953910cc429df8061b13bf10/Django-4.2.7-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "5c620c6ab2f3ac9a242b4562b6be1c418685fa7d1ccb8ca302cdb97e0b23cf4b",
+                    "md5": "d7afe6a68b631725a1dac116a7832b10",
+                    "sha256": "8e0f1c2c2786b5c0e39fe1afce24c926040fad47c8ea8ad30aaf1188df29fc41"
+                },
+                "downloads": -1,
+                "filename": "Django-4.2.7.tar.gz",
+                "has_sig": false,
+                "md5_digest": "d7afe6a68b631725a1dac116a7832b10",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.8",
+                "size": 10425073,
+                "upload_time": "2023-11-01T06:59:30",
+                "upload_time_iso_8601": "2023-11-01T06:59:30.228988Z",
+                "url": "https://files.pythonhosted.org/packages/5c/62/0c6ab2f3ac9a242b4562b6be1c418685fa7d1ccb8ca302cdb97e0b23cf4b/Django-4.2.7.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
+        "4.2.8": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "8a797f45e9c129c3cd8e4d54806649efeb1db9c223c54a1c54b30511d246bc60",
+                    "md5": "6fd694f0d0519e13138f78caaf1a1c22",
+                    "sha256": "6cb5dcea9e3d12c47834d32156b8841f533a4493c688e2718cafd51aa430ba6d"
+                },
+                "downloads": -1,
+                "filename": "Django-4.2.8-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "6fd694f0d0519e13138f78caaf1a1c22",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.8",
+                "size": 7991169,
+                "upload_time": "2023-12-04T08:34:42",
+                "upload_time_iso_8601": "2023-12-04T08:34:42.842122Z",
+                "url": "https://files.pythonhosted.org/packages/8a/79/7f45e9c129c3cd8e4d54806649efeb1db9c223c54a1c54b30511d246bc60/Django-4.2.8-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "a0bfff46fc1bd0f7d86390134e3869dd093be1d2bbaa9dafcb5389e87ef5bcb5",
+                    "md5": "0ed422916f3766e82382d07235ff2ea8",
+                    "sha256": "d69d5e36cc5d9f4eb4872be36c622878afcdce94062716cf3e25bcedcb168b62"
+                },
+                "downloads": -1,
+                "filename": "Django-4.2.8.tar.gz",
+                "has_sig": false,
+                "md5_digest": "0ed422916f3766e82382d07235ff2ea8",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.8",
+                "size": 10425581,
+                "upload_time": "2023-12-04T08:34:50",
+                "upload_time_iso_8601": "2023-12-04T08:34:50.201677Z",
+                "url": "https://files.pythonhosted.org/packages/a0/bf/ff46fc1bd0f7d86390134e3869dd093be1d2bbaa9dafcb5389e87ef5bcb5/Django-4.2.8.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
         "4.2a1": [
             {
                 "comment_text": "",
@@ -13142,6 +13448,50 @@
                 "yanked_reason": null
             }
         ],
+        "5.0": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "bac761b02c0ef9e129080a8c2bffefb3cb2b9ddddece4c44dc473c1c4f0647c1",
+                    "md5": "3fa7115ed069c54684302278b48b7fd6",
+                    "sha256": "3a9fd52b8dbeae335ddf4a9dfa6c6a0853a1122f1fb071a8d5eca979f73a05c8"
+                },
+                "downloads": -1,
+                "filename": "Django-5.0-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "3fa7115ed069c54684302278b48b7fd6",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.10",
+                "size": 8136382,
+                "upload_time": "2023-12-04T13:12:41",
+                "upload_time_iso_8601": "2023-12-04T13:12:41.502020Z",
+                "url": "https://files.pythonhosted.org/packages/ba/c7/61b02c0ef9e129080a8c2bffefb3cb2b9ddddece4c44dc473c1c4f0647c1/Django-5.0-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "bea646e250737d46e955e048f6bbc2948fb22f0de3f3ab828d3803070dc1260e",
+                    "md5": "5de06916549d6f81fe6eb102722a1b28",
+                    "sha256": "7d29e14dfbc19cb6a95a4bd669edbde11f5d4c6a71fdaa42c2d40b6846e807f7"
+                },
+                "downloads": -1,
+                "filename": "Django-5.0.tar.gz",
+                "has_sig": false,
+                "md5_digest": "5de06916549d6f81fe6eb102722a1b28",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.10",
+                "size": 10585390,
+                "upload_time": "2023-12-04T13:12:50",
+                "upload_time_iso_8601": "2023-12-04T13:12:50.251293Z",
+                "url": "https://files.pythonhosted.org/packages/be/a6/46e250737d46e955e048f6bbc2948fb22f0de3f3ab828d3803070dc1260e/Django-5.0.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
         "5.0a1": [
             {
                 "comment_text": "",
@@ -13185,48 +13535,136 @@
                 "yanked": false,
                 "yanked_reason": null
             }
+        ],
+        "5.0b1": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "3a0f33ccd4b8975c89c06392a7d6bbcd6ec492ce94cda39c4f53c08b826a80b3",
+                    "md5": "186929b21b30c6525b0a0fe240869420",
+                    "sha256": "fc0fb85721c984d7c7bcbfc59cbd5eb7bcc5dd678f394b3b2b311f0c43cfb943"
+                },
+                "downloads": -1,
+                "filename": "Django-5.0b1-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "186929b21b30c6525b0a0fe240869420",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.10",
+                "size": 8015514,
+                "upload_time": "2023-10-23T18:57:51",
+                "upload_time_iso_8601": "2023-10-23T18:57:51.926093Z",
+                "url": "https://files.pythonhosted.org/packages/3a/0f/33ccd4b8975c89c06392a7d6bbcd6ec492ce94cda39c4f53c08b826a80b3/Django-5.0b1-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "a3d35f81213107d2add6a5527fe65ce457f099c677ea8b4b8cd31930d6afeb32",
+                    "md5": "2b7020e3aa3c03ab4c46b98d624293a7",
+                    "sha256": "c88635e733f0a0ef46c219635e21c8f5978eb2a14c3918224654541bc5d57030"
+                },
+                "downloads": -1,
+                "filename": "Django-5.0b1.tar.gz",
+                "has_sig": false,
+                "md5_digest": "2b7020e3aa3c03ab4c46b98d624293a7",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.10",
+                "size": 10493582,
+                "upload_time": "2023-10-23T18:57:57",
+                "upload_time_iso_8601": "2023-10-23T18:57:57.673233Z",
+                "url": "https://files.pythonhosted.org/packages/a3/d3/5f81213107d2add6a5527fe65ce457f099c677ea8b4b8cd31930d6afeb32/Django-5.0b1.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
+        ],
+        "5.0rc1": [
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "187ded709d1fbedebf949ff34fbeb3607de15a639b7d6b20e92db24494a1d125",
+                    "md5": "c6d451064eccf90d4bfec8ff172532bc",
+                    "sha256": "04244960e238ef773db07890a9936351c8509c9a04812d38f5ead6d7acee58d6"
+                },
+                "downloads": -1,
+                "filename": "Django-5.0rc1-py3-none-any.whl",
+                "has_sig": false,
+                "md5_digest": "c6d451064eccf90d4bfec8ff172532bc",
+                "packagetype": "bdist_wheel",
+                "python_version": "py3",
+                "requires_python": ">=3.10",
+                "size": 8016166,
+                "upload_time": "2023-11-20T12:40:22",
+                "upload_time_iso_8601": "2023-11-20T12:40:22.660572Z",
+                "url": "https://files.pythonhosted.org/packages/18/7d/ed709d1fbedebf949ff34fbeb3607de15a639b7d6b20e92db24494a1d125/Django-5.0rc1-py3-none-any.whl",
+                "yanked": false,
+                "yanked_reason": null
+            },
+            {
+                "comment_text": "",
+                "digests": {
+                    "blake2b_256": "c3ebb7cc29146660057225de0d176c0b71538f39b101aa7af3caa9ece4c4f2cb",
+                    "md5": "116720a171f1748be6f4631d24622566",
+                    "sha256": "a4bb77a659da032b741a95dcb957864f3695275d1d581ef7637214300faaaf30"
+                },
+                "downloads": -1,
+                "filename": "Django-5.0rc1.tar.gz",
+                "has_sig": false,
+                "md5_digest": "116720a171f1748be6f4631d24622566",
+                "packagetype": "sdist",
+                "python_version": "source",
+                "requires_python": ">=3.10",
+                "size": 10499875,
+                "upload_time": "2023-11-20T12:40:32",
+                "upload_time_iso_8601": "2023-11-20T12:40:32.210081Z",
+                "url": "https://files.pythonhosted.org/packages/c3/eb/b7cc29146660057225de0d176c0b71538f39b101aa7af3caa9ece4c4f2cb/Django-5.0rc1.tar.gz",
+                "yanked": false,
+                "yanked_reason": null
+            }
         ]
     },
     "urls": [
         {
             "comment_text": "",
             "digests": {
-                "blake2b_256": "bf8bc38f2354b6093d9ba310a14b43a830fdf776edd60c2e25c7c5f4d23cc243",
-                "md5": "a57dde066c29d8dcc418b8f92d56664d",
-                "sha256": "b6b2b5cae821077f137dc4dade696a1c2aa292f892eca28fa8d7bfdf2608ddd4"
+                "blake2b_256": "bac761b02c0ef9e129080a8c2bffefb3cb2b9ddddece4c44dc473c1c4f0647c1",
+                "md5": "3fa7115ed069c54684302278b48b7fd6",
+                "sha256": "3a9fd52b8dbeae335ddf4a9dfa6c6a0853a1122f1fb071a8d5eca979f73a05c8"
             },
             "downloads": -1,
-            "filename": "Django-4.2.5-py3-none-any.whl",
+            "filename": "Django-5.0-py3-none-any.whl",
             "has_sig": false,
-            "md5_digest": "a57dde066c29d8dcc418b8f92d56664d",
+            "md5_digest": "3fa7115ed069c54684302278b48b7fd6",
             "packagetype": "bdist_wheel",
             "python_version": "py3",
-            "requires_python": ">=3.8",
-            "size": 7990309,
-            "upload_time": "2023-09-04T10:58:22",
-            "upload_time_iso_8601": "2023-09-04T10:58:22.309202Z",
-            "url": "https://files.pythonhosted.org/packages/bf/8b/c38f2354b6093d9ba310a14b43a830fdf776edd60c2e25c7c5f4d23cc243/Django-4.2.5-py3-none-any.whl",
+            "requires_python": ">=3.10",
+            "size": 8136382,
+            "upload_time": "2023-12-04T13:12:41",
+            "upload_time_iso_8601": "2023-12-04T13:12:41.502020Z",
+            "url": "https://files.pythonhosted.org/packages/ba/c7/61b02c0ef9e129080a8c2bffefb3cb2b9ddddece4c44dc473c1c4f0647c1/Django-5.0-py3-none-any.whl",
             "yanked": false,
             "yanked_reason": null
         },
         {
             "comment_text": "",
             "digests": {
-                "blake2b_256": "20eab0969834e5d79365731303be8b82423e6b1c293aa92c28335532ab542f83",
-                "md5": "63486f64f91bdc14a2edb84aa3001577",
-                "sha256": "5e5c1c9548ffb7796b4a8a4782e9a2e5a3df3615259fc1bfd3ebc73b646146c1"
+                "blake2b_256": "bea646e250737d46e955e048f6bbc2948fb22f0de3f3ab828d3803070dc1260e",
+                "md5": "5de06916549d6f81fe6eb102722a1b28",
+                "sha256": "7d29e14dfbc19cb6a95a4bd669edbde11f5d4c6a71fdaa42c2d40b6846e807f7"
             },
             "downloads": -1,
-            "filename": "Django-4.2.5.tar.gz",
+            "filename": "Django-5.0.tar.gz",
             "has_sig": false,
-            "md5_digest": "63486f64f91bdc14a2edb84aa3001577",
+            "md5_digest": "5de06916549d6f81fe6eb102722a1b28",
             "packagetype": "sdist",
             "python_version": "source",
-            "requires_python": ">=3.8",
-            "size": 10418606,
-            "upload_time": "2023-09-04T10:58:34",
-            "upload_time_iso_8601": "2023-09-04T10:58:34.288156Z",
-            "url": "https://files.pythonhosted.org/packages/20/ea/b0969834e5d79365731303be8b82423e6b1c293aa92c28335532ab542f83/Django-4.2.5.tar.gz",
+            "requires_python": ">=3.10",
+            "size": 10585390,
+            "upload_time": "2023-12-04T13:12:50",
+            "upload_time_iso_8601": "2023-12-04T13:12:50.251293Z",
+            "url": "https://files.pythonhosted.org/packages/be/a6/46e250737d46e955e048f6bbc2948fb22f0de3f3ab828d3803070dc1260e/Django-5.0.tar.gz",
             "yanked": false,
             "yanked_reason": null
         }
