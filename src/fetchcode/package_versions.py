@@ -537,6 +537,36 @@ def fetch_github_tags_gql(purl):
         yield PackageVersion(value=name, release_date=release_date)
 
 
+GQL_QUERY = """
+query getTags($name: String!, $owner: String!, $after: String)
+{
+    repository(name: $name, owner: $owner) {
+        refs(refPrefix: "refs/tags/", first: 100, after: $after) {
+            totalCount
+            pageInfo {
+                endCursor
+                hasNextPage
+            }
+            nodes {
+                name
+                target {
+                    ... on Commit {
+                        committedDate
+                    }
+                    ... on Tag {
+                            target {
+                            ... on Commit {
+                                committedDate
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}"""
+
+
 def fetch_github_tag_nodes(purl):
     """
     Yield node name/target mappings for Git tags of the ``purl``.
@@ -551,35 +581,6 @@ def fetch_github_tag_nodes(purl):
         }
         },
     """
-    GQL_QUERY = """
-    query getTags($name: String!, $owner: String!, $after: String)
-    {
-        repository(name: $name, owner: $owner) {
-            refs(refPrefix: "refs/tags/", first: 100, after: $after) {
-                totalCount
-                pageInfo {
-                    endCursor
-                    hasNextPage
-                }
-                nodes {
-                    name
-                    target {
-                        ... on Commit {
-                            committedDate
-                        }
-                        ... on Tag {
-                                target {
-                                ... on Commit {
-                                    committedDate
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }"""
-
     variables = {
         "owner": purl.namespace,
         "name": purl.name,

@@ -15,10 +15,15 @@
 # specific language governing permissions and limitations under the License.
 
 import json
+from pathlib import Path
 
 import yaml
 
+from fetchcode.package_versions import GQL_QUERY
 from fetchcode.package_versions import get_response
+from fetchcode.package_versions import github_response
+
+data_location = Path(__file__).parent
 
 test_sources = [
     {
@@ -104,46 +109,80 @@ test_sources = [
 def fetch_mock_data():
     for source in test_sources:
         content_type = source.get("content_type", "json")
+        file_name = source["file-name"]
         response = get_response(
             url=source["source"],
             content_type=content_type,
             headers=source.get("headers", None),
         )
-        mock_file = f'tests/data/package_versions/{source["file-name"]}'
+        mock_file = data_location / file_name
 
         if content_type == "binary":
-            with open(mock_file, "wb") as file:
-                file.write(response)
+            with mock_file.open(mode="wb") as f:
+                f.write(response)
         else:
-            with open(mock_file, "w") as file:
+            with mock_file.open(encoding="utf-8", mode="w") as f:
                 if content_type == "json":
-                    json.dump(response, file, indent=4)
+                    json.dump(response, f, indent=4)
                 elif content_type == "yaml":
-                    yaml.dump(response, file)
+                    yaml.dump(response, f)
                 else:
-                    file.write(response)
+                    f.write(response)
+
 
 def fetch_golang_mock_data():
+    """
+    Fetch mock data for `pkg:golang/github.com/blockloop` from go proxy.
+    """
     url = f"https://proxy.golang.org/github.com/blockloop/scan/@v/list"
     version_list = get_response(url=url, content_type="text")
     for version in version_list.split():
-        file_name = f"tests/data/package_versions/golang/versions/golang_mock_{version}_data.json"
+        file_name = data_location / f"golang/versions/golang_mock_{version}_data.json"
         response = get_response(
             url=f"https://proxy.golang.org/github.com/blockloop/scan/@v/{version}.info",
             content_type="json",
         )
         with open(file_name, "w") as file:
             json.dump(response, file, indent=4)
-    golang_version_list_file = (
-        "tests/data/package_versions/golang/golang_mock_meta_data.txt"
-    )
+    golang_version_list_file = data_location / "golang/golang_mock_meta_data.txt"
     with open(golang_version_list_file, "w") as file:
         file.write(version_list)
+
+
+def fetch_github_mock_data():
+    """
+    Fetch mock data for `pkg:github/nginx/nginx` from GitHub.
+    """
+    variables = {
+        "owner": "nginx",
+        "name": "nginx",
+    }
+    graphql_query = {
+        "query": GQL_QUERY,
+        "variables": variables,
+    }
+    file_count = 1
+    while True:
+        response = github_response(graphql_query)
+        refs = response["data"]["repository"]["refs"]
+        mock_data_file = data_location / f"github/github_mock_data_{file_count}.json"
+        with open(mock_data_file, "w") as file:
+            json.dump(response, file, indent=4)
+
+        page_info = refs["pageInfo"]
+        if not page_info["hasNextPage"]:
+            break
+
+        variables["after"] = page_info["endCursor"]
+        file_count += 1
+
 
 def main():
     fetch_mock_data()
     fetch_golang_mock_data()
+    fetch_github_mock_data()
+
 
 if __name__ == "__main__":
-    # Script to regenerate mock data for python_versions 
+    # Script to regenerate mock data for python_versions module.
     main()
