@@ -25,7 +25,7 @@ from fetchcode.package_versions import github_response
 
 data_location = Path(__file__).parent
 
-test_sources = [
+TEST_SOURCES_INFO = [
     {
         "ecosystem": "cargo",
         "purl": "pkg:cargo/yprox",
@@ -106,8 +106,11 @@ test_sources = [
 ]
 
 
-def fetch_mock_data():
-    for source in test_sources:
+def fetch_mock_data(sources_info=TEST_SOURCES_INFO):
+    """
+    Fetch mock data for ecosystems provided in `sources_info`.
+    """
+    for source in sources_info:
         content_type = source.get("content_type", "json")
         file_name = source["file-name"]
         response = get_response(

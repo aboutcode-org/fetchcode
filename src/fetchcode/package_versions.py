@@ -363,17 +363,24 @@ def escape_path(path: str) -> str:
 
 
 def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageVersion]:
-    v = version_info.split()
-    if not v:
-        return None
+    # Example version_info: 
+    #     "v1.3.0 2019-04-19T01:47:04Z" 
+    #     "v1.3.0"
+    version_parts = version_info.split()
+    if not version_parts:
+        return
 
-    value = v[0]
-    if len(v) > 1:
+    # Extract version and date if available
+    version = version_parts[0]
+    date = version_parts[1] if len(version_parts) > 1 else None
+
+    if date:
         # get release date from the second part. see
-        # https://github.com/golang/go/blob/master/src/cmd/go/internal/modfetch/proxy.go#latest()
-        release_date = dateparser.parse(v[1])
+        # https://github.com/golang/go/blob/ac02fdec7cd16ea8d3de1fc33def9cfabec5170d/src/cmd/go/internal/modfetch/proxy.go#L136-L147
+        
+        release_date = dateparser.parse(date)
     else:
-        escaped_ver = escape_path(value)
+        escaped_ver = escape_path(version)
         response = get_response(
             url=f"https://proxy.golang.org/{escaped_pkg}/@v/{escaped_ver}.info",
             content_type="json",
@@ -386,7 +393,7 @@ def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageV
             )
         release_date = dateparser.parse(response.get("Time", "")) if response else None
 
-    return PackageVersion(value=value, release_date=release_date)
+    return PackageVersion(value=version, release_date=release_date)
 
 
 def composer_extract_versions(resp: dict, pkg: str) -> Iterable[PackageVersion]:
@@ -489,9 +496,10 @@ def get_pypi_latest_date(downloads):
 
 
 def get_response(url, content_type="json", headers=None):
-    """Fetch ``url`` and return its content as ``content_type`` which is one of binary, text or json."""
-    assert content_type in ("binary", "text", "json", "yaml")
-
+    """
+    Fetch ``url`` and return its content as ``content_type`` which is
+    one of binary, text, yaml or json.
+    """
     try:
         resp = requests.get(url=url, headers=headers)
     except:
@@ -513,7 +521,18 @@ def get_response(url, content_type="json", headers=None):
 
 
 def remove_debian_default_epoch(version):
-    """Remove the default epoch from a Debian ``version`` string."""
+    """
+    Remove the default epoch from a Debian ``version`` string.
+    
+    For Example::
+    >>> remove_debian_default_epoch("0:1.2.3-4")
+    '1.2.3-4'
+    >>> remove_debian_default_epoch("1.2.3-4")
+    '1.2.3-4'
+    >>> remove_debian_default_epoch(None)
+    >>> remove_debian_default_epoch("")
+    ''
+    """
     return version and version.replace("0:", "")
 
 
