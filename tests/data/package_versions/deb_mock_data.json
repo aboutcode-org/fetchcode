@@ -1,0 +1,91 @@
+{
+    "package": "attr",
+    "path": "attr",
+    "pathl": [
+        [
+            "attr",
+            "/src/attr/"
+        ]
+    ],
+    "suite": "",
+    "type": "package",
+    "versions": [
+        {
+            "area": "main",
+            "suites": [
+                "bookworm",
+                "trixie",
+                "sid"
+            ],
+            "version": "1:2.5.1-4"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "bullseye"
+            ],
+            "version": "1:2.4.48-6"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "buster"
+            ],
+            "version": "1:2.4.48-4"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "jessie",
+                "stretch",
+                "jessie-backports",
+                "jessie-kfreebsd"
+            ],
+            "version": "1:2.4.47-2"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "wheezy",
+                "wheezy-backports"
+            ],
+            "version": "1:2.4.46-8"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "squeeze"
+            ],
+            "version": "1:2.4.44-2"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "lenny"
+            ],
+            "version": "1:2.4.43-2"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "etch",
+                "etch-m68k"
+            ],
+            "version": "2.4.32-1"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "sarge"
+            ],
+            "version": "2.4.16-1"
+        },
+        {
+            "area": "main",
+            "suites": [
+                "woody"
+            ],
+            "version": "2.0.7-1"
+        }
+    ]
+}
