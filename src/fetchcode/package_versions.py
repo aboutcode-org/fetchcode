@@ -35,6 +35,21 @@ logger = logging.getLogger(__name__)
 
 router = Router()
 
+SUPPORTED_ECOSYSTEMS = [
+    "cargo",
+    "composer",
+    "conan",
+    "deb",
+    "gem",
+    "github",
+    "golang",
+    "hex",
+    "maven",
+    "npm",
+    "nuget",
+    "pypi",
+]
+
 
 def versions(purl):
     """Return all version for a PURL."""
@@ -43,7 +58,6 @@ def versions(purl):
             return router.process(purl)
         except NoRouteAvailable:
             return
-
 
 @dataclasses.dataclass(frozen=True)
 class PackageVersion:
