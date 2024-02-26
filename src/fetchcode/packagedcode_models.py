@@ -35,14 +35,14 @@ import attr
 from packageurl import normalize_qualifiers
 from packageurl import PackageURL
 
-from fetchcode.commoncode_datautils import choices
-from fetchcode.commoncode_datautils import Boolean
-from fetchcode.commoncode_datautils import Date
-from fetchcode.commoncode_datautils import Integer
-from fetchcode.commoncode_datautils import List
-from fetchcode.commoncode_datautils import Mapping
-from fetchcode.commoncode_datautils import String
-from fetchcode.commoncode_datautils import TriBoolean
+from commoncode.datautils import choices
+from commoncode.datautils import Boolean
+from commoncode.datautils import Date
+from commoncode.datautils import Integer
+from commoncode.datautils import List
+from commoncode.datautils import Mapping
+from commoncode.datautils import String
+from commoncode.datautils import TriBoolean
 
 
 """
