@@ -17,6 +17,7 @@
 import dataclasses
 import logging
 import os
+import time
 import traceback
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -24,8 +25,10 @@ from typing import Iterable
 from typing import Optional
 from urllib.parse import urlparse
 
+import htmllistparse
 import requests
 import yaml
+from commoncode.version import hint
 from dateutil import parser as dateparser
 from packageurl import PackageURL
 from packageurl.contrib.route import NoRouteAvailable
@@ -58,6 +61,7 @@ def versions(purl):
             return router.process(purl)
         except NoRouteAvailable:
             return
+
 
 @dataclasses.dataclass(frozen=True)
 class PackageVersion:
@@ -323,6 +327,24 @@ def get_golang_versions_from_purl(purl):
             yield version
 
 
+@router.route("pkg:gnu/.*")
+def get_gnu_versions_from_purl(purl):
+    """Fetch versions of GNU packages from the FTP server of the the GNU project."""
+    purl = PackageURL.from_string(purl)
+    source_archive_url = f"https://ftp.gnu.org/pub/gnu/{purl.name}/"
+    _, listing = htmllistparse.fetch_listing(source_archive_url, timeout=30)
+    for file in listing:
+        if not file.name.endswith(".tar.gz"):
+            continue
+        version = hint(file.name).strip("v").strip()
+        modified_time = file.modified
+        date = datetime.utcfromtimestamp(time.mktime(modified_time))
+        yield PackageVersion(
+            value=version,
+            release_date=date,
+        )
+
+
 def trim_go_url_path(url_path: str) -> Optional[str]:
     """
     Return a trimmed Go `url_path` removing trailing
@@ -377,8 +399,8 @@ def escape_path(path: str) -> str:
 
 
 def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageVersion]:
-    # Example version_info: 
-    #     "v1.3.0 2019-04-19T01:47:04Z" 
+    # Example version_info:
+    #     "v1.3.0 2019-04-19T01:47:04Z"
     #     "v1.3.0"
     version_parts = version_info.split()
     if not version_parts:
@@ -391,7 +413,7 @@ def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageV
     if date:
         # get release date from the second part. see
         # https://github.com/golang/go/blob/ac02fdec7cd16ea8d3de1fc33def9cfabec5170d/src/cmd/go/internal/modfetch/proxy.go#L136-L147
-        
+
         release_date = dateparser.parse(date)
     else:
         escaped_ver = escape_path(version)
@@ -537,7 +559,7 @@ def get_response(url, content_type="json", headers=None):
 def remove_debian_default_epoch(version):
     """
     Remove the default epoch from a Debian ``version`` string.
-    
+
     For Example::
     >>> remove_debian_default_epoch("0:1.2.3-4")
     '1.2.3-4'
