@@ -1,0 +1,163 @@
+{
+    "@id": "https://api.nuget.org/v3/registration5-semver1/enterpriselibrary.common/index.json",
+    "@type": [
+        "catalog:CatalogRoot",
+        "PackageRegistration",
+        "catalog:Permalink"
+    ],
+    "commitId": "36a5962c-e6ab-4771-be2d-32d71e606b6a",
+    "commitTimeStamp": "2020-02-08T01:42:24.8901684+00:00",
+    "count": 1,
+    "items": [
+        {
+            "@id": "https://api.nuget.org/v3/registration5-semver1/enterpriselibrary.common/index.json#page/5.0.505/6.0.1304",
+            "@type": "catalog:CatalogPage",
+            "commitId": "36a5962c-e6ab-4771-be2d-32d71e606b6a",
+            "commitTimeStamp": "2020-02-08T01:42:24.8901684+00:00",
+            "count": 2,
+            "items": [
+                {
+                    "@id": "https://api.nuget.org/v3/registration5-semver1/enterpriselibrary.common/5.0.505.json",
+                    "@type": "Package",
+                    "commitId": "36a5962c-e6ab-4771-be2d-32d71e606b6a",
+                    "commitTimeStamp": "2020-02-08T01:42:24.8901684+00:00",
+                    "catalogEntry": {
+                        "@id": "https://api.nuget.org/v3/catalog0/data/2018.10.06.12.33.27/enterpriselibrary.common.5.0.505.json",
+                        "@type": "PackageDetails",
+                        "authors": "Microsoft",
+                        "dependencyGroups": [
+                            {
+                                "@id": "https://api.nuget.org/v3/catalog0/data/2018.10.06.12.33.27/enterpriselibrary.common.5.0.505.json#dependencygroup",
+                                "@type": "PackageDependencyGroup",
+                                "dependencies": [
+                                    {
+                                        "@id": "https://api.nuget.org/v3/catalog0/data/2018.10.06.12.33.27/enterpriselibrary.common.5.0.505.json#dependencygroup/unity.interception",
+                                        "@type": "PackageDependency",
+                                        "id": "Unity.Interception",
+                                        "range": "[2.1.0, )",
+                                        "registration": "https://api.nuget.org/v3/registration5-semver1/unity.interception/index.json"
+                                    }
+                                ]
+                            }
+                        ],
+                        "description": "The Enterprise Library Common assembly contains elements that are shared among multiple application blocks. By supplying a set of commonly used functions to all the application blocks, the Common assembly reduces the dependency of one application block on another.",
+                        "iconUrl": "https://api.nuget.org/v3-flatcontainer/enterpriselibrary.common/5.0.505/icon",
+                        "id": "EnterpriseLibrary.Common",
+                        "language": "",
+                        "licenseExpression": "",
+                        "licenseUrl": "http://www.opensource.org/licenses/ms-pl",
+                        "listed": true,
+                        "minClientVersion": "",
+                        "packageContent": "https://api.nuget.org/v3-flatcontainer/enterpriselibrary.common/5.0.505/enterpriselibrary.common.5.0.505.nupkg",
+                        "projectUrl": "http://msdn.microsoft.com/entlib",
+                        "published": "2011-05-11T20:02:04.167+00:00",
+                        "requireLicenseAcceptance": true,
+                        "summary": "The Enterprise Library Common assembly contains elements that are shared among multiple application blocks.",
+                        "tags": [
+                            "entlib",
+                            "Enterprise",
+                            "Library",
+                            "common",
+                            "core",
+                            "LOB"
+                        ],
+                        "title": "Enterprise Library 5.0 - Common Infrastructure",
+                        "version": "5.0.505"
+                    },
+                    "packageContent": "https://api.nuget.org/v3-flatcontainer/enterpriselibrary.common/5.0.505/enterpriselibrary.common.5.0.505.nupkg",
+                    "registration": "https://api.nuget.org/v3/registration5-semver1/enterpriselibrary.common/index.json"
+                },
+                {
+                    "@id": "https://api.nuget.org/v3/registration5-semver1/enterpriselibrary.common/6.0.1304.json",
+                    "@type": "Package",
+                    "commitId": "36a5962c-e6ab-4771-be2d-32d71e606b6a",
+                    "commitTimeStamp": "2020-02-08T01:42:24.8901684+00:00",
+                    "catalogEntry": {
+                        "@id": "https://api.nuget.org/v3/catalog0/data/2018.10.06.12.32.49/enterpriselibrary.common.6.0.1304.json",
+                        "@type": "PackageDetails",
+                        "authors": "Microsoft",
+                        "description": "The Enterprise Library Common assembly contains elements that are shared among multiple application blocks. By supplying a set of commonly used functions to all the application blocks, the Common assembly reduces the dependency of one application block on another.",
+                        "iconUrl": "https://api.nuget.org/v3-flatcontainer/enterpriselibrary.common/6.0.1304/icon",
+                        "id": "EnterpriseLibrary.Common",
+                        "language": "",
+                        "licenseExpression": "",
+                        "licenseUrl": "http://www.opensource.org/licenses/ms-pl",
+                        "listed": true,
+                        "minClientVersion": "",
+                        "packageContent": "https://api.nuget.org/v3-flatcontainer/enterpriselibrary.common/6.0.1304/enterpriselibrary.common.6.0.1304.nupkg",
+                        "projectUrl": "http://msdn.microsoft.com/entlib",
+                        "published": "2013-04-25T23:56:43.593+00:00",
+                        "requireLicenseAcceptance": true,
+                        "summary": "The Enterprise Library Common assembly contains elements that are shared among multiple application blocks.",
+                        "tags": [
+                            "entlib",
+                            "Enterprise",
+                            "Library",
+                            "common",
+                            "core",
+                            "LOB"
+                        ],
+                        "title": "Enterprise Library - Common Infrastructure",
+                        "version": "6.0.1304"
+                    },
+                    "packageContent": "https://api.nuget.org/v3-flatcontainer/enterpriselibrary.common/6.0.1304/enterpriselibrary.common.6.0.1304.nupkg",
+                    "registration": "https://api.nuget.org/v3/registration5-semver1/enterpriselibrary.common/index.json"
+                }
+            ],
+            "parent": "https://api.nuget.org/v3/registration5-semver1/enterpriselibrary.common/index.json",
+            "lower": "5.0.505",
+            "upper": "6.0.1304"
+        }
+    ],
+    "@context": {
+        "@vocab": "http://schema.nuget.org/schema#",
+        "catalog": "http://schema.nuget.org/catalog#",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "items": {
+            "@id": "catalog:item",
+            "@container": "@set"
+        },
+        "commitTimeStamp": {
+            "@id": "catalog:commitTimeStamp",
+            "@type": "xsd:dateTime"
+        },
+        "commitId": {
+            "@id": "catalog:commitId"
+        },
+        "count": {
+            "@id": "catalog:count"
+        },
+        "parent": {
+            "@id": "catalog:parent",
+            "@type": "@id"
+        },
+        "tags": {
+            "@id": "tag",
+            "@container": "@set"
+        },
+        "reasons": {
+            "@container": "@set"
+        },
+        "packageTargetFrameworks": {
+            "@id": "packageTargetFramework",
+            "@container": "@set"
+        },
+        "dependencyGroups": {
+            "@id": "dependencyGroup",
+            "@container": "@set"
+        },
+        "dependencies": {
+            "@id": "dependency",
+            "@container": "@set"
+        },
+        "packageContent": {
+            "@type": "@id"
+        },
+        "published": {
+            "@type": "xsd:dateTime"
+        },
+        "registration": {
+            "@type": "@id"
+        }
+    }
+}

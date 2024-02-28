@@ -1,0 +1,92 @@
+{
+    "_id": "@angular/animation",
+    "_rev": "4-ce8daf072df04fa8aa4c7ea768242792",
+    "name": "@angular/animation",
+    "description": "Angular - animation integration with web-animations",
+    "dist-tags": {
+        "next": "4.0.0-beta.8",
+        "latest": "4.0.0-beta.8"
+    },
+    "versions": {
+        "4.0.0-beta.8": {
+            "name": "@angular/animation",
+            "version": "4.0.0-beta.8",
+            "description": "Angular - animation integration with web-animations",
+            "main": "bundles/animation.umd.js",
+            "module": "index.js",
+            "typings": "index.d.ts",
+            "author": {
+                "name": "angular"
+            },
+            "license": "MIT",
+            "peerDependencies": {
+                "@angular/core": "4.0.0-beta.8"
+            },
+            "repository": {
+                "type": "git",
+                "url": "git+https://github.com/angular/angular.git"
+            },
+            "bugs": {
+                "url": "https://github.com/angular/angular/issues"
+            },
+            "homepage": "https://github.com/angular/angular#readme",
+            "_id": "@angular/animation@4.0.0-beta.8",
+            "scripts": {},
+            "_shasum": "9f61b4ee84ff4e8f48abb0eb49fff02bdedccc2e",
+            "_from": "dist/packages-dist/animation",
+            "_resolved": "file:dist/packages-dist/animation",
+            "_npmVersion": "3.10.10",
+            "_nodeVersion": "6.9.5",
+            "_npmUser": {
+                "name": "angular",
+                "email": "angular-core+npm@google.com"
+            },
+            "dist": {
+                "shasum": "9f61b4ee84ff4e8f48abb0eb49fff02bdedccc2e",
+                "tarball": "https://registry.npmjs.org/@angular/animation/-/animation-4.0.0-beta.8.tgz",
+                "integrity": "sha512-FYElJm/GTQenyF+cryibW4GEmVqiH4zDRvUo3dirfiz0D7fGM52QWLGlO/FkERnVncxGlcI9uyZZePEgOmMCnA==",
+                "signatures": [
+                    {
+                        "keyid": "SHA256:jl3bwswu80PjjokCgh0o2w5c2U4LhQAE57gj9cz1kzA",
+                        "sig": "MEQCIF0vCj5fJwnT6U5s0Pi+V2xnN+t0Md33krcAnukbFvfSAiAIRAmkFjqm6qMWNt+SiKOvs6GgB5JSKNFVAFfj4TRqlQ=="
+                    }
+                ]
+            },
+            "maintainers": [
+                {
+                    "name": "angular",
+                    "email": "angular-core+npm@google.com"
+                }
+            ],
+            "_npmOperationalInternal": {
+                "host": "packages-18-east.internal.npmjs.com",
+                "tmp": "tmp/animation-4.0.0-beta.8.tgz_1487459431155_0.06896149064414203"
+            }
+        }
+    },
+    "readme": "Angular\n=======\n\nThe sources for this package are in the main [Angular](https://github.com/angular/angular) repo. Please file issues and pull requests against that repo.\n\nLicense: MIT\n",
+    "maintainers": [
+        {
+            "name": "angular",
+            "email": "angular-core+npm@google.com"
+        }
+    ],
+    "time": {
+        "modified": "2022-06-12T14:41:45.569Z",
+        "created": "2017-02-18T23:10:33.204Z",
+        "4.0.0-beta.8": "2017-02-18T23:10:33.204Z"
+    },
+    "homepage": "https://github.com/angular/angular#readme",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/angular/angular.git"
+    },
+    "author": {
+        "name": "angular"
+    },
+    "bugs": {
+        "url": "https://github.com/angular/angular/issues"
+    },
+    "license": "MIT",
+    "readmeFilename": "README.md"
+}

@@ -1,8 +1,8 @@
-FetchCode: Utilities to fetch code from purls, URLs and version control repos. 
+FetchCode: Utilities to fetch code from purls, URLs and version control repos.
 ================================================================================
 
 FetchCode is a library to reliably fetch code via HTTP, FTP and version control
-systems. It can work using plain HTTP and FTP URLs, as well as 
+systems. It can work using plain HTTP and FTP URLs, as well as
 `Package URLs <https://github.com/package-url>`_ and version control (VCS) URLs
 as used in Python pip and as specified in `SPDX Package Download Location
 <https://spdx.github.io/spdx-spec/3-package-information/#37-package-download-location>`_

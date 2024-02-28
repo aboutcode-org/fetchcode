@@ -1,0 +1,82 @@
+[
+    {
+        "authors": "Torsten Braun",
+        "built_at": "2014-09-12T00:00:00.000Z",
+        "created_at": "2014-09-12T15:01:59.662Z",
+        "description": "\n                          This Gem automatically downloads and extracts the ruby-advisory-db Database from Github.\n                          Than it uses bundler and rubygems to check for advisories in your installed Gems by\n                          executing a rake task.\n                       ",
+        "downloads_count": 3345,
+        "metadata": {},
+        "number": "0.0.4",
+        "summary": "Automatically check the ruby-advisory-db Database for advisories in your installed Gems.",
+        "platform": "ruby",
+        "rubygems_version": ">= 0",
+        "ruby_version": ">= 0",
+        "prerelease": false,
+        "licenses": [
+            "MIT"
+        ],
+        "requirements": [],
+        "sha": "8960bdc3a57869c1eabf640f699504c74ae3764c4fabb0e0d091a219729d3fbf",
+        "spec_sha": "d4afb099efd541b4390084340c9db224b8cfef270f399a0dcd8c2e990634aae1"
+    },
+    {
+        "authors": "Torsten Braun",
+        "built_at": "2014-09-11T00:00:00.000Z",
+        "created_at": "2014-09-11T10:22:40.909Z",
+        "description": "\n                          This Gem automatically downloads and extracts the ruby-advisory-db Database from Github.\n                          Than it uses bundler and rubygems to check for advisories in your installed Gems by\n                          executing a rake task.\n                       ",
+        "downloads_count": 2182,
+        "metadata": {},
+        "number": "0.0.3",
+        "summary": "Automatically check the ruby-advisory-db Database for advisories in your installed Gems.",
+        "platform": "ruby",
+        "rubygems_version": ">= 0",
+        "ruby_version": ">= 0",
+        "prerelease": false,
+        "licenses": [
+            "MIT"
+        ],
+        "requirements": [],
+        "sha": "907dff6c9565b17bc2592243c34f07ef99cdcad90f50e68ffb7b53c968e508f8",
+        "spec_sha": "f3d6a1d40df674baa54b6599711d2b309e71e4dd6d381854dd7d3a8da5d7f844"
+    },
+    {
+        "authors": "Torsten Braun",
+        "built_at": "2014-09-11T00:00:00.000Z",
+        "created_at": "2014-09-11T10:16:26.784Z",
+        "description": "\n                          This Gem automatically downloads and extracts the ruby-advisory-db Database from Github.\n                          Than it uses bundler and rubygems to check for advisories in your installed Gems by\n                          executing a rake task.\n                       ",
+        "downloads_count": 2171,
+        "metadata": {},
+        "number": "0.0.2",
+        "summary": "Automatically check the ruby-advisory-db Database for advisories in your installed Gems.",
+        "platform": "ruby",
+        "rubygems_version": ">= 0",
+        "ruby_version": ">= 0",
+        "prerelease": false,
+        "licenses": [
+            "MIT"
+        ],
+        "requirements": [],
+        "sha": "4f0ffda03e9e920ac213c67f939882540cfad5a03ed0bad02526dea62b707e43",
+        "spec_sha": "e6617f1affac5e864f35f299a8f1151eb74a1e37ffbca7e6bc7203abc52f9b3a"
+    },
+    {
+        "authors": "Torsten Braun",
+        "built_at": "2014-09-11T00:00:00.000Z",
+        "created_at": "2014-09-11T10:11:38.199Z",
+        "description": "\n                          This Gem automatically downloads and extracts the ruby-advisory-db Database from Github.\n                          Than it uses bundler and rubygems to check for advisories in your installed Gems by\n                          executing a rake task.\n                       ",
+        "downloads_count": 2176,
+        "metadata": {},
+        "number": "0.0.1",
+        "summary": "Automatically check the ruby-advisory-db Database for advisories in your installed Gems.",
+        "platform": "ruby",
+        "rubygems_version": ">= 0",
+        "ruby_version": ">= 0",
+        "prerelease": false,
+        "licenses": [
+            "MIT"
+        ],
+        "requirements": [],
+        "sha": "0c012f5044e25c85e212aaf3b383832c1c89958e82f4cb37dae1ae93c26002d1",
+        "spec_sha": "b0c88444ab61b3bb0b9f55a80f0b2e6b88d85b3c1151f534ca9fb64ea5d30036"
+    }
+]

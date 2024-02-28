@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+v0.3.0
+-------
+- Add `package_versions` for retrieving all released versions of a given package.
+
+
 v0.2.0
 -------
 
