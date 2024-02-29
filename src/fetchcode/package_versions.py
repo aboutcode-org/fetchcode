@@ -17,6 +17,7 @@
 import dataclasses
 import logging
 import os
+import re
 import time
 import traceback
 import xml.etree.ElementTree as ET
@@ -325,24 +326,6 @@ def get_golang_versions_from_purl(purl):
         version = fetch_version_info(version_info, escaped_pkg)
         if version:
             yield version
-
-
-@router.route("pkg:gnu/.*")
-def get_gnu_versions_from_purl(purl):
-    """Fetch versions of GNU packages from the FTP server of the the GNU project."""
-    purl = PackageURL.from_string(purl)
-    source_archive_url = f"https://ftp.gnu.org/pub/gnu/{purl.name}/"
-    _, listing = htmllistparse.fetch_listing(source_archive_url, timeout=30)
-    for file in listing:
-        if not file.name.endswith(".tar.gz"):
-            continue
-        version = hint(file.name).strip("v").strip()
-        modified_time = file.modified
-        date = datetime.utcfromtimestamp(time.mktime(modified_time))
-        yield PackageVersion(
-            value=version,
-            release_date=date,
-        )
 
 
 def trim_go_url_path(url_path: str) -> Optional[str]:

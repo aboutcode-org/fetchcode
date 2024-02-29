@@ -14,12 +14,19 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-from attr import attrs, attrib
+import dataclasses
+import re
+import time
+from datetime import datetime
+from typing import List
+from urllib.parse import urljoin
 
-from packageurl.contrib.route import NoRouteAvailable
-from packageurl import PackageURL
-from packageurl.contrib.route import Router
+import htmllistparse
 import requests
+from commoncode.version import hint
+from packageurl import PackageURL
+from packageurl.contrib.route import NoRouteAvailable
+from packageurl.contrib.route import Router
 
 from fetchcode.packagedcode_models import Package
 
@@ -327,3 +334,261 @@ def get_rubygems_data_from_purl(purl):
         download_url=download_url,
         **purl.to_dict(),
     )
+
+
+@router.route("pkg:gnu/.*")
+def get_gnu_data_from_purl(purl):
+    """Generate `Package` object from the `purl` string of gnu type"""
+    purl = PackageURL.from_string(purl)
+    source_archive_url = f"https://ftp.gnu.org/pub/gnu/{purl.name}/"
+    regex = r"^({}-)[\w.]*(.tar.gz)$".format(purl.name)
+
+    yield from extract_packages_from_listing(purl, source_archive_url, regex)
+
+
+@dataclasses.dataclass
+class DirectoryListedSource:
+    source_url: str = dataclasses.field(
+        default="", metadata={"description": "URL of the directory listing source"}
+    )
+    is_nested: bool = dataclasses.field(
+        default=False,
+        metadata={
+            "description": "Flag indicating whether the archives are nested within another directory"
+        },
+    )
+    source_archive_regex: str = dataclasses.field(
+        default="",
+        metadata={
+            "description": "Regular expression pattern to match files in the directory listing."
+        },
+    )
+    ignored_files_and_dir: List[str] = dataclasses.field(
+        default_factory=list,
+        metadata={
+            "description": "List of files and directories to ignore in the directory listing."
+        },
+    )
+
+    # TODO: use ignored_files_and_dir to ignore non interesting archives.
+    @classmethod
+    def get_package_info(cls, purl):
+        package_url = PackageURL.from_string(purl)
+        if cls.is_nested:
+            _, listing = htmllistparse.fetch_listing(cls.source_url)
+            for dir in listing:
+                if not dir.name.endswith("/"):
+                    continue
+                url = urljoin(cls.source_url, dir.name)
+                yield from extract_packages_from_listing(
+                    package_url, url, cls.source_archive_regex
+                )
+        else:
+            yield from extract_packages_from_listing(
+                package_url, cls.source_url, cls.source_archive_regex
+            )
+
+
+class IpkgDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://web.archive.org/web/20090326020239/http://handhelds.org/download/packages/ipkg/"
+    is_nested = False
+    source_archive_regex = r"^(ipkg[-_])[\w.]*(_arm.ipk|.tar.gz)$"
+    ignored_files_and_dir = []
+
+
+class UtilLinuxDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/"
+    is_nested = True
+    source_archive_regex = r"^(util-linux-)[\w.]*(.tar.gz)$"
+    ignored_files_and_dir = []
+
+
+class BusyBoxDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://www.busybox.net/downloads/"
+    source_archive_regex = r"^(busybox-)[\w.]*(.tar.bz2)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class UclibcDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://www.uclibc.org/downloads/"
+    source_archive_regex = r"^(uClibc-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class UclibcNGDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://downloads.uclibc-ng.org/releases/"
+    source_archive_regex = r"^(uClibc-ng-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class Bzip2DirectoryListedSource(DirectoryListedSource):
+    source_url = "https://sourceware.org/pub/bzip2/"
+    source_archive_regex = r"^(bzip2-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class OpenSSHDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/"
+    source_archive_regex = r"^(openssh-)[\w.]*(.tgz|.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class DnsmasqDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://thekelleys.org.uk/dnsmasq/"
+    source_archive_regex = r"^(dnsmasq-)[\w.]*(.tar.xz|.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class EbtablesDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://www.netfilter.org/pub/ebtables/"
+    source_archive_regex = r"^(ebtables-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class HostapdDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://w1.fi/releases/"
+    source_archive_regex = r"^(hostapd-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class Iproute2DirectoryListedSource(DirectoryListedSource):
+    source_url = "https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/"
+    source_archive_regex = r"^(iproute2-)[\w.]*(.tar.xz|.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class IptablesDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://www.netfilter.org/pub/iptables/"
+    source_archive_regex = r"^(iptables-)[\w.]*(.tar.bz2)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class LibnlDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://www.infradead.org/~tgr/libnl/files/"
+    source_archive_regex = r"^(libnl-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class LighttpdDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://download.lighttpd.net/lighttpd/releases-1.4.x/"
+    source_archive_regex = r"^(lighttpd-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class NftablesDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://www.netfilter.org/pub/nftables/"
+    source_archive_regex = r"^(nftables-)[\w.]*(.tar.xz|.tar.bz2)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class WpaSupplicantDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://w1.fi/releases/"
+    source_archive_regex = r"^(wpa_supplicant-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class SyslinuxDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/"
+    source_archive_regex = r"^(syslinux-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class SyslinuxDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/"
+    source_archive_regex = r"^(syslinux-)[\w.]*(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class ToyboxDirectoryListedSource(DirectoryListedSource):
+    source_url = "http://www.landley.net/toybox/downloads/"
+    source_archive_regex = r"^(toybox-)[\w.]*(.tar.gz|.tar.bz2)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+class DropbearDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://matt.ucc.asn.au/dropbear/releases/"
+    source_archive_regex = r"^(dropbear-)[\w.]*(.tar.bz2|_i386.deb)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
+HTML_DIR_LIST = {
+    "pkg:generic/ipkg": IpkgDirectoryListedSource,
+    "pkg:generic/util-linux": UtilLinuxDirectoryListedSource,
+    "pkg:generic/busybox": BusyBoxDirectoryListedSource,
+    "pkg:generic/uclibc": UclibcDirectoryListedSource,
+    "pkg:generic/uclibc-ng": UclibcNGDirectoryListedSource,
+    "pkg:generic/bzip2": Bzip2DirectoryListedSource,
+    "pkg:generic/openssh": OpenSSHDirectoryListedSource,
+    "pkg:generic/dnsmasq": DnsmasqDirectoryListedSource,
+    "pkg:generic/ebtables": EbtablesDirectoryListedSource,
+    "pkg:generic/hostapd": HostapdDirectoryListedSource,
+    "pkg:generic/iproute2": Iproute2DirectoryListedSource,
+    "pkg:generic/iptables": IptablesDirectoryListedSource,
+    "pkg:generic/libnl": LibnlDirectoryListedSource,
+    "pkg:generic/lighttpd": LighttpdDirectoryListedSource,
+    "pkg:generic/nftables": NftablesDirectoryListedSource,
+    "pkg:generic/wpa_supplicant": WpaSupplicantDirectoryListedSource,
+    "pkg:generic/syslinux": SyslinuxDirectoryListedSource,
+    # TODO: Need to implement extraction from deep nested directory.
+    #    "pkg:generic/rpm":
+    #    source_url ="https://ftp.osuosl.org/pub/rpm/releases/"
+    #    source_archive_regex = r"^(rpm-)[\w.]*(.tar.bz2)$"
+    #    is_nested = False
+    "pkg:generic/toybox": ToyboxDirectoryListedSource,
+    # TODO: Ignore test archives like dropbear-0.44test4.tar.gz
+    "pkg:generic/dropbear": DropbearDirectoryListedSource,
+}
+
+
+@router.route(*HTML_DIR_LIST.keys())
+def get_htmllisting_data_from_purl(purl):
+    """Generate `Package` object from the `purl` having directory listed source"""
+    return HTML_DIR_LIST[purl].get_package_info(purl)
+
+
+def extract_packages_from_listing(purl, source_archive_url, regex):
+    """
+    Yield package data from a directory listing for given source_archive_url.
+    """
+    pattern = re.compile(regex)
+    _, listing = htmllistparse.fetch_listing(source_archive_url)
+    for file in listing:
+        if not pattern.match(file.name):
+            continue
+
+        version = hint(file.name)
+        if not version:
+            continue
+
+        version = version.strip("v").strip()
+        modified_time = file.modified
+        date = datetime.utcfromtimestamp(time.mktime(modified_time))
+
+        download_url = urljoin(source_archive_url, file.name)
+        package_url = PackageURL(
+            type=purl.type, namespace=purl.namespace, name=purl.name, version=version
+        )
+        yield Package(
+            homepage_url=source_archive_url,
+            download_url=download_url,
+            release_date=date.isoformat(),
+            **package_url.to_dict(),
+        )
