@@ -17,8 +17,6 @@
 import dataclasses
 import logging
 import os
-import re
-import time
 import traceback
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -26,10 +24,8 @@ from typing import Iterable
 from typing import Optional
 from urllib.parse import urlparse
 
-import htmllistparse
 import requests
 import yaml
-from commoncode.version import hint
 from dateutil import parser as dateparser
 from packageurl import PackageURL
 from packageurl.contrib.route import NoRouteAvailable
