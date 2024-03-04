@@ -106,3 +106,551 @@ def test_tuby_package_with_invalid_url(mock_get):
         purl = "pkg:ruby/file"
         packages = list(info(purl))
         assert "Failed to fetch: https://rubygems.org/api/v1/gems/file.json" == e_info
+
+
+def file_content(file_name):
+    with open(file_name) as file:
+        return file.read()
+
+
+def check_result(filename, packages, regen=False):
+    result = [p.to_dict() for p in packages]
+    if regen:
+        with open(filename, "w") as file:
+            json.dump(result, file, indent=4)
+
+    with open(filename) as file:
+        expected = json.load(file)
+
+    assert result == expected
+
+
+@mock.patch("requests.get")
+def test_packages_util_linux(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/util-linux/index.html",
+        "tests/data/dirlisting/generic/util-linux/0.html",
+        "tests/data/dirlisting/generic/util-linux/1.html",
+        "tests/data/dirlisting/generic/util-linux/2.html",
+        "tests/data/dirlisting/generic/util-linux/3.html",
+        "tests/data/dirlisting/generic/util-linux/4.html",
+        "tests/data/dirlisting/generic/util-linux/5.html",
+        "tests/data/dirlisting/generic/util-linux/6.html",
+        "tests/data/dirlisting/generic/util-linux/7.html",
+        "tests/data/dirlisting/generic/util-linux/8.html",
+        "tests/data/dirlisting/generic/util-linux/9.html",
+        "tests/data/dirlisting/generic/util-linux/10.html",
+        "tests/data/dirlisting/generic/util-linux/11.html",
+        "tests/data/dirlisting/generic/util-linux/12.html",
+        "tests/data/dirlisting/generic/util-linux/13.html",
+        "tests/data/dirlisting/generic/util-linux/14.html",
+        "tests/data/dirlisting/generic/util-linux/15.html",
+        "tests/data/dirlisting/generic/util-linux/16.html",
+        "tests/data/dirlisting/generic/util-linux/17.html",
+        "tests/data/dirlisting/generic/util-linux/18.html",
+        "tests/data/dirlisting/generic/util-linux/19.html",
+        "tests/data/dirlisting/generic/util-linux/20.html",
+        "tests/data/dirlisting/generic/util-linux/21.html",
+        "tests/data/dirlisting/generic/util-linux/22.html",
+        "tests/data/dirlisting/generic/util-linux/23.html",
+        "tests/data/dirlisting/generic/util-linux/24.html",
+        "tests/data/dirlisting/generic/util-linux/25.html",
+        "tests/data/dirlisting/generic/util-linux/26.html",
+        "tests/data/dirlisting/generic/util-linux/27.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/util-linux-expected.json"
+    result = info("pkg:generic/util-linux")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_busybox(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/busybox/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/busybox-expected.json"
+    result = info("pkg:generic/busybox")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_bzip2(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/bzip2/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/bzip2-expected.json"
+    result = info("pkg:generic/bzip2")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_dnsmasq(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/dnsmasq/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/dnsmasq-expected.json"
+    result = info("pkg:generic/dnsmasq")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_dropbear(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/dropbear/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/dropbear-expected.json"
+    result = info("pkg:generic/dropbear")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_ebtables(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/ebtables/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/ebtables-expected.json"
+    result = info("pkg:generic/ebtables")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_hostapd(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/hostapd/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/hostapd-expected.json"
+    result = info("pkg:generic/hostapd")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_iproute2(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/iproute2/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/iproute2-expected.json"
+    result = info("pkg:generic/iproute2")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_iptables(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/iptables/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/iptables-expected.json"
+    result = info("pkg:generic/iptables")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_libnl(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/libnl/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/libnl-expected.json"
+    result = info("pkg:generic/libnl")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_lighttpd(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/lighttpd/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/lighttpd-expected.json"
+    result = info("pkg:generic/lighttpd")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_nftables(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/nftables/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/nftables-expected.json"
+    result = info("pkg:generic/nftables")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_openssh(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/openssh/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/openssh-expected.json"
+    result = info("pkg:generic/openssh")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_syslinux(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/syslinux/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/syslinux-expected.json"
+    result = info("pkg:generic/syslinux")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_toybox(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/toybox/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/toybox-expected.json"
+    result = info("pkg:generic/toybox")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_uclibc(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/uclibc/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/uclibc-expected.json"
+    result = info("pkg:generic/uclibc")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_uclibc_ng(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/uclibc-ng/index.html",
+        "tests/data/dirlisting/generic/uclibc-ng/0.html",
+        "tests/data/dirlisting/generic/uclibc-ng/1.html",
+        "tests/data/dirlisting/generic/uclibc-ng/2.html",
+        "tests/data/dirlisting/generic/uclibc-ng/3.html",
+        "tests/data/dirlisting/generic/uclibc-ng/4.html",
+        "tests/data/dirlisting/generic/uclibc-ng/5.html",
+        "tests/data/dirlisting/generic/uclibc-ng/6.html",
+        "tests/data/dirlisting/generic/uclibc-ng/7.html",
+        "tests/data/dirlisting/generic/uclibc-ng/8.html",
+        "tests/data/dirlisting/generic/uclibc-ng/9.html",
+        "tests/data/dirlisting/generic/uclibc-ng/10.html",
+        "tests/data/dirlisting/generic/uclibc-ng/11.html",
+        "tests/data/dirlisting/generic/uclibc-ng/12.html",
+        "tests/data/dirlisting/generic/uclibc-ng/13.html",
+        "tests/data/dirlisting/generic/uclibc-ng/14.html",
+        "tests/data/dirlisting/generic/uclibc-ng/15.html",
+        "tests/data/dirlisting/generic/uclibc-ng/16.html",
+        "tests/data/dirlisting/generic/uclibc-ng/17.html",
+        "tests/data/dirlisting/generic/uclibc-ng/18.html",
+        "tests/data/dirlisting/generic/uclibc-ng/19.html",
+        "tests/data/dirlisting/generic/uclibc-ng/20.html",
+        "tests/data/dirlisting/generic/uclibc-ng/21.html",
+        "tests/data/dirlisting/generic/uclibc-ng/22.html",
+        "tests/data/dirlisting/generic/uclibc-ng/23.html",
+        "tests/data/dirlisting/generic/uclibc-ng/24.html",
+        "tests/data/dirlisting/generic/uclibc-ng/25.html",
+        "tests/data/dirlisting/generic/uclibc-ng/26.html",
+        "tests/data/dirlisting/generic/uclibc-ng/27.html",
+        "tests/data/dirlisting/generic/uclibc-ng/28.html",
+        "tests/data/dirlisting/generic/uclibc-ng/29.html",
+        "tests/data/dirlisting/generic/uclibc-ng/30.html",
+        "tests/data/dirlisting/generic/uclibc-ng/31.html",
+        "tests/data/dirlisting/generic/uclibc-ng/32.html",
+        "tests/data/dirlisting/generic/uclibc-ng/33.html",
+        "tests/data/dirlisting/generic/uclibc-ng/34.html",
+        "tests/data/dirlisting/generic/uclibc-ng/35.html",
+        "tests/data/dirlisting/generic/uclibc-ng/36.html",
+        "tests/data/dirlisting/generic/uclibc-ng/37.html",
+        "tests/data/dirlisting/generic/uclibc-ng/38.html",
+        "tests/data/dirlisting/generic/uclibc-ng/39.html",
+        "tests/data/dirlisting/generic/uclibc-ng/40.html",
+        "tests/data/dirlisting/generic/uclibc-ng/41.html",
+        "tests/data/dirlisting/generic/uclibc-ng/42.html",
+        "tests/data/dirlisting/generic/uclibc-ng/43.html",
+        "tests/data/dirlisting/generic/uclibc-ng/44.html",
+        "tests/data/dirlisting/generic/uclibc-ng/45.html",
+        "tests/data/dirlisting/generic/uclibc-ng/46.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/uclibc-ng-expected.json"
+    result = info("pkg:generic/uclibc-ng")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_wpa_supplicant(mock_get):
+    test_data = [
+        "tests/data/dirlisting/generic/wpa_supplicant/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/generic/wpa_supplicant-expected.json"
+    result = info("pkg:generic/wpa_supplicant")
+
+    check_result(expected_file, result)
+
+
+@mock.patch("requests.get")
+def test_packages_gnu_glibc(mock_get):
+    test_data = [
+        "tests/data/dirlisting/gnu/glibc/index.html",
+    ]
+
+    mock_get.side_effect = [
+        type(
+            "Response",
+            (),
+            {
+                "content": file_content(file).encode(),
+                "raise_for_status": lambda: None,
+            },
+        )
+        for file in test_data
+    ]
+
+    expected_file = "tests/data/dirlisting/gnu/glibc-expected.json"
+    result = info("pkg:gnu/glibc")
+
+    check_result(expected_file, result)

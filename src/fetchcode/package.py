@@ -342,7 +342,7 @@ def get_gnu_data_from_purl(purl):
     source_archive_url = f"https://ftp.gnu.org/pub/gnu/{purl.name}/"
     regex = r"^({}-)([\w.-]*)(.tar.gz)$".format(purl.name)
 
-    yield from extract_packages_from_listing(purl, source_archive_url, regex)
+    yield from extract_packages_from_listing(purl, source_archive_url, regex, [])
 
 
 @dataclasses.dataclass
@@ -972,7 +972,7 @@ DIR_SUPPORTED_PURLS = [
     "pkg:generic/syslinux.*",
     "pkg:generic/toybox.*",
     "pkg:generic/uclibc",
-    "pkg:generic/uclibc@.*"
+    "pkg:generic/uclibc@.*",
     "pkg:generic/uclibc-ng.*",
     "pkg:generic/util-linux.*",
     "pkg:generic/wpa_supplicant.*",
