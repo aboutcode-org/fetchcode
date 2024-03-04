@@ -370,22 +370,22 @@ class DirectoryListedSource:
         },
     )
 
-    # TODO: use ignored_files_and_dir to ignore non interesting archives.
     @classmethod
-    def get_package_info(cls, purl):
-        package_url = PackageURL.from_string(purl)
+    def get_package_info(cls, package_url):
         if cls.is_nested:
-            _, listing = htmllistparse.fetch_listing(cls.source_url)
-            for dir in listing:
-                if not dir.name.endswith("/"):
-                    continue
-                url = urljoin(cls.source_url, dir.name)
-                yield from extract_packages_from_listing(
-                    package_url, url, cls.source_archive_regex
-                )
+            yield from extract_package_from_nested_listing(
+                package_url,
+                cls.source_url,
+                cls.source_archive_regex,
+                cls.ignored_files_and_dir,
+            )
+
         else:
             yield from extract_packages_from_listing(
-                package_url, cls.source_url, cls.source_archive_regex
+                package_url,
+                cls.source_url,
+                cls.source_archive_regex,
+                cls.ignored_files_and_dir,
             )
 
 
@@ -526,52 +526,82 @@ class DropbearDirectoryListedSource(DirectoryListedSource):
     source_url = "https://matt.ucc.asn.au/dropbear/releases/"
     source_archive_regex = r"^(dropbear-)[\w.]*(.tar.bz2|_i386.deb)$"
     is_nested = False
-    ignored_files_and_dir = []
+    ignored_files_and_dir = [
+        "dropbear-0.44test1.tar.bz2",
+        "dropbear-0.44test1.tar.gz",
+        "dropbear-0.44test2.tar.bz2",
+        "dropbear-0.44test2.tar.gz",
+        "dropbear-0.44test3.tar.bz2",
+        "dropbear-0.44test3.tar.gz",
+        "dropbear-0.44test4.tar.bz2",
+        "dropbear-0.44test4.tar.gz",
+    ]
 
 
-HTML_DIR_LIST = {
-    "pkg:generic/ipkg": IpkgDirectoryListedSource,
-    "pkg:generic/util-linux": UtilLinuxDirectoryListedSource,
-    "pkg:generic/busybox": BusyBoxDirectoryListedSource,
-    "pkg:generic/uclibc": UclibcDirectoryListedSource,
-    "pkg:generic/uclibc-ng": UclibcNGDirectoryListedSource,
-    "pkg:generic/bzip2": Bzip2DirectoryListedSource,
-    "pkg:generic/openssh": OpenSSHDirectoryListedSource,
-    "pkg:generic/dnsmasq": DnsmasqDirectoryListedSource,
-    "pkg:generic/ebtables": EbtablesDirectoryListedSource,
-    "pkg:generic/hostapd": HostapdDirectoryListedSource,
-    "pkg:generic/iproute2": Iproute2DirectoryListedSource,
-    "pkg:generic/iptables": IptablesDirectoryListedSource,
-    "pkg:generic/libnl": LibnlDirectoryListedSource,
-    "pkg:generic/lighttpd": LighttpdDirectoryListedSource,
-    "pkg:generic/nftables": NftablesDirectoryListedSource,
-    "pkg:generic/wpa_supplicant": WpaSupplicantDirectoryListedSource,
-    "pkg:generic/syslinux": SyslinuxDirectoryListedSource,
-    # TODO: Need to implement extraction from deep nested directory.
-    #    "pkg:generic/rpm":
-    #    source_url ="https://ftp.osuosl.org/pub/rpm/releases/"
-    #    source_archive_regex = r"^(rpm-)[\w.]*(.tar.bz2)$"
-    #    is_nested = False
-    "pkg:generic/toybox": ToyboxDirectoryListedSource,
-    # TODO: Ignore test archives like dropbear-0.44test4.tar.gz
-    "pkg:generic/dropbear": DropbearDirectoryListedSource,
+DIR_SUPPORTED_PURLS = [
+    "pkg:generic/ipkg.*",
+    "pkg:generic/util-linux.*",
+    "pkg:generic/busybox.*",
+    "pkg:generic/uclibc.*",
+    "pkg:generic/uclibc-ng.*",
+    "pkg:generic/bzip2.*",
+    "pkg:generic/openssh.*",
+    "pkg:generic/dnsmasq.*",
+    "pkg:generic/ebtables.*",
+    "pkg:generic/hostapd.*",
+    "pkg:generic/iproute2.*",
+    "pkg:generic/iptables.*",
+    "pkg:generic/libnl.*",
+    "pkg:generic/lighttpd.*",
+    "pkg:generic/nftables.*",
+    "pkg:generic/wpa_supplicant.*",
+    "pkg:generic/syslinux.*",
+    "pkg:generic/toybox.*",
+    "pkg:generic/dropbear.*",
+]
+
+DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
+    "ipkg": IpkgDirectoryListedSource,
+    "util-linux": UtilLinuxDirectoryListedSource,
+    "busybox": BusyBoxDirectoryListedSource,
+    "uclibc": UclibcDirectoryListedSource,
+    "uclibc-ng": UclibcNGDirectoryListedSource,
+    "bzip2": Bzip2DirectoryListedSource,
+    "openssh": OpenSSHDirectoryListedSource,
+    "dnsmasq": DnsmasqDirectoryListedSource,
+    "ebtables": EbtablesDirectoryListedSource,
+    "hostapd": HostapdDirectoryListedSource,
+    "iproute2": Iproute2DirectoryListedSource,
+    "iptables": IptablesDirectoryListedSource,
+    "libnl": LibnlDirectoryListedSource,
+    "lighttpd": LighttpdDirectoryListedSource,
+    "nftables": NftablesDirectoryListedSource,
+    "wpa_supplicant": WpaSupplicantDirectoryListedSource,
+    "syslinux": SyslinuxDirectoryListedSource,
+    "toybox": ToyboxDirectoryListedSource,
+    "dropbear": DropbearDirectoryListedSource,
 }
 
 
-@router.route(*HTML_DIR_LIST.keys())
+@router.route(*DIR_SUPPORTED_PURLS)
 def get_htmllisting_data_from_purl(purl):
     """Generate `Package` object from the `purl` having directory listed source"""
-    return HTML_DIR_LIST[purl].get_package_info(purl)
+    package_url = PackageURL.from_string(purl)
+    return DIR_LISTED_SOURCE_BY_PACKAGE_NAME[package_url.name].get_package_info(
+        package_url
+    )
 
 
-def extract_packages_from_listing(purl, source_archive_url, regex):
+def get_packages_from_listing(purl, source_archive_url, regex, ignored_files_and_dir):
     """
-    Yield package data from a directory listing for given source_archive_url.
+    Return list of package data from a directory listing based on the specified regex.
     """
     pattern = re.compile(regex)
     _, listing = htmllistparse.fetch_listing(source_archive_url)
+
+    packages = []
     for file in listing:
-        if not pattern.match(file.name):
+        if not pattern.match(file.name) or file.name in ignored_files_and_dir:
             continue
 
         version = hint(file.name)
@@ -584,11 +614,65 @@ def extract_packages_from_listing(purl, source_archive_url, regex):
 
         download_url = urljoin(source_archive_url, file.name)
         package_url = PackageURL(
-            type=purl.type, namespace=purl.namespace, name=purl.name, version=version
+            type=purl.type,
+            namespace=purl.namespace,
+            name=purl.name,
+            version=version,
         )
-        yield Package(
-            homepage_url=source_archive_url,
-            download_url=download_url,
-            release_date=date.isoformat(),
-            **package_url.to_dict(),
+        packages.append(
+            Package(
+                homepage_url=source_archive_url,
+                download_url=download_url,
+                release_date=date.isoformat(),
+                **package_url.to_dict(),
+            )
         )
+
+    return packages
+
+
+def extract_packages_from_listing(
+    purl, source_archive_url, regex, ignored_files_and_dir
+):
+    """
+    Yield package data from a directory listing for the given source_archive_url.
+    """
+    for package in get_packages_from_listing(
+        purl, source_archive_url, regex, ignored_files_and_dir
+    ):
+        # Don't yield all packages when a specific version is requested.
+        if purl.version and package.version != purl.version:
+            continue
+
+        yield package
+
+        # If a version is specified in purl and we have found a matching package,
+        # we don't need to continue searching.
+        if purl.version:
+            break
+
+
+def extract_package_from_nested_listing(purl, source_url, regex, ignored_files_and_dir):
+    """
+    Yield package data from a nested directory listing for the given source_url.
+    """
+    _, listing = htmllistparse.fetch_listing(source_url)
+    for directory in listing:
+        if not directory.name.endswith("/"):
+            continue
+
+        directory_url = urljoin(source_url, directory.name)
+
+        for package in get_packages_from_listing(
+            purl, directory_url, regex, ignored_files_and_dir
+        ):
+            # Don't yield all packages when a specific version is requested.
+            if purl.version and package.version != purl.version:
+                continue
+
+            yield package
+
+            # If a version is specified in purl and we have found a matching package,
+            # we don't need to continue searching.
+            if purl.version:
+                return
