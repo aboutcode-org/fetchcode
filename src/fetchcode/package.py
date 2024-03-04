@@ -838,7 +838,7 @@ class UclibcDirectoryListedSource(DirectoryListedSource):
 class UclibcNGDirectoryListedSource(DirectoryListedSource):
     source_url = "https://downloads.uclibc-ng.org/releases/"
     source_archive_regex = r"^(uClibc-ng-)([\w.-]*)(.tar.gz)$"
-    is_nested = False
+    is_nested = True
     ignored_files_and_dir = []
 
 
@@ -971,7 +971,8 @@ DIR_SUPPORTED_PURLS = [
     "pkg:generic/openssh.*",
     "pkg:generic/syslinux.*",
     "pkg:generic/toybox.*",
-    "pkg:generic/uclibc.*",
+    "pkg:generic/uclibc",
+    "pkg:generic/uclibc@.*"
     "pkg:generic/uclibc-ng.*",
     "pkg:generic/util-linux.*",
     "pkg:generic/wpa_supplicant.*",
@@ -1008,7 +1009,6 @@ def get_htmllisting_data_from_purl(purl):
     return DIR_LISTED_SOURCE_BY_PACKAGE_NAME[package_url.name].get_package_info(
         package_url
     )
-
 
 def get_packages_from_listing(purl, source_archive_url, regex, ignored_files_and_dir):
     """
