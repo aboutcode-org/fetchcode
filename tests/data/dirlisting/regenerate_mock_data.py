@@ -501,6 +501,15 @@ TEST_SOURCES_INFO = [
             },
         ],
     },
+    {
+        "purl": "pkg:gnu/samba",
+        "sources": [
+            {
+                "filename": "gnu/samba/index.html",
+                "url": "https://download.samba.org/pub/samba/stable/",
+            },
+        ],
+    },
 ]
 
 

@@ -956,6 +956,13 @@ class DropbearDirectoryListedSource(DirectoryListedSource):
     ]
 
 
+class SambaDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://download.samba.org/pub/samba/stable/"
+    source_archive_regex = r"^(samba-)([\w.-]*)(.tar.gz)$"
+    is_nested = False
+    ignored_files_and_dir = []
+
+
 DIR_SUPPORTED_PURLS = [
     "pkg:generic/busybox.*",
     "pkg:generic/bzip2.*",
@@ -969,6 +976,7 @@ DIR_SUPPORTED_PURLS = [
     "pkg:generic/lighttpd.*",
     "pkg:generic/nftables.*",
     "pkg:generic/openssh.*",
+    "pkg:generic/samba.*",
     "pkg:generic/syslinux.*",
     "pkg:generic/toybox.*",
     "pkg:generic/uclibc",
@@ -992,6 +1000,7 @@ DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
     "lighttpd": LighttpdDirectoryListedSource,
     "nftables": NftablesDirectoryListedSource,
     "openssh": OpenSSHDirectoryListedSource,
+    "samba": SambaDirectoryListedSource,
     "syslinux": SyslinuxDirectoryListedSource,
     "toybox": ToyboxDirectoryListedSource,
     "uclibc": UclibcDirectoryListedSource,

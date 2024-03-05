@@ -641,3 +641,26 @@ class DirListedTestCase(TestCase):
         result = info("pkg:generic/nftables")
 
         self.check_result(expected_file, result)
+
+    @mock.patch("requests.get")
+    def test_packages_samba(self, mock_get):
+        test_data = [
+            "tests/data/dirlisting/generic/samba/index.html",
+        ]
+
+        mock_get.side_effect = [
+            type(
+                "Response",
+                (),
+                {
+                    "content": file_content(file).encode(),
+                    "raise_for_status": lambda: None,
+                },
+            )
+            for file in test_data
+        ]
+
+        expected_file = "tests/data/dirlisting/generic/samba-expected.json"
+        result = info("pkg:generic/samba")
+
+        self.check_result(expected_file, result)
