@@ -1010,6 +1010,7 @@ def get_htmllisting_data_from_purl(purl):
         package_url
     )
 
+
 def get_packages_from_listing(purl, source_archive_url, regex, ignored_files_and_dir):
     """
     Return list of package data from a directory listing based on the specified regex.
@@ -1029,7 +1030,7 @@ def get_packages_from_listing(purl, source_archive_url, regex, ignored_files_and
             continue
 
         modified_time = file.modified
-        date = datetime.utcfromtimestamp(time.mktime(modified_time))
+        date = time.strftime("%Y-%m-%dT%H:%M:%S", modified_time)
 
         download_url = urljoin(source_archive_url, file.name)
         package_url = PackageURL(
@@ -1042,7 +1043,7 @@ def get_packages_from_listing(purl, source_archive_url, regex, ignored_files_and
             Package(
                 homepage_url=source_archive_url,
                 download_url=download_url,
-                release_date=date.isoformat(),
+                release_date=date,
                 **package_url.to_dict(),
             )
         )
