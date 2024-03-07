@@ -400,195 +400,195 @@ class IpkgDirectoryListedSource(DirectoryListedSource):
         # store them in a dictionary rather than fetching them every time.
         archives = {
             "0.99.88": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.88.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.88.tar.gz",
                 "date": "2003-08-08T03:03:00",
             },
             "0.99.89": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.89.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.89.tar.gz",
                 "date": "2003-08-21T10:02:00",
             },
             "0.99.102": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.102.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.102.tar.gz",
                 "date": "2003-11-10T09:58:00",
             },
             "0.99.107": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.107.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.107.tar.gz",
                 "date": "2004-01-12T06:08:00",
             },
             "0.99.110": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.110.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.110.tar.gz",
                 "date": "2004-01-18T15:52:00",
             },
             "0.99.118": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.118.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.118.tar.gz",
                 "date": "2004-03-29T11:25:00",
             },
             "0.99.119": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.119.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.119.tar.gz",
                 "date": "2004-04-06T12:14:00",
             },
             "0.99.120": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.120.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.120.tar.gz",
                 "date": "2004-04-07T12:50:00",
             },
             "0.99.121": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.121.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.121.tar.gz",
                 "date": "2004-05-03T09:58:00",
             },
             "0.99.122-1": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122-1.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122-1.tar.gz",
                 "date": "2004-05-14T12:51:00",
             },
             "0.99.122-2": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122-2.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122-2.tar.gz",
                 "date": "2004-05-16T05:02:00",
             },
             "0.99.122-3": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122-3.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122-3.tar.gz",
                 "date": "2004-05-16T05:49:00",
             },
             "0.99.122": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.122.tar.gz",
                 "date": "2004-05-10T12:13:00",
             },
             "0.99.124": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.124.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.124.tar.gz",
                 "date": "2004-05-21T11:29:00",
             },
             "0.99.125": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.125.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.125.tar.gz",
                 "date": "2004-06-05T09:58:00",
             },
             "0.99.126": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.126.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.126.tar.gz",
                 "date": "2004-06-15T11:51:00",
             },
             "0.99.127": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.127.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.127.tar.gz",
                 "date": "2004-07-20T11:50:00",
             },
             "0.99.129": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.129.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.129.tar.gz",
                 "date": "2004-09-01T12:15:00",
             },
             "0.99.130": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.130.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.130.tar.gz",
                 "date": "2004-09-11T11:27:00",
             },
             "0.99.131": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.131.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.131.tar.gz",
                 "date": "2004-09-30T10:05:00",
             },
             "0.99.132": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.132.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.132.tar.gz",
                 "date": "2004-10-17T10:26:00",
             },
             "0.99.133": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.133.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.133.tar.gz",
                 "date": "2004-11-18T09:49:00",
             },
             "0.99.134": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.134.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.134.tar.gz",
                 "date": "2005-01-05T14:42:00",
             },
             "0.99.135": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.135.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.135.tar.gz",
                 "date": "2005-01-06T02:59:00",
             },
             "0.99.136": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.136.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.136.tar.gz",
                 "date": "2005-01-10T11:00:00",
             },
             "0.99.137": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.137.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.137.tar.gz",
                 "date": "2005-01-10T12:11:00",
             },
             "0.99.138": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.138.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.138.tar.gz",
                 "date": "2005-01-18T12:19:00",
             },
             "0.99.139": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.139.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.139.tar.gz",
                 "date": "2005-02-05T11:40:00",
             },
             "0.99.140": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.140.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.140.tar.gz",
                 "date": "2005-02-05T13:16:00",
             },
             "0.99.141": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.141.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.141.tar.gz",
                 "date": "2005-02-06T12:16:00",
             },
             "0.99.142": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.142.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.142.tar.gz",
                 "date": "2005-02-07T12:51:00",
             },
             "0.99.143": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.143.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.143.tar.gz",
                 "date": "2005-02-20T09:26:00",
             },
             "0.99.144": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.144.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.144.tar.gz",
                 "date": "2005-02-22T12:52:00",
             },
             "0.99.145": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.145.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.145.tar.gz",
                 "date": "2005-03-14T11:59:00",
             },
             "0.99.146": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.146.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.146.tar.gz",
                 "date": "2005-03-28T10:02:00",
             },
             "0.99.148": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.148.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.148.tar.gz",
                 "date": "2005-04-10T11:26:00",
             },
             "0.99.149": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.149.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.149.tar.gz",
                 "date": "2005-05-13T10:41:00",
             },
             "0.99.151": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.151.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.151.tar.gz",
                 "date": "2005-06-16T09:39:00",
             },
             "0.99.152": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.152.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.152.tar.gz",
                 "date": "2005-07-06T03:38:00",
             },
             "0.99.153": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.153.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.153.tar.gz",
                 "date": "2005-07-29T11:02:00",
             },
             "0.99.154": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.154.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.154.tar.gz",
                 "date": "2005-09-16T10:41:00",
             },
             "0.99.155": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.155.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.155.tar.gz",
                 "date": "2006-01-04T11:55:00",
             },
             "0.99.156": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.156.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.156.tar.gz",
                 "date": "2006-01-14T09:56:00",
             },
             "0.99.157": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.157.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.157.tar.gz",
                 "date": "2006-01-22T10:30:00",
             },
             "0.99.158": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.158.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.158.tar.gz",
                 "date": "2006-02-02T11:47:00",
             },
             "0.99.161": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.161.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.161.tar.gz",
                 "date": "2006-04-19T10:15:00",
             },
             "0.99.162": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.162.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.162.tar.gz",
                 "date": "2006-05-29T23:02:00",
             },
             "0.99.163": {
-                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.163.tar.gk",
+                "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.163.tar.gz",
                 "date": "2006-05-29T23:40:00",
             },
             "0.9-1": {
