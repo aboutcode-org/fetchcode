@@ -59,6 +59,7 @@ def versions(purl):
         except NoRouteAvailable:
             return
 
+
 @dataclasses.dataclass(frozen=True)
 class PackageVersion:
     value: str
@@ -377,8 +378,8 @@ def escape_path(path: str) -> str:
 
 
 def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageVersion]:
-    # Example version_info: 
-    #     "v1.3.0 2019-04-19T01:47:04Z" 
+    # Example version_info:
+    #     "v1.3.0 2019-04-19T01:47:04Z"
     #     "v1.3.0"
     version_parts = version_info.split()
     if not version_parts:
@@ -391,7 +392,7 @@ def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageV
     if date:
         # get release date from the second part. see
         # https://github.com/golang/go/blob/ac02fdec7cd16ea8d3de1fc33def9cfabec5170d/src/cmd/go/internal/modfetch/proxy.go#L136-L147
-        
+
         release_date = dateparser.parse(date)
     else:
         escaped_ver = escape_path(version)
@@ -537,7 +538,7 @@ def get_response(url, content_type="json", headers=None):
 def remove_debian_default_epoch(version):
     """
     Remove the default epoch from a Debian ``version`` string.
-    
+
     For Example::
     >>> remove_debian_default_epoch("0:1.2.3-4")
     '1.2.3-4'
