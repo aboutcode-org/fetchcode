@@ -215,7 +215,7 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/genext2fs/github_mock_data_0.json"
         )
 
-        expected_file = "tests/data/package/github/dosfstools-expected.json"
+        expected_file = "tests/data/package/github/genext2fs-expected.json"
         result = info("pkg:github/bestouff/genext2fs")
 
         self.check_result(expected_file, result)
