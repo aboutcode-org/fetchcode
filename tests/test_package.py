@@ -994,6 +994,12 @@ class DirListedTestCase(TestCase):
         result = info("pkg:generic/samba")
 
         self.check_result(expected_file, result)
+    
+    def test_packages_ipkg(self):
+        expected_file = "tests/data/package/dirlisting/generic/ipkg-expected.json"
+        result = info("pkg:generic/ipkg")
+
+        self.check_result(expected_file, result)
 
 
 def file_json(file_path):
