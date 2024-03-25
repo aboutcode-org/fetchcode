@@ -133,6 +133,8 @@ def _get_github_packages(purl, version_regex, ignored_tag_regex, default_package
         download_url = archive_download_url.format(
             org=purl.namespace, name=purl.name, tag_name=tag
         )
+
+        date = date.strftime("%Y-%m-%dT%H:%M:%S")
         package_dict.update(
             {
                 "download_url": download_url,
@@ -185,20 +187,20 @@ class LlvmGitHubSource(GitHubSource):
 
 
 GITHUB_SOURCE_BY_PACKAGE = {
-    "u-boot/u-boot": UBootGitHubSource,
-    "dosfstools/dosfstools": GitHubSource,
-    "bestouff/genext2fs": Genext2fsGitHubSource,
-    "plougher/squashfs-tools": SquashfsToolsGitHubSource,
     "avahi/avahi": GitHubSource,
-    "inotify-tools/inotify-tools": GitHubSource,
-    "hewlettpackard/wireless-tools": GitHubSource,
-    "shadow-maint/shadow": GitHubSource,
-    "pupnp/pupnp": PupnpGitHubSource,
+    "bestouff/genext2fs": Genext2fsGitHubSource,
+    "dosfstools/dosfstools": GitHubSource,
     "google/brotli": BrotliGitHubSource,
+    "hewlettpackard/wireless-tools": GitHubSource,
+    "inotify-tools/inotify-tools": GitHubSource,
     "libbpf/bpftool": BpftoolGitHubSource,
-    "sqlite/sqlite": SqliteGitHubSource,
     "llvm/llvm-project": LlvmGitHubSource,
     "nixos/nix": GitHubSource,
+    "plougher/squashfs-tools": SquashfsToolsGitHubSource,
+    "pupnp/pupnp": PupnpGitHubSource,
+    "shadow-maint/shadow": GitHubSource,
+    "sqlite/sqlite": SqliteGitHubSource,
+    "u-boot/u-boot": UBootGitHubSource,
 }
 
 
