@@ -28,6 +28,7 @@ from packageurl.contrib.route import Router
 from fetchcode.package_util import GITHUB_SOURCE_BY_PACKAGE
 from fetchcode.package_util import IPKG_RELEASES
 from fetchcode.package_util import GitHubSource
+from fetchcode.package_util import MiniupnpPackagesGitHubSource
 from fetchcode.packagedcode_models import Package
 from fetchcode.utils import get_response
 
@@ -217,6 +218,28 @@ def get_github_data_from_purl(purl):
     gh_source_class = GITHUB_SOURCE_BY_PACKAGE.get(gh_package, GitHubSource)
 
     return gh_source_class.get_package_info(purl)
+
+
+@router.route(
+    "pkg:generic/miniupnpc.*",
+    "pkg:generic/miniupnpd.*",
+    "pkg:generic/minissdpd.*",
+)
+def get_github_data_for_miniupnp(purl):
+    """
+    Yield `Package` object for miniupnp packages from GitHub.
+    """
+    generic_purl = PackageURL.from_string(purl)
+    github_repo_purl = PackageURL(
+        type="github",
+        namespace="miniupnp",
+        name="miniupnp",
+        version=generic_purl.version,
+    )
+
+    return MiniupnpPackagesGitHubSource.get_package_info(
+        gh_purl=github_repo_purl, package_name=generic_purl.name
+    )
 
 
 @router.route("pkg:bitbucket/.*")

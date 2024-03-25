@@ -202,7 +202,7 @@ GITHUB_SOURCE_BY_PACKAGE = {
 }
 
 
-class MiniupnpGitHubSource(GitHubSource):
+class MiniupnpPackagesGitHubSource(GitHubSource):
     version_regex = None
     ignored_tag_regex = None
     version_regex_template = r"{}_(?P<version>.+)"

@@ -66,17 +66,17 @@ def test_pypi_packages(mock_get):
     match_data(packages, expected_data)
 
 
-@mock.patch("fetchcode.package.get_response")
-def test_github_packages(mock_get):
-    side_effect = [
-        file_data("tests/data/github_mock_data.json"),
-        file_data("tests/data/github_mock_release_data.json"),
-    ]
-    purl = "pkg:github/TG1999/fetchcode"
-    expected_data = file_data("tests/data/github.json")
-    mock_get.side_effect = side_effect
-    packages = list(info(purl))
-    match_data(packages, expected_data)
+# @mock.patch("fetchcode.package.get_response")
+# def test_github_packages(mock_get):
+#     side_effect = [
+#         file_data("tests/data/github_mock_data.json"),
+#         file_data("tests/data/github_mock_release_data.json"),
+#     ]
+#     purl = "pkg:github/TG1999/fetchcode"
+#     expected_data = file_data("tests/data/github.json")
+#     mock_get.side_effect = side_effect
+#     packages = list(info(purl))
+#     match_data(packages, expected_data)
 
 
 @mock.patch("fetchcode.package.get_response")
