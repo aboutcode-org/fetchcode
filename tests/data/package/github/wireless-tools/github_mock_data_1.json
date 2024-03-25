@@ -1,0 +1,87 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 12,
+        "pageInfo": {
+          "endCursor": "MTI",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "name": "v10",
+            "target": {
+              "committedDate": "2016-10-11T20:35:24Z"
+            }
+          },
+          {
+            "name": "v19",
+            "target": {
+              "committedDate": "2016-10-11T20:42:04Z"
+            }
+          },
+          {
+            "name": "v20",
+            "target": {
+              "committedDate": "2016-10-11T20:49:10Z"
+            }
+          },
+          {
+            "name": "v21",
+            "target": {
+              "committedDate": "2016-10-11T20:54:07Z"
+            }
+          },
+          {
+            "name": "v22",
+            "target": {
+              "committedDate": "2016-10-11T20:57:54Z"
+            }
+          },
+          {
+            "name": "v23",
+            "target": {
+              "committedDate": "2016-10-11T21:00:06Z"
+            }
+          },
+          {
+            "name": "v24",
+            "target": {
+              "committedDate": "2016-10-11T21:03:11Z"
+            }
+          },
+          {
+            "name": "v25",
+            "target": {
+              "committedDate": "2016-10-11T21:05:29Z"
+            }
+          },
+          {
+            "name": "v26",
+            "target": {
+              "committedDate": "2016-10-11T21:08:05Z"
+            }
+          },
+          {
+            "name": "v27",
+            "target": {
+              "committedDate": "2016-10-11T21:10:33Z"
+            }
+          },
+          {
+            "name": "v28",
+            "target": {
+              "committedDate": "2016-10-11T21:13:40Z"
+            }
+          },
+          {
+            "name": "v29",
+            "target": {
+              "committedDate": "2016-10-11T21:17:19Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

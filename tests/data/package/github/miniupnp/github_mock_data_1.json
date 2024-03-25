@@ -1,0 +1,215 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 33,
+        "pageInfo": {
+          "endCursor": "MzM",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "name": "minissdpd_1_2",
+            "target": {
+              "committedDate": "2012-05-24T22:40:18Z"
+            }
+          },
+          {
+            "name": "minissdpd_1_4",
+            "target": {
+              "committedDate": "2015-08-06T13:20:39Z"
+            }
+          },
+          {
+            "name": "minissdpd_1_5",
+            "target": {
+              "committedDate": "2016-01-13T15:14:02Z"
+            }
+          },
+          {
+            "name": "minissdpd_1_6_0",
+            "target": {
+              "committedDate": "2022-10-22T18:44:00Z"
+            }
+          },
+          {
+            "name": "miniupnpc_1_7",
+            "target": {
+              "committedDate": "2012-05-24T22:34:33Z"
+            }
+          },
+          {
+            "name": "miniupnpc_1_8",
+            "target": {
+              "committedDate": "2013-02-06T14:50:37Z"
+            }
+          },
+          {
+            "name": "miniupnpc_1_9",
+            "target": {
+              "committedDate": "2015-07-08T13:21:35Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_0",
+            "target": {
+              "committedDate": "2016-04-19T21:17:29Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_1",
+            "target": {
+              "committedDate": "2018-05-07T11:12:58Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_0",
+            "target": {
+              "committedDate": "2020-11-09T19:52:52Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_1",
+            "target": {
+              "committedDate": "2020-12-20T18:11:18Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_2",
+            "target": {
+              "committedDate": "2021-03-02T23:50:51Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_3",
+            "target": {
+              "committedDate": "2021-09-28T21:47:00Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_4",
+            "target": {
+              "committedDate": "2022-10-21T21:05:29Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_5",
+            "target": {
+              "committedDate": "2023-06-11T23:20:36Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_6",
+            "target": {
+              "committedDate": "2024-01-04T00:30:01Z"
+            }
+          },
+          {
+            "name": "miniupnpc_2_2_7",
+            "target": {
+              "committedDate": "2024-03-19T23:27:28Z"
+            }
+          },
+          {
+            "name": "miniupnpd_1_7",
+            "target": {
+              "committedDate": "2012-05-27T23:21:12Z"
+            }
+          },
+          {
+            "name": "miniupnpd_1_8",
+            "target": {
+              "committedDate": "2013-02-06T14:50:37Z"
+            }
+          },
+          {
+            "name": "miniupnpd_1_9",
+            "target": {
+              "committedDate": "2014-10-27T16:39:28Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_0",
+            "target": {
+              "committedDate": "2016-04-19T21:17:29Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_1",
+            "target": {
+              "target": {
+                "committedDate": "2018-05-08T21:40:27Z"
+              }
+            }
+          },
+          {
+            "name": "miniupnpd_2_2_0",
+            "target": {
+              "committedDate": "2020-10-31T09:23:44Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_2_1",
+            "target": {
+              "committedDate": "2020-12-20T18:12:47Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_2_2",
+            "target": {
+              "committedDate": "2021-05-13T11:33:02Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_2_3",
+            "target": {
+              "committedDate": "2021-08-21T09:17:30Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_3_0",
+            "target": {
+              "committedDate": "2022-01-23T00:19:01Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_3_1",
+            "target": {
+              "committedDate": "2022-10-16T06:03:35Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_3_2",
+            "target": {
+              "committedDate": "2023-01-19T23:25:03Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_3_3",
+            "target": {
+              "committedDate": "2023-02-17T03:09:33Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_3_4",
+            "target": {
+              "committedDate": "2024-01-04T00:54:52Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_3_5",
+            "target": {
+              "committedDate": "2024-03-02T11:09:11Z"
+            }
+          },
+          {
+            "name": "miniupnpd_2_3_6",
+            "target": {
+              "committedDate": "2024-03-19T23:41:25Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}
