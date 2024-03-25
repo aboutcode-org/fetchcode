@@ -98,7 +98,7 @@ def test_tuby_package_with_invalid_url(mock_get):
 
 
 class GitHubSourceTestCase(TestCase):
-    def check_result(self, filename, packages, regen=True):
+    def check_result(self, filename, packages, regen=False):
         result = [p.to_dict() for p in packages]
 
         if regen:
