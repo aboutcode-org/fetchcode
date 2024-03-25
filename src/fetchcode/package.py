@@ -376,16 +376,16 @@ class IpkgDirectoryListedSource(DirectoryListedSource):
 
         version = package_url.version
         if version and version in IPKG_RELEASES:
-            archives = IPKG_RELEASES[version]
+            archive = IPKG_RELEASES[version]
             yield Package(
                 homepage_url=cls.source_url,
-                download_url=archives["url"],
-                release_date=archives["date"],
+                download_url=archive["url"],
+                release_date=archive["date"],
                 **package_url.to_dict(),
             )
 
         else:
-            for version, data in archives.items():
+            for version, data in IPKG_RELEASES.items():
                 purl = PackageURL(type="generic", name="ipkg", version=version)
                 yield Package(
                     homepage_url=cls.source_url,
