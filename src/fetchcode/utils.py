@@ -11,13 +11,12 @@
 # http://apache.org/licenses/LICENSE-2.0
 # Unless required by applicable law or agreed to in writing, software distributed
 # under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-# CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# CONDITIONS OF ANY KIND, either express or implied. See tshe License for the
 # specific language governing permissions and limitations under the License.
 
-
 import os
-from dateutil import parser as dateparser
 import requests
+from dateutil import parser as dateparser
 
 
 def fetch_github_tags_gql(purl):
@@ -144,3 +143,14 @@ def github_response(graphql_query):
         raise GraphQLError(errors)
 
     return response
+
+
+def get_response(url):
+    """
+    Generate `Package` object for a `url` string
+    """
+    resp = requests.get(url)
+    if resp.status_code == 200:
+        return resp.json()
+
+    raise Exception(f"Failed to fetch: {url}")
