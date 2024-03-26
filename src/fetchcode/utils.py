@@ -17,6 +17,7 @@
 import os
 import requests
 from dateutil import parser as dateparser
+from dateutil.parser import ParserError
 
 
 def fetch_github_tags_gql(purl):
@@ -34,7 +35,10 @@ def fetch_github_tags_gql(purl):
         committed_date = target.get("committedDate")
         release_date = None
         if committed_date:
-            release_date = dateparser.parse(committed_date)
+            try:
+                release_date = dateparser.parse(committed_date)
+            except ParserError as e:
+                pass
 
         yield name, release_date
 
