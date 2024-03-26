@@ -1,0 +1,623 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 571,
+        "pageInfo": {
+          "endCursor": "MjAw",
+          "hasNextPage": true
+        },
+        "nodes": [
+          {
+            "name": "v2.4.1c2",
+            "target": {
+              "committedDate": "2005-03-17T03:06:56Z"
+            }
+          },
+          {
+            "name": "v2.4.1",
+            "target": {
+              "committedDate": "2005-03-30T03:01:43Z"
+            }
+          },
+          {
+            "name": "v2.4.2c1",
+            "target": {
+              "committedDate": "2005-09-20T20:53:24Z"
+            }
+          },
+          {
+            "name": "v2.4.2",
+            "target": {
+              "committedDate": "2005-09-28T03:38:39Z"
+            }
+          },
+          {
+            "name": "v2.4.3c1",
+            "target": {
+              "committedDate": "2006-03-23T02:49:35Z"
+            }
+          },
+          {
+            "name": "v2.4.3",
+            "target": {
+              "committedDate": "2006-03-28T08:36:44Z"
+            }
+          },
+          {
+            "name": "v2.4.4c1",
+            "target": {
+              "committedDate": "2006-10-10T17:28:33Z"
+            }
+          },
+          {
+            "name": "v2.4.4",
+            "target": {
+              "committedDate": "2006-10-18T07:02:36Z"
+            }
+          },
+          {
+            "name": "v2.4.5c1",
+            "target": {
+              "committedDate": "2008-03-02T19:33:40Z"
+            }
+          },
+          {
+            "name": "v2.4.5",
+            "target": {
+              "committedDate": "2008-03-11T17:59:53Z"
+            }
+          },
+          {
+            "name": "v2.4.6c1",
+            "target": {
+              "committedDate": "2008-12-13T13:37:04Z"
+            }
+          },
+          {
+            "name": "v2.4.6",
+            "target": {
+              "committedDate": "2008-12-19T15:02:52Z"
+            }
+          },
+          {
+            "name": "v2.5a0",
+            "target": {
+              "committedDate": "2006-03-31T15:20:56Z"
+            }
+          },
+          {
+            "name": "v2.5a1",
+            "target": {
+              "committedDate": "2006-04-04T19:29:29Z"
+            }
+          },
+          {
+            "name": "v2.5a2",
+            "target": {
+              "committedDate": "2006-04-27T02:13:13Z"
+            }
+          },
+          {
+            "name": "v2.5b1",
+            "target": {
+              "committedDate": "2006-06-19T23:57:41Z"
+            }
+          },
+          {
+            "name": "v2.5b2",
+            "target": {
+              "committedDate": "2006-07-11T02:17:48Z"
+            }
+          },
+          {
+            "name": "v2.5b3",
+            "target": {
+              "committedDate": "2006-08-02T18:19:35Z"
+            }
+          },
+          {
+            "name": "v2.5c1",
+            "target": {
+              "committedDate": "2006-08-17T00:38:04Z"
+            }
+          },
+          {
+            "name": "v2.5c2",
+            "target": {
+              "committedDate": "2006-09-11T15:32:50Z"
+            }
+          },
+          {
+            "name": "v2.5",
+            "target": {
+              "committedDate": "2006-09-18T06:51:50Z"
+            }
+          },
+          {
+            "name": "v2.5.1c1",
+            "target": {
+              "committedDate": "2007-04-05T05:06:49Z"
+            }
+          },
+          {
+            "name": "v2.5.1",
+            "target": {
+              "committedDate": "2007-04-18T03:35:45Z"
+            }
+          },
+          {
+            "name": "v2.5.2c1",
+            "target": {
+              "committedDate": "2008-02-14T12:58:41Z"
+            }
+          },
+          {
+            "name": "v2.5.2",
+            "target": {
+              "committedDate": "2008-02-21T11:54:20Z"
+            }
+          },
+          {
+            "name": "v2.5.3c1",
+            "target": {
+              "committedDate": "2008-12-13T15:42:40Z"
+            }
+          },
+          {
+            "name": "v2.5.3",
+            "target": {
+              "committedDate": "2008-12-19T15:08:45Z"
+            }
+          },
+          {
+            "name": "v2.5.4",
+            "target": {
+              "committedDate": "2008-12-23T13:18:53Z"
+            }
+          },
+          {
+            "name": "v2.5.5c1",
+            "target": {
+              "committedDate": "2010-01-14T17:41:58Z"
+            }
+          },
+          {
+            "name": "v2.5.5c2",
+            "target": {
+              "committedDate": "2010-01-24T14:24:46Z"
+            }
+          },
+          {
+            "name": "v2.5.5",
+            "target": {
+              "committedDate": "2010-01-31T12:38:29Z"
+            }
+          },
+          {
+            "name": "v2.5.6c1",
+            "target": {
+              "committedDate": "2011-05-28T11:56:22Z"
+            }
+          },
+          {
+            "name": "v2.5.6",
+            "target": {
+              "committedDate": "2011-05-28T11:58:36Z"
+            }
+          },
+          {
+            "name": "v2.6a1",
+            "target": {
+              "committedDate": "2008-03-01T03:15:20Z"
+            }
+          },
+          {
+            "name": "v2.6a2",
+            "target": {
+              "committedDate": "2008-04-03T04:10:02Z"
+            }
+          },
+          {
+            "name": "v2.6a3",
+            "target": {
+              "committedDate": "2008-05-08T13:16:19Z"
+            }
+          },
+          {
+            "name": "v2.6b1",
+            "target": {
+              "committedDate": "2008-06-19T01:48:07Z"
+            }
+          },
+          {
+            "name": "v2.6b2",
+            "target": {
+              "committedDate": "2008-07-18T03:20:07Z"
+            }
+          },
+          {
+            "name": "v2.6b3",
+            "target": {
+              "committedDate": "2008-08-21T01:15:08Z"
+            }
+          },
+          {
+            "name": "v2.6rc1",
+            "target": {
+              "committedDate": "2008-09-12T23:35:48Z"
+            }
+          },
+          {
+            "name": "v2.6rc2",
+            "target": {
+              "committedDate": "2008-09-18T04:33:43Z"
+            }
+          },
+          {
+            "name": "v2.6",
+            "target": {
+              "committedDate": "2008-10-01T22:05:43Z"
+            }
+          },
+          {
+            "name": "v2.6.1",
+            "target": {
+              "committedDate": "2008-12-04T02:59:51Z"
+            }
+          },
+          {
+            "name": "v2.6.2c1",
+            "target": {
+              "committedDate": "2009-04-07T15:17:20Z"
+            }
+          },
+          {
+            "name": "v2.6.2",
+            "target": {
+              "committedDate": "2009-04-14T13:16:19Z"
+            }
+          },
+          {
+            "name": "v2.6.3rc1",
+            "target": {
+              "committedDate": "2009-09-29T22:41:09Z"
+            }
+          },
+          {
+            "name": "v2.6.3",
+            "target": {
+              "committedDate": "2009-10-01T23:39:49Z"
+            }
+          },
+          {
+            "name": "v2.6.4rc1",
+            "target": {
+              "committedDate": "2009-10-06T13:21:07Z"
+            }
+          },
+          {
+            "name": "v2.6.4rc2",
+            "target": {
+              "committedDate": "2009-10-18T16:50:06Z"
+            }
+          },
+          {
+            "name": "v2.6.4",
+            "target": {
+              "committedDate": "2009-10-26T01:48:07Z"
+            }
+          },
+          {
+            "name": "v2.6.5rc1",
+            "target": {
+              "committedDate": "2010-03-01T22:16:51Z"
+            }
+          },
+          {
+            "name": "v2.6.5rc2",
+            "target": {
+              "committedDate": "2010-03-09T22:31:52Z"
+            }
+          },
+          {
+            "name": "v2.6.5",
+            "target": {
+              "committedDate": "2010-03-18T22:14:36Z"
+            }
+          },
+          {
+            "name": "v2.6.6rc1",
+            "target": {
+              "committedDate": "2010-08-03T22:39:42Z"
+            }
+          },
+          {
+            "name": "v2.6.6rc2",
+            "target": {
+              "committedDate": "2010-08-16T22:58:18Z"
+            }
+          },
+          {
+            "name": "v2.6.6",
+            "target": {
+              "committedDate": "2010-08-23T23:37:56Z"
+            }
+          },
+          {
+            "name": "v2.6.7",
+            "target": {
+              "committedDate": "2011-06-04T00:02:47Z"
+            }
+          },
+          {
+            "name": "v2.6.8rc1",
+            "target": {
+              "committedDate": "2012-02-23T15:59:38Z"
+            }
+          },
+          {
+            "name": "v2.6.8rc2",
+            "target": {
+              "committedDate": "2012-03-17T22:19:15Z"
+            }
+          },
+          {
+            "name": "v2.6.8",
+            "target": {
+              "committedDate": "2012-04-10T14:59:35Z"
+            }
+          },
+          {
+            "name": "v2.6.9rc1",
+            "target": {
+              "committedDate": "2013-10-01T00:37:45Z"
+            }
+          },
+          {
+            "name": "v2.6.9",
+            "target": {
+              "committedDate": "2013-10-29T14:14:05Z"
+            }
+          },
+          {
+            "name": "v2.7a1",
+            "target": {
+              "committedDate": "2009-12-05T17:47:56Z"
+            }
+          },
+          {
+            "name": "v2.7a2",
+            "target": {
+              "committedDate": "2010-01-09T16:34:06Z"
+            }
+          },
+          {
+            "name": "v2.7a3",
+            "target": {
+              "committedDate": "2010-02-06T16:37:32Z"
+            }
+          },
+          {
+            "name": "v2.7a4",
+            "target": {
+              "committedDate": "2010-03-06T20:34:14Z"
+            }
+          },
+          {
+            "name": "v2.7b1",
+            "target": {
+              "committedDate": "2010-04-10T16:28:34Z"
+            }
+          },
+          {
+            "name": "v2.7b2",
+            "target": {
+              "committedDate": "2010-05-08T17:08:17Z"
+            }
+          },
+          {
+            "name": "v2.7rc1",
+            "target": {
+              "committedDate": "2010-06-06T00:54:29Z"
+            }
+          },
+          {
+            "name": "v2.7rc2",
+            "target": {
+              "committedDate": "2010-06-21T15:57:57Z"
+            }
+          },
+          {
+            "name": "v2.7",
+            "target": {
+              "committedDate": "2010-07-03T13:57:30Z"
+            }
+          },
+          {
+            "name": "v2.7.1rc1",
+            "target": {
+              "committedDate": "2010-11-13T17:33:04Z"
+            }
+          },
+          {
+            "name": "v2.7.1",
+            "target": {
+              "committedDate": "2010-11-27T14:40:29Z"
+            }
+          },
+          {
+            "name": "v2.7.2rc1",
+            "target": {
+              "committedDate": "2011-05-29T21:50:27Z"
+            }
+          },
+          {
+            "name": "v2.7.2",
+            "target": {
+              "committedDate": "2011-06-11T14:50:21Z"
+            }
+          },
+          {
+            "name": "v2.7.3rc1",
+            "target": {
+              "committedDate": "2012-02-23T15:52:17Z"
+            }
+          },
+          {
+            "name": "v2.7.3rc2",
+            "target": {
+              "committedDate": "2012-03-15T17:25:54Z"
+            }
+          },
+          {
+            "name": "v2.7.3",
+            "target": {
+              "committedDate": "2012-04-09T23:04:04Z"
+            }
+          },
+          {
+            "name": "v2.7.4rc1",
+            "target": {
+              "committedDate": "2013-03-23T15:17:29Z"
+            }
+          },
+          {
+            "name": "v2.7.4",
+            "target": {
+              "committedDate": "2013-04-06T13:58:51Z"
+            }
+          },
+          {
+            "name": "v2.7.5",
+            "target": {
+              "committedDate": "2013-05-12T03:31:33Z"
+            }
+          },
+          {
+            "name": "v2.7.6rc1",
+            "target": {
+              "committedDate": "2013-10-26T18:57:21Z"
+            }
+          },
+          {
+            "name": "v2.7.6",
+            "target": {
+              "committedDate": "2013-11-10T07:36:30Z"
+            }
+          },
+          {
+            "name": "v2.7.7rc1",
+            "target": {
+              "committedDate": "2014-05-18T00:31:50Z"
+            }
+          },
+          {
+            "name": "v2.7.7",
+            "target": {
+              "committedDate": "2014-05-31T18:22:47Z"
+            }
+          },
+          {
+            "name": "v2.7.8",
+            "target": {
+              "committedDate": "2014-06-30T01:58:16Z"
+            }
+          },
+          {
+            "name": "v2.7.9rc1",
+            "target": {
+              "committedDate": "2014-11-26T00:27:24Z"
+            }
+          },
+          {
+            "name": "v2.7.9",
+            "target": {
+              "committedDate": "2014-12-10T15:57:00Z"
+            }
+          },
+          {
+            "name": "v2.7.10rc1",
+            "target": {
+              "committedDate": "2015-05-10T17:14:16Z"
+            }
+          },
+          {
+            "name": "v2.7.10",
+            "target": {
+              "committedDate": "2015-05-23T16:02:14Z"
+            }
+          },
+          {
+            "name": "v2.7.11rc1",
+            "target": {
+              "committedDate": "2015-11-21T21:38:35Z"
+            }
+          },
+          {
+            "name": "v2.7.11",
+            "target": {
+              "committedDate": "2015-12-05T19:45:17Z"
+            }
+          },
+          {
+            "name": "v2.7.12rc1",
+            "target": {
+              "committedDate": "2016-06-11T21:46:26Z"
+            }
+          },
+          {
+            "name": "v2.7.12",
+            "target": {
+              "committedDate": "2016-06-25T21:03:21Z"
+            }
+          },
+          {
+            "name": "v2.7.13rc1",
+            "target": {
+              "committedDate": "2016-12-03T20:38:47Z"
+            }
+          },
+          {
+            "name": "v2.7.13",
+            "target": {
+              "committedDate": "2016-12-17T20:00:35Z"
+            }
+          },
+          {
+            "name": "v2.7.14rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-08-26T18:18:30Z"
+              }
+            }
+          },
+          {
+            "name": "v2.7.14",
+            "target": {
+              "target": {
+                "committedDate": "2017-09-16T17:38:35Z"
+              }
+            }
+          },
+          {
+            "name": "v2.7.15rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-04-14T22:06:30Z"
+              }
+            }
+          },
+          {
+            "name": "v2.7.15",
+            "target": {
+              "target": {
+                "committedDate": "2018-04-29T22:47:33Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

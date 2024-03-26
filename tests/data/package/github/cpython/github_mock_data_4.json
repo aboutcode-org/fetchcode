@@ -1,0 +1,739 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 571,
+        "pageInfo": {
+          "endCursor": "NDAw",
+          "hasNextPage": true
+        },
+        "nodes": [
+          {
+            "name": "v3.4.3rc1",
+            "target": {
+              "committedDate": "2015-02-08T00:04:22Z"
+            }
+          },
+          {
+            "name": "v3.4.3",
+            "target": {
+              "committedDate": "2015-02-25T12:15:33Z"
+            }
+          },
+          {
+            "name": "v3.4.4rc1",
+            "target": {
+              "committedDate": "2015-12-06T13:53:35Z"
+            }
+          },
+          {
+            "name": "v3.4.4",
+            "target": {
+              "committedDate": "2015-12-20T03:31:10Z"
+            }
+          },
+          {
+            "name": "v3.4.5rc1",
+            "target": {
+              "committedDate": "2016-06-12T05:24:03Z"
+            }
+          },
+          {
+            "name": "v3.4.5",
+            "target": {
+              "committedDate": "2016-06-25T21:44:30Z"
+            }
+          },
+          {
+            "name": "v3.4.6rc1",
+            "target": {
+              "committedDate": "2017-01-02T06:12:36Z"
+            }
+          },
+          {
+            "name": "v3.4.6",
+            "target": {
+              "committedDate": "2017-01-16T08:19:54Z"
+            }
+          },
+          {
+            "name": "v3.4.7rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-07-24T01:16:33Z"
+              }
+            }
+          },
+          {
+            "name": "v3.4.7",
+            "target": {
+              "target": {
+                "committedDate": "2017-08-09T07:08:33Z"
+              }
+            }
+          },
+          {
+            "name": "v3.4.8rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-01-23T12:32:09Z"
+              }
+            }
+          },
+          {
+            "name": "v3.4.8",
+            "target": {
+              "target": {
+                "committedDate": "2018-02-04T23:40:38Z"
+              }
+            }
+          },
+          {
+            "name": "v3.4.9rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-07-19T12:12:59Z"
+              }
+            }
+          },
+          {
+            "name": "v3.4.9",
+            "target": {
+              "target": {
+                "committedDate": "2018-08-02T09:18:47Z"
+              }
+            }
+          },
+          {
+            "name": "v3.4.10rc1",
+            "target": {
+              "target": {
+                "committedDate": "2019-03-04T02:06:04Z"
+              }
+            }
+          },
+          {
+            "name": "v3.4.10",
+            "target": {
+              "target": {
+                "committedDate": "2019-03-18T16:51:26Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.0a1",
+            "target": {
+              "committedDate": "2015-02-08T00:04:29Z"
+            }
+          },
+          {
+            "name": "v3.5.0a2",
+            "target": {
+              "committedDate": "2015-03-08T08:24:34Z"
+            }
+          },
+          {
+            "name": "v3.5.0a3",
+            "target": {
+              "committedDate": "2015-03-29T22:34:26Z"
+            }
+          },
+          {
+            "name": "v3.5.0a4",
+            "target": {
+              "committedDate": "2015-04-19T20:51:40Z"
+            }
+          },
+          {
+            "name": "v3.5.0b1",
+            "target": {
+              "committedDate": "2015-05-24T00:43:05Z"
+            }
+          },
+          {
+            "name": "v3.5.0b2",
+            "target": {
+              "committedDate": "2015-05-31T00:00:48Z"
+            }
+          },
+          {
+            "name": "v3.5.0b3",
+            "target": {
+              "committedDate": "2015-07-05T02:13:02Z"
+            }
+          },
+          {
+            "name": "v3.5.0b4",
+            "target": {
+              "committedDate": "2015-07-25T21:22:13Z"
+            }
+          },
+          {
+            "name": "v3.5.0rc1",
+            "target": {
+              "committedDate": "2015-08-10T04:37:20Z"
+            }
+          },
+          {
+            "name": "v3.5.0rc2",
+            "target": {
+              "committedDate": "2015-08-25T03:31:53Z"
+            }
+          },
+          {
+            "name": "v3.5.0rc3",
+            "target": {
+              "committedDate": "2015-09-07T12:12:05Z"
+            }
+          },
+          {
+            "name": "v3.5.0rc4",
+            "target": {
+              "committedDate": "2015-09-09T06:58:10Z"
+            }
+          },
+          {
+            "name": "v3.5.0",
+            "target": {
+              "committedDate": "2015-09-12T16:36:44Z"
+            }
+          },
+          {
+            "name": "v3.5.1rc1",
+            "target": {
+              "committedDate": "2015-11-22T07:54:22Z"
+            }
+          },
+          {
+            "name": "v3.5.1",
+            "target": {
+              "committedDate": "2015-12-06T01:05:23Z"
+            }
+          },
+          {
+            "name": "v3.5.2rc1",
+            "target": {
+              "committedDate": "2016-06-12T03:55:08Z"
+            }
+          },
+          {
+            "name": "v3.5.2",
+            "target": {
+              "committedDate": "2016-06-25T21:11:09Z"
+            }
+          },
+          {
+            "name": "v3.5.3rc1",
+            "target": {
+              "committedDate": "2017-01-02T06:12:52Z"
+            }
+          },
+          {
+            "name": "v3.5.3",
+            "target": {
+              "committedDate": "2017-01-16T08:19:36Z"
+            }
+          },
+          {
+            "name": "v3.5.4rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-07-24T02:40:13Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.4",
+            "target": {
+              "target": {
+                "committedDate": "2017-08-07T07:59:11Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.5rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-01-23T13:49:45Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.5",
+            "target": {
+              "target": {
+                "committedDate": "2018-02-04T23:40:56Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.6rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-07-20T00:57:25Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.6",
+            "target": {
+              "target": {
+                "committedDate": "2018-08-02T09:19:12Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.7rc1",
+            "target": {
+              "target": {
+                "committedDate": "2019-03-04T02:09:45Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.7",
+            "target": {
+              "target": {
+                "committedDate": "2019-03-17T23:47:59Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.8rc1",
+            "target": {
+              "target": {
+                "committedDate": "2019-09-09T13:39:36Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.8rc2",
+            "target": {
+              "target": {
+                "committedDate": "2019-10-12T11:10:33Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.8",
+            "target": {
+              "target": {
+                "committedDate": "2019-10-29T06:08:24Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.9",
+            "target": {
+              "target": {
+                "committedDate": "2019-11-01T23:02:34Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.10rc1",
+            "target": {
+              "target": {
+                "committedDate": "2020-08-19T19:56:53Z"
+              }
+            }
+          },
+          {
+            "name": "v3.5.10",
+            "target": {
+              "target": {
+                "committedDate": "2020-09-05T07:22:07Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.0a1",
+            "target": {
+              "committedDate": "2016-05-16T20:03:51Z"
+            }
+          },
+          {
+            "name": "v3.6.0a2",
+            "target": {
+              "committedDate": "2016-06-13T20:54:49Z"
+            }
+          },
+          {
+            "name": "v3.6.0a3",
+            "target": {
+              "committedDate": "2016-07-11T19:38:40Z"
+            }
+          },
+          {
+            "name": "v3.6.0a4",
+            "target": {
+              "committedDate": "2016-08-15T20:21:29Z"
+            }
+          },
+          {
+            "name": "v3.6.0b1",
+            "target": {
+              "committedDate": "2016-09-12T15:04:12Z"
+            }
+          },
+          {
+            "name": "v3.6.0b2",
+            "target": {
+              "committedDate": "2016-10-10T20:09:08Z"
+            }
+          },
+          {
+            "name": "v3.6.0b3",
+            "target": {
+              "committedDate": "2016-11-01T00:43:30Z"
+            }
+          },
+          {
+            "name": "v3.6.0b4",
+            "target": {
+              "committedDate": "2016-11-22T04:30:55Z"
+            }
+          },
+          {
+            "name": "v3.6.0rc1",
+            "target": {
+              "committedDate": "2016-12-07T00:02:30Z"
+            }
+          },
+          {
+            "name": "v3.6.0rc2",
+            "target": {
+              "committedDate": "2016-12-16T21:40:10Z"
+            }
+          },
+          {
+            "name": "v3.6.0",
+            "target": {
+              "committedDate": "2016-12-22T23:38:47Z"
+            }
+          },
+          {
+            "name": "v3.6.1rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-03-04T17:25:04Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.1",
+            "target": {
+              "target": {
+                "committedDate": "2017-03-21T06:32:38Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.2rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-06-17T08:48:35Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.2rc2",
+            "target": {
+              "target": {
+                "committedDate": "2017-07-07T07:16:00Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.2",
+            "target": {
+              "target": {
+                "committedDate": "2017-07-08T03:33:27Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.3rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-09-19T03:18:48Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.3",
+            "target": {
+              "target": {
+                "committedDate": "2017-10-03T05:52:02Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.4rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-12-05T08:26:08Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.4",
+            "target": {
+              "target": {
+                "committedDate": "2017-12-19T04:53:56Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.5rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-03-14T01:21:36Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.5",
+            "target": {
+              "target": {
+                "committedDate": "2018-03-28T09:19:31Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.6rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-06-12T04:24:03Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.6",
+            "target": {
+              "target": {
+                "committedDate": "2018-06-26T23:39:50Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.7rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-09-26T06:35:30Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.7rc2",
+            "target": {
+              "target": {
+                "committedDate": "2018-10-13T07:01:32Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.7",
+            "target": {
+              "target": {
+                "committedDate": "2018-10-20T05:24:09Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.8rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-12-11T21:47:14Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.8",
+            "target": {
+              "target": {
+                "committedDate": "2018-12-23T21:37:14Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.9rc1",
+            "target": {
+              "target": {
+                "committedDate": "2019-06-19T00:37:44Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.9",
+            "target": {
+              "target": {
+                "committedDate": "2019-07-02T20:25:39Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.10rc1",
+            "target": {
+              "target": {
+                "committedDate": "2019-12-11T08:28:36Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.10",
+            "target": {
+              "target": {
+                "committedDate": "2019-12-18T19:26:36Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.11rc1",
+            "target": {
+              "target": {
+                "committedDate": "2020-06-17T10:59:51Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.11",
+            "target": {
+              "target": {
+                "committedDate": "2020-06-27T09:14:00Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.12",
+            "target": {
+              "target": {
+                "committedDate": "2020-08-15T06:43:26Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.13",
+            "target": {
+              "target": {
+                "committedDate": "2021-02-16T01:30:33Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.14",
+            "target": {
+              "target": {
+                "committedDate": "2021-06-28T16:52:10Z"
+              }
+            }
+          },
+          {
+            "name": "v3.6.15",
+            "target": {
+              "target": {
+                "committedDate": "2021-09-04T03:49:41Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0a1",
+            "target": {
+              "target": {
+                "committedDate": "2017-09-19T05:09:03Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0a2",
+            "target": {
+              "target": {
+                "committedDate": "2017-10-17T03:50:50Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0a3",
+            "target": {
+              "target": {
+                "committedDate": "2017-12-05T08:27:19Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0a4",
+            "target": {
+              "target": {
+                "committedDate": "2018-01-09T03:05:14Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0b1",
+            "target": {
+              "target": {
+                "committedDate": "2018-01-30T23:48:26Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0b2",
+            "target": {
+              "target": {
+                "committedDate": "2018-02-28T00:49:18Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0b3",
+            "target": {
+              "target": {
+                "committedDate": "2018-03-29T11:57:55Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0b4",
+            "target": {
+              "target": {
+                "committedDate": "2018-05-02T07:41:45Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0b5",
+            "target": {
+              "target": {
+                "committedDate": "2018-05-30T23:50:49Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-06-12T04:46:50Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.0",
+            "target": {
+              "target": {
+                "committedDate": "2018-06-27T03:07:35Z"
+              }
+            }
+          },
+          {
+            "name": "v3.7.1rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-09-26T06:16:09Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

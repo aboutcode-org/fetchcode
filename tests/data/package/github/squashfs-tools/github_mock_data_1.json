@@ -1,0 +1,111 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 12,
+        "pageInfo": {
+          "endCursor": "MTI",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "name": "3.1",
+            "target": {
+              "target": {
+                "committedDate": "2006-08-19T22:05:00Z"
+              }
+            }
+          },
+          {
+            "name": "3.2-r2",
+            "target": {
+              "target": {
+                "committedDate": "2007-03-14T00:23:26Z"
+              }
+            }
+          },
+          {
+            "name": "3.2",
+            "target": {
+              "target": {
+                "committedDate": "2007-11-01T06:54:39Z"
+              }
+            }
+          },
+          {
+            "name": "4.4-git.1",
+            "target": {
+              "target": {
+                "committedDate": "2020-10-30T11:13:56Z"
+              }
+            }
+          },
+          {
+            "name": "4.4",
+            "target": {
+              "target": {
+                "committedDate": "2019-08-29T01:58:04Z"
+              }
+            }
+          },
+          {
+            "name": "4.5",
+            "target": {
+              "target": {
+                "committedDate": "2021-07-22T20:11:24Z"
+              }
+            }
+          },
+          {
+            "name": "4.5.1",
+            "target": {
+              "target": {
+                "committedDate": "2022-03-17T19:32:02Z"
+              }
+            }
+          },
+          {
+            "name": "4.6",
+            "target": {
+              "target": {
+                "committedDate": "2023-03-17T18:19:41Z"
+              }
+            }
+          },
+          {
+            "name": "4.6.1",
+            "target": {
+              "target": {
+                "committedDate": "2023-03-25T20:53:37Z"
+              }
+            }
+          },
+          {
+            "name": "CVE-2021-41072",
+            "target": {
+              "target": {
+                "committedDate": "2022-03-17T19:32:02Z"
+              }
+            }
+          },
+          {
+            "name": "squashfs-tools-4.6",
+            "target": {
+              "target": {
+                "committedDate": "2023-03-17T18:19:41Z"
+              }
+            }
+          },
+          {
+            "name": "squashfs-tools-4.6.1",
+            "target": {
+              "target": {
+                "committedDate": "2023-03-25T20:53:37Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

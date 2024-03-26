@@ -16,6 +16,229 @@
 
 # Since there will be no new releases of ipkg, it's better to
 # store them in a dictionary rather than fetching them every time.
+
+import dataclasses
+import re
+
+import attr
+
+from fetchcode import utils
+from fetchcode.packagedcode_models import Package
+
+
+def package_from_dict(package_data):
+    """
+    Return a Package built from a `package_data` mapping.
+    Ignore unknown and unsupported fields.
+    """
+    supported = {attr.name for attr in attr.fields(Package)}
+    cleaned_package_data = {
+        key: value for key, value in package_data.items() if key in supported
+    }
+    return Package(**cleaned_package_data)
+
+
+@dataclasses.dataclass
+class GitHubSource:
+    version_regex: re.Pattern = dataclasses.field(
+        default=None,
+        metadata={
+            "help_text": "Regular expression pattern to match and extract version from tag."
+        },
+    )
+    ignored_tag_regex: re.Pattern = dataclasses.field(
+        default=None,
+        metadata={"help_text": "Regex to ignore tag."},
+    )
+
+    @classmethod
+    def get_default_package(cls, purl):
+        """Return a Package object populated with default for this data source."""
+        name = purl.name
+        namespace = purl.namespace
+        base_path = "https://api.github.com/repos"
+        api_url = f"{base_path}/{namespace}/{name}"
+        response = utils.get_response(api_url)
+        homepage_url = response.get("homepage")
+        vcs_url = response.get("git_url")
+        github_url = "https://github.com"
+        bug_tracking_url = f"{github_url}/{namespace}/{name}/issues"
+        code_view_url = f"{github_url}/{namespace}/{name}"
+        license_data = response.get("license") or {}
+        declared_license = license_data.get("spdx_id")
+        primary_language = response.get("language")
+        return Package(
+            homepage_url=homepage_url,
+            vcs_url=vcs_url,
+            api_url=api_url,
+            bug_tracking_url=bug_tracking_url,
+            code_view_url=code_view_url,
+            declared_license=declared_license,
+            primary_language=primary_language,
+            **purl.to_dict(),
+        )
+
+    @classmethod
+    def get_package_info(cls, package_url):
+        yield from get_github_packages(
+            package_url,
+            cls.version_regex,
+            cls.ignored_tag_regex,
+            cls.get_default_package(package_url),
+        )
+
+
+def get_github_packages(purl, version_regex, ignored_tag_regex, default_package):
+    """
+    Yield package data from a directory listing for the given source_archive_url.
+    """
+    for package in _get_github_packages(
+        purl, version_regex, ignored_tag_regex, default_package
+    ):
+        # Don't yield all packages when a specific version is requested.
+        if purl.version and package.version != purl.version:
+            continue
+
+        yield package
+
+        # If a version is specified in purl and we have found a matching package,
+        # we don't need to continue searching.
+        if purl.version:
+            break
+
+
+def _get_github_packages(purl, version_regex, ignored_tag_regex, default_package):
+    "Yield package for GitHub purl"
+    archive_download_url = (
+        "https://github.com/{org}/{name}/archive/refs/tags/{tag_name}.tar.gz"
+    )
+
+    package_dict = default_package.to_dict()
+    for tag, date in utils.fetch_github_tags_gql(purl):
+        if ignored_tag_regex and ignored_tag_regex.match(tag):
+            continue
+
+        if version_regex:
+            match = version_regex.match(tag)
+            if not match:
+                continue
+            version = match.group("version")
+        else:
+            version = tag
+
+        version = version.strip("Vv").strip()
+        if not version:
+            continue
+
+        download_url = archive_download_url.format(
+            org=purl.namespace, name=purl.name, tag_name=tag
+        )
+
+        date = date.strftime("%Y-%m-%dT%H:%M:%S")
+        package_dict.update(
+            {
+                "download_url": download_url,
+                "release_date": date,
+                "version": version,
+            }
+        )
+
+        yield package_from_dict(package_dict)
+
+
+class UBootGitHubSource(GitHubSource):
+    version_regex = re.compile(r"(?P<version>v\d{4}\.\d{2})(?![\w.-])")
+    ignored_tag_regex = None
+
+
+class Genext2fsGitHubSource(GitHubSource):
+    version_regex = None
+    ignored_tag_regex = re.compile(r"debian_version\S+upstream_version\S+")
+
+
+class SquashfsToolsGitHubSource(GitHubSource):
+    version_regex = re.compile(r"\b[vV]?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    ignored_tag_regex = None
+
+
+class PupnpGitHubSource(GitHubSource):
+    version_regex = re.compile(r"\brelease-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    ignored_tag_regex = None
+
+
+class BrotliGitHubSource(GitHubSource):
+    version_regex = re.compile(r"\b[vV]?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    ignored_tag_regex = None
+
+
+class BpftoolGitHubSource(GitHubSource):
+    version_regex = re.compile(r"\b[vV]?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    ignored_tag_regex = None
+
+
+class SqliteGitHubSource(GitHubSource):
+    version_regex = re.compile(r"\bversion-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    ignored_tag_regex = None
+
+
+class LlvmGitHubSource(GitHubSource):
+    version_regex = re.compile(r"llvmorg-(?P<version>.+)")
+    ignored_tag_regex = None
+
+
+class RpmGitHubSource(GitHubSource):
+    version_regex = re.compile(r"rpm-(?P<version>[^-]+(?:-(?!release).*)?|-release)")
+    ignored_tag_regex = None
+
+
+GITHUB_SOURCE_BY_PACKAGE = {
+    "avahi/avahi": GitHubSource,
+    "bestouff/genext2fs": Genext2fsGitHubSource,
+    "dosfstools/dosfstools": GitHubSource,
+    "google/brotli": BrotliGitHubSource,
+    "hewlettpackard/wireless-tools": GitHubSource,
+    "inotify-tools/inotify-tools": GitHubSource,
+    "libbpf/bpftool": BpftoolGitHubSource,
+    "llvm/llvm-project": LlvmGitHubSource,
+    "nixos/nix": GitHubSource,
+    "plougher/squashfs-tools": SquashfsToolsGitHubSource,
+    "pupnp/pupnp": PupnpGitHubSource,
+    "python/cpython": GitHubSource,
+    "rpm-software-management/rpm": RpmGitHubSource,
+    "shadow-maint/shadow": GitHubSource,
+    "sqlite/sqlite": SqliteGitHubSource,
+    "u-boot/u-boot": UBootGitHubSource,
+}
+
+
+class MiniupnpPackagesGitHubSource(GitHubSource):
+    version_regex = None
+    ignored_tag_regex = None
+    version_regex_template = r"{}_(?P<version>.+)"
+
+    @classmethod
+    def get_package_info(cls, gh_purl, package_name):
+        cls.version_regex = re.compile(
+            cls.version_regex_template.format(re.escape(package_name))
+        )
+
+        packages = get_github_packages(
+            gh_purl,
+            cls.version_regex,
+            cls.ignored_tag_regex,
+            cls.get_default_package(gh_purl),
+        )
+
+        for package in packages:
+            package_dict = package.to_dict()
+            package_dict["namespace"] = None
+            package_dict["name"] = package_name
+            package_dict["type"] = "generic"
+            package_dict["version"] = package_dict["version"].replace("_", ".")
+
+            yield package_from_dict(package_dict)
+
+
 IPKG_RELEASES = {
     "0.99.88": {
         "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.88.tar.gz",

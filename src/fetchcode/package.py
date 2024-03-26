@@ -21,13 +21,16 @@ from typing import List
 from urllib.parse import urljoin
 
 import htmllistparse
-import requests
 from packageurl import PackageURL
 from packageurl.contrib.route import NoRouteAvailable
 from packageurl.contrib.route import Router
 
-from fetchcode.ipkg_release_info import IPKG_RELEASES
+from fetchcode.package_util import GITHUB_SOURCE_BY_PACKAGE
+from fetchcode.package_util import IPKG_RELEASES
+from fetchcode.package_util import GitHubSource
+from fetchcode.package_util import MiniupnpPackagesGitHubSource
 from fetchcode.packagedcode_models import Package
+from fetchcode.utils import get_response
 
 router = Router()
 
@@ -42,17 +45,6 @@ def info(url):
             return router.process(url)
         except NoRouteAvailable:
             return
-
-
-def get_response(url):
-    """
-    Generate `Package` object for a `url` string
-    """
-    resp = requests.get(url)
-    if resp.status_code == 200:
-        return resp.json()
-
-    raise Exception(f"Failed to fetch: {url}")
 
 
 def get_pypi_bugtracker_url(project_urls):
@@ -216,53 +208,38 @@ def get_pypi_data_from_purl(purl):
 @router.route("pkg:github/.*")
 def get_github_data_from_purl(purl):
     """
-    Generate `Package` object from the `purl` string of github type
+    Yield `Package` object from the `purl` string of github type
     """
     purl = PackageURL.from_string(purl)
     name = purl.name
     namespace = purl.namespace
-    base_path = "https://api.github.com/repos"
-    api_url = f"{base_path}/{namespace}/{name}"
-    response = get_response(api_url)
-    homepage_url = response.get("homepage")
-    vcs_url = response.get("git_url")
-    github_url = "https://github.com"
-    bug_tracking_url = f"{github_url}/{namespace}/{name}/issues"
-    code_view_url = f"{github_url}/{namespace}/{name}"
-    license_data = response.get("license") or {}
-    declared_license = license_data.get("spdx_id")
-    primary_language = response.get("language")
-    yield Package(
-        homepage_url=homepage_url,
-        vcs_url=vcs_url,
-        api_url=api_url,
-        bug_tracking_url=bug_tracking_url,
-        code_view_url=code_view_url,
-        declared_license=declared_license,
-        primary_language=primary_language,
-        **purl.to_dict(),
+
+    gh_package = f"{namespace}/{name}"
+    gh_source_class = GITHUB_SOURCE_BY_PACKAGE.get(gh_package, GitHubSource)
+
+    return gh_source_class.get_package_info(purl)
+
+
+@router.route(
+    "pkg:generic/miniupnpc.*",
+    "pkg:generic/miniupnpd.*",
+    "pkg:generic/minissdpd.*",
+)
+def get_github_data_for_miniupnp(purl):
+    """
+    Yield `Package` object for miniupnp packages from GitHub.
+    """
+    generic_purl = PackageURL.from_string(purl)
+    github_repo_purl = PackageURL(
+        type="github",
+        namespace="miniupnp",
+        name="miniupnp",
+        version=generic_purl.version,
     )
-    release_url = f"{api_url}/releases"
-    releases = get_response(release_url)
-    for release in releases:
-        version = release.get("name")
-        version_purl = PackageURL(
-            type=purl.type, namespace=namespace, name=name, version=version
-        )
-        download_url = release.get("tarball_url")
-        code_view_url = f"{github_url}/{namespace}/{name}/tree/{version}"
-        version_vcs_url = f"{vcs_url}@{version}"
-        yield Package(
-            homepage_url=homepage_url,
-            vcs_url=version_vcs_url,
-            api_url=api_url,
-            bug_tracking_url=bug_tracking_url,
-            code_view_url=code_view_url,
-            declared_license=declared_license,
-            primary_language=primary_language,
-            download_url=download_url,
-            **version_purl.to_dict(),
-        )
+
+    return MiniupnpPackagesGitHubSource.get_package_info(
+        gh_purl=github_repo_purl, package_name=generic_purl.name
+    )
 
 
 @router.route("pkg:bitbucket/.*")
@@ -408,7 +385,7 @@ class IpkgDirectoryListedSource(DirectoryListedSource):
             )
 
         else:
-            for version, data in archives.items():
+            for version, data in IPKG_RELEASES.items():
                 purl = PackageURL(type="generic", name="ipkg", version=version)
                 yield Package(
                     homepage_url=cls.source_url,

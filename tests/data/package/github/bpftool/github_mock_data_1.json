@@ -1,0 +1,71 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 7,
+        "pageInfo": {
+          "endCursor": "Nw",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "name": "v6.7.0",
+            "target": {
+              "target": {
+                "committedDate": "2022-02-16T15:49:38Z"
+              }
+            }
+          },
+          {
+            "name": "v6.8.0",
+            "target": {
+              "target": {
+                "committedDate": "2022-05-17T10:17:48Z"
+              }
+            }
+          },
+          {
+            "name": "v7.0.0",
+            "target": {
+              "target": {
+                "committedDate": "2022-08-19T11:51:44Z"
+              }
+            }
+          },
+          {
+            "name": "v7.1.0",
+            "target": {
+              "target": {
+                "committedDate": "2023-01-04T17:29:59Z"
+              }
+            }
+          },
+          {
+            "name": "v7.2.0-snapshot.0",
+            "target": {
+              "target": {
+                "committedDate": "2023-03-22T10:55:11Z"
+              }
+            }
+          },
+          {
+            "name": "v7.2.0",
+            "target": {
+              "target": {
+                "committedDate": "2023-04-25T12:45:55Z"
+              }
+            }
+          },
+          {
+            "name": "v7.3.0",
+            "target": {
+              "target": {
+                "committedDate": "2023-11-23T11:06:16Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

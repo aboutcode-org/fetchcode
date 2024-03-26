@@ -164,7 +164,7 @@ def test_get_conan_versions_from_purl(mock_get_response):
     check_results_against_json(result, expected_file)
 
 
-@mock.patch("fetchcode.package_versions.github_response")
+@mock.patch("fetchcode.utils.github_response")
 def test_get_github_versions_from_purl(mock_github_response):
     github_mock_directory = data_location / "github"
     side_effect = []

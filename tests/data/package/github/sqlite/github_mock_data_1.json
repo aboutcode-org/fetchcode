@@ -1,0 +1,615 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 162,
+        "pageInfo": {
+          "endCursor": "MTAw",
+          "hasNextPage": true
+        },
+        "nodes": [
+          {
+            "name": "cvs-to-fossil-cutover",
+            "target": {
+              "committedDate": "2009-08-12T11:45:40Z"
+            }
+          },
+          {
+            "name": "experimental",
+            "target": {
+              "committedDate": "2010-09-24T09:32:45Z"
+            }
+          },
+          {
+            "name": "fts3-refactor",
+            "target": {
+              "committedDate": "2009-11-19T14:57:14Z"
+            }
+          },
+          {
+            "name": "major-release",
+            "target": {
+              "committedDate": "2023-11-01T11:23:50Z"
+            }
+          },
+          {
+            "name": "mountain-lion",
+            "target": {
+              "committedDate": "2012-04-03T19:43:07Z"
+            }
+          },
+          {
+            "name": "patch",
+            "target": {
+              "committedDate": "2021-01-20T14:10:07Z"
+            }
+          },
+          {
+            "name": "release",
+            "target": {
+              "committedDate": "2024-03-12T11:06:23Z"
+            }
+          },
+          {
+            "name": "relese",
+            "target": {
+              "committedDate": "2022-04-27T12:03:15Z"
+            }
+          },
+          {
+            "name": "same-as-3.35.3",
+            "target": {
+              "committedDate": "2021-03-21T18:23:48Z"
+            }
+          },
+          {
+            "name": "version-3.6.10",
+            "target": {
+              "committedDate": "2009-01-15T17:04:23Z"
+            }
+          },
+          {
+            "name": "version-3.6.15",
+            "target": {
+              "committedDate": "2009-06-15T03:28:57Z"
+            }
+          },
+          {
+            "name": "version-3.7.2",
+            "target": {
+              "committedDate": "2010-08-23T18:52:01Z"
+            }
+          },
+          {
+            "name": "version-3.7.4",
+            "target": {
+              "committedDate": "2010-12-07T20:14:08Z"
+            }
+          },
+          {
+            "name": "version-3.7.5",
+            "target": {
+              "committedDate": "2011-01-28T17:03:50Z"
+            }
+          },
+          {
+            "name": "version-3.7.6",
+            "target": {
+              "committedDate": "2011-04-12T01:58:40Z"
+            }
+          },
+          {
+            "name": "version-3.7.6.1",
+            "target": {
+              "committedDate": "2011-04-13T14:40:25Z"
+            }
+          },
+          {
+            "name": "version-3.7.6.2",
+            "target": {
+              "committedDate": "2011-04-17T17:25:17Z"
+            }
+          },
+          {
+            "name": "version-3.7.6.3",
+            "target": {
+              "committedDate": "2011-05-19T13:26:54Z"
+            }
+          },
+          {
+            "name": "version-3.7.7",
+            "target": {
+              "committedDate": "2011-06-23T19:49:22Z"
+            }
+          },
+          {
+            "name": "version-3.7.7.1",
+            "target": {
+              "committedDate": "2011-06-28T17:39:05Z"
+            }
+          },
+          {
+            "name": "version-3.7.8",
+            "target": {
+              "committedDate": "2011-09-19T14:49:19Z"
+            }
+          },
+          {
+            "name": "version-3.7.9",
+            "target": {
+              "committedDate": "2011-11-01T00:52:41Z"
+            }
+          },
+          {
+            "name": "version-3.7.10",
+            "target": {
+              "committedDate": "2012-01-16T13:28:40Z"
+            }
+          },
+          {
+            "name": "version-3.7.11",
+            "target": {
+              "committedDate": "2012-03-20T11:35:50Z"
+            }
+          },
+          {
+            "name": "version-3.7.12",
+            "target": {
+              "committedDate": "2012-05-14T01:41:23Z"
+            }
+          },
+          {
+            "name": "version-3.7.12.1",
+            "target": {
+              "committedDate": "2012-05-22T02:45:53Z"
+            }
+          },
+          {
+            "name": "version-3.7.13",
+            "target": {
+              "committedDate": "2012-06-11T02:05:22Z"
+            }
+          },
+          {
+            "name": "version-3.7.14",
+            "target": {
+              "committedDate": "2012-09-03T15:42:36Z"
+            }
+          },
+          {
+            "name": "version-3.7.14.1",
+            "target": {
+              "committedDate": "2012-10-04T19:37:12Z"
+            }
+          },
+          {
+            "name": "version-3.7.15",
+            "target": {
+              "committedDate": "2012-12-12T13:36:53Z"
+            }
+          },
+          {
+            "name": "version-3.7.15.1",
+            "target": {
+              "committedDate": "2012-12-19T20:39:10Z"
+            }
+          },
+          {
+            "name": "version-3.7.15.2",
+            "target": {
+              "committedDate": "2013-01-09T11:53:05Z"
+            }
+          },
+          {
+            "name": "version-3.7.16",
+            "target": {
+              "committedDate": "2013-03-18T11:39:23Z"
+            }
+          },
+          {
+            "name": "version-3.7.16.1",
+            "target": {
+              "committedDate": "2013-03-29T13:44:34Z"
+            }
+          },
+          {
+            "name": "version-3.7.16.2",
+            "target": {
+              "committedDate": "2013-04-12T11:52:43Z"
+            }
+          },
+          {
+            "name": "version-3.7.17",
+            "target": {
+              "committedDate": "2013-05-20T00:56:22Z"
+            }
+          },
+          {
+            "name": "version-3.8.0",
+            "target": {
+              "committedDate": "2013-08-26T04:50:08Z"
+            }
+          },
+          {
+            "name": "version-3.8.0.1",
+            "target": {
+              "committedDate": "2013-08-29T17:35:01Z"
+            }
+          },
+          {
+            "name": "version-3.8.0.2",
+            "target": {
+              "committedDate": "2013-09-03T17:11:13Z"
+            }
+          },
+          {
+            "name": "version-3.8.1",
+            "target": {
+              "committedDate": "2013-10-17T12:57:35Z"
+            }
+          },
+          {
+            "name": "version-3.8.2",
+            "target": {
+              "committedDate": "2013-12-06T14:53:30Z"
+            }
+          },
+          {
+            "name": "version-3.8.3",
+            "target": {
+              "committedDate": "2014-02-03T13:52:03Z"
+            }
+          },
+          {
+            "name": "version-3.8.3.1",
+            "target": {
+              "committedDate": "2014-02-11T14:52:19Z"
+            }
+          },
+          {
+            "name": "version-3.8.4",
+            "target": {
+              "committedDate": "2014-03-10T12:20:37Z"
+            }
+          },
+          {
+            "name": "version-3.8.4.1",
+            "target": {
+              "committedDate": "2014-03-11T15:27:36Z"
+            }
+          },
+          {
+            "name": "version-3.8.4.2",
+            "target": {
+              "committedDate": "2014-03-26T18:51:19Z"
+            }
+          },
+          {
+            "name": "version-3.8.4.3",
+            "target": {
+              "committedDate": "2014-04-03T16:53:12Z"
+            }
+          },
+          {
+            "name": "version-3.8.5",
+            "target": {
+              "committedDate": "2014-06-04T14:06:34Z"
+            }
+          },
+          {
+            "name": "version-3.8.6",
+            "target": {
+              "committedDate": "2014-08-15T11:46:33Z"
+            }
+          },
+          {
+            "name": "version-3.8.6.1",
+            "target": {
+              "committedDate": "2014-10-22T14:22:11Z"
+            }
+          },
+          {
+            "name": "version-3.8.7",
+            "target": {
+              "committedDate": "2014-10-17T11:24:17Z"
+            }
+          },
+          {
+            "name": "version-3.8.7.1",
+            "target": {
+              "committedDate": "2014-10-29T13:59:56Z"
+            }
+          },
+          {
+            "name": "version-3.8.7.2",
+            "target": {
+              "committedDate": "2014-11-18T20:57:56Z"
+            }
+          },
+          {
+            "name": "version-3.8.7.3",
+            "target": {
+              "committedDate": "2014-12-05T22:29:24Z"
+            }
+          },
+          {
+            "name": "version-3.8.7.4",
+            "target": {
+              "committedDate": "2014-12-09T01:34:36Z"
+            }
+          },
+          {
+            "name": "version-3.8.8",
+            "target": {
+              "committedDate": "2015-01-16T12:08:06Z"
+            }
+          },
+          {
+            "name": "version-3.8.8.1",
+            "target": {
+              "committedDate": "2015-01-20T16:51:25Z"
+            }
+          },
+          {
+            "name": "version-3.8.8.2",
+            "target": {
+              "committedDate": "2015-01-30T14:30:45Z"
+            }
+          },
+          {
+            "name": "version-3.8.8.3",
+            "target": {
+              "committedDate": "2015-02-25T13:29:11Z"
+            }
+          },
+          {
+            "name": "version-3.8.9",
+            "target": {
+              "committedDate": "2015-04-08T12:16:33Z"
+            }
+          },
+          {
+            "name": "version-3.8.10",
+            "target": {
+              "committedDate": "2015-05-07T11:53:08Z"
+            }
+          },
+          {
+            "name": "version-3.8.10.1",
+            "target": {
+              "committedDate": "2015-05-09T12:14:55Z"
+            }
+          },
+          {
+            "name": "version-3.8.10.2",
+            "target": {
+              "committedDate": "2015-05-20T18:17:19Z"
+            }
+          },
+          {
+            "name": "version-3.8.11",
+            "target": {
+              "committedDate": "2015-07-27T13:49:41Z"
+            }
+          },
+          {
+            "name": "version-3.8.11.1",
+            "target": {
+              "committedDate": "2015-07-29T20:00:57Z"
+            }
+          },
+          {
+            "name": "version-3.9.0",
+            "target": {
+              "committedDate": "2015-10-14T12:29:53Z"
+            }
+          },
+          {
+            "name": "version-3.9.1",
+            "target": {
+              "committedDate": "2015-10-16T17:31:12Z"
+            }
+          },
+          {
+            "name": "version-3.9.2",
+            "target": {
+              "committedDate": "2015-11-02T18:31:45Z"
+            }
+          },
+          {
+            "name": "version-3.9.3",
+            "target": {
+              "committedDate": "2016-03-31T21:36:06Z"
+            }
+          },
+          {
+            "name": "version-3.10.0",
+            "target": {
+              "committedDate": "2016-01-06T11:01:07Z"
+            }
+          },
+          {
+            "name": "version-3.10.1",
+            "target": {
+              "committedDate": "2016-01-13T21:41:56Z"
+            }
+          },
+          {
+            "name": "version-3.10.2",
+            "target": {
+              "committedDate": "2016-01-20T15:27:19Z"
+            }
+          },
+          {
+            "name": "version-3.11.0",
+            "target": {
+              "committedDate": "2016-02-15T17:29:24Z"
+            }
+          },
+          {
+            "name": "version-3.11.1",
+            "target": {
+              "committedDate": "2016-03-03T16:17:53Z"
+            }
+          },
+          {
+            "name": "version-3.12.0",
+            "target": {
+              "committedDate": "2016-03-29T10:14:15Z"
+            }
+          },
+          {
+            "name": "version-3.12.1",
+            "target": {
+              "committedDate": "2016-04-08T15:09:49Z"
+            }
+          },
+          {
+            "name": "version-3.12.2",
+            "target": {
+              "committedDate": "2016-04-18T17:30:31Z"
+            }
+          },
+          {
+            "name": "version-3.13.0",
+            "target": {
+              "committedDate": "2016-05-18T10:57:30Z"
+            }
+          },
+          {
+            "name": "version-3.14.0",
+            "target": {
+              "committedDate": "2016-08-08T13:40:27Z"
+            }
+          },
+          {
+            "name": "version-3.14.1",
+            "target": {
+              "committedDate": "2016-08-11T18:53:32Z"
+            }
+          },
+          {
+            "name": "version-3.14.2",
+            "target": {
+              "committedDate": "2016-09-12T18:50:49Z"
+            }
+          },
+          {
+            "name": "version-3.15.0",
+            "target": {
+              "committedDate": "2016-10-14T10:20:30Z"
+            }
+          },
+          {
+            "name": "version-3.15.1",
+            "target": {
+              "committedDate": "2016-11-04T12:08:49Z"
+            }
+          },
+          {
+            "name": "version-3.15.2",
+            "target": {
+              "committedDate": "2016-11-28T19:13:37Z"
+            }
+          },
+          {
+            "name": "version-3.16.0",
+            "target": {
+              "committedDate": "2017-01-02T11:57:58Z"
+            }
+          },
+          {
+            "name": "version-3.16.1",
+            "target": {
+              "committedDate": "2017-01-03T18:27:03Z"
+            }
+          },
+          {
+            "name": "version-3.16.2",
+            "target": {
+              "committedDate": "2017-01-06T16:32:41Z"
+            }
+          },
+          {
+            "name": "version-3.17.0",
+            "target": {
+              "committedDate": "2017-02-13T16:02:40Z"
+            }
+          },
+          {
+            "name": "version-3.18.0",
+            "target": {
+              "committedDate": "2017-03-28T18:48:43Z"
+            }
+          },
+          {
+            "name": "version-3.18.1",
+            "target": {
+              "committedDate": "2017-06-16T13:41:15Z"
+            }
+          },
+          {
+            "name": "version-3.18.2",
+            "target": {
+              "committedDate": "2017-06-17T09:59:36Z"
+            }
+          },
+          {
+            "name": "version-3.19.0",
+            "target": {
+              "committedDate": "2017-05-22T13:58:13Z"
+            }
+          },
+          {
+            "name": "version-3.19.1",
+            "target": {
+              "committedDate": "2017-05-24T13:08:33Z"
+            }
+          },
+          {
+            "name": "version-3.19.2",
+            "target": {
+              "committedDate": "2017-05-25T16:50:27Z"
+            }
+          },
+          {
+            "name": "version-3.19.3",
+            "target": {
+              "committedDate": "2017-06-08T14:26:16Z"
+            }
+          },
+          {
+            "name": "version-3.19.4",
+            "target": {
+              "committedDate": "2017-08-18T19:28:12Z"
+            }
+          },
+          {
+            "name": "version-3.20.0",
+            "target": {
+              "committedDate": "2017-08-01T13:24:15Z"
+            }
+          },
+          {
+            "name": "version-3.20.1",
+            "target": {
+              "committedDate": "2017-08-24T16:21:36Z"
+            }
+          },
+          {
+            "name": "version-3.21.0",
+            "target": {
+              "committedDate": "2017-10-24T18:55:49Z"
+            }
+          },
+          {
+            "name": "version-3.22.0",
+            "target": {
+              "committedDate": "2018-01-22T18:45:57Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

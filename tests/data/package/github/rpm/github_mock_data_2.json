@@ -1,0 +1,103 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 111,
+        "pageInfo": {
+          "endCursor": "MTEx",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "name": "rpm-4.18.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2022-09-02T05:48:10Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.18.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2022-09-20T12:07:44Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.18.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2023-03-13T14:32:25Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.18.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2023-11-13T11:52:56Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.19.0-alpha",
+            "target": {
+              "target": {
+                "committedDate": "2023-04-12T08:27:43Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.19.0-alpha2",
+            "target": {
+              "target": {
+                "committedDate": "2023-06-09T11:32:52Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.19.0-beta",
+            "target": {
+              "target": {
+                "committedDate": "2023-08-01T13:34:27Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.19.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2023-09-04T10:19:18Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.19.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2023-09-19T10:10:10Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.19.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2023-12-12T10:57:31Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.19.1.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2024-02-07T13:36:51Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
