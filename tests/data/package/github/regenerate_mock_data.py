@@ -70,6 +70,7 @@ GITHUB_REPOS = [
     ("nixos", "nix", "nix"),
     ("miniupnp", "miniupnp", "miniupnp"),
     ("rpm-software-management", "rpm", "rpm"),
+    ("python", "cpython", "cpython"),
 ]
 
 

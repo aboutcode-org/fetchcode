@@ -203,6 +203,7 @@ GITHUB_SOURCE_BY_PACKAGE = {
     "nixos/nix": GitHubSource,
     "plougher/squashfs-tools": SquashfsToolsGitHubSource,
     "pupnp/pupnp": PupnpGitHubSource,
+    "python/cpython": GitHubSource,
     "rpm-software-management/rpm": RpmGitHubSource,
     "shadow-maint/shadow": GitHubSource,
     "sqlite/sqlite": SqliteGitHubSource,
