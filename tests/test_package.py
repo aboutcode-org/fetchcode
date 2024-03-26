@@ -349,6 +349,23 @@ class GitHubSourceTestCase(TestCase):
 
     @mock.patch("fetchcode.utils.get_response")
     @mock.patch("fetchcode.utils.github_response")
+    def test_packages_github_source_rpm(self, mock_github_response, mock_get_response):
+        test_data = [
+            "tests/data/package/github/rpm/github_mock_data_1.json",
+            "tests/data/package/github/rpm/github_mock_data_2.json",
+        ]
+        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_get_response.return_value = file_json(
+            "tests/data/package/github/rpm/github_mock_data_0.json"
+        )
+
+        expected_file = "tests/data/package/github/rpm-expected.json"
+        result = info("pkg:github/rpm-software-management/rpm")
+
+        self.check_result(expected_file, result)
+
+    @mock.patch("fetchcode.utils.get_response")
+    @mock.patch("fetchcode.utils.github_response")
     def test_packages_github_source_shadow(
         self, mock_github_response, mock_get_response
     ):
@@ -994,7 +1011,7 @@ class DirListedTestCase(TestCase):
         result = info("pkg:generic/samba")
 
         self.check_result(expected_file, result)
-    
+
     def test_packages_ipkg(self):
         expected_file = "tests/data/package/dirlisting/generic/ipkg-expected.json"
         result = info("pkg:generic/ipkg")

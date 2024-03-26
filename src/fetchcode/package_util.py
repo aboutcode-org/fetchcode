@@ -186,6 +186,11 @@ class LlvmGitHubSource(GitHubSource):
     ignored_tag_regex = None
 
 
+class RpmGitHubSource(GitHubSource):
+    version_regex = re.compile(r"rpm-(?P<version>[^-]+(?:-(?!release).*)?|-release)")
+    ignored_tag_regex = None
+
+
 GITHUB_SOURCE_BY_PACKAGE = {
     "avahi/avahi": GitHubSource,
     "bestouff/genext2fs": Genext2fsGitHubSource,
@@ -198,6 +203,7 @@ GITHUB_SOURCE_BY_PACKAGE = {
     "nixos/nix": GitHubSource,
     "plougher/squashfs-tools": SquashfsToolsGitHubSource,
     "pupnp/pupnp": PupnpGitHubSource,
+    "rpm-software-management/rpm": RpmGitHubSource,
     "shadow-maint/shadow": GitHubSource,
     "sqlite/sqlite": SqliteGitHubSource,
     "u-boot/u-boot": UBootGitHubSource,

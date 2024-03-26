@@ -69,6 +69,7 @@ GITHUB_REPOS = [
     ("llvm", "llvm-project", "llvm-project"),
     ("nixos", "nix", "nix"),
     ("miniupnp", "miniupnp", "miniupnp"),
+    ("rpm-software-management", "rpm", "rpm"),
 ]
 
 

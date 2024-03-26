@@ -1,0 +1,805 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 111,
+        "pageInfo": {
+          "endCursor": "MTAw",
+          "hasNextPage": true
+        },
+        "nodes": [
+          {
+            "name": "rpm-4.4-release",
+            "target": {
+              "committedDate": "2004-12-05T19:10:53Z"
+            }
+          },
+          {
+            "name": "rpm-4.4.1-release",
+            "target": {
+              "committedDate": "2005-02-14T01:34:12Z"
+            }
+          },
+          {
+            "name": "rpm-4.4.2-release",
+            "target": {
+              "committedDate": "2005-07-21T01:47:28Z"
+            }
+          },
+          {
+            "name": "rpm-4.4.2.1-rc1",
+            "target": {
+              "committedDate": "2007-06-25T10:29:09Z"
+            }
+          },
+          {
+            "name": "rpm-4.4.2.1-rc2",
+            "target": {
+              "committedDate": "2007-07-04T12:34:52Z"
+            }
+          },
+          {
+            "name": "rpm-4.4.2.1-rc3",
+            "target": {
+              "target": {
+                "committedDate": "2007-07-09T09:57:45Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.4.2.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2007-07-23T09:38:05Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.4.2.2-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2007-08-28T09:27:19Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.4.2.2-rc2",
+            "target": {
+              "target": {
+                "committedDate": "2007-09-11T07:00:26Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.4.2.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2007-10-03T09:57:53Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.4.2.3-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2008-01-25T12:08:12Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.4.2.3-release",
+            "target": {
+              "target": {
+                "committedDate": "2008-04-01T07:34:14Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.6.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2008-10-16T13:59:54Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.6.0-rc2",
+            "target": {
+              "target": {
+                "committedDate": "2008-11-29T13:28:50Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.6.0-rc3",
+            "target": {
+              "target": {
+                "committedDate": "2008-12-09T13:02:08Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.6.0-rc4",
+            "target": {
+              "target": {
+                "committedDate": "2009-01-30T09:32:10Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.6.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2009-02-06T07:21:34Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.6.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2009-05-18T09:27:36Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.7.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2009-02-26T15:17:52Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.7.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2009-04-09T11:28:32Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.7.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2009-04-16T08:16:58Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.7.0",
+            "target": {
+              "target": {
+                "committedDate": "2009-04-16T08:16:58Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.7.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2009-07-21T08:43:21Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.7.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2009-11-25T07:20:44Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.8.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2009-12-07T11:51:48Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.8.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2010-01-08T08:36:21Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.8.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2010-06-11T09:15:17Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2011-01-13T13:33:29Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2011-02-15T13:12:47Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2011-03-02T06:47:11Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.0",
+            "target": {
+              "target": {
+                "committedDate": "2011-03-02T06:47:11Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2011-07-15T09:38:57Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.1.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2011-08-02T09:55:58Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.1.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2011-09-29T12:17:52Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.9.1.3-release",
+            "target": {
+              "target": {
+                "committedDate": "2012-04-03T13:38:08Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2012-04-23T08:48:02Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2012-05-22T10:56:56Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.0",
+            "target": {
+              "target": {
+                "committedDate": "2012-05-22T10:56:56Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2012-10-03T08:51:16Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.1",
+            "target": {
+              "target": {
+                "committedDate": "2012-10-03T08:51:16Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2012-12-10T09:30:12Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.2",
+            "target": {
+              "target": {
+                "committedDate": "2012-12-07T12:44:40Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.10.3.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2013-02-06T08:27:59Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.0-alpha",
+            "target": {
+              "target": {
+                "committedDate": "2012-11-06T11:29:11Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2012-12-10T13:20:51Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2013-01-29T06:30:28Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.0.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2013-01-31T14:30:31Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.1-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2013-06-10T06:38:34Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.1-rc2",
+            "target": {
+              "target": {
+                "committedDate": "2013-06-20T07:32:37Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2013-06-27T09:29:55Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.2-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2014-01-20T10:25:30Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.2-rc2",
+            "target": {
+              "target": {
+                "committedDate": "2014-02-05T13:08:38Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2014-02-13T06:45:52Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.11.3-release",
+            "target": {
+              "target": {
+                "committedDate": "2014-09-05T11:51:10Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.12.0-alpha",
+            "target": {
+              "target": {
+                "committedDate": "2014-06-27T12:36:36Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.12.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2014-08-18T07:16:41Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.12.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2014-08-27T05:46:36Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.12.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2014-09-15T07:40:10Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.12.0.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2014-09-18T11:07:24Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.12.0.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2016-11-03T08:01:48Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.13.0-alpha",
+            "target": {
+              "target": {
+                "committedDate": "2015-07-24T08:10:23Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.13.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2015-09-02T11:53:33Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.13.0-rc2",
+            "target": {
+              "target": {
+                "committedDate": "2016-10-20T12:32:56Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.13.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2016-11-02T05:44:37Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.13.0.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2017-02-16T09:55:17Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.13.0.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2017-10-26T07:40:47Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.13.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2018-03-28T11:09:16Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2017-09-06T14:41:37Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.0-rc2",
+            "target": {
+              "target": {
+                "committedDate": "2017-09-28T13:30:22Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2017-10-12T08:42:27Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2018-01-16T09:49:49Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.2-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2018-06-29T10:38:31Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.2-rc2",
+            "target": {
+              "target": {
+                "committedDate": "2018-08-08T13:39:53Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2018-08-21T10:38:47Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.2.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2018-10-22T09:36:48Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.14.3-release",
+            "target": {
+              "target": {
+                "committedDate": "2020-04-21T07:54:43Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.15.0-alpha",
+            "target": {
+              "target": {
+                "committedDate": "2019-06-05T12:04:18Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.15.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2019-06-26T14:52:36Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.15.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2019-08-28T09:16:52Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.15.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2019-09-26T09:44:04Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.15.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2019-11-18T10:46:29Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.15.1.3",
+            "target": {
+              "target": {
+                "committedDate": "2021-03-22T09:30:31Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.0-alpha",
+            "target": {
+              "target": {
+                "committedDate": "2020-03-23T14:36:06Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.0-beta2",
+            "target": {
+              "target": {
+                "committedDate": "2020-06-23T12:12:11Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.0-beta3",
+            "target": {
+              "target": {
+                "committedDate": "2020-06-24T08:09:07Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2020-08-31T08:31:57Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2020-09-30T07:47:16Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2020-12-10T11:28:07Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.1.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2020-12-16T09:09:36Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.1.2-release",
+            "target": {
+              "target": {
+                "committedDate": "2020-12-16T12:13:38Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.16.1.3",
+            "target": {
+              "target": {
+                "committedDate": "2021-03-22T10:04:27Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.17.0-alpha",
+            "target": {
+              "target": {
+                "committedDate": "2021-04-26T08:35:30Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.17.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2021-06-22T12:02:29Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.17.0-rc1",
+            "target": {
+              "target": {
+                "committedDate": "2021-08-20T08:44:09Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.17.0-release",
+            "target": {
+              "target": {
+                "committedDate": "2021-09-03T09:41:20Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.17.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2022-07-01T08:52:14Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.17.1.1-release",
+            "target": {
+              "target": {
+                "committedDate": "2022-08-30T10:10:37Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.18.0-alpha1",
+            "target": {
+              "target": {
+                "committedDate": "2022-04-13T08:02:31Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.18.0-alpha2",
+            "target": {
+              "target": {
+                "committedDate": "2022-05-05T10:21:07Z"
+              }
+            }
+          },
+          {
+            "name": "rpm-4.18.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2022-06-28T11:51:02Z"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
