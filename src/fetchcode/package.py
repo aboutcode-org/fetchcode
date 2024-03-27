@@ -574,6 +574,24 @@ class BareboxDirectoryListedSource(DirectoryListedSource):
     is_nested = False
     ignored_files_and_dir = []
 
+class LinuxDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://cdn.kernel.org/pub/linux/kernel/"
+    source_archive_regex = re.compile(r"^(linux-)(?P<version>[\w.-]*)(.tar.gz)$")
+    is_nested = True
+    ignored_files_and_dir = [
+        "Historic/",
+        "SillySounds/",
+        "crypto/",
+        "firmware/",
+        "next/",
+        "people/",
+        "ports/",
+        "projects/",
+        "testing/",
+        "tools/",
+        "uemacs/",
+    ]
+
 
 DIR_SUPPORTED_PURLS = [
     "pkg:generic/busybox.*",
@@ -599,6 +617,7 @@ DIR_SUPPORTED_PURLS = [
     "pkg:generic/ipkg.*",
     "pkg:generic/mtd-utils.*",
     "pkg:generic/barebox.*",
+    "pkg:generic/linux.*"
 ]
 
 DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
@@ -624,6 +643,7 @@ DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
     "ipkg": IpkgDirectoryListedSource,
     "mtd-utils": MtdUtilsDirectoryListedSource,
     "barebox": BareboxDirectoryListedSource,
+    "linux": LinuxDirectoryListedSource,
 }
 
 
