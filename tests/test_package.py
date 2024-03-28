@@ -482,6 +482,24 @@ class GitHubSourceTestCase(TestCase):
 
         self.check_result(expected_file, result)
 
+    @mock.patch("fetchcode.utils.get_response")
+    @mock.patch("fetchcode.utils.github_response")
+    def test_packages_github_source_erofs_utils(
+        self, mock_github_response, mock_get_response
+    ):
+        test_data = [
+            "tests/data/package/github/erofs-utils/github_mock_data_1.json",
+        ]
+        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_get_response.return_value = file_json(
+            "tests/data/package/github/erofs-utils/github_mock_data_0.json"
+        )
+
+        expected_file = "tests/data/package/github/erofs-utils-expected.json"
+        result = info("pkg:generic/erofs-utils")
+
+        self.check_result(expected_file, result)
+
 
 class DirListedTestCase(TestCase):
     def check_result(self, filename, packages, regen=False):

@@ -71,6 +71,7 @@ GITHUB_REPOS = [
     ("miniupnp", "miniupnp", "miniupnp"),
     ("rpm-software-management", "rpm", "rpm"),
     ("python", "cpython", "cpython"),
+    ("erofs", "erofs-utils", "erofs-utils"),
 ]
 
 

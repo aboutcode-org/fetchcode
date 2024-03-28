@@ -242,6 +242,22 @@ def get_github_data_for_miniupnp(purl):
     )
 
 
+@router.route("pkg:generic/erofs-utils.*",)
+def get_github_data_for_erofs_utils(purl):
+    """
+    Yield `Package` object for erofs-utils package from GitHub.
+    """
+    generic_purl = PackageURL.from_string(purl)
+    github_repo_purl = PackageURL(
+        type="github",
+        namespace="erofs",
+        name="erofs-utils",
+        version=generic_purl.version,
+    )
+
+    return GitHubSource.get_package_info(github_repo_purl)
+
+
 @router.route("pkg:bitbucket/.*")
 def get_bitbucket_data_from_purl(purl):
     """
