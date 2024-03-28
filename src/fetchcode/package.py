@@ -670,7 +670,7 @@ def get_packages_from_listing(purl, source_archive_url, regex, ignored_files_and
 
         version = match.group("version")
         version = version.strip("v").strip()
-        if not version:
+        if not version or not version[0].isdigit():
             continue
 
         modified_time = file.modified
