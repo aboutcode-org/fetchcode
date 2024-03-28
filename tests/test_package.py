@@ -1125,6 +1125,76 @@ class DirListedTestCase(TestCase):
         result = info("pkg:generic/barebox")
 
         self.check_result(expected_file, result)
+    
+    @mock.patch("requests.get")
+    def test_packages_e2fsprogs(self, mock_get):
+        test_data = [
+            "tests/data/package/dirlisting/generic/e2fsprogs/index.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/0.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/1.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/2.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/3.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/4.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/5.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/6.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/7.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/8.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/9.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/10.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/11.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/12.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/13.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/14.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/15.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/16.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/17.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/18.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/19.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/20.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/21.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/22.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/23.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/24.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/25.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/26.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/27.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/28.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/29.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/30.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/31.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/32.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/33.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/34.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/35.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/36.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/37.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/38.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/39.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/40.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/41.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/42.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/43.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/44.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/45.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/46.html",
+        ]
+
+        mock_get.side_effect = [
+            type(
+                "Response",
+                (),
+                {
+                    "content": file_content(file).encode(),
+                    "raise_for_status": lambda: None,
+                },
+            )
+            for file in test_data
+        ]
+
+        expected_file = "tests/data/package/dirlisting/generic/e2fsprogs-expected.json"
+        result = info("pkg:generic/e2fsprogs")
+
+        self.check_result(expected_file, result)
 
 
 def file_json(file_path):

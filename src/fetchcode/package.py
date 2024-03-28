@@ -592,6 +592,12 @@ class LinuxDirectoryListedSource(DirectoryListedSource):
         "uemacs/",
     ]
 
+class E2fsprogsDirectoryListedSource(DirectoryListedSource):
+    source_url = "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/"
+    source_archive_regex = re.compile(r"^(e2fsprogs-)(?P<version>[\w.-]*)(.tar.gz)$")
+    is_nested = True
+    ignored_files_and_dir = ["testing/"]
+
 
 DIR_SUPPORTED_PURLS = [
     "pkg:generic/busybox.*",
@@ -617,7 +623,8 @@ DIR_SUPPORTED_PURLS = [
     "pkg:generic/ipkg.*",
     "pkg:generic/mtd-utils.*",
     "pkg:generic/barebox.*",
-    "pkg:generic/linux.*"
+    "pkg:generic/linux.*",
+    "pkg:generic/e2fsprogs.*",
 ]
 
 DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
@@ -644,6 +651,7 @@ DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
     "mtd-utils": MtdUtilsDirectoryListedSource,
     "barebox": BareboxDirectoryListedSource,
     "linux": LinuxDirectoryListedSource,
+    "e2fsprogs": E2fsprogsDirectoryListedSource,
 }
 
 
