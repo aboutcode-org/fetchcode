@@ -510,6 +510,295 @@ TEST_SOURCES_INFO = [
             },
         ],
     },
+    {
+        "purl": "pkg:generic/linux",
+        "sources": [
+            {
+                "filename": "generic/linux/index.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/",
+            },
+            {
+                "filename": "generic/linux/0.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v1.0/",
+            },
+            {
+                "filename": "generic/linux/1.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v1.1/",
+            },
+            {
+                "filename": "generic/linux/2.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v1.2/",
+            },
+            {
+                "filename": "generic/linux/3.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v1.3/",
+            },
+            {
+                "filename": "generic/linux/4.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v2.0/",
+            },
+            {
+                "filename": "generic/linux/5.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v2.1/",
+            },
+            {
+                "filename": "generic/linux/6.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v2.2/",
+            },
+            {
+                "filename": "generic/linux/7.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v2.3/",
+            },
+            {
+                "filename": "generic/linux/8.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v2.4/",
+            },
+            {
+                "filename": "generic/linux/9.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v2.5/",
+            },
+            {
+                "filename": "generic/linux/10.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v2.6/",
+            },
+            {
+                "filename": "generic/linux/11.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v3.0/",
+            },
+            {
+                "filename": "generic/linux/12.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v3.x/",
+            },
+            {
+                "filename": "generic/linux/13.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v4.x/",
+            },
+            {
+                "filename": "generic/linux/14.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v5.x/",
+            },
+            {
+                "filename": "generic/linux/15.html",
+                "url": "https://cdn.kernel.org/pub/linux/kernel/v6.x/",
+            },
+        ],
+    },
+    {
+        "purl": "pkg:generic/mtd-utils",
+        "sources": [
+            {
+                "filename": "generic/mtd-utils/index.html",
+                "url": "https://infraroot.at/pub/mtd/",
+            },
+        ],
+    },
+    {
+        "purl": "pkg:generic/barebox",
+        "sources": [
+            {
+                "filename": "generic/barebox/index.html",
+                "url": "https://www.barebox.org/download/",
+            },
+        ],
+    },
+ {
+    "purl": "pkg:generic/e2fsprogs",
+    "sources": [
+        {
+            "filename": "generic/e2fsprogs/index.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/",
+        },
+        {
+            "filename": "generic/e2fsprogs/0.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.1/",
+        },
+        {
+            "filename": "generic/e2fsprogs/1.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.10/",
+        },
+        {
+            "filename": "generic/e2fsprogs/2.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.11/",
+        },
+        {
+            "filename": "generic/e2fsprogs/3.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.12/",
+        },
+        {
+            "filename": "generic/e2fsprogs/4.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.13/",
+        },
+        {
+            "filename": "generic/e2fsprogs/5.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.2/",
+        },
+        {
+            "filename": "generic/e2fsprogs/6.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.3/",
+        },
+        {
+            "filename": "generic/e2fsprogs/7.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.4/",
+        },
+        {
+            "filename": "generic/e2fsprogs/8.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.5/",
+        },
+        {
+            "filename": "generic/e2fsprogs/9.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.6/",
+        },
+        {
+            "filename": "generic/e2fsprogs/10.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.7/",
+        },
+        {
+            "filename": "generic/e2fsprogs/11.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.8/",
+        },
+        {
+            "filename": "generic/e2fsprogs/12.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.42.9/",
+        },
+        {
+            "filename": "generic/e2fsprogs/13.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43/",
+        },
+        {
+            "filename": "generic/e2fsprogs/14.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.1/",
+        },
+        {
+            "filename": "generic/e2fsprogs/15.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.2/",
+        },
+        {
+            "filename": "generic/e2fsprogs/16.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.3/",
+        },
+        {
+            "filename": "generic/e2fsprogs/17.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.4/",
+        },
+        {
+            "filename": "generic/e2fsprogs/18.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.5/",
+        },
+        {
+            "filename": "generic/e2fsprogs/19.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.6/",
+        },
+        {
+            "filename": "generic/e2fsprogs/20.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.7/",
+        },
+        {
+            "filename": "generic/e2fsprogs/21.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.8/",
+        },
+        {
+            "filename": "generic/e2fsprogs/22.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.43.9/",
+        },
+        {
+            "filename": "generic/e2fsprogs/23.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.0/",
+        },
+        {
+            "filename": "generic/e2fsprogs/24.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.1/",
+        },
+        {
+            "filename": "generic/e2fsprogs/25.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.2/",
+        },
+        {
+            "filename": "generic/e2fsprogs/26.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.3/",
+        },
+        {
+            "filename": "generic/e2fsprogs/27.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.3-rc2/",
+        },
+        {
+            "filename": "generic/e2fsprogs/28.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.4/",
+        },
+        {
+            "filename": "generic/e2fsprogs/29.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.5/",
+        },
+        {
+            "filename": "generic/e2fsprogs/30.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.44.6/",
+        },
+        {
+            "filename": "generic/e2fsprogs/31.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.0/",
+        },
+        {
+            "filename": "generic/e2fsprogs/32.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.1/",
+        },
+        {
+            "filename": "generic/e2fsprogs/33.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.2/",
+        },
+        {
+            "filename": "generic/e2fsprogs/34.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.3/",
+        },
+        {
+            "filename": "generic/e2fsprogs/35.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.4/",
+        },
+        {
+            "filename": "generic/e2fsprogs/36.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.5/",
+        },
+        {
+            "filename": "generic/e2fsprogs/37.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.6/",
+        },
+        {
+            "filename": "generic/e2fsprogs/38.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.45.7/",
+        },
+        {
+            "filename": "generic/e2fsprogs/39.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.0/",
+        },
+        {
+            "filename": "generic/e2fsprogs/40.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.1/",
+        },
+        {
+            "filename": "generic/e2fsprogs/41.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.2/",
+        },
+        {
+            "filename": "generic/e2fsprogs/42.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.3/",
+        },
+        {
+            "filename": "generic/e2fsprogs/43.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.4/",
+        },
+        {
+            "filename": "generic/e2fsprogs/44.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.5/",
+        },
+        {
+            "filename": "generic/e2fsprogs/45.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.46.6/",
+        },
+        {
+            "filename": "generic/e2fsprogs/46.html",
+            "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.47.0/",
+        },
+
+    ],
+},
 ]
 
 
@@ -523,7 +812,8 @@ def fetch_mock_data(sources_info=TEST_SOURCES_INFO):
             url = source.get("url")
 
             response = requests.get(url)
-            with open(filename, "w", encoding="utf-8") as file:
+            file_path = data_location / filename
+            with open(file_path, "w", encoding="utf-8") as file:
                 file.write(response.text)
 
 

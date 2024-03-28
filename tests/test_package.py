@@ -346,7 +346,7 @@ class GitHubSourceTestCase(TestCase):
         result = info("pkg:github/pupnp/pupnp")
 
         self.check_result(expected_file, result)
-    
+
     @mock.patch("fetchcode.utils.get_response")
     @mock.patch("fetchcode.utils.github_response")
     def test_packages_github_source_cpython(
@@ -479,6 +479,24 @@ class GitHubSourceTestCase(TestCase):
 
         expected_file = "tests/data/package/github/u-boot-expected.json"
         result = info("pkg:github/u-boot/u-boot")
+
+        self.check_result(expected_file, result)
+
+    @mock.patch("fetchcode.utils.get_response")
+    @mock.patch("fetchcode.utils.github_response")
+    def test_packages_github_source_erofs_utils(
+        self, mock_github_response, mock_get_response
+    ):
+        test_data = [
+            "tests/data/package/github/erofs-utils/github_mock_data_1.json",
+        ]
+        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_get_response.return_value = file_json(
+            "tests/data/package/github/erofs-utils/github_mock_data_0.json"
+        )
+
+        expected_file = "tests/data/package/github/erofs-utils-expected.json"
+        result = info("pkg:generic/erofs-utils")
 
         self.check_result(expected_file, result)
 
@@ -1038,6 +1056,161 @@ class DirListedTestCase(TestCase):
     def test_packages_ipkg(self):
         expected_file = "tests/data/package/dirlisting/generic/ipkg-expected.json"
         result = info("pkg:generic/ipkg")
+
+        self.check_result(expected_file, result)
+
+    @mock.patch("requests.get")
+    def test_packages_util_linux(self, mock_get):
+        test_data = [
+            "tests/data/package/dirlisting/generic/linux/index.html",
+            "tests/data/package/dirlisting/generic/linux/0.html",
+            "tests/data/package/dirlisting/generic/linux/1.html",
+            "tests/data/package/dirlisting/generic/linux/2.html",
+            "tests/data/package/dirlisting/generic/linux/3.html",
+            "tests/data/package/dirlisting/generic/linux/4.html",
+            "tests/data/package/dirlisting/generic/linux/5.html",
+            "tests/data/package/dirlisting/generic/linux/6.html",
+            "tests/data/package/dirlisting/generic/linux/7.html",
+            "tests/data/package/dirlisting/generic/linux/8.html",
+            "tests/data/package/dirlisting/generic/linux/9.html",
+            "tests/data/package/dirlisting/generic/linux/10.html",
+            "tests/data/package/dirlisting/generic/linux/11.html",
+            "tests/data/package/dirlisting/generic/linux/12.html",
+            "tests/data/package/dirlisting/generic/linux/13.html",
+            "tests/data/package/dirlisting/generic/linux/14.html",
+            "tests/data/package/dirlisting/generic/linux/15.html",
+        ]
+
+        mock_get.side_effect = [
+            type(
+                "Response",
+                (),
+                {
+                    "content": file_content(file).encode(),
+                    "raise_for_status": lambda: None,
+                },
+            )
+            for file in test_data
+        ]
+
+        expected_file = "tests/data/package/dirlisting/generic/linux-expected.json"
+        result = info("pkg:generic/linux")
+
+        self.check_result(expected_file, result)
+
+    @mock.patch("requests.get")
+    def test_packages_mtd_utils(self, mock_get):
+        test_data = [
+            "tests/data/package/dirlisting/generic/mtd-utils/index.html",
+        ]
+
+        mock_get.side_effect = [
+            type(
+                "Response",
+                (),
+                {
+                    "content": file_content(file).encode(),
+                    "raise_for_status": lambda: None,
+                },
+            )
+            for file in test_data
+        ]
+
+        expected_file = "tests/data/package/dirlisting/generic/mtd-utils-expected.json"
+        result = info("pkg:generic/mtd-utils")
+
+        self.check_result(expected_file, result)
+
+    @mock.patch("requests.get")
+    def test_packages_barebox(self, mock_get):
+        test_data = [
+            "tests/data/package/dirlisting/generic/barebox/index.html",
+        ]
+
+        mock_get.side_effect = [
+            type(
+                "Response",
+                (),
+                {
+                    "content": file_content(file).encode(),
+                    "raise_for_status": lambda: None,
+                },
+            )
+            for file in test_data
+        ]
+
+        expected_file = "tests/data/package/dirlisting/generic/barebox-expected.json"
+        result = info("pkg:generic/barebox")
+
+        self.check_result(expected_file, result)
+    
+    @mock.patch("requests.get")
+    def test_packages_e2fsprogs(self, mock_get):
+        test_data = [
+            "tests/data/package/dirlisting/generic/e2fsprogs/index.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/0.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/1.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/2.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/3.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/4.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/5.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/6.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/7.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/8.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/9.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/10.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/11.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/12.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/13.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/14.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/15.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/16.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/17.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/18.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/19.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/20.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/21.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/22.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/23.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/24.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/25.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/26.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/27.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/28.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/29.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/30.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/31.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/32.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/33.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/34.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/35.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/36.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/37.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/38.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/39.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/40.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/41.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/42.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/43.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/44.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/45.html",
+            "tests/data/package/dirlisting/generic/e2fsprogs/46.html",
+        ]
+
+        mock_get.side_effect = [
+            type(
+                "Response",
+                (),
+                {
+                    "content": file_content(file).encode(),
+                    "raise_for_status": lambda: None,
+                },
+            )
+            for file in test_data
+        ]
+
+        expected_file = "tests/data/package/dirlisting/generic/e2fsprogs-expected.json"
+        result = info("pkg:generic/e2fsprogs")
 
         self.check_result(expected_file, result)
 
