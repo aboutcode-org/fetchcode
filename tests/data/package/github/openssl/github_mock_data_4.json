@@ -1,0 +1,579 @@
+{
+  "data": {
+    "repository": {
+      "refs": {
+        "totalCount": 372,
+        "pageInfo": {
+          "endCursor": "Mzcy",
+          "hasNextPage": false
+        },
+        "nodes": [
+          {
+            "name": "OpenSSL-fips-2_0_2",
+            "target": {
+              "target": {
+                "committedDate": "2012-10-14T12:02:53Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_3",
+            "target": {
+              "target": {
+                "committedDate": "2013-04-10T14:38:24Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_4",
+            "target": {
+              "target": {
+                "committedDate": "2013-12-16T14:07:18Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_5",
+            "target": {
+              "target": {
+                "committedDate": "2013-12-16T14:29:20Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_6",
+            "target": {
+              "target": {
+                "committedDate": "2013-12-16T21:41:07Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_7",
+            "target": {
+              "target": {
+                "committedDate": "2014-05-12T17:38:41Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_8",
+            "target": {
+              "target": {
+                "committedDate": "2014-07-11T18:14:15Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_9",
+            "target": {
+              "target": {
+                "committedDate": "2014-10-24T19:41:49Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_10",
+            "target": {
+              "target": {
+                "committedDate": "2015-05-13T14:48:08Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_11",
+            "target": {
+              "target": {
+                "committedDate": "2015-07-04T19:18:46Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_12",
+            "target": {
+              "target": {
+                "committedDate": "2016-02-15T15:26:20Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_13",
+            "target": {
+              "target": {
+                "committedDate": "2016-06-21T21:44:54Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_14",
+            "target": {
+              "target": {
+                "committedDate": "2016-11-14T22:00:41Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_15",
+            "target": {
+              "target": {
+                "committedDate": "2017-08-30T20:27:46Z"
+              }
+            }
+          },
+          {
+            "name": "OpenSSL-fips-2_0_16",
+            "target": {
+              "target": {
+                "committedDate": "2017-08-30T20:45:26Z"
+              }
+            }
+          },
+          {
+            "name": "SSLeay_0_8_1b",
+            "target": {
+              "committedDate": "1998-12-21T10:52:48Z"
+            }
+          },
+          {
+            "name": "SSLeay_0_9_0b",
+            "target": {
+              "committedDate": "1998-12-21T10:56:40Z"
+            }
+          },
+          {
+            "name": "SSLeay_0_9_1b",
+            "target": {
+              "committedDate": "1998-12-21T11:00:57Z"
+            }
+          },
+          {
+            "name": "STATE_after_zlib",
+            "target": {
+              "committedDate": "2002-12-08T09:31:42Z"
+            }
+          },
+          {
+            "name": "STATE_before_zlib",
+            "target": {
+              "committedDate": "2002-12-07T20:03:43Z"
+            }
+          },
+          {
+            "name": "master-post-auto-reformat",
+            "target": {
+              "target": {
+                "committedDate": "2015-01-22T09:20:10Z"
+              }
+            }
+          },
+          {
+            "name": "master-post-reformat",
+            "target": {
+              "target": {
+                "committedDate": "2015-01-22T09:20:10Z"
+              }
+            }
+          },
+          {
+            "name": "master-pre-auto-reformat",
+            "target": {
+              "target": {
+                "committedDate": "2015-01-22T09:20:09Z"
+              }
+            }
+          },
+          {
+            "name": "master-pre-reformat",
+            "target": {
+              "target": {
+                "committedDate": "2015-01-14T20:57:28Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha1",
+            "target": {
+              "target": {
+                "committedDate": "2020-04-23T13:08:36Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha2",
+            "target": {
+              "target": {
+                "committedDate": "2020-05-15T13:33:29Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha3",
+            "target": {
+              "target": {
+                "committedDate": "2020-06-04T13:56:40Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha4",
+            "target": {
+              "target": {
+                "committedDate": "2020-06-25T13:58:16Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha5",
+            "target": {
+              "target": {
+                "committedDate": "2020-07-16T13:22:29Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha6",
+            "target": {
+              "target": {
+                "committedDate": "2020-08-06T13:00:13Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha7",
+            "target": {
+              "target": {
+                "committedDate": "2020-10-15T13:15:55Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha8",
+            "target": {
+              "target": {
+                "committedDate": "2020-11-05T14:03:50Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha9",
+            "target": {
+              "target": {
+                "committedDate": "2020-11-26T14:53:04Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha10",
+            "target": {
+              "target": {
+                "committedDate": "2021-01-07T13:48:10Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha11",
+            "target": {
+              "target": {
+                "committedDate": "2021-01-28T13:07:51Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha12",
+            "target": {
+              "target": {
+                "committedDate": "2021-02-18T15:08:53Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha13",
+            "target": {
+              "target": {
+                "committedDate": "2021-03-11T13:47:12Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha14",
+            "target": {
+              "target": {
+                "committedDate": "2021-04-08T12:15:48Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha15",
+            "target": {
+              "target": {
+                "committedDate": "2021-04-22T13:44:12Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha16",
+            "target": {
+              "target": {
+                "committedDate": "2021-05-06T12:15:03Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-alpha17",
+            "target": {
+              "target": {
+                "committedDate": "2021-05-20T13:30:20Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2021-06-17T13:03:42Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0-beta2",
+            "target": {
+              "target": {
+                "committedDate": "2021-07-29T14:50:29Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.0",
+            "target": {
+              "target": {
+                "committedDate": "2021-09-07T11:46:32Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.1",
+            "target": {
+              "target": {
+                "committedDate": "2021-12-14T16:16:25Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.2",
+            "target": {
+              "target": {
+                "committedDate": "2022-03-15T14:30:24Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.3",
+            "target": {
+              "target": {
+                "committedDate": "2022-05-03T13:32:01Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.4",
+            "target": {
+              "target": {
+                "committedDate": "2022-06-21T13:30:58Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.5",
+            "target": {
+              "target": {
+                "committedDate": "2022-07-05T08:57:04Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.6",
+            "target": {
+              "target": {
+                "committedDate": "2022-10-11T12:39:09Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.7",
+            "target": {
+              "target": {
+                "committedDate": "2022-11-01T14:14:36Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.8",
+            "target": {
+              "target": {
+                "committedDate": "2023-02-07T13:43:33Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.9",
+            "target": {
+              "target": {
+                "committedDate": "2023-05-30T12:31:57Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.10",
+            "target": {
+              "target": {
+                "committedDate": "2023-08-01T13:47:24Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.11",
+            "target": {
+              "target": {
+                "committedDate": "2023-09-19T13:02:31Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.12",
+            "target": {
+              "target": {
+                "committedDate": "2023-10-24T13:48:41Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.0.13",
+            "target": {
+              "target": {
+                "committedDate": "2024-01-30T13:28:16Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.0-alpha1",
+            "target": {
+              "target": {
+                "committedDate": "2022-12-01T13:21:40Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2022-12-21T10:23:21Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.0",
+            "target": {
+              "target": {
+                "committedDate": "2023-03-14T12:59:07Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.1",
+            "target": {
+              "target": {
+                "committedDate": "2023-05-30T12:13:24Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.2",
+            "target": {
+              "target": {
+                "committedDate": "2023-08-01T13:36:55Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.3",
+            "target": {
+              "target": {
+                "committedDate": "2023-09-19T13:01:49Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.4",
+            "target": {
+              "target": {
+                "committedDate": "2023-10-24T13:41:51Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.1.5",
+            "target": {
+              "target": {
+                "committedDate": "2024-01-30T13:22:11Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.2.0-alpha1",
+            "target": {
+              "target": {
+                "committedDate": "2023-09-07T09:00:22Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.2.0-alpha2",
+            "target": {
+              "target": {
+                "committedDate": "2023-09-28T13:24:32Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.2.0-beta1",
+            "target": {
+              "target": {
+                "committedDate": "2023-10-26T13:22:51Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.2.0",
+            "target": {
+              "target": {
+                "committedDate": "2023-11-23T13:20:19Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.2.1",
+            "target": {
+              "target": {
+                "committedDate": "2024-01-30T13:14:56Z"
+              }
+            }
+          },
+          {
+            "name": "openssl-3.3.0-alpha1",
+            "target": {
+              "target": {
+                "committedDate": "2024-03-20T12:09:34Z"
+              }
+            }
+          },
+          {
+            "name": "rsaref",
+            "target": {
+              "committedDate": "2000-11-07T13:49:47Z"
+            }
+          }
+        ]
+      }
+    }
+  }
+}

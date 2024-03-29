@@ -499,6 +499,27 @@ class GitHubSourceTestCase(TestCase):
         result = info("pkg:generic/erofs-utils")
 
         self.check_result(expected_file, result)
+    
+    @mock.patch("fetchcode.utils.get_response")
+    @mock.patch("fetchcode.utils.github_response")
+    def test_packages_github_source_openssl(
+        self, mock_github_response, mock_get_response
+    ):
+        test_data = [
+            "tests/data/package/github/openssl/github_mock_data_1.json",
+            "tests/data/package/github/openssl/github_mock_data_2.json",
+            "tests/data/package/github/openssl/github_mock_data_3.json",
+            "tests/data/package/github/openssl/github_mock_data_4.json",
+        ]
+        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_get_response.return_value = file_json(
+            "tests/data/package/github/openssl/github_mock_data_0.json"
+        )
+
+        expected_file = "tests/data/package/github/openssl-expected.json"
+        result = info("pkg:openssl/openssl")
+
+        self.check_result(expected_file, result)
 
 
 class DirListedTestCase(TestCase):

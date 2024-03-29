@@ -72,6 +72,7 @@ GITHUB_REPOS = [
     ("rpm-software-management", "rpm", "rpm"),
     ("python", "cpython", "cpython"),
     ("erofs", "erofs-utils", "erofs-utils"),
+    ("openssl", "openssl", "openssl"),
 ]
 
 

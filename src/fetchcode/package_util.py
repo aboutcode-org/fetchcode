@@ -211,6 +211,30 @@ GITHUB_SOURCE_BY_PACKAGE = {
 }
 
 
+class OpenSSLGitHubSource(GitHubSource):
+    version_regex = re.compile(r"(OpenSSL_|openssl-)(?P<version>.+)")
+    ignored_tag_regex = None
+
+    @classmethod
+    def get_package_info(cls, gh_purl):
+
+        packages = get_github_packages(
+            gh_purl,
+            cls.version_regex,
+            cls.ignored_tag_regex,
+            cls.get_default_package(gh_purl),
+        )
+
+        for package in packages:
+            package_dict = package.to_dict()
+            package_dict["type"] = "openssl"
+            package_dict["namespace"] = None
+            package_dict["name"] = "openssl"
+            package_dict["version"] = package_dict["version"].replace("_", ".")
+
+            yield package_from_dict(package_dict)
+
+
 class MiniupnpPackagesGitHubSource(GitHubSource):
     version_regex = None
     ignored_tag_regex = None
@@ -231,9 +255,9 @@ class MiniupnpPackagesGitHubSource(GitHubSource):
 
         for package in packages:
             package_dict = package.to_dict()
+            package_dict["type"] = "generic"
             package_dict["namespace"] = None
             package_dict["name"] = package_name
-            package_dict["type"] = "generic"
             package_dict["version"] = package_dict["version"].replace("_", ".")
 
             yield package_from_dict(package_dict)

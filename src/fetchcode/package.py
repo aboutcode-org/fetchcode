@@ -29,6 +29,7 @@ from fetchcode.package_util import GITHUB_SOURCE_BY_PACKAGE
 from fetchcode.package_util import IPKG_RELEASES
 from fetchcode.package_util import GitHubSource
 from fetchcode.package_util import MiniupnpPackagesGitHubSource
+from fetchcode.package_util import OpenSSLGitHubSource
 from fetchcode.packagedcode_models import Package
 from fetchcode.utils import get_response
 
@@ -242,7 +243,25 @@ def get_github_data_for_miniupnp(purl):
     )
 
 
-@router.route("pkg:generic/erofs-utils.*",)
+@router.route(
+    "pkg:openssl/openssl.*",
+)
+def get_github_data_for_openssl(purl):
+    """
+    Yield `Package` object for OpenSSL package from GitHub.
+    """
+    generic_purl = PackageURL.from_string(purl)
+    github_repo_purl = PackageURL(
+        type="github",
+        namespace="openssl",
+        name="openssl",
+        version=generic_purl.version,
+    )
+
+    return OpenSSLGitHubSource.get_package_info(github_repo_purl)
+
+
+@router.route("pkg:generic/erofs-utils.*")
 def get_github_data_for_erofs_utils(purl):
     """
     Yield `Package` object for erofs-utils package from GitHub.
@@ -612,6 +631,7 @@ class BareboxDirectoryListedSource(DirectoryListedSource):
     is_nested = False
     ignored_files_and_dir = []
 
+
 class LinuxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://cdn.kernel.org/pub/linux/kernel/"
     # Source archive ex: linux-1.2.3.tar.gz
@@ -631,8 +651,11 @@ class LinuxDirectoryListedSource(DirectoryListedSource):
         "uemacs/",
     ]
 
+
 class E2fsprogsDirectoryListedSource(DirectoryListedSource):
-    source_url = "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/"
+    source_url = (
+        "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/"
+    )
     # Source archive ex: e2fsprogs-1.2.3.tar.gz
     source_archive_regex = re.compile(r"^(e2fsprogs-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = True
