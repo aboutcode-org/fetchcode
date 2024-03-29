@@ -14,9 +14,6 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-# Since there will be no new releases of ipkg, it's better to
-# store them in a dictionary rather than fetching them every time.
-
 import dataclasses
 import re
 
@@ -211,6 +208,54 @@ GITHUB_SOURCE_BY_PACKAGE = {
 }
 
 
+class OpenSSLGitHubSource(GitHubSource):
+    version_regex = re.compile(r"(OpenSSL_|openssl-)(?P<version>.+)")
+    ignored_tag_regex = None
+
+    @classmethod
+    def get_package_info(cls, gh_purl):
+
+        packages = get_github_packages(
+            gh_purl,
+            cls.version_regex,
+            cls.ignored_tag_regex,
+            cls.get_default_package(gh_purl),
+        )
+
+        for package in packages:
+            package_dict = package.to_dict()
+            package_dict["type"] = "openssl"
+            package_dict["namespace"] = None
+            package_dict["name"] = "openssl"
+            package_dict["version"] = package_dict["version"].replace("_", ".")
+
+            yield package_from_dict(package_dict)
+
+
+class ErofsUtilsGitHubSource(GitHubSource):
+    version_regex = None
+    ignored_tag_regex = None
+
+    @classmethod
+    def get_package_info(cls, gh_purl):
+
+        packages = get_github_packages(
+            gh_purl,
+            cls.version_regex,
+            cls.ignored_tag_regex,
+            cls.get_default_package(gh_purl),
+        )
+
+        for package in packages:
+            package_dict = package.to_dict()
+            package_dict["type"] = "generic"
+            package_dict["namespace"] = None
+            package_dict["name"] = "erofs-utils"
+            package_dict["version"] = package_dict["version"].replace("_", ".")
+
+            yield package_from_dict(package_dict)
+
+
 class MiniupnpPackagesGitHubSource(GitHubSource):
     version_regex = None
     ignored_tag_regex = None
@@ -231,14 +276,53 @@ class MiniupnpPackagesGitHubSource(GitHubSource):
 
         for package in packages:
             package_dict = package.to_dict()
+            package_dict["type"] = "generic"
             package_dict["namespace"] = None
             package_dict["name"] = package_name
-            package_dict["type"] = "generic"
             package_dict["version"] = package_dict["version"].replace("_", ".")
 
             yield package_from_dict(package_dict)
 
 
+# Archive source https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source/
+UDHCP_RELEASES = {
+    "0.9.1": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.1.tar.gz",
+        "date": "2001-08-10T20:17:00",
+    },
+    "0.9.2": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.2.tar.gz",
+        "date": "2001-08-10T20:17:00",
+    },
+    "0.9.3": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.3.tar.gz",
+        "date": "2001-08-20T18:23:00",
+    },
+    "0.9.4": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.4.tar.gz",
+        "date": "2001-08-27T15:41:00",
+    },
+    "0.9.5": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.5.tar.gz",
+        "date": "2001-09-14T18:19:00",
+    },
+    "0.9.6": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.6.tar.gz",
+        "date": "2001-10-01T13:38:00",
+    },
+    "0.9.7": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.7.tar.gz",
+        "date": "2002-05-27T00:48:00",
+    },
+    "0.9.8": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.8.tar.gz",
+        "date": "2002-10-31T12:10:00",
+    },
+}
+
+
+# Since there will be no new releases of ipkg, it's better to
+# store them in a dictionary rather than fetching them every time.
 IPKG_RELEASES = {
     "0.99.88": {
         "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.88.tar.gz",

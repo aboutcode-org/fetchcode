@@ -27,8 +27,11 @@ from packageurl.contrib.route import Router
 
 from fetchcode.package_util import GITHUB_SOURCE_BY_PACKAGE
 from fetchcode.package_util import IPKG_RELEASES
+from fetchcode.package_util import UDHCP_RELEASES
+from fetchcode.package_util import ErofsUtilsGitHubSource
 from fetchcode.package_util import GitHubSource
 from fetchcode.package_util import MiniupnpPackagesGitHubSource
+from fetchcode.package_util import OpenSSLGitHubSource
 from fetchcode.packagedcode_models import Package
 from fetchcode.utils import get_response
 
@@ -242,7 +245,25 @@ def get_github_data_for_miniupnp(purl):
     )
 
 
-@router.route("pkg:generic/erofs-utils.*",)
+@router.route(
+    "pkg:openssl/openssl.*",
+)
+def get_github_data_for_openssl(purl):
+    """
+    Yield `Package` object for OpenSSL package from GitHub.
+    """
+    generic_purl = PackageURL.from_string(purl)
+    github_repo_purl = PackageURL(
+        type="github",
+        namespace="openssl",
+        name="openssl",
+        version=generic_purl.version,
+    )
+
+    return OpenSSLGitHubSource.get_package_info(github_repo_purl)
+
+
+@router.route("pkg:generic/erofs-utils.*")
 def get_github_data_for_erofs_utils(purl):
     """
     Yield `Package` object for erofs-utils package from GitHub.
@@ -255,7 +276,7 @@ def get_github_data_for_erofs_utils(purl):
         version=generic_purl.version,
     )
 
-    return GitHubSource.get_package_info(github_repo_purl)
+    return ErofsUtilsGitHubSource.get_package_info(github_repo_purl)
 
 
 @router.route("pkg:bitbucket/.*")
@@ -382,6 +403,37 @@ class DirectoryListedSource:
                 cls.source_archive_regex,
                 cls.ignored_files_and_dir,
             )
+
+
+# The udhcp is no longer maintained as a standalone project.
+# It has been fully integrated into busybox.
+class UdhcpDirectoryListedSource(DirectoryListedSource):
+    source_url = (
+        "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source/"
+    )
+
+    @classmethod
+    def get_package_info(cls, package_url):
+
+        version = package_url.version
+        if version and version in UDHCP_RELEASES:
+            archive = UDHCP_RELEASES[version]
+            yield Package(
+                homepage_url=cls.source_url,
+                download_url=archive["url"],
+                release_date=archive["date"],
+                **package_url.to_dict(),
+            )
+
+        else:
+            for version, data in UDHCP_RELEASES.items():
+                purl = PackageURL(type="generic", name="udhcp", version=version)
+                yield Package(
+                    homepage_url=cls.source_url,
+                    download_url=data["url"],
+                    release_date=data["date"],
+                    **purl.to_dict(),
+                )
 
 
 class IpkgDirectoryListedSource(DirectoryListedSource):
@@ -612,6 +664,7 @@ class BareboxDirectoryListedSource(DirectoryListedSource):
     is_nested = False
     ignored_files_and_dir = []
 
+
 class LinuxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://cdn.kernel.org/pub/linux/kernel/"
     # Source archive ex: linux-1.2.3.tar.gz
@@ -631,8 +684,11 @@ class LinuxDirectoryListedSource(DirectoryListedSource):
         "uemacs/",
     ]
 
+
 class E2fsprogsDirectoryListedSource(DirectoryListedSource):
-    source_url = "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/"
+    source_url = (
+        "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/"
+    )
     # Source archive ex: e2fsprogs-1.2.3.tar.gz
     source_archive_regex = re.compile(r"^(e2fsprogs-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = True
@@ -665,6 +721,7 @@ DIR_SUPPORTED_PURLS = [
     "pkg:generic/barebox.*",
     "pkg:generic/linux.*",
     "pkg:generic/e2fsprogs.*",
+    "pkg:generic/udhcp.*",
 ]
 
 DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
@@ -692,6 +749,7 @@ DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
     "barebox": BareboxDirectoryListedSource,
     "linux": LinuxDirectoryListedSource,
     "e2fsprogs": E2fsprogsDirectoryListedSource,
+    "udhcp": UdhcpDirectoryListedSource,
 }
 
 
