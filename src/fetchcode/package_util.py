@@ -235,6 +235,30 @@ class OpenSSLGitHubSource(GitHubSource):
             yield package_from_dict(package_dict)
 
 
+class ErofsUtilsGitHubSource(GitHubSource):
+    version_regex = None
+    ignored_tag_regex = None
+
+    @classmethod
+    def get_package_info(cls, gh_purl):
+
+        packages = get_github_packages(
+            gh_purl,
+            cls.version_regex,
+            cls.ignored_tag_regex,
+            cls.get_default_package(gh_purl),
+        )
+
+        for package in packages:
+            package_dict = package.to_dict()
+            package_dict["type"] = "generic"
+            package_dict["namespace"] = None
+            package_dict["name"] = "erofs-utils"
+            package_dict["version"] = package_dict["version"].replace("_", ".")
+
+            yield package_from_dict(package_dict)
+
+
 class MiniupnpPackagesGitHubSource(GitHubSource):
     version_regex = None
     ignored_tag_regex = None

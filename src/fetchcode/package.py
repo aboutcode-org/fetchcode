@@ -27,6 +27,7 @@ from packageurl.contrib.route import Router
 
 from fetchcode.package_util import GITHUB_SOURCE_BY_PACKAGE
 from fetchcode.package_util import IPKG_RELEASES
+from fetchcode.package_util import ErofsUtilsGitHubSource
 from fetchcode.package_util import GitHubSource
 from fetchcode.package_util import MiniupnpPackagesGitHubSource
 from fetchcode.package_util import OpenSSLGitHubSource
@@ -274,7 +275,7 @@ def get_github_data_for_erofs_utils(purl):
         version=generic_purl.version,
     )
 
-    return GitHubSource.get_package_info(github_repo_purl)
+    return ErofsUtilsGitHubSource.get_package_info(github_repo_purl)
 
 
 @router.route("pkg:bitbucket/.*")
