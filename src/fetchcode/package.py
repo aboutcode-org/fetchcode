@@ -27,6 +27,7 @@ from packageurl.contrib.route import Router
 
 from fetchcode.package_util import GITHUB_SOURCE_BY_PACKAGE
 from fetchcode.package_util import IPKG_RELEASES
+from fetchcode.package_util import UDHCP_RELEASES
 from fetchcode.package_util import ErofsUtilsGitHubSource
 from fetchcode.package_util import GitHubSource
 from fetchcode.package_util import MiniupnpPackagesGitHubSource
@@ -404,6 +405,37 @@ class DirectoryListedSource:
             )
 
 
+# The udhcp is no longer maintained as a standalone project.
+# It has been fully integrated into busybox.
+class UdhcpDirectoryListedSource(DirectoryListedSource):
+    source_url = (
+        "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source/"
+    )
+
+    @classmethod
+    def get_package_info(cls, package_url):
+
+        version = package_url.version
+        if version and version in UDHCP_RELEASES:
+            archive = UDHCP_RELEASES[version]
+            yield Package(
+                homepage_url=cls.source_url,
+                download_url=archive["url"],
+                release_date=archive["date"],
+                **package_url.to_dict(),
+            )
+
+        else:
+            for version, data in UDHCP_RELEASES.items():
+                purl = PackageURL(type="generic", name="udhcp", version=version)
+                yield Package(
+                    homepage_url=cls.source_url,
+                    download_url=data["url"],
+                    release_date=data["date"],
+                    **purl.to_dict(),
+                )
+
+
 class IpkgDirectoryListedSource(DirectoryListedSource):
     source_url = "https://web.archive.org/web/20090326020239/http://handhelds.org/download/packages/ipkg/"
     is_nested = False
@@ -689,6 +721,7 @@ DIR_SUPPORTED_PURLS = [
     "pkg:generic/barebox.*",
     "pkg:generic/linux.*",
     "pkg:generic/e2fsprogs.*",
+    "pkg:generic/udhcp.*",
 ]
 
 DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
@@ -716,6 +749,7 @@ DIR_LISTED_SOURCE_BY_PACKAGE_NAME = {
     "barebox": BareboxDirectoryListedSource,
     "linux": LinuxDirectoryListedSource,
     "e2fsprogs": E2fsprogsDirectoryListedSource,
+    "udhcp": UdhcpDirectoryListedSource,
 }
 
 

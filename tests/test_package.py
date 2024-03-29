@@ -499,7 +499,7 @@ class GitHubSourceTestCase(TestCase):
         result = info("pkg:generic/erofs-utils")
 
         self.check_result(expected_file, result)
-    
+
     @mock.patch("fetchcode.utils.get_response")
     @mock.patch("fetchcode.utils.github_response")
     def test_packages_github_source_openssl(
@@ -1080,6 +1080,12 @@ class DirListedTestCase(TestCase):
 
         self.check_result(expected_file, result)
 
+    def test_packages_udhcp(self):
+        expected_file = "tests/data/package/dirlisting/generic/udhcp-expected.json"
+        result = info("pkg:generic/udhcp")
+
+        self.check_result(expected_file, result)
+
     @mock.patch("requests.get")
     def test_packages_util_linux(self, mock_get):
         test_data = [
@@ -1164,7 +1170,7 @@ class DirListedTestCase(TestCase):
         result = info("pkg:generic/barebox")
 
         self.check_result(expected_file, result)
-    
+
     @mock.patch("requests.get")
     def test_packages_e2fsprogs(self, mock_get):
         test_data = [

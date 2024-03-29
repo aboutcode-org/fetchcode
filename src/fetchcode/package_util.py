@@ -287,6 +287,43 @@ class MiniupnpPackagesGitHubSource(GitHubSource):
             yield package_from_dict(package_dict)
 
 
+# Archive source https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source/
+UDHCP_RELEASES = {
+    "0.9.1": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.1.tar.gz",
+        "date": "2001-08-10T20:17:00",
+    },
+    "0.9.2": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.2.tar.gz",
+        "date": "2001-08-10T20:17:00",
+    },
+    "0.9.3": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.3.tar.gz",
+        "date": "2001-08-20T18:23:00",
+    },
+    "0.9.4": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.4.tar.gz",
+        "date": "2001-08-27T15:41:00",
+    },
+    "0.9.5": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.5.tar.gz",
+        "date": "2001-09-14T18:19:00",
+    },
+    "0.9.6": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.6.tar.gz",
+        "date": "2001-10-01T13:38:00",
+    },
+    "0.9.7": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.7.tar.gz",
+        "date": "2002-05-27T00:48:00",
+    },
+    "0.9.8": {
+        "url": "https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source//udhcp-0.9.8.tar.gz",
+        "date": "2002-10-31T12:10:00",
+    },
+}
+
+
 IPKG_RELEASES = {
     "0.99.88": {
         "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.88.tar.gz",
