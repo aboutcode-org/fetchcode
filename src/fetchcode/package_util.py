@@ -14,9 +14,6 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-# Since there will be no new releases of ipkg, it's better to
-# store them in a dictionary rather than fetching them every time.
-
 import dataclasses
 import re
 
@@ -324,6 +321,8 @@ UDHCP_RELEASES = {
 }
 
 
+# Since there will be no new releases of ipkg, it's better to
+# store them in a dictionary rather than fetching them every time.
 IPKG_RELEASES = {
     "0.99.88": {
         "url": "https://web.archive.org/web/20090326020239/http:/handhelds.org/download/packages/ipkg/ipkg-0.99.88.tar.gz",

@@ -2,6 +2,39 @@ Changelog
 =========
 
 
+v0.5.0
+-------
+- FetchCode now supports retrieving package info for following generic packages: 
+    * pkg:generic/linux
+    * pkg:generic/mtd-utils
+    * pkg:generic/barebox
+    * pkg:generic/e2fsprogs
+    * pkg:generic/udhcp
+    * pkg:generic/miniupnpc
+    * pkg:generic/miniupnpd
+    * pkg:generic/minissdpd
+    * pkg:generic/erofs-utils
+    * pkg:openssl/openssl
+
+- FetchCode also supports retrieving package info for packages hosted on GitHub specifically.
+    * pkg:github/avahi/avahi
+    * pkg:github/bestouff/genext2fs
+    * pkg:github/dosfstools/dosfstools
+    * pkg:github/google/brotli
+    * pkg:github/hewlettpackard/wireless-tools
+    * pkg:github/inotify-tools/inotify-tools
+    * pkg:github/libbpf/bpftool
+    * pkg:github/llvm/llvm-project
+    * pkg:github/nixos/nix
+    * pkg:github/plougher/squashfs-tools
+    * pkg:github/pupnp/pupnp
+    * pkg:github/python/cpython
+    * pkg:github/rpm-software-management/rpm
+    * pkg:github/shadow-maint/shadow
+    * pkg:github/sqlite/sqlite
+    * pkg:github/u-boot/u-boot
+
+
 v0.4.0
 -------
 - FetchCode now supports retrieving package info for following generic packages: 
