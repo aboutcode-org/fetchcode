@@ -123,7 +123,13 @@ def _get_github_packages(purl, version_regex, ignored_tag_regex, default_package
         else:
             version = tag
 
-        version = version.strip("Vv").strip().replace("_", ".")
+        version = version.strip("Vv").strip()
+        if "+" in version:
+            first, last = version.split("+")
+            first.replace("_", ".")
+            version = f"{first}+{last}"
+        else:
+            version = version.replace("_", ".")
         if not version or not version[0].isdigit():
             continue
 

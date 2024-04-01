@@ -117,6 +117,7 @@ class GitHubTokenError(Exception):
 class GraphQLError(Exception):
     pass
 
+
 def get_github_token():
     gh_token = os.environ.get("GH_TOKEN", None)
     if not gh_token:
@@ -152,9 +153,11 @@ def github_response(graphql_query):
 
     return response
 
+
 def get_github_rest(url):
     headers = None
-    if gh_token := get_github_token():
+    gh_token = get_github_token()
+    if gh_token:
         headers = {
             "Authorization": f"Bearer {gh_token}",
         }

@@ -1087,7 +1087,7 @@ class DirListedTestCase(TestCase):
         self.check_result(expected_file, result)
 
     @mock.patch("requests.get")
-    def test_packages_util_linux(self, mock_get):
+    def test_packages_linux(self, mock_get):
         test_data = [
             "tests/data/package/dirlisting/generic/linux/index.html",
             "tests/data/package/dirlisting/generic/linux/0.html",
