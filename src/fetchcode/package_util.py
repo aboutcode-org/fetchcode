@@ -55,7 +55,7 @@ class GitHubSource:
         namespace = purl.namespace
         base_path = "https://api.github.com/repos"
         api_url = f"{base_path}/{namespace}/{name}"
-        response = utils.get_response(api_url)
+        response = utils.get_github_rest(api_url)
         homepage_url = response.get("homepage")
         vcs_url = response.get("git_url")
         github_url = "https://github.com"
@@ -123,7 +123,7 @@ def _get_github_packages(purl, version_regex, ignored_tag_regex, default_package
         else:
             version = tag
 
-        version = version.strip("Vv").strip()
+        version = version.strip("Vv").strip().replace("_", ".")
         if not version or not version[0].isdigit():
             continue
 
@@ -227,7 +227,7 @@ class OpenSSLGitHubSource(GitHubSource):
             package_dict["type"] = "openssl"
             package_dict["namespace"] = None
             package_dict["name"] = "openssl"
-            package_dict["version"] = package_dict["version"].replace("_", ".")
+            package_dict["version"] = package_dict["version"]
 
             yield package_from_dict(package_dict)
 
@@ -251,7 +251,7 @@ class ErofsUtilsGitHubSource(GitHubSource):
             package_dict["type"] = "generic"
             package_dict["namespace"] = None
             package_dict["name"] = "erofs-utils"
-            package_dict["version"] = package_dict["version"].replace("_", ".")
+            package_dict["version"] = package_dict["version"]
 
             yield package_from_dict(package_dict)
 
@@ -279,7 +279,7 @@ class MiniupnpPackagesGitHubSource(GitHubSource):
             package_dict["type"] = "generic"
             package_dict["namespace"] = None
             package_dict["name"] = package_name
-            package_dict["version"] = package_dict["version"].replace("_", ".")
+            package_dict["version"] = package_dict["version"]
 
             yield package_from_dict(package_dict)
 
