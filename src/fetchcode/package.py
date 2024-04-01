@@ -666,7 +666,7 @@ class BareboxDirectoryListedSource(DirectoryListedSource):
 
 
 class LinuxDirectoryListedSource(DirectoryListedSource):
-    source_url = "https://cdn.kernel.org/pub/linux/kernel/"
+    source_url = "https://mirrors.edge.kernel.org/pub/linux/kernel/"
     # Source archive ex: linux-1.2.3.tar.gz
     source_archive_regex = re.compile(r"^(linux-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = True
