@@ -2,6 +2,11 @@ Changelog
 =========
 
 
+v0.5.1
+-------
+- Use authenticated requests for GitHub REST API calls
+
+
 v0.5.0
 -------
 - FetchCode now supports retrieving package info for following generic packages: 

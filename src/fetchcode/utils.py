@@ -118,13 +118,18 @@ class GraphQLError(Exception):
     pass
 
 
-def github_response(graphql_query):
+def get_github_token():
     gh_token = os.environ.get("GH_TOKEN", None)
     if not gh_token:
         from dotenv import load_dotenv
 
         load_dotenv()
         gh_token = os.environ.get("GH_TOKEN", None)
+    return gh_token
+
+
+def github_response(graphql_query):
+    gh_token = get_github_token()
 
     if not gh_token:
         msg = (
@@ -149,11 +154,22 @@ def github_response(graphql_query):
     return response
 
 
-def get_response(url):
+def get_github_rest(url):
+    headers = None
+    gh_token = get_github_token()
+    if gh_token:
+        headers = {
+            "Authorization": f"Bearer {gh_token}",
+        }
+
+    return get_response(url, headers)
+
+
+def get_response(url, headers=None):
     """
     Generate `Package` object for a `url` string
     """
-    resp = requests.get(url)
+    resp = requests.get(url, headers=headers)
     if resp.status_code == 200:
         return resp.json()
 

@@ -472,7 +472,9 @@ class UtilLinuxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/"
     is_nested = True
     # Source archive ex: util-linux-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(util-linux-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(util-linux-|util-linux-ng-)(?P<version>[\w.-]*)(.tar.gz)$"
+    )
     ignored_files_and_dir = []
 
 
@@ -666,7 +668,7 @@ class BareboxDirectoryListedSource(DirectoryListedSource):
 
 
 class LinuxDirectoryListedSource(DirectoryListedSource):
-    source_url = "https://cdn.kernel.org/pub/linux/kernel/"
+    source_url = "https://mirrors.edge.kernel.org/pub/linux/kernel/"
     # Source archive ex: linux-1.2.3.tar.gz
     source_archive_regex = re.compile(r"^(linux-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = True
