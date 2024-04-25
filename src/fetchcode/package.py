@@ -15,15 +15,20 @@
 # specific language governing permissions and limitations under the License.
 
 import dataclasses
+import json
+import logging
+import os
 import re
 import time
 from typing import List
 from urllib.parse import urljoin
 
 import htmllistparse
+from bs4 import BeautifulSoup
 from packageurl import PackageURL
 from packageurl.contrib.route import NoRouteAvailable
 from packageurl.contrib.route import Router
+from univers import versions
 
 from fetchcode.package_util import GITHUB_SOURCE_BY_PACKAGE
 from fetchcode.package_util import IPKG_RELEASES
@@ -33,9 +38,18 @@ from fetchcode.package_util import GitHubSource
 from fetchcode.package_util import MiniupnpPackagesGitHubSource
 from fetchcode.package_util import OpenSSLGitHubSource
 from fetchcode.packagedcode_models import Package
+from fetchcode.utils import get_complete_response
+from fetchcode.utils import get_github_rest
+from fetchcode.utils import get_github_rest_no_exception
+from fetchcode.utils import get_hashed_path
+from fetchcode.utils import get_json_response
 from fetchcode.utils import get_response
+from fetchcode.utils import make_head_request
 
 router = Router()
+
+LOG_FILE_LOCATION = os.path.join(os.path.expanduser("~"), "purlcli.log")
+logger = logging.getLogger(__name__)
 
 
 def info(url):
@@ -360,6 +374,290 @@ def get_gnu_data_from_purl(purl):
     yield from extract_packages_from_listing(
         purl, source_archive_url, version_regex, []
     )
+
+
+@router.route("pkg:cocoapods/.*")
+def get_cocoapods_data_from_purl(purl):
+    logging.basicConfig(
+        filename=LOG_FILE_LOCATION,
+        level=logging.WARN,
+        format="%(levelname)s - %(message)s",
+        filemode="w",
+    )
+    input_purl = purl
+    purl = PackageURL.from_string(purl)
+    name = purl.name
+    version = purl.version
+    cocoapods_org_url = f"https://cocoapods.org/pods/{name}"
+    repository_homepage_url = f"https://cocoapods.org/pods/{name}"
+
+    # This dictionary helped me monitor the values as I worked on the code.
+    # Only 2 key-value pairs are currently used below to define variables:
+    # `input_name` and `cocoapods_org_pod_name`.
+
+    pod_summary = {}
+    pod_summary["input_purl"] = input_purl
+    pod_summary["input_name"] = name
+    pod_summary["cocoapods_org_url"] = cocoapods_org_url
+    pod_summary["repository_homepage_url"] = repository_homepage_url
+    pod_summary["no_github_repo"] = None
+    pod_summary["gh_repo_four_o_four"] = None
+    pod_summary["http_url"] = None
+
+    cocoapods_org_url_head_request = make_head_request(cocoapods_org_url)
+    cocoapods_org_url_status_code = cocoapods_org_url_head_request.status_code
+    pod_summary["cocoapods_org_url_status_code"] = cocoapods_org_url_status_code
+    if cocoapods_org_url_status_code == 404:
+        logger.error(f"cocoapods_org_url not found for {name}")
+        return
+    elif cocoapods_org_url_status_code == 302:
+        redirect_url = cocoapods_org_url_head_request.headers['Location']
+        redirect_message = f"The cocoapods.org URL {cocoapods_org_url} redirects to {redirect_url}"
+        logger.error(redirect_message)
+        print(redirect_message)
+        return
+
+    cocoapods_org_response = get_complete_response(cocoapods_org_url)
+    if "Failed to fetch" in cocoapods_org_response:
+        logger.error(cocoapods_org_response)
+        print(cocoapods_org_response)
+        return
+
+    soup = BeautifulSoup(cocoapods_org_response.text, "html.parser")
+
+    cocoapods_org_gh_repo_owner = None
+    cocoapods_org_gh_repo_name = None
+    cocoapods_org_gh_repo_url = None
+    cocoapods_org_podspec_url = None
+    cocoapods_org_pkg_home_url = None
+
+    for sidebar_links in (soup.find_all('ul', class_ = "links" )):
+        nested_links = sidebar_links.findChildren("a")
+        for nested_link in nested_links:
+            link_text = nested_link.text
+            link_url = nested_link['href']
+            if link_text == 'Homepage':
+                cocoapods_org_pkg_home_url = link_url
+            elif link_text == 'GitHub Repo':
+                split_link = link_url.split('/')
+                cocoapods_org_gh_repo_owner = split_link[-2]
+                cocoapods_org_gh_repo_name = split_link[-1]
+            elif link_text == 'See Podspec':
+                cocoapods_org_podspec_url = link_url
+
+    if cocoapods_org_gh_repo_owner and cocoapods_org_gh_repo_name:
+        cocoapods_org_gh_repo_url = f"https://github.com/{cocoapods_org_gh_repo_owner}/{cocoapods_org_gh_repo_name}"
+        cocoapods_org_gh_repo_url_head_request = make_head_request(cocoapods_org_gh_repo_url)
+        cocoapods_org_gh_repo_url_status_code = cocoapods_org_gh_repo_url_head_request.status_code
+        pod_summary["cocoapods_org_gh_repo_url_status_code"] = cocoapods_org_gh_repo_url_status_code
+        if cocoapods_org_gh_repo_url_status_code == 404:
+            gh_repo_four_o_four = f"The cocoapods.org GitHub repo url for {name} returns 404"
+            logger.error(gh_repo_four_o_four)
+            print(gh_repo_four_o_four)
+            pod_summary["gh_repo_four_o_four"] = gh_repo_four_o_four
+
+        name = cocoapods_org_gh_repo_name
+        base_path = "https://api.github.com/repos"
+        api_url = f"{base_path}/{cocoapods_org_gh_repo_owner}/{cocoapods_org_gh_repo_name}"
+        response = get_github_rest_no_exception(api_url)
+
+        if "Failed to fetch" in response:
+            logger.error(f"{response}")
+            print(f"{response}")
+
+    pod_summary["cocoapods_org_gh_repo_owner"] = cocoapods_org_gh_repo_owner
+    pod_summary["cocoapods_org_gh_repo_name"] = cocoapods_org_gh_repo_name
+    pod_summary["cocoapods_org_gh_repo_url"] = cocoapods_org_gh_repo_url
+    pod_summary["cocoapods_org_podspec_url"] = cocoapods_org_podspec_url
+    pod_summary["cocoapods_org_pkg_home_url"] = cocoapods_org_pkg_home_url
+
+    if cocoapods_org_gh_repo_owner is None or cocoapods_org_gh_repo_name is None:
+        no_github_repo = f"No GitHub repo found on cocoapods.org for {name}"
+        print(f"{no_github_repo}")
+        logger.warning(no_github_repo)
+        pod_summary["no_github_repo"] = no_github_repo
+
+    if cocoapods_org_podspec_url is None:
+        no_podspec = f"No podspec found on cocoapods.org for {name}"
+        print(f"{no_podspec}")
+        logger.warning(no_podspec)
+        pod_summary["no_podspec"] = no_podspec
+
+    cocoapods_org_version = None
+    if cocoapods_org_podspec_url:
+        cocoapods_org_version = cocoapods_org_podspec_url.split("/")[-2]
+
+    cocoapods_org_pod_name = None
+    head = soup.find("head")
+    if head:
+        og_title_tag = head.find("meta", property="og:title")
+        if og_title_tag:
+            og_title = og_title_tag.get("content")
+            cocoapods_org_pod_name = og_title
+        else:
+            no_meta_tag = f"'og:title' meta tag not found in cocoapods.org page for {purl}"
+            print(no_meta_tag)
+            logger.error(no_meta_tag)
+    else:
+        no_head_section = f"\n<head> section not found in cocoapods.org page for {purl}"
+        print(no_head_section)
+        logger.error(no_head_section)
+
+    pod_summary["cocoapods_org_pod_name"] = cocoapods_org_pod_name
+
+    input_name = pod_summary["input_name"]
+    if input_name != cocoapods_org_pod_name:
+        name_change = (f"Input PURL name '{input_name}' analyzed as '{cocoapods_org_pod_name}' per {cocoapods_org_url}")
+        input_name = cocoapods_org_pod_name
+        print(f"{name_change}")
+        logger.warn(name_change)
+
+    api = "https://cdn.cocoapods.org"
+    hashed_path = get_hashed_path(cocoapods_org_pod_name)
+    hashed_path_underscore = hashed_path.replace("/", "_")
+    file_prefix = "all_pods_versions_"
+    spec = f"{api}/{file_prefix}{hashed_path_underscore}.txt"
+    data_list = get_cocoapod_tags(spec, cocoapods_org_pod_name)
+
+    print(f"\npod_summary = {json.dumps(pod_summary, indent=4, sort_keys=False)}\n")
+
+    if not version:
+        version = cocoapods_org_version
+
+    for tag in data_list:
+        if purl.version and tag != purl.version:
+            continue
+
+        tag_pkg = construct_cocoapods_package(purl, name, hashed_path, repository_homepage_url, cocoapods_org_gh_repo_owner, cocoapods_org_gh_repo_name, tag, pod_summary)
+        yield tag_pkg
+
+        if purl.version:
+            break
+
+
+def get_cocoapod_tags(spec, cocoapods_org_pod_name):
+    try:
+        response = get_complete_response(spec)
+        response.raise_for_status()
+        data = response.text.strip()
+        for line in data.splitlines():
+            line = line.strip()
+            if line.startswith(cocoapods_org_pod_name):
+                data_list = line.split("/")
+                if data_list[0] == cocoapods_org_pod_name:
+                    data_list.pop(0)
+                sorted_data_list = sorted(
+                    data_list,
+                    key=lambda x: versions.SemverVersion(x),
+                    reverse=True,
+                )
+                return sorted_data_list
+        return None
+    except:
+        print(f"Error retrieving data from API")
+        return None
+
+
+def construct_cocoapods_package(
+    purl,
+    name,
+    hashed_path,
+    repository_homepage_url,
+    cocoapods_org_gh_repo_owner,
+    cocoapods_org_gh_repo_name,
+    tag,
+    pod_summary,
+):
+    name = name
+    homepage_url = None
+    vcs_url = None
+    github_url = None
+    bug_tracking_url = None
+    code_view_url = None
+    license_data = None
+    declared_license = None
+    primary_language = None
+
+    if cocoapods_org_gh_repo_owner and cocoapods_org_gh_repo_name:
+        name = cocoapods_org_gh_repo_name
+        namespace = cocoapods_org_gh_repo_owner
+        base_path = "https://api.github.com/repos"
+        api_url = f"{base_path}/{namespace}/{name}"
+
+        response = get_github_rest_no_exception(api_url)
+
+        if "Failed to fetch" not in response:
+            homepage_url = response.get("homepage")
+            vcs_url = response.get("git_url")
+            license_data = response.get("license") or {}
+            declared_license = license_data.get("spdx_id")
+            primary_language = response.get("language")
+
+        github_url = "https://github.com"
+        bug_tracking_url = f"{github_url}/{namespace}/{name}/issues"
+        code_view_url = f"{github_url}/{namespace}/{name}"
+
+    corrected_name = pod_summary["cocoapods_org_pod_name"]
+    api_url = f"https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs/{hashed_path}/{corrected_name}/{tag}/{corrected_name}.podspec.json"
+
+    response = get_json_response(api_url)
+    if "Failed to fetch" in response:
+        logger.error(f"{response}")
+        print(f"{response}")
+        return
+
+    homepage_url = response.get("homepage")
+
+    lic = response.get("license")
+    extracted_license_statement = None
+    if isinstance(lic, dict):
+        extracted_license_statement = lic
+    else:
+        extracted_license_statement = lic
+    if not declared_license:
+        declared_license = extracted_license_statement
+
+    source = response.get("source")
+    vcs_url = None
+    download_url = None
+    if isinstance(source, dict):
+        git_url = source.get("git", "")
+        http_url = source.get("http", "")
+        if http_url:
+            download_url = http_url
+            pod_summary["http_url"] = http_url
+        if git_url and not http_url:
+            vcs_url = git_url
+            if git_url.endswith(".git"):
+                gh_path = git_url[:-4]
+
+                corrected_tag = tag
+                if source.get("tag").startswith("v"):
+                    corrected_tag = source.get("tag")
+                download_url = f"{gh_path}/archive/refs/tags/{corrected_tag}.tar.gz"
+            else:
+                download_url = None
+        elif git_url:
+            vcs_url = git_url
+    elif isinstance(source, str):
+        if not vcs_url:
+            vcs_url = source
+
+    purl_pkg = Package(
+        homepage_url=homepage_url,
+        api_url=api_url,
+        bug_tracking_url=bug_tracking_url,
+        code_view_url=code_view_url,
+        download_url=download_url,
+        declared_license=declared_license,
+        primary_language=primary_language,
+        repository_homepage_url=repository_homepage_url,
+        vcs_url=vcs_url,
+        **purl.to_dict(),
+    )
+    purl_pkg.version = tag
+
+    return purl_pkg
 
 
 @dataclasses.dataclass
