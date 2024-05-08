@@ -202,10 +202,15 @@ def get_json_response(url, headers=None):
     return f"Failed to fetch: {url}"
 
 
+def get_text_response(url, headers=None):
+    resp = requests.get(url, headers=headers)
+    if resp.status_code == 200:
+        return resp.text
+
+    return f"Failed to fetch: {url}"
+
+
 def get_complete_response(url, headers=None, params=None):
-    """
-    Generate `Package` object for a `url` string
-    """
     resp = requests.get(url, headers=headers, params=params)
     if resp.status_code == 200:
         return resp
@@ -216,9 +221,6 @@ def get_complete_response(url, headers=None, params=None):
 
 
 def make_head_request(url, headers=None):
-    """
-    Check whether the URL status code is 200 or not.
-    """
     try:
         resp = requests.head(url, headers=headers)
 

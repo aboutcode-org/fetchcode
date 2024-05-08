@@ -15,12 +15,20 @@
 # specific language governing permissions and limitations under the License.
 
 import json
+from collections import OrderedDict
 from unittest import TestCase
 from unittest import mock
 
 import pytest
+from packageurl import PackageURL
 
+from fetchcode.package import get_cocoapods_data_from_purl
 from fetchcode.package import info
+from fetchcode.package_util import construct_cocoapods_package
+from fetchcode.package_util import get_cocoapod_tags
+from fetchcode.package_util import get_cocoapods_org_url_status
+from fetchcode.package_util import get_pod_data_with_soup
+from fetchcode.packagedcode_models import Package
 
 
 def file_data(file_name):
@@ -29,10 +37,22 @@ def file_data(file_name):
         return json.loads(data)
 
 
+def file_data_text(file_name):
+    with open(file_name) as file:
+        data = file.read()
+        return data
+
+
 def match_data(packages, expected_data):
     data = [dict(p.to_dict()) for p in packages]
     expected_data_dict = dict(expected_data)
     expected_data = [dict(expected_data_dict[p]) for p in expected_data_dict]
+    assert expected_data == data
+
+
+def match_data_list(data_list, expected_data):
+    data = sorted(data_list)
+    expected_data = sorted(expected_data)
     assert expected_data == data
 
 
@@ -95,6 +115,188 @@ def test_tuby_package_with_invalid_url(mock_get):
         purl = "pkg:ruby/file"
         packages = list(info(purl))
         assert "Failed to fetch: https://rubygems.org/api/v1/gems/file.json" == e_info
+
+
+# 2024-05-07 Tuesday 18:08:04.  Work-in-progress.  The output data leads me to believe there's still at least one live call out to the Internet.
+# @mock.patch("fetchcode.package_util.construct_cocoapods_package") # variable containing result is `tag_pkg`
+# @mock.patch("fetchcode.package_util.get_cocoapod_tags") # variable containing result is `data_list`
+# @mock.patch("fetchcode.utils.get_hashed_path")
+# @mock.patch("fetchcode.package_util.get_pod_data_with_soup")
+# @mock.patch("fetchcode.package_util.get_cocoapods_org_url_status")
+# def test_get_cocoapods_data_from_purl(mock_get_cocoapods_org_url_status, mock_get_pod_data_with_soup, mock_get_hashed_path, mock_get_cocoapod_tags, mock_construct_cocoapods_package):
+#     # def test_get_cocoapods_data_from_purl():
+#     # print(f"\ntest construction in progress....")
+#     mock_get_cocoapods_org_url_status.return_value = {'return_message': None}
+
+#     mock_get_pod_data_with_soup.return_value = {
+#         'cocoapods_org_gh_repo_url_status_code': 200,
+#         'cocoapods_org_gh_repo_owner': 'Appspia',
+#         'cocoapods_org_gh_repo_name': 'ASNetworking',
+#         'cocoapods_org_gh_repo_url': 'https://github.com/Appspia/ASNetworking',
+#         'cocoapods_org_podspec_url': 'https://github.com/CocoaPods/Specs/blob/master/Specs/5/5/b/ASNetworking/0.1.5/ASNetworking.podspec.json',
+#         'cocoapods_org_pkg_home_url': None,
+#         'cocoapods_org_version': None,
+#         'cocoapods_org_pod_name': 'ASNetworking',
+#     }
+
+#     mock_get_hashed_path.return_value = "5/5/b"
+
+#     mock_get_cocoapod_tags.side_effect = [
+#         '0.1.5',
+#         '0.1.4',
+#         '0.1.3',
+#         '0.1.2',
+#         '0.1.1',
+#         '0.1.0',
+#     ]
+
+#     mock_construct_cocoapods_package.side_effect = [
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.5'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.4'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.3'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.2'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.1'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.0'),
+#     ]
+
+#     expected_result = [
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.5'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.4'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.3'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.2'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.1'),
+#         Package(type='cocoapods', namespace=None, name='ASNetworking', version='0.1.0'),
+#     ]
+
+#     purl = "pkg:cocoapods/ASNetworking"
+
+#     actual_result = get_cocoapods_data_from_purl(purl)
+#     print(f"\nactual_result = {actual_result}")
+
+#     # for pkg in actual_result:
+#     #     print(pkg.to_dict())
+
+#     # assert list(actual_result) == expected_result
+
+#     for pkg, expected_pkg in zip(list(actual_result), expected_result):
+#         assert pkg.to_dict() == expected_pkg.to_dict()
+
+
+
+
+
+@mock.patch("fetchcode.utils.make_head_request")
+def test_get_cocoapods_org_url_status(mock_make_head_request):
+    mock_response = mock.Mock()
+    mock_response.status_code = 302
+    mock_response.text = "The cocoapods.org URL https://cocoapods.org/pods/BSSimpleHTTPNetworking redirects to https://github.com/juxingzhutou/BSSimpleHTTPNetworking"
+    mock_response.headers = {
+        'Date': 'Thu, 02 May 2024 06:02:10 GMT',
+        'Content-Type': 'text/html;charset=utf-8',
+        'Connection': 'keep-alive',
+        'Report-To': '{"group":"heroku-nel","max_age":3600,"endpoints":[{"url":"https://nel.heroku.com/reports?ts=1714629728&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=rPI0KHQY0J7GvkjgHpmcuMxWDuTga0k8UEFRezWRyrU%3D"}]}',
+        'Reporting-Endpoints': 'heroku-nel=https://nel.heroku.com/reports?ts=1714629728&sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&s=rPI0KHQY0J7GvkjgHpmcuMxWDuTga0k8UEFRezWRyrU%3D',
+        'Nel': '{"report_to":"heroku-nel","max_age":3600,"success_fraction":0.005,"failure_fraction":0.05,"response_headers":["Via"]}',
+        'Cache-Control': 'public, max-age=20, s-maxage=60',
+        'Location': 'https://github.com/juxingzhutou/BSSimpleHTTPNetworking',
+        'X-Xss-Protection': '1; mode=block',
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'SAMEORIGIN',
+        'Via': '1.1 vegur',
+        'CF-Cache-Status': 'HIT',
+        'Age': '2',
+        'Vary': 'Accept-Encoding',
+        'Server': 'cloudflare',
+        'CF-RAY': '87d5cd05bd2cf973-SJC',
+    }
+    mock_make_head_request.return_value = mock_response
+
+    purl = "pkg:cocoapods/BSSimpleHTTPNetworking"
+    name = "BSSimpleHTTPNetworking"
+    cocoapods_org_url = "https://cocoapods.org/pods/BSSimpleHTTPNetworking"
+    response = get_cocoapods_org_url_status(purl, name, cocoapods_org_url)
+
+    assert response == {
+        'corrected_name': 'BSSimpleHTTPNetworking',
+        'cocoapods_org_pod_name': 'BSSimpleHTTPNetworking',
+        'cocoapods_org_gh_repo_owner': 'juxingzhutou',
+        'cocoapods_org_gh_repo_name': 'BSSimpleHTTPNetworking',
+        'cocoapods_org_version': None,
+        'return_message': 'cocoapods_org_redirects_to_github',
+    }
+
+
+@mock.patch("fetchcode.utils.get_github_rest_no_exception")
+@mock.patch("fetchcode.utils.make_head_request")
+@mock.patch("fetchcode.utils.get_complete_response")
+def test_get_pod_data_with_soup(mock_get_complete_response, mock_make_head_request, mock_get_github_rest_no_exception):
+    mock_complete_response = mock.MagicMock()
+    mock_complete_response.status_code = 200
+    mock_complete_response.text = file_data_text("tests/data/cocoapods/afnetworking_response_text.txt")
+    mock_get_complete_response.side_effect = [mock_complete_response]
+
+    mock_head_request_response = mock.MagicMock()
+    mock_head_request_response.status_code = 200
+    mock_make_head_request.side_effect = [mock_head_request_response]
+
+    mock_get_github_rest_no_exception.side_effect = [file_data("tests/data/cocoapods/afnetworking_github_rest_no_exception_response.json")]
+
+    purl = PackageURL.from_string("pkg:cocoapods/AFNetworking@4.0.1")
+    name = "AFNetworking"
+    cocoapods_org_url = "https://cocoapods.org/pods/AFNetworking"
+
+    soup_data = get_pod_data_with_soup(purl, name, cocoapods_org_url)
+    expected = {
+        'cocoapods_org_gh_repo_url_status_code': 200,
+        'cocoapods_org_gh_repo_owner': 'AFNetworking',
+        'cocoapods_org_gh_repo_name': 'AFNetworking',
+        'cocoapods_org_gh_repo_url': 'https://github.com/AFNetworking/AFNetworking',
+        'cocoapods_org_podspec_url': 'https://github.com/CocoaPods/Specs/blob/master/Specs/a/7/5/AFNetworking/4.0.1/AFNetworking.podspec.json',
+        'cocoapods_org_pkg_home_url': None,
+        'cocoapods_org_version': None,
+        'cocoapods_org_pod_name': 'AFNetworking',
+    }
+
+    assert soup_data == expected
+
+
+@mock.patch("fetchcode.utils.get_text_response")
+def test_get_cocoapod_tags(mock_get):
+    side_effect = [file_data_text("tests/data/cocoapods/cocoapod_all_pods_versions_5_1_f.txt")]
+    mock_get.side_effect = side_effect
+    cocoapods_org_pod_name = "DeptFlow"
+    api = "https://cdn.cocoapods.org"
+    hashed_path = "5/1/f"
+    hashed_path_underscore = hashed_path.replace("/", "_")
+    file_prefix = "all_pods_versions_"
+    spec = f"{api}/{file_prefix}{hashed_path_underscore}.txt"
+    expected_data = ['0.3.0', '0.2.0', '0.1.1', '0.1.0']
+    data_list = get_cocoapod_tags(spec, cocoapods_org_pod_name)
+
+    match_data_list(data_list, expected_data)
+
+
+@mock.patch("fetchcode.utils.get_json_response")
+@mock.patch("fetchcode.utils.get_github_rest_no_exception")
+def test_construct_cocoapods_package(mock_get_github_rest_no_exception, mock_get_json_response):
+    mock_get_github_rest_no_exception.return_value = "Failed to fetch: https://api.github.com/repos/KevalPatel94/KVLLibraries"
+    mock_get_json_response.return_value = file_data("tests/data/cocoapods/get_json_response_kvllibraries.json")
+
+    expected_construct_cocoapods_package = file_data("tests/data/cocoapods/expected_construct_cocoapods_package.json")
+
+    purl = PackageURL.from_string("pkg:cocoapods/KVLLibraries")
+    name = "KVLLibraries"
+    hashed_path = "5/1/f"
+    repository_homepage_url = "https://cocoapods.org/pods/KVLLibraries"
+    cocoapods_org_gh_repo_owner = "KevalPatel94"
+    cocoapods_org_gh_repo_name = "KVLLibraries"
+    cocoapods_org_pod_name = "KVLLibraries"
+    tag = "1.1.0"
+    actual_output = construct_cocoapods_package(purl, name, hashed_path, repository_homepage_url, cocoapods_org_gh_repo_owner, cocoapods_org_gh_repo_name, tag, cocoapods_org_pod_name)
+
+    actual = json.dumps(actual_output.to_dict())
+    expected = json.dumps(expected_construct_cocoapods_package)
+    assert actual == expected
 
 
 class GitHubSourceTestCase(TestCase):
