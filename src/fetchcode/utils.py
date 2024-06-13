@@ -170,9 +170,6 @@ def get_github_rest(url):
 
 
 def get_response(url, headers=None):
-    """
-    Generate `Package` object for a `url` string
-    """
     resp = requests.get(url, headers=headers)
     if resp.status_code == 200:
         return resp.json()
@@ -180,55 +177,20 @@ def get_response(url, headers=None):
     raise Exception(f"Failed to fetch: {url}")
 
 
-def get_github_rest_no_exception(url):
-    headers = None
-    gh_token = get_github_token()
-    if gh_token:
-        headers = {
-            "Authorization": f"Bearer {gh_token}",
-        }
-
-    return get_json_response(url, headers)
-
-
-def get_json_response(url, headers=None):
-    """
-    Generate `Package` object for a `url` string
-    """
-    resp = requests.get(url, headers=headers)
-    if resp.status_code == 200:
-        return resp.json()
-
-    return f"Failed to fetch: {url}"
-
-
 def get_text_response(url, headers=None):
     resp = requests.get(url, headers=headers)
     if resp.status_code == 200:
         return resp.text
 
-    return f"Failed to fetch: {url}"
-
-
-def get_complete_response(url, headers=None, params=None):
-    resp = requests.get(url, headers=headers, params=params)
-    if resp.status_code == 200:
-        return resp
-    elif resp.status_code == 404:
-        return "not_found"
-
-    return f"Failed to fetch: {url}"
+    raise Exception(f"Failed to fetch: {url}")
 
 
 def make_head_request(url, headers=None):
     try:
         resp = requests.head(url, headers=headers)
-
         return resp
-
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        return "cannot_confirm"
+    except:
+        raise Exception(f"Failed to fetch: {url}")
 
 
 def get_hashed_path(name):

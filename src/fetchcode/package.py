@@ -15,8 +15,6 @@
 # specific language governing permissions and limitations under the License.
 
 import dataclasses
-import logging
-import os
 import re
 import time
 from typing import List
@@ -36,16 +34,11 @@ from fetchcode.package_util import MiniupnpPackagesGitHubSource
 from fetchcode.package_util import OpenSSLGitHubSource
 from fetchcode.package_util import construct_cocoapods_package
 from fetchcode.package_util import get_cocoapod_tags
-from fetchcode.package_util import get_cocoapods_org_url_status
-from fetchcode.package_util import get_pod_data_with_soup
 from fetchcode.packagedcode_models import Package
 from fetchcode.utils import get_hashed_path
 from fetchcode.utils import get_response
 
 router = Router()
-
-LOG_FILE_LOCATION = os.path.join(os.path.expanduser("~"), "purlcli.log")
-logger = logging.getLogger(__name__)
 
 
 def info(url):
@@ -374,113 +367,40 @@ def get_gnu_data_from_purl(purl):
 
 @router.route("pkg:cocoapods/.*")
 def get_cocoapods_data_from_purl(purl):
-    """
-    Generate `Package` object from the `purl` string of cocoapods type
-    """
-    logging.basicConfig(
-        filename=LOG_FILE_LOCATION,
-        level=logging.WARN,
-        format="%(levelname)s - %(message)s",
-        filemode="w",
-    )
-
     purl = PackageURL.from_string(purl)
     name = purl.name
-    version = purl.version
     cocoapods_org_url = f"https://cocoapods.org/pods/{name}"
-    repository_homepage_url = f"https://cocoapods.org/pods/{name}"
-
-    purl_to_cocoapods_org_url_status = get_cocoapods_org_url_status(purl, name, cocoapods_org_url)
-    cocoa_org_url_status = purl_to_cocoapods_org_url_status["return_message"]
-
-    status_values = [
-        "cocoapods_org_redirects_to_github",
-        "cocoapods_org_url_redirects",
-        "failed_to_fetch_github_redirect",
-        "github_redirect_error",
-        "github_redirect_not_found",
-    ]
-
-    cocoa_org_url_status_code = None
-    if cocoa_org_url_status == "cocoapods_org_url_not_found":
-        cocoa_org_url_status_code = 404
-    elif cocoa_org_url_status == "cocoapods_org_url_temporarily_unavailable":
-        cocoa_org_url_status_code = 503
-    elif any(cocoa_org_url_status == status for status in status_values):
-        cocoa_org_url_status_code = 302
-
-    if (
-        cocoa_org_url_status == "cocoapods_org_url_not_found"
-        or cocoa_org_url_status == "cocoapods_org_url_redirects"
-        or cocoa_org_url_status == "cocoapods_org_url_temporarily_unavailable"
-        or cocoa_org_url_status == "failed_to_fetch_github_redirect"
-        or cocoa_org_url_status == "github_redirect_error"
-        or cocoa_org_url_status == "github_redirect_not_found"
-    ):
-        return
-
-    purl_to_pod_data_with_soup = {}
-    if cocoa_org_url_status_code != 302 and cocoa_org_url_status_code != 503:
-        purl_to_pod_data_with_soup = get_pod_data_with_soup(purl, name, cocoapods_org_url)
-
-    cocoapods_org_pod_name = None
-    if purl_to_pod_data_with_soup.get('cocoapods_org_pod_name') is not None:
-        cocoapods_org_pod_name = purl_to_pod_data_with_soup["cocoapods_org_pod_name"]
-    elif purl_to_cocoapods_org_url_status.get('cocoapods_org_pod_name') is not None:
-        cocoapods_org_pod_name = purl_to_cocoapods_org_url_status["cocoapods_org_pod_name"]
-
-    cocoapods_org_version = None
-    cocoapods_org_gh_repo_owner = None
-    cocoapods_org_gh_repo_name = None
-
-    if purl_to_pod_data_with_soup.get("cocoapods_org_version") is not None:
-        cocoapods_org_version = purl_to_pod_data_with_soup["cocoapods_org_version"]
-    elif purl_to_cocoapods_org_url_status.get("cocoapods_org_version") is not None:
-        cocoapods_org_version = purl_to_cocoapods_org_url_status[
-            "cocoapods_org_version"
-        ]
-
-    if purl_to_pod_data_with_soup.get("cocoapods_org_gh_repo_owner") is not None:
-        cocoapods_org_gh_repo_owner = purl_to_pod_data_with_soup[
-            "cocoapods_org_gh_repo_owner"
-        ]
-    elif (
-        purl_to_cocoapods_org_url_status.get("cocoapods_org_gh_repo_owner") is not None
-    ):
-        cocoapods_org_gh_repo_owner = purl_to_cocoapods_org_url_status[
-            "cocoapods_org_gh_repo_owner"
-        ]
-
-    if purl_to_pod_data_with_soup.get("cocoapods_org_gh_repo_name") is not None:
-        cocoapods_org_gh_repo_name = purl_to_pod_data_with_soup[
-            "cocoapods_org_gh_repo_name"
-        ]
-    elif purl_to_cocoapods_org_url_status.get("cocoapods_org_gh_repo_name") is not None:
-        cocoapods_org_gh_repo_name = purl_to_cocoapods_org_url_status[
-            "cocoapods_org_gh_repo_name"
-        ]
-
     api = "https://cdn.cocoapods.org"
-    hashed_path = get_hashed_path(cocoapods_org_pod_name)
+    hashed_path = get_hashed_path(name)
     hashed_path_underscore = hashed_path.replace("/", "_")
     file_prefix = "all_pods_versions_"
     spec = f"{api}/{file_prefix}{hashed_path_underscore}.txt"
-    data_list = get_cocoapod_tags(spec, cocoapods_org_pod_name)
-    if not version:
-        version = cocoapods_org_version
+    data_list = get_cocoapod_tags(spec, name)
+
     for tag in data_list:
         if purl.version and tag != purl.version:
             continue
+
+        gh_repo_owner = None
+        gh_repo_name = name
+        podspec_api_url = f"https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs/{hashed_path}/{name}/{tag}/{name}.podspec.json"
+        podspec_api_response = get_response(podspec_api_url)
+        podspec_homepage = podspec_api_response.get('homepage')
+
+        if podspec_homepage.startswith("https://github.com/"):
+            podspec_homepage_remove_gh_prefix = podspec_homepage.replace("https://github.com/", "")
+            podspec_homepage_split = podspec_homepage_remove_gh_prefix.split("/")
+            gh_repo_owner = podspec_homepage_split[0]
+            gh_repo_name = podspec_homepage_split[-1]
 
         tag_pkg = construct_cocoapods_package(
             purl,
             name,
             hashed_path,
-            repository_homepage_url,
-            cocoapods_org_gh_repo_owner,
-            cocoapods_org_gh_repo_name,
-            tag,
-            cocoapods_org_pod_name
+            cocoapods_org_url,
+            gh_repo_owner,
+            gh_repo_name,
+            tag
         )
 
         yield tag_pkg
