@@ -26,9 +26,9 @@ Clone the repo::
 
     git clone https://github.com/nexB/fetchcode
 
-Then install all the requirements using::
+Then install all the requirements using this command (on POSIX)::
 
-    configure --dev
+    ./configure --dev
 
 
 Running tests
