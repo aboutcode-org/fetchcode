@@ -6,6 +6,9 @@
     "version": null,
     "qualifiers": {},
     "subpath": null,
+    "repository_homepage_url": null,
+    "repository_download_url": null,
+    "api_data_url": null,
     "primary_language": null,
     "description": null,
     "release_date": null,
@@ -32,9 +35,6 @@
     "dependencies": [],
     "contains_source_code": null,
     "source_packages": [],
-    "purl": "pkg:rubygems/rubocop",
-    "repository_homepage_url": null,
-    "repository_download_url": null,
-    "api_data_url": null
+    "purl": "pkg:rubygems/rubocop"
   }
 ]
