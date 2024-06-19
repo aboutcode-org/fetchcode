@@ -26,77 +26,74 @@ from fetchcode.package import info
 from fetchcode.package_util import construct_cocoapods_package
 from fetchcode.package_util import get_cocoapod_tags
 
+# Set to True to regenerate expected JSON files.
+REGEN = True
 
-def file_data(file_name):
+
+def load_json(file_name):
     with open(file_name) as file:
         data = file.read()
         return json.loads(data)
 
 
-def match_data(packages, expected_data):
+def check_packages(packages, expected_data):
     data = [dict(p.to_dict()) for p in packages]
     expected_data_dict = dict(expected_data)
     expected_data = [dict(expected_data_dict[p]) for p in expected_data_dict]
     assert expected_data == data
 
 
-def match_data_list(data_list, expected_data):
-    data = sorted(data_list)
-    expected_data = sorted(expected_data)
-    assert expected_data == data
-
-
 @mock.patch("fetchcode.package.get_response")
 def test_cargo_packages(mock_get):
-    side_effect = [file_data("tests/data/cargo_mock_data.json")]
+    side_effect = [load_json("tests/data/cargo_mock_data.json")]
     purl = "pkg:cargo/rand"
-    expected_data = file_data("tests/data/cargo.json")
+    expected_data = load_json("tests/data/cargo.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))
-    match_data(packages, expected_data)
+    check_packages(packages, expected_data)
 
 
 @mock.patch("fetchcode.package.get_response")
 def test_npm_packages(mock_get):
-    side_effect = [file_data("tests/data/npm_mock_data.json")]
+    side_effect = [load_json("tests/data/npm_mock_data.json")]
     purl = "pkg:npm/express"
-    expected_data = file_data("tests/data/npm.json")
+    expected_data = load_json("tests/data/npm.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))
-    match_data(packages, expected_data)
+    check_packages(packages, expected_data)
 
 
 @mock.patch("fetchcode.package.get_response")
 def test_pypi_packages(mock_get):
-    side_effect = [file_data("tests/data/pypi_mock_data.json")]
+    side_effect = [load_json("tests/data/pypi_mock_data.json")]
     purl = "pkg:pypi/flask"
-    expected_data = file_data("tests/data/pypi.json")
+    expected_data = load_json("tests/data/pypi.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))
-    match_data(packages, expected_data)
+    check_packages(packages, expected_data)
 
 
 @mock.patch("fetchcode.package.get_response")
 def test_bitbucket_packages(mock_get):
     side_effect = [
-        file_data("tests/data/bitbucket_mock_data.json"),
-        file_data("tests/data/bitbucket_mock_release_data.json"),
+        load_json("tests/data/bitbucket_mock_data.json"),
+        load_json("tests/data/bitbucket_mock_release_data.json"),
     ]
     purl = "pkg:bitbucket/litmis/python-itoolkit"
-    expected_data = file_data("tests/data/bitbucket.json")
+    expected_data = load_json("tests/data/bitbucket.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))
-    match_data(packages, expected_data)
+    check_packages(packages, expected_data)
 
 
 @mock.patch("fetchcode.package.get_response")
 def test_rubygems_packages(mock_get):
-    side_effect = [file_data("tests/data/rubygems_mock_data.json")]
+    side_effect = [load_json("tests/data/rubygems_mock_data.json")]
     purl = "pkg:rubygems/rubocop"
-    expected_data = file_data("tests/data/rubygems.json")
+    expected_data = load_json("tests/data/rubygems.json")
     mock_get.side_effect = side_effect
     packages = list(info(purl))
-    match_data(packages, expected_data)
+    check_packages(packages, expected_data)
 
 
 @mock.patch("fetchcode.package.get_response")
@@ -126,7 +123,7 @@ def test_get_cocoapods_data_from_purl(
         '0.1.1',
         '0.1.0',
     ]
-    mock_get_github_rest.return_value = file_data("tests/data/cocoapods/mock_get_github_rest_return_value.json")
+    mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
     mock_get_response.side_effect = file_json("tests/data/cocoapods/mock_get_response_side_effect.json")
     expected_result_to_dict = file_json("tests/data/cocoapods/expected_result_to_dict.json")
     purl = "pkg:cocoapods/ASNetworking"
@@ -148,17 +145,18 @@ def test_get_cocoapod_tags(mock_get):
     hashed_path_underscore = hashed_path.replace("/", "_")
     file_prefix = "all_pods_versions_"
     spec = f"{api}/{file_prefix}{hashed_path_underscore}.txt"
-    expected_data = ['0.3.0', '0.2.0', '0.1.1', '0.1.0']
-    data_list = get_cocoapod_tags(spec, cocoapods_org_pod_name)
-    match_data_list(data_list, expected_data)
+    expected_tags = ['0.1.0', '0.1.1', '0.2.0', '0.3.0']
+    tags = get_cocoapod_tags(spec, cocoapods_org_pod_name)
+    tags = sorted(tags)
+    assert tags == expected_tags
 
 
 @mock.patch("fetchcode.package_util.utils.get_response")
 @mock.patch("fetchcode.package_util.utils.get_github_rest")
 def test_construct_cocoapods_package(mock_get_github_rest, mock_get_response):
     mock_get_github_rest.return_value = "Failed to fetch: https://api.github.com/repos/KevalPatel94/KVLLibraries"
-    mock_get_response.return_value = file_data("tests/data/cocoapods/get_response_kvllibraries.json")
-    expected_construct_cocoapods_package = file_data("tests/data/cocoapods/expected_construct_cocoapods_package.json")
+    mock_get_response.return_value = load_json("tests/data/cocoapods/get_response_kvllibraries.json")
+    expected_construct_cocoapods_package = load_json("tests/data/cocoapods/expected_construct_cocoapods_package.json")
 
     purl = PackageURL.from_string("pkg:cocoapods/KVLLibraries")
     name = "KVLLibraries"
