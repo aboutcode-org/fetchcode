@@ -36,18 +36,18 @@ def load_json(file_name):
         return json.loads(data)
 
 
-def check_packages(packages, expected_data):
-    data = [dict(p.to_dict()) for p in packages]
-    expected_data_dict = dict(expected_data)
-    expected_data = [dict(expected_data_dict[p]) for p in expected_data_dict]
-    assert expected_data == data
+def check_packages(packages, expected_file, regen=REGEN):
+    packages = [p.to_dict() for p in packages]
+    expected_data = load_json(expected_file)
+    expected_packages = list(expected_data.values())
+    assert packages == expected_packages
 
 
 @mock.patch("fetchcode.package.get_response")
 def test_cargo_packages(mock_get):
     side_effect = [load_json("tests/data/cargo_mock_data.json")]
     purl = "pkg:cargo/rand"
-    expected_data = load_json("tests/data/cargo.json")
+    expected_data = "tests/data/cargo.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     check_packages(packages, expected_data)
@@ -57,7 +57,7 @@ def test_cargo_packages(mock_get):
 def test_npm_packages(mock_get):
     side_effect = [load_json("tests/data/npm_mock_data.json")]
     purl = "pkg:npm/express"
-    expected_data = load_json("tests/data/npm.json")
+    expected_data = "tests/data/npm.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     check_packages(packages, expected_data)
@@ -67,7 +67,7 @@ def test_npm_packages(mock_get):
 def test_pypi_packages(mock_get):
     side_effect = [load_json("tests/data/pypi_mock_data.json")]
     purl = "pkg:pypi/flask"
-    expected_data = load_json("tests/data/pypi.json")
+    expected_data = "tests/data/pypi.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     check_packages(packages, expected_data)
@@ -80,7 +80,7 @@ def test_bitbucket_packages(mock_get):
         load_json("tests/data/bitbucket_mock_release_data.json"),
     ]
     purl = "pkg:bitbucket/litmis/python-itoolkit"
-    expected_data = load_json("tests/data/bitbucket.json")
+    expected_data = "tests/data/bitbucket.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     check_packages(packages, expected_data)
@@ -90,7 +90,7 @@ def test_bitbucket_packages(mock_get):
 def test_rubygems_packages(mock_get):
     side_effect = [load_json("tests/data/rubygems_mock_data.json")]
     purl = "pkg:rubygems/rubocop"
-    expected_data = load_json("tests/data/rubygems.json")
+    expected_data = "tests/data/rubygems.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
     check_packages(packages, expected_data)
