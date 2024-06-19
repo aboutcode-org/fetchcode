@@ -27,7 +27,7 @@ from fetchcode.package_util import construct_cocoapods_package
 from fetchcode.package_util import get_cocoapod_tags
 
 # Set to True to regenerate expected JSON files.
-REGEN = True
+REGEN = False
 
 
 def load_json(file_name):
@@ -38,8 +38,13 @@ def load_json(file_name):
 
 def check_packages(packages, expected_file, regen=REGEN):
     packages = [p.to_dict() for p in packages]
-    expected_data = load_json(expected_file)
-    expected_packages = list(expected_data.values())
+    if regen:
+        with open(expected_file, "w") as f:
+            json.dump(packages, f, indent=2)
+        expected_packages = packages
+    else:
+        expected_packages = load_json(expected_file)
+
     assert packages == expected_packages
 
 

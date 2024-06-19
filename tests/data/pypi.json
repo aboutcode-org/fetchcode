@@ -1,5 +1,5 @@
-{
-  "0": {
+[
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -35,7 +35,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "1": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -71,7 +71,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "2": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -107,7 +107,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "3": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -143,7 +143,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "4": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -179,7 +179,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "5": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -215,7 +215,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "6": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -251,7 +251,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "7": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -287,7 +287,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "8": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -323,7 +323,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "9": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -359,7 +359,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "10": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -395,7 +395,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "11": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -431,7 +431,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "12": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -467,7 +467,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "13": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -503,7 +503,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "14": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -539,7 +539,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "15": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -575,7 +575,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "16": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -611,7 +611,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "17": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -647,7 +647,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "18": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -683,7 +683,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "19": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -719,7 +719,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "20": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -755,7 +755,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "21": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -791,7 +791,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "22": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -827,7 +827,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "23": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -863,7 +863,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "24": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -899,7 +899,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "25": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -935,7 +935,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "26": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -971,7 +971,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "27": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1007,7 +1007,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "28": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1043,7 +1043,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "29": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1079,7 +1079,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "30": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1115,7 +1115,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "31": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1151,7 +1151,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "32": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1187,7 +1187,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "33": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1223,7 +1223,7 @@
     "repository_download_url": null,
     "api_data_url": null
   },
-  "34": {
+  {
     "type": "pypi",
     "namespace": null,
     "name": "flask",
@@ -1259,4 +1259,4 @@
     "repository_download_url": null,
     "api_data_url": null
   }
-}
+]
