@@ -109,17 +109,20 @@ def test_tuby_package_with_invalid_url(mock_get):
         assert "Failed to fetch: https://rubygems.org/api/v1/gems/file.json" == e_info
 
 
-@mock.patch("fetchcode.package_util.utils.get_response")
+@mock.patch("fetchcode.package_util.utils.make_head_request")
 @mock.patch("fetchcode.package_util.utils.get_github_rest")
+@mock.patch("fetchcode.package_util.utils.get_response")
 @mock.patch("fetchcode.package.get_cocoapod_tags")
 @mock.patch("fetchcode.package.get_hashed_path")
-def test_get_cocoapods_data_from_purl(
+def test_cocoapods_packages(
     mock_get_hashed_path,
     mock_get_cocoapod_tags,
-    mock_get_github_rest,
     mock_get_response,
+    mock_get_github_rest,
+    mock_make_head_request,
 ):
     mock_get_hashed_path.return_value = "5/5/b"
+
     mock_get_cocoapod_tags.return_value = [
         '0.1.5',
         '0.1.4',
@@ -128,8 +131,57 @@ def test_get_cocoapods_data_from_purl(
         '0.1.1',
         '0.1.0',
     ]
-    mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
+
     mock_get_response.side_effect = file_json("tests/data/cocoapods/mock_get_response_side_effect.json")
+
+    mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
+
+    mock_response = mock.Mock()
+    mock_response.status_code = 200
+    mock_make_head_request.return_value = mock_response
+
+    purl = "pkg:cocoapods/ASNetworking"
+    expected_data = "tests/data/cocoapods.json"
+    packages = list(info(purl))
+    check_packages(packages, expected_data)
+
+
+@mock.patch("fetchcode.package_util.utils.make_head_request")
+@mock.patch("fetchcode.package_util.utils.get_github_rest")
+@mock.patch("fetchcode.package_util.utils.get_response")
+@mock.patch("fetchcode.package.get_cocoapod_tags")
+@mock.patch("fetchcode.package.get_hashed_path")
+def test_get_cocoapods_data_from_purl(
+    mock_get_hashed_path,
+    mock_get_cocoapod_tags,
+    mock_get_response,
+    mock_get_github_rest,
+    mock_make_head_request,
+):
+    """
+    This already-existing test is structurally identical to the new
+    test_cocoapods_packages() except this test checks the
+    get_cocoapods_data_from_purl() function rather than list(info(purl)).
+    """
+    mock_get_hashed_path.return_value = "5/5/b"
+
+    mock_get_cocoapod_tags.return_value = [
+        '0.1.5',
+        '0.1.4',
+        '0.1.3',
+        '0.1.2',
+        '0.1.1',
+        '0.1.0',
+    ]
+
+    mock_get_response.side_effect = file_json("tests/data/cocoapods/mock_get_response_side_effect.json")
+
+    mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
+
+    mock_response = mock.Mock()
+    mock_response.status_code = 200
+    mock_make_head_request.return_value = mock_response
+
     expected_result_to_dict = file_json("tests/data/cocoapods/expected_result_to_dict.json")
     purl = "pkg:cocoapods/ASNetworking"
     actual_result = get_cocoapods_data_from_purl(purl)
@@ -157,10 +209,17 @@ def test_get_cocoapod_tags(mock_get):
 
 
 @mock.patch("fetchcode.package_util.utils.get_response")
+@mock.patch("fetchcode.package_util.utils.make_head_request")
 @mock.patch("fetchcode.package_util.utils.get_github_rest")
-def test_construct_cocoapods_package(mock_get_github_rest, mock_get_response):
+def test_construct_cocoapods_package(mock_get_github_rest, mock_make_head_request, mock_get_response):
     mock_get_github_rest.return_value = "Failed to fetch: https://api.github.com/repos/KevalPatel94/KVLLibraries"
+
+    mock_response = mock.Mock()
+    mock_response.status_code = 404
+    mock_make_head_request.return_value = mock_response
+
     mock_get_response.return_value = load_json("tests/data/cocoapods/get_response_kvllibraries.json")
+
     expected_construct_cocoapods_package = load_json("tests/data/cocoapods/expected_construct_cocoapods_package.json")
 
     purl = PackageURL.from_string("pkg:cocoapods/KVLLibraries")
