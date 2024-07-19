@@ -55,6 +55,7 @@ def test_cargo_packages(mock_get):
     expected_data = "tests/data/cargo.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
+
     check_packages(packages, expected_data)
 
 
@@ -65,6 +66,7 @@ def test_npm_packages(mock_get):
     expected_data = "tests/data/npm.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
+
     check_packages(packages, expected_data)
 
 
@@ -75,6 +77,7 @@ def test_pypi_packages(mock_get):
     expected_data = "tests/data/pypi.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
+
     check_packages(packages, expected_data)
 
 
@@ -88,16 +91,29 @@ def test_bitbucket_packages(mock_get):
     expected_data = "tests/data/bitbucket.json"
     mock_get.side_effect = side_effect
     packages = list(info(purl))
+
     check_packages(packages, expected_data)
 
 
 @mock.patch("fetchcode.package.get_response")
 def test_rubygems_packages(mock_get):
-    side_effect = [load_json("tests/data/rubygems_mock_data.json")]
-    purl = "pkg:rubygems/rubocop"
+    purl = "pkg:rubygems/pronto-goodcheck"
     expected_data = "tests/data/rubygems.json"
-    mock_get.side_effect = side_effect
+
+    mock_get_01_list_of_versions = load_json("tests/data/rubygems_mock_get_list_of_versions.json")
+    mock_get_02_1st_in_list = load_json("tests/data/rubygems_mock_get_1st_in_list.json")
+    mock_get_03_2nd_in_list = load_json("tests/data/rubygems_mock_get_2nd_in_list.json")
+    mock_get_04_3rd_in_list = load_json("tests/data/rubygems_mock_get_3rd_in_list.json")
+
+    mock_get.side_effect = [
+        mock_get_01_list_of_versions,
+        mock_get_02_1st_in_list,
+        mock_get_03_2nd_in_list,
+        mock_get_04_3rd_in_list
+    ]
+
     packages = list(info(purl))
+
     check_packages(packages, expected_data)
 
 
@@ -133,7 +149,6 @@ def test_cocoapods_packages(
     ]
 
     mock_get_response.side_effect = file_json("tests/data/cocoapods/mock_get_response_side_effect.json")
-
     mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
 
     mock_response = mock.Mock()
@@ -175,7 +190,6 @@ def test_get_cocoapods_data_from_purl(
     ]
 
     mock_get_response.side_effect = file_json("tests/data/cocoapods/mock_get_response_side_effect.json")
-
     mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
 
     mock_response = mock.Mock()
