@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.5.2
+------
+- Update link references of ownership from nexB to aboutcode-org
+
 
 v0.5.1
 -------
@@ -9,7 +13,7 @@ v0.5.1
 
 v0.5.0
 -------
-- FetchCode now supports retrieving package info for following generic packages: 
+- FetchCode now supports retrieving package info for following generic packages:
     * pkg:generic/linux
     * pkg:generic/mtd-utils
     * pkg:generic/barebox
@@ -42,7 +46,7 @@ v0.5.0
 
 v0.4.0
 -------
-- FetchCode now supports retrieving package info for following generic packages: 
+- FetchCode now supports retrieving package info for following generic packages:
     ``busybox``, ``bzip2``, ``dnsmasq``, ``dropbear``, ``ebtables``, ``hostapd``, ``ipkg``,
     ``iproute2``, ``iptables``, ``libnl``, ``lighttpd``, ``nftables``, ``openssh``, ``samba``,
     ``syslinux``, ``toybox``, ``uclibc``, ``uclibc-ng``, ``util-linux`` and ``wpa_supplicant``.
@@ -63,4 +67,3 @@ v0.1.0
 ---------
 
 First, initial release.
- 
