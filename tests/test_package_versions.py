@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -23,7 +23,8 @@ import yaml
 
 from fetchcode.package_versions import versions
 
-FETCHCODE_REGEN_TEST_FIXTURES = os.getenv("FETCHCODE_REGEN_TEST_FIXTURES", False)
+FETCHCODE_REGEN_TEST_FIXTURES = os.getenv(
+    "FETCHCODE_REGEN_TEST_FIXTURES", False)
 
 data_location = Path(__file__).parent / "data" / "package_versions"
 
@@ -190,7 +191,8 @@ def test_get_golang_versions_from_purl(mock_get_response):
     for version in version_list.split():
         side_effect.append(
             get_json_data(
-                data_location / f"golang/versions/golang_mock_{version}_data.json"
+                data_location /
+                f"golang/versions/golang_mock_{version}_data.json"
             )
         )
 

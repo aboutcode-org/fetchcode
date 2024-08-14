@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 #
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -165,7 +165,8 @@ class SquashfsToolsGitHubSource(GitHubSource):
 
 
 class PupnpGitHubSource(GitHubSource):
-    version_regex = re.compile(r"\brelease-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    version_regex = re.compile(
+        r"\brelease-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
     ignored_tag_regex = None
 
 
@@ -180,7 +181,8 @@ class BpftoolGitHubSource(GitHubSource):
 
 
 class SqliteGitHubSource(GitHubSource):
-    version_regex = re.compile(r"\bversion-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    version_regex = re.compile(
+        r"\bversion-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
     ignored_tag_regex = None
 
 
@@ -190,7 +192,8 @@ class LlvmGitHubSource(GitHubSource):
 
 
 class RpmGitHubSource(GitHubSource):
-    version_regex = re.compile(r"rpm-(?P<version>[^-]+(?:-(?!release).*)?|-release)")
+    version_regex = re.compile(
+        r"rpm-(?P<version>[^-]+(?:-(?!release).*)?|-release)")
     ignored_tag_regex = None
 
 

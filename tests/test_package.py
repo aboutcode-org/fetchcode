@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -120,7 +120,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/avahi/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/avahi/github_mock_data_0.json"
         )
@@ -138,7 +139,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/avahi/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/avahi/github_mock_data_0.json"
         )
@@ -156,7 +158,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/bpftool/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/bpftool/github_mock_data_0.json"
         )
@@ -174,7 +177,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/brotli/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/brotli/github_mock_data_0.json"
         )
@@ -192,7 +196,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/dosfstools/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/dosfstools/github_mock_data_0.json"
         )
@@ -210,7 +215,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/genext2fs/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/genext2fs/github_mock_data_0.json"
         )
@@ -228,7 +234,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/inotify-tools/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/inotify-tools/github_mock_data_0.json"
         )
@@ -248,7 +255,8 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/llvm-project/github_mock_data_2.json",
             "tests/data/package/github/llvm-project/github_mock_data_3.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/llvm-project/github_mock_data_0.json"
         )
@@ -266,7 +274,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/miniupnp/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/miniupnp/github_mock_data_0.json"
         )
@@ -284,7 +293,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/miniupnp/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/miniupnp/github_mock_data_0.json"
         )
@@ -302,7 +312,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/miniupnp/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/miniupnp/github_mock_data_0.json"
         )
@@ -319,7 +330,8 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/nix/github_mock_data_1.json",
             "tests/data/package/github/nix/github_mock_data_2.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/nix/github_mock_data_0.json"
         )
@@ -337,7 +349,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/pupnp/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/pupnp/github_mock_data_0.json"
         )
@@ -360,7 +373,8 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/cpython/github_mock_data_5.json",
             "tests/data/package/github/cpython/github_mock_data_6.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/cpython/github_mock_data_0.json"
         )
@@ -377,7 +391,8 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/rpm/github_mock_data_1.json",
             "tests/data/package/github/rpm/github_mock_data_2.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/rpm/github_mock_data_0.json"
         )
@@ -395,7 +410,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/shadow/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/shadow/github_mock_data_0.json"
         )
@@ -414,7 +430,8 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/sqlite/github_mock_data_1.json",
             "tests/data/package/github/sqlite/github_mock_data_2.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/sqlite/github_mock_data_0.json"
         )
@@ -432,7 +449,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/squashfs-tools/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/squashfs-tools/github_mock_data_0.json"
         )
@@ -450,7 +468,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/wireless-tools/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/wireless-tools/github_mock_data_0.json"
         )
@@ -472,7 +491,8 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/u-boot/github_mock_data_4.json",
             "tests/data/package/github/u-boot/github_mock_data_5.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/u-boot/github_mock_data_0.json"
         )
@@ -490,7 +510,8 @@ class GitHubSourceTestCase(TestCase):
         test_data = [
             "tests/data/package/github/erofs-utils/github_mock_data_1.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/erofs-utils/github_mock_data_0.json"
         )
@@ -511,7 +532,8 @@ class GitHubSourceTestCase(TestCase):
             "tests/data/package/github/openssl/github_mock_data_3.json",
             "tests/data/package/github/openssl/github_mock_data_4.json",
         ]
-        mock_github_response.side_effect = [file_json(file) for file in test_data]
+        mock_github_response.side_effect = [
+            file_json(file) for file in test_data]
         mock_get_response.return_value = file_json(
             "tests/data/package/github/openssl/github_mock_data_0.json"
         )

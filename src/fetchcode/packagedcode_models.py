@@ -1,7 +1,7 @@
-# Copied from https://github.com/nexB/scancode-toolkit/blob/b4ea9c640f8ee4ed8851b5618c6d223bb1c02d47/src/packagedcode/models.py
+# Copied from https://github.com/aboutcode-org/scancode-toolkit/blob/b4ea9c640f8ee4ed8851b5618c6d223bb1c02d47/src/packagedcode/models.py
 #
 # Copyright (c) 2017 nexB Inc. and others. All rights reserved.
-# http://nexb.com and https://github.com/nexB/scancode-toolkit/
+# http://nexb.com and https://github.com/aboutcode-org/scancode-toolkit/
 # The ScanCode software is licensed under the Apache License version 2.0.
 # Data generated with ScanCode require an acknowledgment.
 # ScanCode is a trademark of nexB Inc.
@@ -21,7 +21,7 @@
 #  ScanCode should be considered or used as legal advice. Consult an Attorney
 #  for any legal advice.
 #  ScanCode is a free software code scanning tool from nexB Inc. and others.
-#  Visit https://github.com/nexB/scancode-toolkit/ for support and download.
+#  Visit https://github.com/aboutcode-org/scancode-toolkit/ for support and download.
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -144,7 +144,7 @@ class Party(BaseModel):
         validator=choices(PARTY_TYPES),
         label='party type',
         help='the type of this party: One of: '
-            +', '.join(p for p in PARTY_TYPES if p))
+        + ', '.join(p for p in PARTY_TYPES if p))
 
     role = String(
         label='party role',
@@ -284,7 +284,8 @@ class BasePackage(BaseModel):
         if not isinstance(package_url, PackageURL):
             package_url = PackageURL.from_string(package_url)
 
-        attribs = ['type', 'namespace', 'name', 'version', 'qualifiers', 'subpath']
+        attribs = ['type', 'namespace', 'name',
+                   'version', 'qualifiers', 'subpath']
         for att in attribs:
             self_val = getattr(self, att)
             purl_val = getattr(package_url, att)
@@ -302,7 +303,8 @@ class BasePackage(BaseModel):
             mapping['repository_download_url'] = self.repository_download_url()
             mapping['api_data_url'] = self.api_data_url()
         if self.qualifiers:
-            mapping['qualifiers'] = normalize_qualifiers(self.qualifiers, encode=False)
+            mapping['qualifiers'] = normalize_qualifiers(
+                self.qualifiers, encode=False)
         return mapping
 
     @classmethod
@@ -399,7 +401,7 @@ class Package(BasePackage):
 
     api_url = String(
         label='API URL',
-        help='URL of API for this package.')    
+        help='URL of API for this package.')
 
     size = Integer(
         default=None,
@@ -433,8 +435,8 @@ class Package(BasePackage):
     vcs_url = String(
         help='a URL to the VCS repository in the SPDX form of: '
              'https://github.com/nexb/scancode-toolkit.git@405aaa4b3 '
-              'See SPDX specification "Package Download Location" '
-              'at https://spdx.org/spdx-specification-21-web-version#h.49x2ik5 ')
+        'See SPDX specification "Package Download Location" '
+        'at https://spdx.org/spdx-specification-21-web-version#h.49x2ik5 ')
 
     copyright = String(
         label='Copyright',
@@ -608,7 +610,8 @@ class DebianPackage(Package):
     metafiles = ('*.control',)
     extensions = ('.deb',)
     filetypes = ('debian binary package',)
-    mimetypes = ('application/x-archive', 'application/vnd.debian.binary-package',)
+    mimetypes = ('application/x-archive',
+                 'application/vnd.debian.binary-package',)
     default_type = 'deb'
 
 
@@ -670,6 +673,8 @@ class IvyJar(JavaJar):
     default_primary_language = 'Java'
 
 # FIXME: move to bower.py
+
+
 @attr.s()
 class BowerPackage(Package):
     metafiles = ('bower.json',)
