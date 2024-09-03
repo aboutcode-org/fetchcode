@@ -122,10 +122,8 @@ def get_pypi_versions_from_purl(purl):
 
     releases = response.get("releases") or {}
     for version, download_items in releases.items():
-        if not download_items:
-            continue
+        release_date = get_pypi_latest_date(download_items) if download_items else None
 
-        release_date = get_pypi_latest_date(download_items)
         yield PackageVersion(
             value=version,
             release_date=release_date,
@@ -317,8 +315,7 @@ def get_golang_versions_from_purl(purl):
         break
 
     if response is None or escaped_pkg is None or trimmed_pkg is None:
-        logger.error(
-            f"Error while fetching versions for {package_slug!r} from goproxy")
+        logger.error(f"Error while fetching versions for {package_slug!r} from goproxy")
         return
 
     for version_info in response.split("\n"):
@@ -348,7 +345,7 @@ def trim_go_url_path(url_path: str) -> Optional[str]:
     # some advisories contains this prefix in package name, e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
     go_url_prefix = "https://pkg.go.dev/"
     if url_path.startswith(go_url_prefix):
-        url_path = url_path[len(go_url_prefix):]
+        url_path = url_path[len(go_url_prefix) :]
 
     parsed_url_path = urlparse(url_path)
     path = parsed_url_path.path
@@ -409,8 +406,7 @@ def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageV
                 f"Error while fetching version info for {escaped_pkg}/{escaped_ver} "
                 f"from goproxy:\n{traceback.format_exc()}"
             )
-        release_date = dateparser.parse(
-            response.get("Time", "")) if response else None
+        release_date = dateparser.parse(response.get("Time", "")) if response else None
 
     return PackageVersion(value=version, release_date=release_date)
 

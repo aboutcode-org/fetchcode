@@ -1,11 +1,311 @@
 [
     {
+        "value": "0.5",
+        "release_date": null
+    },
+    {
+        "value": "0.5.1",
+        "release_date": null
+    },
+    {
+        "value": "0.5.2",
+        "release_date": null
+    },
+    {
+        "value": "0.5.3",
+        "release_date": null
+    },
+    {
+        "value": "0.5.4",
+        "release_date": null
+    },
+    {
+        "value": "0.5.5",
+        "release_date": null
+    },
+    {
+        "value": "0.5.6",
+        "release_date": null
+    },
+    {
+        "value": "0.5.7",
+        "release_date": null
+    },
+    {
+        "value": "0.5.8",
+        "release_date": null
+    },
+    {
+        "value": "0.5.9",
+        "release_date": null
+    },
+    {
+        "value": "0.5rc2",
+        "release_date": null
+    },
+    {
+        "value": "0.6",
+        "release_date": null
+    },
+    {
+        "value": "0.6.1",
+        "release_date": null
+    },
+    {
+        "value": "0.6.10",
+        "release_date": null
+    },
+    {
+        "value": "0.6.11",
+        "release_date": null
+    },
+    {
+        "value": "0.6.12",
+        "release_date": null
+    },
+    {
+        "value": "0.6.13",
+        "release_date": null
+    },
+    {
+        "value": "0.6.14",
+        "release_date": null
+    },
+    {
+        "value": "0.6.15",
+        "release_date": null
+    },
+    {
+        "value": "0.6.16",
+        "release_date": null
+    },
+    {
+        "value": "0.6.17",
+        "release_date": null
+    },
+    {
+        "value": "0.6.18",
+        "release_date": null
+    },
+    {
+        "value": "0.6.19",
+        "release_date": null
+    },
+    {
+        "value": "0.6.2",
+        "release_date": null
+    },
+    {
+        "value": "0.6.20",
+        "release_date": null
+    },
+    {
+        "value": "0.6.21",
+        "release_date": null
+    },
+    {
+        "value": "0.6.22",
+        "release_date": null
+    },
+    {
+        "value": "0.6.23",
+        "release_date": null
+    },
+    {
+        "value": "0.6.24",
+        "release_date": null
+    },
+    {
+        "value": "0.6.25",
+        "release_date": null
+    },
+    {
+        "value": "0.6.26",
+        "release_date": null
+    },
+    {
+        "value": "0.6.27",
+        "release_date": null
+    },
+    {
+        "value": "0.6.28",
+        "release_date": null
+    },
+    {
+        "value": "0.6.29",
+        "release_date": null
+    },
+    {
+        "value": "0.6.3",
+        "release_date": null
+    },
+    {
+        "value": "0.6.30",
+        "release_date": null
+    },
+    {
+        "value": "0.6.31",
+        "release_date": null
+    },
+    {
+        "value": "0.6.4",
+        "release_date": null
+    },
+    {
+        "value": "0.6.5",
+        "release_date": null
+    },
+    {
+        "value": "0.6.6",
+        "release_date": null
+    },
+    {
+        "value": "0.6.7",
+        "release_date": null
+    },
+    {
+        "value": "0.6.8",
+        "release_date": null
+    },
+    {
+        "value": "0.6.9",
+        "release_date": null
+    },
+    {
+        "value": "0.7",
+        "release_date": null
+    },
+    {
+        "value": "0.7.1",
+        "release_date": null
+    },
+    {
+        "value": "0.7.10",
+        "release_date": null
+    },
+    {
+        "value": "0.7.11",
+        "release_date": null
+    },
+    {
+        "value": "0.7.12",
+        "release_date": null
+    },
+    {
+        "value": "0.7.13",
+        "release_date": null
+    },
+    {
+        "value": "0.7.14",
+        "release_date": null
+    },
+    {
+        "value": "0.7.15",
+        "release_date": null
+    },
+    {
+        "value": "0.7.16",
+        "release_date": null
+    },
+    {
+        "value": "0.7.17",
+        "release_date": null
+    },
+    {
+        "value": "0.7.18",
+        "release_date": null
+    },
+    {
+        "value": "0.7.19",
+        "release_date": null
+    },
+    {
+        "value": "0.7.2",
+        "release_date": null
+    },
+    {
+        "value": "0.7.20",
+        "release_date": null
+    },
+    {
+        "value": "0.7.21",
+        "release_date": null
+    },
+    {
+        "value": "0.7.22",
+        "release_date": null
+    },
+    {
+        "value": "0.7.23",
+        "release_date": null
+    },
+    {
+        "value": "0.7.24",
+        "release_date": null
+    },
+    {
+        "value": "0.7.25",
+        "release_date": null
+    },
+    {
+        "value": "0.7.26",
+        "release_date": null
+    },
+    {
+        "value": "0.7.27",
+        "release_date": null
+    },
+    {
+        "value": "0.7.28",
+        "release_date": null
+    },
+    {
+        "value": "0.7.29",
+        "release_date": null
+    },
+    {
+        "value": "0.7.3",
+        "release_date": null
+    },
+    {
+        "value": "0.7.30",
+        "release_date": null
+    },
+    {
+        "value": "0.7.31",
+        "release_date": null
+    },
+    {
         "value": "0.7.32",
         "release_date": "2016-02-22T06:13:06.774750+00:00"
     },
     {
         "value": "0.7.33",
         "release_date": "2016-03-01T18:55:48.013515+00:00"
+    },
+    {
+        "value": "0.7.4",
+        "release_date": null
+    },
+    {
+        "value": "0.7.5",
+        "release_date": null
+    },
+    {
+        "value": "0.7.6",
+        "release_date": null
+    },
+    {
+        "value": "0.7.7",
+        "release_date": null
+    },
+    {
+        "value": "0.7.8",
+        "release_date": null
+    },
+    {
+        "value": "0.7.9",
+        "release_date": null
     },
     {
         "value": "0.8",
@@ -114,6 +414,10 @@
     {
         "value": "0.8.6",
         "release_date": "2015-10-29T21:13:20.969507+00:00"
+    },
+    {
+        "value": "0.8.6.dev",
+        "release_date": null
     },
     {
         "value": "0.8.7",
