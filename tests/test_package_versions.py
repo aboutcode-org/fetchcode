@@ -61,7 +61,7 @@ def test_get_launchpad_versions_from_purl(mock_get_response):
 @mock.patch("fetchcode.package_versions.get_response")
 def test_get_pypi_versions_from_purl(mock_get_response):
     side_effect = [get_json_data(data_location / "pypi_mock_data.json")]
-    purl = "pkg:pypi/django"
+    purl = "pkg:pypi/Djblets"
     expected_file = data_location / "pypi.json"
     mock_get_response.side_effect = side_effect
     result = list(versions(purl))
