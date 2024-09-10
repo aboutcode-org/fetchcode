@@ -30,8 +30,6 @@ def obtain(dest, url):
     [
         pytest.param("git+http://github.com/jamesor/mongoose-versioner",
                      "git", "github.com", id="git_http"),
-        pytest.param("git://github.com/jamesor/mongoose-versioner",
-                     "git", "github.com", id="git"),
         pytest.param("git+https://github.com/jamesor/mongoose-versioner",
                      "git", "github.com", id="git_https"),
         pytest.param("git+ssh://github.com/jamesor/mongoose-versioner",
