@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 #
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -122,10 +122,8 @@ def get_pypi_versions_from_purl(purl):
 
     releases = response.get("releases") or {}
     for version, download_items in releases.items():
-        if not download_items:
-            continue
+        release_date = get_pypi_latest_date(download_items) if download_items else None
 
-        release_date = get_pypi_latest_date(download_items)
         yield PackageVersion(
             value=version,
             release_date=release_date,

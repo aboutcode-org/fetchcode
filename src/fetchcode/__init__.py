@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 #
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -41,7 +41,7 @@ class Response:
 def fetch_http(url, location):
     """
     Return a `Response` object built from fetching the content at a HTTP/HTTPS based `url` URL string
-    saving the content in a file at `location`   
+    saving the content in a file at `location`
     """
     r = requests.get(url)
     with open(location, 'wb') as f:
@@ -51,7 +51,8 @@ def fetch_http(url, location):
     size = r.headers.get('content-length')
     size = int(size) if size else None
 
-    resp = Response(location=location, content_type=content_type, size=size, url=url)
+    resp = Response(location=location,
+                    content_type=content_type, size=size, url=url)
 
     return resp
 
@@ -59,7 +60,7 @@ def fetch_http(url, location):
 def fetch_ftp(url, location):
     """
     Return a `Response` object built from fetching the content at a FTP based `url` URL string
-    saving the content in a file at `location`  
+    saving the content in a file at `location`
     """
     url_parts = urlparse(url)
 
@@ -84,7 +85,8 @@ def fetch_ftp(url, location):
         ftp.retrbinary(file, f.write)
     ftp.close()
 
-    resp = Response(location=location, content_type=content_type, size=size, url=url)
+    resp = Response(location=location,
+                    content_type=content_type, size=size, url=url)
     return resp
 
 

@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 #
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -141,7 +141,8 @@ def github_response(graphql_query):
     headers = {"Authorization": f"bearer {gh_token}"}
 
     endpoint = "https://api.github.com/graphql"
-    response = requests.post(endpoint, headers=headers, json=graphql_query).json()
+    response = requests.post(endpoint, headers=headers,
+                             json=graphql_query).json()
 
     message = response.get("message")
     if message and message == "Bad credentials":

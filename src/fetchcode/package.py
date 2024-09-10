@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 #
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -92,7 +92,8 @@ def get_cargo_data_from_purl(purl):
     )
     versions = response.get("versions", [])
     for version in versions:
-        version_purl = PackageURL(type=purl.type, name=name, version=version.get("num"))
+        version_purl = PackageURL(
+            type=purl.type, name=name, version=version.get("num"))
         dl_path = version.get("dl_path")
         if dl_path:
             download_url = f"{base_url}/{dl_path}"
@@ -355,7 +356,8 @@ def get_gnu_data_from_purl(purl):
     purl = PackageURL.from_string(purl)
     source_archive_url = f"https://ftp.gnu.org/pub/gnu/{purl.name}/"
     version_regex_template = r"^({}-)(?P<version>[\w.-]*)(.tar.gz)$"
-    version_regex = re.compile(version_regex_template.format(re.escape(purl.name)))
+    version_regex = re.compile(
+        version_regex_template.format(re.escape(purl.name)))
 
     yield from extract_packages_from_listing(
         purl, source_archive_url, version_regex, []
@@ -427,7 +429,8 @@ class UdhcpDirectoryListedSource(DirectoryListedSource):
 
         else:
             for version, data in UDHCP_RELEASES.items():
-                purl = PackageURL(type="generic", name="udhcp", version=version)
+                purl = PackageURL(
+                    type="generic", name="udhcp", version=version)
                 yield Package(
                     homepage_url=cls.source_url,
                     download_url=data["url"],
@@ -481,7 +484,8 @@ class UtilLinuxDirectoryListedSource(DirectoryListedSource):
 class BusyBoxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://www.busybox.net/downloads/"
     # Source archive ex: busybox-1.2.3.tar.bz2
-    source_archive_regex = re.compile(r"^(busybox-)(?P<version>[\w.-]*)(.tar.bz2)$")
+    source_archive_regex = re.compile(
+        r"^(busybox-)(?P<version>[\w.-]*)(.tar.bz2)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -489,7 +493,8 @@ class BusyBoxDirectoryListedSource(DirectoryListedSource):
 class UclibcDirectoryListedSource(DirectoryListedSource):
     source_url = "https://www.uclibc.org/downloads/"
     # Source archive ex: uClibc-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(uClibc-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(uClibc-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -497,7 +502,8 @@ class UclibcDirectoryListedSource(DirectoryListedSource):
 class UclibcNGDirectoryListedSource(DirectoryListedSource):
     source_url = "https://downloads.uclibc-ng.org/releases/"
     # Source archive ex: uClibc-ng-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(uClibc-ng-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(uClibc-ng-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = True
     ignored_files_and_dir = []
 
@@ -505,7 +511,8 @@ class UclibcNGDirectoryListedSource(DirectoryListedSource):
 class Bzip2DirectoryListedSource(DirectoryListedSource):
     source_url = "https://sourceware.org/pub/bzip2/"
     # Source archive ex: bzip2-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(bzip2-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(bzip2-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -513,7 +520,8 @@ class Bzip2DirectoryListedSource(DirectoryListedSource):
 class OpenSSHDirectoryListedSource(DirectoryListedSource):
     source_url = "https://cdn.openbsd.org/pub/OpenBSD/OpenSSH/"
     # Source archive ex: openssh-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(openssh-)(?P<version>[\w.-]*)(.tgz|.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(openssh-)(?P<version>[\w.-]*)(.tgz|.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -531,7 +539,8 @@ class DnsmasqDirectoryListedSource(DirectoryListedSource):
 class EbtablesDirectoryListedSource(DirectoryListedSource):
     source_url = "https://www.netfilter.org/pub/ebtables/"
     # Source archive ex: ebtables-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(ebtables-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(ebtables-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -539,7 +548,8 @@ class EbtablesDirectoryListedSource(DirectoryListedSource):
 class HostapdDirectoryListedSource(DirectoryListedSource):
     source_url = "https://w1.fi/releases/"
     # Source archive ex: hostapd-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(hostapd-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(hostapd-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -557,7 +567,8 @@ class Iproute2DirectoryListedSource(DirectoryListedSource):
 class IptablesDirectoryListedSource(DirectoryListedSource):
     source_url = "https://www.netfilter.org/pub/iptables/"
     # Source archive ex: iptables-1.2.3.tar.bz2
-    source_archive_regex = re.compile(r"^(iptables-)(?P<version>[\w.-]*)(.tar.bz2)$")
+    source_archive_regex = re.compile(
+        r"^(iptables-)(?P<version>[\w.-]*)(.tar.bz2)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -565,7 +576,8 @@ class IptablesDirectoryListedSource(DirectoryListedSource):
 class LibnlDirectoryListedSource(DirectoryListedSource):
     source_url = "https://www.infradead.org/~tgr/libnl/files/"
     # Source archive ex: libnl-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(libnl-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(libnl-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -573,7 +585,8 @@ class LibnlDirectoryListedSource(DirectoryListedSource):
 class LighttpdDirectoryListedSource(DirectoryListedSource):
     source_url = "https://download.lighttpd.net/lighttpd/releases-1.4.x/"
     # Source archive ex: lighttpd-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(lighttpd-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(lighttpd-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -601,7 +614,8 @@ class WpaSupplicantDirectoryListedSource(DirectoryListedSource):
 class SyslinuxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/"
     # Source archive ex: syslinux-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(syslinux-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(syslinux-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -609,7 +623,8 @@ class SyslinuxDirectoryListedSource(DirectoryListedSource):
 class SyslinuxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://mirrors.edge.kernel.org/pub/linux/utils/boot/syslinux/"
     # Source archive ex: syslinux-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(syslinux-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(syslinux-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -646,7 +661,8 @@ class DropbearDirectoryListedSource(DirectoryListedSource):
 class SambaDirectoryListedSource(DirectoryListedSource):
     source_url = "https://download.samba.org/pub/samba/stable/"
     # Source archive ex: samba-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(samba-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(samba-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -654,7 +670,8 @@ class SambaDirectoryListedSource(DirectoryListedSource):
 class MtdUtilsDirectoryListedSource(DirectoryListedSource):
     source_url = "https://infraroot.at/pub/mtd/"
     # Source archive ex: mtd-utils-1.2.3.tar.bz2
-    source_archive_regex = re.compile(r"^(mtd-utils-)(?P<version>[\w.-]*)(.tar.bz2)$")
+    source_archive_regex = re.compile(
+        r"^(mtd-utils-)(?P<version>[\w.-]*)(.tar.bz2)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -662,7 +679,8 @@ class MtdUtilsDirectoryListedSource(DirectoryListedSource):
 class BareboxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://www.barebox.org/download/"
     # Source archive ex: barebox-1.2.3.tar.bz2
-    source_archive_regex = re.compile(r"^(barebox-)(?P<version>[\w.-]*)(.tar.bz2)$")
+    source_archive_regex = re.compile(
+        r"^(barebox-)(?P<version>[\w.-]*)(.tar.bz2)$")
     is_nested = False
     ignored_files_and_dir = []
 
@@ -670,7 +688,8 @@ class BareboxDirectoryListedSource(DirectoryListedSource):
 class LinuxDirectoryListedSource(DirectoryListedSource):
     source_url = "https://mirrors.edge.kernel.org/pub/linux/kernel/"
     # Source archive ex: linux-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(linux-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(linux-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = True
     ignored_files_and_dir = [
         "Historic/",
@@ -692,7 +711,8 @@ class E2fsprogsDirectoryListedSource(DirectoryListedSource):
         "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/"
     )
     # Source archive ex: e2fsprogs-1.2.3.tar.gz
-    source_archive_regex = re.compile(r"^(e2fsprogs-)(?P<version>[\w.-]*)(.tar.gz)$")
+    source_archive_regex = re.compile(
+        r"^(e2fsprogs-)(?P<version>[\w.-]*)(.tar.gz)$")
     is_nested = True
     ignored_files_and_dir = ["testing/"]
 
