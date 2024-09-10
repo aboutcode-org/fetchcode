@@ -30,6 +30,9 @@ def fetch_via_git(url):
     domain = parsed_url.netloc
     temp = tempfile.mkdtemp()
     os.rmdir(temp)
+    print(url)
+    print(scheme)
+    print(Git.schemes)
     if scheme not in Git.schemes:
         raise Exception("Not a Git based scheme.")
 
