@@ -16,6 +16,7 @@
 
 
 from pathlib import Path
+
 import requests
 
 data_location = Path(__file__).parent
@@ -796,7 +797,6 @@ TEST_SOURCES_INFO = [
                 "filename": "generic/e2fsprogs/46.html",
                 "url": "https://mirrors.edge.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.47.0/",
             },
-
         ],
     },
 ]

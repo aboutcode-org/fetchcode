@@ -4,7 +4,7 @@
 # ScanCode is a trademark of nexB Inc.
 # SPDX-License-Identifier: Apache-2.0
 # See http://www.apache.org/licenses/LICENSE-2.0 for the license text.
-# See https://github.com/nexB/skeleton for support or download.
+# See https://github.com/aboutcode-org/skeleton for support or download.
 # See https://aboutcode.org for more information about nexB OSS projects.
 #
 
@@ -19,11 +19,11 @@ dev:
 
 isort:
 	@echo "-> Apply isort changes to ensure proper imports ordering"
-	${VENV}/bin/isort --sl -l 100 src tests setup.py
+	${VENV}/bin/isort --sl -l 100 --skip=src/fetchcode/vcs/pip setup.py src tests
 
 black:
 	@echo "-> Apply black code formatter"
-	${VENV}/bin/black -l 100 src tests setup.py
+	${VENV}/bin/black -l 100 --exclude=src/fetchcode/vcs/pip src tests setup.py  
 
 doc8:
 	@echo "-> Run doc8 validation"
@@ -33,15 +33,17 @@ valid: isort black
 
 check:
 	@echo "-> Run pycodestyle (PEP8) validation"
-	@${ACTIVATE} pycodestyle --max-line-length=100 --exclude=.eggs,venv,lib,thirdparty,docs,migrations,settings.py,.cache .
+	@${ACTIVATE} pycodestyle --max-line-length=100 --exclude=.eggs,venv,lib,thirdparty,docs,migrations,settings.py,.cache,etc,src/fetchcode/vcs/pip,tests/data/ .
 	@echo "-> Run isort imports ordering validation"
-	@${ACTIVATE} isort --sl --check-only -l 100 setup.py src tests . 
+	@${ACTIVATE} isort --sl --check-only -l 100 --skip=src/fetchcode/vcs/pip setup.py src tests
 	@echo "-> Run black validation"
-	@${ACTIVATE} black --check --check -l 100 src tests setup.py
+	@${ACTIVATE} black --check --check -l 100 --exclude=src/fetchcode/vcs/pip src tests setup.py 
 
 clean:
 	@echo "-> Clean the Python env"
 	./configure --clean
+	rm -rf .venv/ .*cache/ *.egg-info/ build/ dist/
+	find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 
 test:
 	@echo "-> Run the test suite"

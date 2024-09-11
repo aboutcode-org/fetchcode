@@ -18,10 +18,10 @@ import os
 import tempfile
 from urllib.parse import urlparse
 
-from fetchcode.vcs.pip._internal.vcs.git import Git
+from fetchcode.vcs import VCSResponse
 from fetchcode.vcs.pip._internal.utils import misc
 from fetchcode.vcs.pip._internal.vcs import vcs
-from fetchcode.vcs import VCSResponse
+from fetchcode.vcs.pip._internal.vcs.git import Git
 
 
 def fetch_via_git(url):

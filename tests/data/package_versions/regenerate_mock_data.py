@@ -140,8 +140,7 @@ def fetch_golang_mock_data():
     url = f"https://proxy.golang.org/github.com/blockloop/scan/@v/list"
     version_list = get_response(url=url, content_type="text")
     for version in version_list.split():
-        file_name = data_location / \
-            f"golang/versions/golang_mock_{version}_data.json"
+        file_name = data_location / f"golang/versions/golang_mock_{version}_data.json"
         response = get_response(
             url=f"https://proxy.golang.org/github.com/blockloop/scan/@v/{version}.info",
             content_type="json",
@@ -169,8 +168,7 @@ def fetch_github_mock_data():
     while True:
         response = github_response(graphql_query)
         refs = response["data"]["repository"]["refs"]
-        mock_data_file = data_location / \
-            f"github/github_mock_data_{file_count}.json"
+        mock_data_file = data_location / f"github/github_mock_data_{file_count}.json"
         with open(mock_data_file, "w") as file:
             json.dump(response, file, indent=4)
 

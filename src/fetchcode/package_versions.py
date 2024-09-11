@@ -92,9 +92,7 @@ def get_launchpad_versions_from_purl(purl):
 
         for release in entries:
             source_package_version = release.get("source_package_version")
-            source_package_version = remove_debian_default_epoch(
-                version=source_package_version
-            )
+            source_package_version = remove_debian_default_epoch(version=source_package_version)
             date_published = release.get("date_published")
             release_date = None
             if date_published and type(date_published) is str:
@@ -135,9 +133,7 @@ def get_cargo_versions_from_purl(purl):
     """Fetch versions of Rust cargo packages from the crates.io API."""
     purl = PackageURL.from_string(purl)
     url = f"https://crates.io/api/v1/crates/{purl.name}"
-    response = get_response(
-        url=url, content_type="json", headers={"User-Agent": "pm_bot"}
-    )
+    response = get_response(url=url, content_type="json", headers={"User-Agent": "pm_bot"})
 
     for version_info in response.get("versions"):
         yield PackageVersion(
@@ -218,9 +214,7 @@ def get_maven_versions_from_purl(purl):
         return
 
     group_url = group_id.replace(".", "/")
-    endpoint = (
-        f"https://repo1.maven.org/maven2/{group_url}/{artifact_id}/maven-metadata.xml"
-    )
+    endpoint = f"https://repo1.maven.org/maven2/{group_url}/{artifact_id}/maven-metadata.xml"
     response = get_response(url=endpoint, content_type="binary")
     if response:
         xml_resp = ET.ElementTree(ET.fromstring(response.decode("utf-8")))
@@ -342,7 +336,8 @@ def trim_go_url_path(url_path: str) -> Optional[str]:
     >>> module = "github.com/xx/a"
     >>> assert trim_go_url_path("https://github.com/xx/a/b") == module
     """
-    # some advisories contains this prefix in package name, e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
+    # some advisories contains this prefix in package name,
+    # e.g. https://github.com/advisories/GHSA-7h6j-2268-fhcm
     go_url_prefix = "https://pkg.go.dev/"
     if url_path.startswith(go_url_prefix):
         url_path = url_path[len(go_url_prefix) :]
@@ -488,7 +483,7 @@ def get_pypi_latest_date(downloads):
       {
         ....
         "upload_time_iso_8601": "2010-12-23T05:14:23.509436Z",
-        "url": "https://files.pythonhosted.org/packages/8f/1f/c20ca80fa5df025cc/Django-1.1.3.tar.gz",
+        "url": "https://files.pythonhosted.org/packages/8f/1f/c20ca80fa5df025cc/Django-1.1.3.tar.gz",  # noqa
       },
       {
         ....
@@ -516,12 +511,13 @@ def get_response(url, content_type="json", headers=None):
     one of binary, text, yaml or json.
     """
     try:
-        resp = requests.get(url=url, headers=headers)
-    except:
-        logger.error(traceback.format_exc())
-        return
-    if not resp.status_code == 200:
+        resp = requests.get(url)
+        resp.raise_for_status()
+    except requests.HTTPError as http_err:
         logger.error(f"Error while fetching {url!r}: {resp.status_code!r}")
+        logger.error(
+            f"HTTP error occurred: {http_err} \n {traceback.format_exc()}",
+        )
         return
 
     if content_type == "binary":

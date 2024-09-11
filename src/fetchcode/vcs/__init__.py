@@ -19,12 +19,12 @@ import shutil
 import tempfile
 from urllib.parse import urlparse
 
+from fetchcode.vcs.pip._internal.utils import misc
+from fetchcode.vcs.pip._internal.vcs import vcs
 from fetchcode.vcs.pip._internal.vcs.bazaar import Bazaar
 from fetchcode.vcs.pip._internal.vcs.git import Git
 from fetchcode.vcs.pip._internal.vcs.mercurial import Mercurial
-from fetchcode.vcs.pip._internal.utils import misc
 from fetchcode.vcs.pip._internal.vcs.subversion import Subversion
-from fetchcode.vcs.pip._internal.vcs import vcs
 
 
 class VCSResponse:

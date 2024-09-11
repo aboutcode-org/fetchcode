@@ -41,8 +41,7 @@ def fetch_github_mock_data(owner, name, subdir):
     while True:
         response = github_response(graphql_query)
         refs = response["data"]["repository"]["refs"]
-        mock_data_file = data_location / \
-            f"{subdir}/github_mock_data_{file_count}.json"
+        mock_data_file = data_location / f"{subdir}/github_mock_data_{file_count}.json"
         with open(mock_data_file, "w") as file:
             json.dump(response, file, indent=2)
 
