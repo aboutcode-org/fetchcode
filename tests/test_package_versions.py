@@ -23,8 +23,7 @@ import yaml
 
 from fetchcode.package_versions import versions
 
-FETCHCODE_REGEN_TEST_FIXTURES = os.getenv(
-    "FETCHCODE_REGEN_TEST_FIXTURES", False)
+FETCHCODE_REGEN_TEST_FIXTURES = os.getenv("FETCHCODE_REGEN_TEST_FIXTURES", False)
 
 data_location = Path(__file__).parent / "data" / "package_versions"
 
@@ -190,10 +189,7 @@ def test_get_golang_versions_from_purl(mock_get_response):
 
     for version in version_list.split():
         side_effect.append(
-            get_json_data(
-                data_location /
-                f"golang/versions/golang_mock_{version}_data.json"
-            )
+            get_json_data(data_location / f"golang/versions/golang_mock_{version}_data.json")
         )
 
     purl = "pkg:golang/github.com/blockloop/scan"

@@ -16,8 +16,8 @@
 
 import dataclasses
 import json
-from pathlib import Path
 import re
+from pathlib import Path
 
 import attr
 
@@ -33,9 +33,7 @@ def package_from_dict(package_data):
     Ignore unknown and unsupported fields.
     """
     supported = {attr.name for attr in attr.fields(Package)}
-    cleaned_package_data = {
-        key: value for key, value in package_data.items() if key in supported
-    }
+    cleaned_package_data = {key: value for key, value in package_data.items() if key in supported}
     return Package(**cleaned_package_data)
 
 
@@ -43,9 +41,7 @@ def package_from_dict(package_data):
 class GitHubSource:
     version_regex: re.Pattern = dataclasses.field(
         default=None,
-        metadata={
-            "help_text": "Regular expression pattern to match and extract version from tag."
-        },
+        metadata={"help_text": "Regular expression pattern to match and extract version from tag."},
     )
     ignored_tag_regex: re.Pattern = dataclasses.field(
         default=None,
@@ -93,9 +89,7 @@ def get_github_packages(purl, version_regex, ignored_tag_regex, default_package)
     """
     Yield package data from a directory listing for the given source_archive_url.
     """
-    for package in _get_github_packages(
-        purl, version_regex, ignored_tag_regex, default_package
-    ):
+    for package in _get_github_packages(purl, version_regex, ignored_tag_regex, default_package):
         # Don't yield all packages when a specific version is requested.
         if purl.version and package.version != purl.version:
             continue
@@ -110,9 +104,7 @@ def get_github_packages(purl, version_regex, ignored_tag_regex, default_package)
 
 def _get_github_packages(purl, version_regex, ignored_tag_regex, default_package):
     "Yield package for GitHub purl"
-    archive_download_url = (
-        "https://github.com/{org}/{name}/archive/refs/tags/{tag_name}.tar.gz"
-    )
+    archive_download_url = "https://github.com/{org}/{name}/archive/refs/tags/{tag_name}.tar.gz"
 
     package_dict = default_package.to_dict()
     for tag, date in utils.fetch_github_tags_gql(purl):
@@ -137,9 +129,7 @@ def _get_github_packages(purl, version_regex, ignored_tag_regex, default_package
         if not version or not version[0].isdigit():
             continue
 
-        download_url = archive_download_url.format(
-            org=purl.namespace, name=purl.name, tag_name=tag
-        )
+        download_url = archive_download_url.format(org=purl.namespace, name=purl.name, tag_name=tag)
 
         date = date.strftime("%Y-%m-%dT%H:%M:%S")
         package_dict.update(
@@ -169,8 +159,7 @@ class SquashfsToolsGitHubSource(GitHubSource):
 
 
 class PupnpGitHubSource(GitHubSource):
-    version_regex = re.compile(
-        r"\brelease-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    version_regex = re.compile(r"\brelease-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
     ignored_tag_regex = None
 
 
@@ -185,8 +174,7 @@ class BpftoolGitHubSource(GitHubSource):
 
 
 class SqliteGitHubSource(GitHubSource):
-    version_regex = re.compile(
-        r"\bversion-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
+    version_regex = re.compile(r"\bversion-?(?P<version>(?:\d+(\.\d+){1,2}))\b")
     ignored_tag_regex = None
 
 
@@ -196,8 +184,7 @@ class LlvmGitHubSource(GitHubSource):
 
 
 class RpmGitHubSource(GitHubSource):
-    version_regex = re.compile(
-        r"rpm-(?P<version>[^-]+(?:-(?!release).*)?|-release)")
+    version_regex = re.compile(r"rpm-(?P<version>[^-]+(?:-(?!release).*)?|-release)")
     ignored_tag_regex = None
 
 
@@ -276,9 +263,7 @@ class MiniupnpPackagesGitHubSource(GitHubSource):
 
     @classmethod
     def get_package_info(cls, gh_purl, package_name):
-        cls.version_regex = re.compile(
-            cls.version_regex_template.format(re.escape(package_name))
-        )
+        cls.version_regex = re.compile(cls.version_regex_template.format(re.escape(package_name)))
 
         packages = get_github_packages(
             gh_purl,
@@ -298,13 +283,9 @@ class MiniupnpPackagesGitHubSource(GitHubSource):
 
 
 # Archive source https://web.archive.org/web/20021209021312/http://udhcp.busybox.net/source/
-UDHCP_RELEASES = json.loads(
-    (DATA / "udhcp_releases.json").read_text(encoding="UTF-8")
-)
+UDHCP_RELEASES = json.loads((DATA / "udhcp_releases.json").read_text(encoding="UTF-8"))
 
 
 # Since there will be no new releases of ipkg, it's better to
 # store them in a dictionary rather than fetching them every time.
-IPKG_RELEASES = json.loads(
-    (DATA / "ipkg_releases.json").read_text(encoding="UTF-8")
-)
+IPKG_RELEASES = json.loads((DATA / "ipkg_releases.json").read_text(encoding="UTF-8"))
