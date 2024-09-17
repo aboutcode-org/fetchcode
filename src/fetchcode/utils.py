@@ -15,6 +15,7 @@
 # specific language governing permissions and limitations under the License.
 
 import os
+
 import requests
 from dateutil import parser as dateparser
 from dateutil.parser import ParserError
@@ -141,8 +142,7 @@ def github_response(graphql_query):
     headers = {"Authorization": f"bearer {gh_token}"}
 
     endpoint = "https://api.github.com/graphql"
-    response = requests.post(endpoint, headers=headers,
-                             json=graphql_query).json()
+    response = requests.post(endpoint, headers=headers, json=graphql_query).json()
 
     message = response.get("message")
     if message and message == "Bad credentials":
