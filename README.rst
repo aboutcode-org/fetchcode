@@ -7,7 +7,7 @@ systems. It can work using plain HTTP and FTP URLs, as well as
 as used in Python pip and as specified in `SPDX Package Download Location
 <https://spdx.github.io/spdx-spec/3-package-information/#37-package-download-location>`_
 
-Homepage and support: https://github.com/nexB/fetchcode
+Homepage and support: https://github.com/aboutcode-org/fetchcode
 
 
 Why FetchCode?
@@ -24,11 +24,11 @@ Development installation
 
 Clone the repo::
 
-    git clone https://github.com/nexB/fetchcode
+    git clone https://github.com/aboutcode-org/fetchcode
 
-Then install all the requirements using::
+Then install all the requirements using this command (on POSIX)::
 
-    configure --dev
+    ./configure --dev
 
 
 Running tests
@@ -45,13 +45,13 @@ Usage
 Fetch a code archive and get a ``fetchcode.fetch.Response`` object back::
 
     >>> from fetchcode import fetch
-    >>> f = fetch('https://github.com/nexB/fetchcode/archive/ab65b2e645c889887227ea49eb3332d885fd0a54.zip')
+    >>> f = fetch('https://github.com/aboutcode-org/fetchcode/archive/ab65b2e645c889887227ea49eb3332d885fd0a54.zip')
     >>> f.location
     '/tmp/tmp_cm02xsg'
     >>> f.content_type
     'application/zip'
     >>> f.url
-    'https://github.com/nexB/fetchcode/archive/ab65b2e645c889887227ea49eb3332d885fd0a54.zip'
+    'https://github.com/aboutcode-org/fetchcode/archive/ab65b2e645c889887227ea49eb3332d885fd0a54.zip'
 
 Fetch some package metadata and get a ``fetchcode.packagedcode_models.Package`` object back::
 
