@@ -1,0 +1,63 @@
+{
+    "name": "pronto-goodcheck",
+    "downloads": 36962,
+    "version": "0.2.0",
+    "version_created_at": "2019-04-03T00:07:48.340Z",
+    "version_downloads": 33915,
+    "platform": "ruby",
+    "authors": "Chris Fung",
+    "info": "Pronto runner for Goodcheck",
+    "licenses": [
+        "MIT"
+    ],
+    "metadata": {},
+    "yanked": false,
+    "sha": "c099a2c036ed4d86203ca254d1a3f70c4f0575960a0b330beb414273f9494a7c",
+    "spec_sha": "ef46dd6d066263c7338b7cafc386d93b19f4099e7448aca6718da26a20ab17a5",
+    "project_uri": "https://rubygems.org/gems/pronto-goodcheck",
+    "gem_uri": "https://rubygems.org/gems/pronto-goodcheck-0.2.0.gem",
+    "homepage_uri": "https://github.com/aergonaut/pronto-goodcheck",
+    "wiki_uri": null,
+    "documentation_uri": "https://www.rubydoc.info/gems/pronto-goodcheck/0.2.0",
+    "mailing_list_uri": null,
+    "source_code_uri": null,
+    "bug_tracker_uri": null,
+    "changelog_uri": null,
+    "funding_uri": null,
+    "dependencies": {
+        "development": [
+            {
+                "name": "bundler",
+                "requirements": "~> 1.15"
+            },
+            {
+                "name": "rake",
+                "requirements": "~> 10.0"
+            },
+            {
+                "name": "rspec",
+                "requirements": "~> 3.0"
+            }
+        ],
+        "runtime": [
+            {
+                "name": "goodcheck",
+                "requirements": ">= 1.5.0"
+            },
+            {
+                "name": "pronto",
+                "requirements": ">= 0.9.5"
+            }
+        ]
+    },
+    "built_at": "2019-04-03T00:00:00.000Z",
+    "created_at": "2019-04-03T00:07:48.340Z",
+    "description": null,
+    "downloads_count": 33915,
+    "number": "0.2.0",
+    "summary": "Pronto runner for Goodcheck",
+    "rubygems_version": ">= 0",
+    "ruby_version": ">= 0",
+    "prerelease": false,
+    "requirements": []
+}

@@ -237,31 +237,24 @@ class BasePackage(BaseModel):
             self.type, self.namespace, self.name, self.version, self.qualifiers, self.subpath
         ).to_string()
 
-    def repository_homepage_url(self, baseurl=default_web_baseurl):
-        """
-        Return the package repository homepage URL for this package, e.g. the
-        URL to the page for this package in its package repository. This is
-        typically different from the package homepage URL proper.
-        Subclasses should override to provide a proper value.
-        """
-        return
+    repository_homepage_url = String(
+        label="package repository homepage URL.",
+        help="URL to the page for this package in its package repository. "
+        "This is typically different from the package homepage URL proper.",
+    )
 
-    def repository_download_url(self, baseurl=default_download_baseurl):
-        """
-        Return the package repository download URL to download the actual
-        archive of code of this package. This may be different than the actual
-        download URL and is computed from the default public respoitory baseurl.
-        Subclasses should override to provide a proper value.
-        """
-        return
+    repository_download_url = String(
+        label="package repository download URL.",
+        help="download URL to download the actual archive of code of this "
+        "package in its package repository. "
+        "This may be different from the actual download URL.",
+    )
 
-    def api_data_url(self, baseurl=default_api_baseurl):
-        """
-        Return the package repository API URL to obtain structured data for this
-        package such as the URL to a JSON or XML api.
-        Subclasses should override to provide a proper value.
-        """
-        return
+    api_data_url = String(
+        label="package repository API URL.",
+        help="API URL to obtain structured data for this package such as the "
+        "URL to a JSON or XML api its package repository.",
+    )
 
     def set_purl(self, package_url):
         """
@@ -288,9 +281,9 @@ class BasePackage(BaseModel):
         mapping = attr.asdict(self, dict_factory=OrderedDict)
         if not kwargs.get("exclude_properties"):
             mapping["purl"] = self.purl
-            mapping["repository_homepage_url"] = self.repository_homepage_url()
-            mapping["repository_download_url"] = self.repository_download_url()
-            mapping["api_data_url"] = self.api_data_url()
+            mapping["repository_homepage_url"] = self.repository_homepage_url
+            mapping["repository_download_url"] = self.repository_download_url
+            mapping["api_data_url"] = self.api_data_url
         if self.qualifiers:
             mapping["qualifiers"] = normalize_qualifiers(self.qualifiers, encode=False)
         return mapping

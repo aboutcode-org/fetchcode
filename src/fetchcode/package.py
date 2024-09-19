@@ -32,7 +32,10 @@ from fetchcode.package_util import ErofsUtilsGitHubSource
 from fetchcode.package_util import GitHubSource
 from fetchcode.package_util import MiniupnpPackagesGitHubSource
 from fetchcode.package_util import OpenSSLGitHubSource
+from fetchcode.package_util import construct_cocoapods_package
+from fetchcode.package_util import get_cocoapod_tags
 from fetchcode.packagedcode_models import Package
+from fetchcode.utils import get_hashed_path
 from fetchcode.utils import get_response
 
 router = Router()
@@ -40,8 +43,8 @@ router = Router()
 
 def info(url):
     """
-    Return data according to the `url` string
-    `url` string can be purl too
+    Return package metadata for a URL or PURL.
+    Return None if there is no URL, or the URL or PURL is not supported.
     """
     if url:
         try:
@@ -83,13 +86,7 @@ def get_cargo_data_from_purl(purl):
     crate = response.get("crate") or {}
     homepage_url = crate.get("homepage")
     code_view_url = crate.get("repository")
-    yield Package(
-        homepage_url=homepage_url,
-        api_url=api_url,
-        code_view_url=code_view_url,
-        download_url=download_url,
-        **purl.to_dict(),
-    )
+
     versions = response.get("versions", [])
     for version in versions:
         version_purl = PackageURL(type=purl.type, name=name, version=version.get("num"))
@@ -100,6 +97,9 @@ def get_cargo_data_from_purl(purl):
             download_url = None
         declared_license = version.get("license")
 
+        if purl.version and version_purl.version != purl.version:
+            continue
+
         yield Package(
             homepage_url=homepage_url,
             api_url=api_url,
@@ -108,6 +108,9 @@ def get_cargo_data_from_purl(purl):
             declared_license=declared_license,
             **version_purl.to_dict(),
         )
+
+        if purl.version:
+            break
 
 
 @router.route("pkg:npm/.*")
@@ -120,39 +123,30 @@ def get_npm_data_from_purl(purl):
     name = purl.name
     version = purl.version
     api_url = f"{base_path}/{name}"
+
     response = get_response(api_url)
     vcs_data = response.get("repository") or {}
     bugs = response.get("bugs") or {}
-
     download_url = f"{base_path}/{name}/-/{name}-{version}.tgz" if version else None
     vcs_url = vcs_data.get("url")
     bug_tracking_url = bugs.get("url")
     license = response.get("license")
     homepage_url = response.get("homepage")
 
-    yield Package(
-        homepage_url=homepage_url,
-        api_url=api_url,
-        vcs_url=vcs_url,
-        bug_tracking_url=bug_tracking_url,
-        download_url=download_url,
-        declared_license=license,
-        **purl.to_dict(),
-    )
-
     versions = response.get("versions", [])
-    tags = []
     for num in versions:
         version = versions[num]
         version_purl = PackageURL(type=purl.type, name=name, version=version.get("version"))
         repository = version.get("repository") or {}
         bugs = response.get("bugs") or {}
         dist = version.get("dist") or {}
-        licenses = version.get("licenses") or [{}]
         vcs_url = repository.get("url")
         download_url = dist.get("tarball")
         bug_tracking_url = bugs.get("url")
-        declared_license = licenses[0].get("type")
+        declared_license = license
+
+        if purl.version and version_purl.version != purl.version:
+            continue
 
         yield Package(
             homepage_url=homepage_url,
@@ -164,6 +158,9 @@ def get_npm_data_from_purl(purl):
             **version_purl.to_dict(),
         )
 
+        if purl.version:
+            break
+
 
 @router.route("pkg:pypi/.*")
 def get_pypi_data_from_purl(purl):
@@ -172,6 +169,7 @@ def get_pypi_data_from_purl(purl):
     """
     purl = PackageURL.from_string(purl)
     name = purl.name
+
     base_path = "https://pypi.org/pypi"
     api_url = f"{base_path}/{name}/json"
     response = get_response(api_url)
@@ -182,19 +180,14 @@ def get_pypi_data_from_purl(purl):
     project_urls = info.get("project_urls") or {}
     code_view_url = get_pypi_codeview_url(project_urls)
     bug_tracking_url = get_pypi_bugtracker_url(project_urls)
-    yield Package(
-        homepage_url=homepage_url,
-        api_url=api_url,
-        bug_tracking_url=bug_tracking_url,
-        code_view_url=code_view_url,
-        declared_license=license,
-        **purl.to_dict(),
-    )
+
     for num in releases:
         version_purl = PackageURL(type=purl.type, name=name, version=num)
         release = releases.get(num) or [{}]
         release = release[0]
         download_url = release.get("url")
+        if purl.version and version_purl.version != purl.version:
+            continue
         yield Package(
             homepage_url=homepage_url,
             api_url=api_url,
@@ -204,6 +197,9 @@ def get_pypi_data_from_purl(purl):
             declared_license=license,
             **version_purl.to_dict(),
         )
+
+        if purl.version:
+            break
 
 
 @router.route("pkg:github/.*")
@@ -291,12 +287,7 @@ def get_bitbucket_data_from_purl(purl):
     bitbucket_url = "https://bitbucket.org"
     bug_tracking_url = f"{bitbucket_url}/{namespace}/{name}/issues"
     code_view_url = f"{bitbucket_url}/{namespace}/{name}"
-    yield Package(
-        api_url=api_url,
-        bug_tracking_url=bug_tracking_url,
-        code_view_url=code_view_url,
-        **purl.to_dict(),
-    )
+
     links = response.get("links") or {}
     tags_url = links.get("tags") or {}
     tags_url = tags_url.get("href")
@@ -304,11 +295,16 @@ def get_bitbucket_data_from_purl(purl):
         return []
     tags_data = get_response(tags_url)
     tags = tags_data.get("values") or {}
+
     for tag in tags:
         version = tag.get("name") or ""
         version_purl = PackageURL(type=purl.type, namespace=namespace, name=name, version=version)
         download_url = f"{base_path}/{namespace}/{name}/downloads/{name}-{version}.tar.gz"
         code_view_url = f"{bitbucket_url}/{namespace}/{name}/src/{version}"
+
+        if purl.version and version_purl.version != purl.version:
+            continue
+
         yield Package(
             api_url=api_url,
             bug_tracking_url=bug_tracking_url,
@@ -316,6 +312,9 @@ def get_bitbucket_data_from_purl(purl):
             download_url=download_url,
             **version_purl.to_dict(),
         )
+
+        if purl.version:
+            break
 
 
 @router.route("pkg:rubygems/.*")
@@ -325,22 +324,38 @@ def get_rubygems_data_from_purl(purl):
     """
     purl = PackageURL.from_string(purl)
     name = purl.name
-    api_url = f"https://rubygems.org/api/v1/gems/{name}.json"
-    response = get_response(api_url)
-    declared_license = response.get("licenses") or None
-    homepage_url = response.get("homepage_uri")
-    code_view_url = response.get("source_code_uri")
-    bug_tracking_url = response.get("bug_tracker_uri")
-    download_url = response.get("gem_uri")
-    yield Package(
-        homepage_url=homepage_url,
-        api_url=api_url,
-        bug_tracking_url=bug_tracking_url,
-        code_view_url=code_view_url,
-        declared_license=declared_license,
-        download_url=download_url,
-        **purl.to_dict(),
-    )
+    all_versions_url = f"https://rubygems.org/api/v1/versions/{name}.json"
+    all_versions = get_response(all_versions_url)
+
+    for vers in all_versions:
+        version_purl = PackageURL(type=purl.type, name=name, version=vers.get("number"))
+
+        if purl.version and version_purl.version != purl.version:
+            continue
+
+        number = vers.get("number")
+        version_api = f"https://rubygems.org/api/v2/rubygems/{name}/versions/{number}.json"
+        version_api_response = get_response(version_api)
+        declared_license = version_api_response.get("licenses") or None
+        homepage_url = version_api_response.get("homepage_uri")
+        code_view_url = version_api_response.get("source_code_uri")
+        bug_tracking_url = version_api_response.get("bug_tracker_uri")
+        download_url = version_api_response.get("gem_uri")
+        repository_homepage_url = version_api_response.get("project_uri")
+
+        yield Package(
+            homepage_url=homepage_url,
+            api_url=version_api,
+            bug_tracking_url=bug_tracking_url,
+            code_view_url=code_view_url,
+            declared_license=declared_license,
+            download_url=download_url,
+            repository_homepage_url=repository_homepage_url,
+            **version_purl.to_dict(),
+        )
+
+        if purl.version:
+            break
 
 
 @router.route("pkg:gnu/.*")
@@ -352,6 +367,45 @@ def get_gnu_data_from_purl(purl):
     version_regex = re.compile(version_regex_template.format(re.escape(purl.name)))
 
     yield from extract_packages_from_listing(purl, source_archive_url, version_regex, [])
+
+
+@router.route("pkg:cocoapods/.*")
+def get_cocoapods_data_from_purl(purl):
+    purl = PackageURL.from_string(purl)
+    name = purl.name
+    cocoapods_org_url = f"https://cocoapods.org/pods/{name}"
+    api = "https://cdn.cocoapods.org"
+    hashed_path = get_hashed_path(name)
+    hashed_path_underscore = hashed_path.replace("/", "_")
+    file_prefix = "all_pods_versions_"
+    spec = f"{api}/{file_prefix}{hashed_path_underscore}.txt"
+    data_list = get_cocoapod_tags(spec, name)
+
+    for tag in data_list:
+        version_purl = PackageURL(type=purl.type, name=name, version=tag)
+        if purl.version and version_purl.version != purl.version:
+            continue
+
+        gh_repo_owner = None
+        gh_repo_name = name
+        podspec_api_url = f"https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs/{hashed_path}/{name}/{tag}/{name}.podspec.json"
+        podspec_api_response = get_response(podspec_api_url)
+        podspec_homepage = podspec_api_response.get("homepage")
+
+        if podspec_homepage.startswith("https://github.com/"):
+            podspec_homepage_remove_gh_prefix = podspec_homepage.replace("https://github.com/", "")
+            podspec_homepage_split = podspec_homepage_remove_gh_prefix.split("/")
+            gh_repo_owner = podspec_homepage_split[0]
+            gh_repo_name = podspec_homepage_split[-1]
+
+        tag_pkg = construct_cocoapods_package(
+            version_purl, name, hashed_path, cocoapods_org_url, gh_repo_owner, gh_repo_name, tag
+        )
+
+        yield tag_pkg
+
+        if purl.version:
+            break
 
 
 @dataclasses.dataclass
