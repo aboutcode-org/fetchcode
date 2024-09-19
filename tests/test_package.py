@@ -109,7 +109,7 @@ def test_rubygems_packages(mock_get):
         mock_get_01_list_of_versions,
         mock_get_02_1st_in_list,
         mock_get_03_2nd_in_list,
-        mock_get_04_3rd_in_list
+        mock_get_04_3rd_in_list,
     ]
 
     packages = list(info(purl))
@@ -140,16 +140,20 @@ def test_cocoapods_packages(
     mock_get_hashed_path.return_value = "5/5/b"
 
     mock_get_cocoapod_tags.return_value = [
-        '0.1.5',
-        '0.1.4',
-        '0.1.3',
-        '0.1.2',
-        '0.1.1',
-        '0.1.0',
+        "0.1.5",
+        "0.1.4",
+        "0.1.3",
+        "0.1.2",
+        "0.1.1",
+        "0.1.0",
     ]
 
-    mock_get_response.side_effect = file_json("tests/data/cocoapods/mock_get_response_side_effect.json")
-    mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
+    mock_get_response.side_effect = file_json(
+        "tests/data/cocoapods/mock_get_response_side_effect.json"
+    )
+    mock_get_github_rest.return_value = load_json(
+        "tests/data/cocoapods/mock_get_github_rest_return_value.json"
+    )
 
     mock_response = mock.Mock()
     mock_response.status_code = 200
@@ -181,16 +185,20 @@ def test_get_cocoapods_data_from_purl(
     mock_get_hashed_path.return_value = "5/5/b"
 
     mock_get_cocoapod_tags.return_value = [
-        '0.1.5',
-        '0.1.4',
-        '0.1.3',
-        '0.1.2',
-        '0.1.1',
-        '0.1.0',
+        "0.1.5",
+        "0.1.4",
+        "0.1.3",
+        "0.1.2",
+        "0.1.1",
+        "0.1.0",
     ]
 
-    mock_get_response.side_effect = file_json("tests/data/cocoapods/mock_get_response_side_effect.json")
-    mock_get_github_rest.return_value = load_json("tests/data/cocoapods/mock_get_github_rest_return_value.json")
+    mock_get_response.side_effect = file_json(
+        "tests/data/cocoapods/mock_get_response_side_effect.json"
+    )
+    mock_get_github_rest.return_value = load_json(
+        "tests/data/cocoapods/mock_get_github_rest_return_value.json"
+    )
 
     mock_response = mock.Mock()
     mock_response.status_code = 200
@@ -216,7 +224,7 @@ def test_get_cocoapod_tags(mock_get):
     hashed_path_underscore = hashed_path.replace("/", "_")
     file_prefix = "all_pods_versions_"
     spec = f"{api}/{file_prefix}{hashed_path_underscore}.txt"
-    expected_tags = ['0.1.0', '0.1.1', '0.2.0', '0.3.0']
+    expected_tags = ["0.1.0", "0.1.1", "0.2.0", "0.3.0"]
     tags = get_cocoapod_tags(spec, cocoapods_org_pod_name)
     tags = sorted(tags)
     assert tags == expected_tags
@@ -225,16 +233,24 @@ def test_get_cocoapod_tags(mock_get):
 @mock.patch("fetchcode.package_util.utils.get_response")
 @mock.patch("fetchcode.package_util.utils.make_head_request")
 @mock.patch("fetchcode.package_util.utils.get_github_rest")
-def test_construct_cocoapods_package(mock_get_github_rest, mock_make_head_request, mock_get_response):
-    mock_get_github_rest.return_value = "Failed to fetch: https://api.github.com/repos/KevalPatel94/KVLLibraries"
+def test_construct_cocoapods_package(
+    mock_get_github_rest, mock_make_head_request, mock_get_response
+):
+    mock_get_github_rest.return_value = (
+        "Failed to fetch: https://api.github.com/repos/KevalPatel94/KVLLibraries"
+    )
 
     mock_response = mock.Mock()
     mock_response.status_code = 404
     mock_make_head_request.return_value = mock_response
 
-    mock_get_response.return_value = load_json("tests/data/cocoapods/get_response_kvllibraries.json")
+    mock_get_response.return_value = load_json(
+        "tests/data/cocoapods/get_response_kvllibraries.json"
+    )
 
-    expected_construct_cocoapods_package = load_json("tests/data/cocoapods/expected_construct_cocoapods_package.json")
+    expected_construct_cocoapods_package = load_json(
+        "tests/data/cocoapods/expected_construct_cocoapods_package.json"
+    )
 
     purl = PackageURL.from_string("pkg:cocoapods/KVLLibraries")
     name = "KVLLibraries"
@@ -244,7 +260,9 @@ def test_construct_cocoapods_package(mock_get_github_rest, mock_make_head_reques
     gh_repo_name = "KVLLibraries"
     tag = "1.1.0"
 
-    actual_output = construct_cocoapods_package(purl, name, hashed_path, repository_homepage_url, gh_repo_owner, gh_repo_name, tag)
+    actual_output = construct_cocoapods_package(
+        purl, name, hashed_path, repository_homepage_url, gh_repo_owner, gh_repo_name, tag
+    )
     actual = json.dumps(actual_output.to_dict())
     expected = json.dumps(expected_construct_cocoapods_package)
     assert actual == expected

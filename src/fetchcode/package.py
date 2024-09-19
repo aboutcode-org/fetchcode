@@ -390,7 +390,7 @@ def get_cocoapods_data_from_purl(purl):
         gh_repo_name = name
         podspec_api_url = f"https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs/{hashed_path}/{name}/{tag}/{name}.podspec.json"
         podspec_api_response = get_response(podspec_api_url)
-        podspec_homepage = podspec_api_response.get('homepage')
+        podspec_homepage = podspec_api_response.get("homepage")
 
         if podspec_homepage.startswith("https://github.com/"):
             podspec_homepage_remove_gh_prefix = podspec_homepage.replace("https://github.com/", "")
@@ -399,13 +399,7 @@ def get_cocoapods_data_from_purl(purl):
             gh_repo_name = podspec_homepage_split[-1]
 
         tag_pkg = construct_cocoapods_package(
-            version_purl,
-            name,
-            hashed_path,
-            cocoapods_org_url,
-            gh_repo_owner,
-            gh_repo_name,
-            tag
+            version_purl, name, hashed_path, cocoapods_org_url, gh_repo_owner, gh_repo_name, tag
         )
 
         yield tag_pkg

@@ -291,7 +291,6 @@ UDHCP_RELEASES = json.loads((DATA / "udhcp_releases.json").read_text(encoding="U
 IPKG_RELEASES = json.loads((DATA / "ipkg_releases.json").read_text(encoding="UTF-8"))
 
 
-
 def get_cocoapod_tags(spec, name):
     try:
         response = utils.get_text_response(spec)
@@ -309,13 +308,7 @@ def get_cocoapod_tags(spec, name):
 
 
 def construct_cocoapods_package(
-    purl,
-    name,
-    hashed_path,
-    cocoapods_org_url,
-    gh_repo_owner,
-    gh_repo_name,
-    tag
+    purl, name, hashed_path, cocoapods_org_url, gh_repo_owner, gh_repo_name, tag
 ):
     name = name
     homepage_url = None
@@ -394,4 +387,3 @@ def construct_cocoapods_package(
     purl_pkg.version = tag
 
     return purl_pkg
-

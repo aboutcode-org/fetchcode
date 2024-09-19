@@ -238,23 +238,23 @@ class BasePackage(BaseModel):
         ).to_string()
 
     repository_homepage_url = String(
-        label='package repository homepage URL.',
-        help='URL to the page for this package in its package repository. '
-             'This is typically different from the package homepage URL proper.'
-     )
+        label="package repository homepage URL.",
+        help="URL to the page for this package in its package repository. "
+        "This is typically different from the package homepage URL proper.",
+    )
 
     repository_download_url = String(
-        label='package repository download URL.',
-        help='download URL to download the actual archive of code of this '
-             'package in its package repository. '
-             'This may be different from the actual download URL.'
-     )
+        label="package repository download URL.",
+        help="download URL to download the actual archive of code of this "
+        "package in its package repository. "
+        "This may be different from the actual download URL.",
+    )
 
     api_data_url = String(
-        label='package repository API URL.',
-        help='API URL to obtain structured data for this package such as the '
-             'URL to a JSON or XML api its package repository.'
-     )
+        label="package repository API URL.",
+        help="API URL to obtain structured data for this package such as the "
+        "URL to a JSON or XML api its package repository.",
+    )
 
     def set_purl(self, package_url):
         """
@@ -279,11 +279,11 @@ class BasePackage(BaseModel):
         Return an OrderedDict of primitive Python types.
         """
         mapping = attr.asdict(self, dict_factory=OrderedDict)
-        if not kwargs.get('exclude_properties'):
-            mapping['purl'] = self.purl
-            mapping['repository_homepage_url'] = self.repository_homepage_url
-            mapping['repository_download_url'] = self.repository_download_url
-            mapping['api_data_url'] = self.api_data_url
+        if not kwargs.get("exclude_properties"):
+            mapping["purl"] = self.purl
+            mapping["repository_homepage_url"] = self.repository_homepage_url
+            mapping["repository_download_url"] = self.repository_download_url
+            mapping["api_data_url"] = self.api_data_url
         if self.qualifiers:
             mapping["qualifiers"] = normalize_qualifiers(self.qualifiers, encode=False)
         return mapping
