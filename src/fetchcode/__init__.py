@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 #
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -14,10 +14,10 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-from ftplib import FTP
-from mimetypes import MimeTypes
 import os
 import tempfile
+from ftplib import FTP
+from mimetypes import MimeTypes
 from urllib.parse import urlparse
 
 import requests
@@ -40,15 +40,15 @@ class Response:
 
 def fetch_http(url, location):
     """
-    Return a `Response` object built from fetching the content at a HTTP/HTTPS based `url` URL string
-    saving the content in a file at `location`   
+    Return a `Response` object built from fetching the content at a HTTP/HTTPS based
+    `url` URL string saving the content in a file at `location`
     """
     r = requests.get(url)
-    with open(location, 'wb') as f:
+    with open(location, "wb") as f:
         f.write(r.content)
 
-    content_type = r.headers.get('content-type')
-    size = r.headers.get('content-length')
+    content_type = r.headers.get("content-type")
+    size = r.headers.get("content-length")
     size = int(size) if size else None
 
     resp = Response(location=location, content_type=content_type, size=size, url=url)
@@ -59,7 +59,7 @@ def fetch_http(url, location):
 def fetch_ftp(url, location):
     """
     Return a `Response` object built from fetching the content at a FTP based `url` URL string
-    saving the content in a file at `location`  
+    saving the content in a file at `location`
     """
     url_parts = urlparse(url)
 
@@ -79,8 +79,8 @@ def fetch_ftp(url, location):
         content_type = None
 
     ftp.cwd(dir)
-    file = 'RETR {}'.format(file)
-    with open(location, 'wb') as f:
+    file = "RETR {}".format(file)
+    with open(location, "wb") as f:
         ftp.retrbinary(file, f.write)
     ftp.close()
 
@@ -90,7 +90,8 @@ def fetch_ftp(url, location):
 
 def fetch(url):
     """
-    Return a `Response` object built from fetching the content at the `url` URL string and store content at a temporary file.
+    Return a `Response` object built from fetching the content at the `url` URL string and
+    store content at a temporary file.
     """
 
     temp = tempfile.NamedTemporaryFile(delete=False)
@@ -99,9 +100,9 @@ def fetch(url):
     url_parts = urlparse(url)
     scheme = url_parts.scheme
 
-    fetchers = {'ftp': fetch_ftp, 'http': fetch_http, 'https': fetch_http}
+    fetchers = {"ftp": fetch_ftp, "http": fetch_http, "https": fetch_http}
 
     if scheme in fetchers:
         return fetchers.get(scheme)(url, location)
 
-    raise Exception('Not a supported/known scheme.')
+    raise Exception("Not a supported/known scheme.")

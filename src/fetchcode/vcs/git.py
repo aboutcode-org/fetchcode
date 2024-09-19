@@ -1,5 +1,5 @@
 # fetchcode is a free software tool from nexB Inc. and others.
-# Visit https://github.com/nexB/fetchcode for support and download.
+# Visit https://github.com/aboutcode-org/fetchcode for support and download.
 #
 # Copyright (c) nexB Inc. and others. All rights reserved.
 # http://nexb.com and http://aboutcode.org
@@ -18,10 +18,10 @@ import os
 import tempfile
 from urllib.parse import urlparse
 
-from fetchcode.vcs.pip._internal.vcs.git import Git
+from fetchcode.vcs import VCSResponse
 from fetchcode.vcs.pip._internal.utils import misc
 from fetchcode.vcs.pip._internal.vcs import vcs
-from fetchcode.vcs import VCSResponse
+from fetchcode.vcs.pip._internal.vcs.git import Git
 
 
 def fetch_via_git(url):
