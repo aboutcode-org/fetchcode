@@ -4,12 +4,12 @@ import shlex
 import subprocess
 from typing import Any, Callable, Iterable, List, Literal, Mapping, Optional, Union
 
-from pip._vendor.rich.markup import escape
+from fetchcode.vcs.pip._vendor.rich.markup import escape
 
-from pip._internal.cli.spinners import SpinnerInterface, open_spinner
-from pip._internal.exceptions import InstallationSubprocessError
-from pip._internal.utils.logging import VERBOSE, subprocess_logger
-from pip._internal.utils.misc import HiddenText
+from fetchcode.vcs.pip._internal.cli.spinners import SpinnerInterface, open_spinner
+from fetchcode.vcs.pip._internal.exceptions import InstallationSubprocessError
+from fetchcode.vcs.pip._internal.utils.logging import VERBOSE, subprocess_logger
+from fetchcode.vcs.pip._internal.utils.misc import HiddenText
 
 CommandArgs = List[Union[str, HiddenText]]
 

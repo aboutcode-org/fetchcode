@@ -920,9 +920,9 @@ class Table(JupyterMixin):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich.console import Console
-    from pip._vendor.rich.highlighter import ReprHighlighter
-    from pip._vendor.rich.table import Table as Table
+    from fetchcode.vcs.pip._vendor.rich.console import Console
+    from fetchcode.vcs.pip._vendor.rich.highlighter import ReprHighlighter
+    from fetchcode.vcs.pip._vendor.rich.table import Table as Table
 
     from ._timer import timer
 

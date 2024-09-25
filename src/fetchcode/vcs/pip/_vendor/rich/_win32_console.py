@@ -16,8 +16,8 @@ import time
 from ctypes import Structure, byref, wintypes
 from typing import IO, NamedTuple, Type, cast
 
-from pip._vendor.rich.color import ColorSystem
-from pip._vendor.rich.style import Style
+from fetchcode.vcs.pip._vendor.rich.color import ColorSystem
+from fetchcode.vcs.pip._vendor.rich.style import Style
 
 STDOUT = -11
 ENABLE_VIRTUAL_TERMINAL_PROCESSING = 4
@@ -576,7 +576,7 @@ class LegacyWindowsTerm:
 if __name__ == "__main__":
     handle = GetStdHandle()
 
-    from pip._vendor.rich.console import Console
+    from fetchcode.vcs.pip._vendor.rich.console import Console
 
     console = Console()
 

@@ -20,9 +20,9 @@ from typing import (
     Union,
 )
 
-from pip._internal.cli.spinners import SpinnerInterface
-from pip._internal.exceptions import BadCommand, InstallationError
-from pip._internal.utils.misc import (
+from fetchcode.vcs.pip._internal.cli.spinners import SpinnerInterface
+from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
+from fetchcode.vcs.pip._internal.utils.misc import (
     HiddenText,
     ask_path_exists,
     backup_dir,
@@ -32,7 +32,7 @@ from pip._internal.utils.misc import (
     is_installable_dir,
     rmtree,
 )
-from pip._internal.utils.subprocess import (
+from fetchcode.vcs.pip._internal.utils.subprocess import (
     CommandArgs,
     call_subprocess,
     format_command_args,

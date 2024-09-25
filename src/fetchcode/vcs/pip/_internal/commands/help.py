@@ -1,9 +1,9 @@
 from optparse import Values
 from typing import List
 
-from pip._internal.cli.base_command import Command
-from pip._internal.cli.status_codes import SUCCESS
-from pip._internal.exceptions import CommandError
+from fetchcode.vcs.pip._internal.cli.base_command import Command
+from fetchcode.vcs.pip._internal.cli.status_codes import SUCCESS
+from fetchcode.vcs.pip._internal.exceptions import CommandError
 
 
 class HelpCommand(Command):
@@ -14,7 +14,7 @@ class HelpCommand(Command):
     ignore_require_venv = True
 
     def run(self, options: Values, args: List[str]) -> int:
-        from pip._internal.commands import (
+        from fetchcode.vcs.pip._internal.commands import (
             commands_dict,
             create_command,
             get_similar_commands,

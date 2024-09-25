@@ -11,14 +11,14 @@ import zipfile
 from typing import Iterable, List, Optional
 from zipfile import ZipInfo
 
-from pip._internal.exceptions import InstallationError
-from pip._internal.utils.filetypes import (
+from fetchcode.vcs.pip._internal.exceptions import InstallationError
+from fetchcode.vcs.pip._internal.utils.filetypes import (
     BZ2_EXTENSIONS,
     TAR_EXTENSIONS,
     XZ_EXTENSIONS,
     ZIP_EXTENSIONS,
 )
-from pip._internal.utils.misc import ensure_dir
+from fetchcode.vcs.pip._internal.utils.misc import ensure_dir
 
 logger = logging.getLogger(__name__)
 

@@ -17,14 +17,14 @@ import os
 import sys
 from typing import Any, Dict, Iterable, List, NewType, Optional, Tuple
 
-from pip._internal.exceptions import (
+from fetchcode.vcs.pip._internal.exceptions import (
     ConfigurationError,
     ConfigurationFileCouldNotBeLoaded,
 )
-from pip._internal.utils import appdirs
-from pip._internal.utils.compat import WINDOWS
-from pip._internal.utils.logging import getLogger
-from pip._internal.utils.misc import ensure_dir, enum
+from fetchcode.vcs.pip._internal.utils import appdirs
+from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
+from fetchcode.vcs.pip._internal.utils.logging import getLogger
+from fetchcode.vcs.pip._internal.utils.misc import ensure_dir, enum
 
 RawConfigParser = configparser.RawConfigParser  # Shorthand
 Kind = NewType("Kind", str)

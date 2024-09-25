@@ -5,8 +5,8 @@ import os
 from types import TracebackType
 from typing import Dict, Generator, Optional, Type, Union
 
-from pip._internal.req.req_install import InstallRequirement
-from pip._internal.utils.temp_dir import TempDirectory
+from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
+from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
 
 logger = logging.getLogger(__name__)
 

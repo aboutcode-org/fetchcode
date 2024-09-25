@@ -37,28 +37,28 @@ from typing import (
 )
 from zipfile import ZipFile, ZipInfo
 
-from pip._vendor.distlib.scripts import ScriptMaker
-from pip._vendor.distlib.util import get_export_entry
-from pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.distlib.scripts import ScriptMaker
+from fetchcode.vcs.pip._vendor.distlib.util import get_export_entry
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
 
-from pip._internal.exceptions import InstallationError
-from pip._internal.locations import get_major_minor_version
-from pip._internal.metadata import (
+from fetchcode.vcs.pip._internal.exceptions import InstallationError
+from fetchcode.vcs.pip._internal.locations import get_major_minor_version
+from fetchcode.vcs.pip._internal.metadata import (
     BaseDistribution,
     FilesystemWheel,
     get_wheel_distribution,
 )
-from pip._internal.models.direct_url import DIRECT_URL_METADATA_NAME, DirectUrl
-from pip._internal.models.scheme import SCHEME_KEYS, Scheme
-from pip._internal.utils.filesystem import adjacent_tmp_file, replace
-from pip._internal.utils.misc import StreamWrapper, ensure_dir, hash_file, partition
-from pip._internal.utils.unpacking import (
+from fetchcode.vcs.pip._internal.models.direct_url import DIRECT_URL_METADATA_NAME, DirectUrl
+from fetchcode.vcs.pip._internal.models.scheme import SCHEME_KEYS, Scheme
+from fetchcode.vcs.pip._internal.utils.filesystem import adjacent_tmp_file, replace
+from fetchcode.vcs.pip._internal.utils.misc import StreamWrapper, ensure_dir, hash_file, partition
+from fetchcode.vcs.pip._internal.utils.unpacking import (
     current_umask,
     is_within_directory,
     set_extracted_file_to_default_mode_plus_executable,
     zip_item_is_executable,
 )
-from pip._internal.utils.wheel import parse_wheel
+from fetchcode.vcs.pip._internal.utils.wheel import parse_wheel
 
 if TYPE_CHECKING:
 

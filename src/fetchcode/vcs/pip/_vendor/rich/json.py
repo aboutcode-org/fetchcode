@@ -122,7 +122,7 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    from pip._vendor.rich.console import Console
+    from fetchcode.vcs.pip._vendor.rich.console import Console
 
     console = Console()
     error_console = Console(stderr=True)

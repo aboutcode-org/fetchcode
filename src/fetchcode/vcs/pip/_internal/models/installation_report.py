@@ -1,9 +1,9 @@
 from typing import Any, Dict, Sequence
 
-from pip._vendor.packaging.markers import default_environment
+from fetchcode.vcs.pip._vendor.packaging.markers import default_environment
 
 from pip import __version__
-from pip._internal.req.req_install import InstallRequirement
+from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
 
 
 class InstallationReport:

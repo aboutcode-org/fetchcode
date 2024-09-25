@@ -2,7 +2,7 @@ import functools
 import sys
 from typing import Callable, Generator, Iterable, Iterator, Optional, Tuple
 
-from pip._vendor.rich.progress import (
+from fetchcode.vcs.pip._vendor.rich.progress import (
     BarColumn,
     DownloadColumn,
     FileSizeColumn,
@@ -15,8 +15,8 @@ from pip._vendor.rich.progress import (
     TransferSpeedColumn,
 )
 
-from pip._internal.cli.spinners import RateLimiter
-from pip._internal.utils.logging import get_indentation
+from fetchcode.vcs.pip._internal.cli.spinners import RateLimiter
+from fetchcode.vcs.pip._internal.utils.logging import get_indentation
 
 DownloadProgressRenderer = Callable[[Iterable[bytes]], Iterator[bytes]]
 

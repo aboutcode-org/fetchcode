@@ -2,9 +2,9 @@ import logging
 from collections import OrderedDict
 from typing import Dict, List
 
-from pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
 
-from pip._internal.req.req_install import InstallRequirement
+from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
 
 logger = logging.getLogger(__name__)
 

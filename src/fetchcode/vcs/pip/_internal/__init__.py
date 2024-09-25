@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from pip._internal.utils import _log
+from fetchcode.vcs.pip._internal.utils import _log
 
 # init_logging() must be called before any call to logging.getLogger()
 # which happens at import of most modules.
@@ -13,6 +13,6 @@ def main(args: Optional[List[str]] = None) -> int:
 
     For additional details, see https://github.com/pypa/pip/issues/7498.
     """
-    from pip._internal.utils.entrypoints import _wrapper
+    from fetchcode.vcs.pip._internal.utils.entrypoints import _wrapper
 
     return _wrapper(args)

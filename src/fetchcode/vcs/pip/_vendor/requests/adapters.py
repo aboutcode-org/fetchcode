@@ -11,23 +11,23 @@ import socket  # noqa: F401
 import typing
 import warnings
 
-from pip._vendor.urllib3.exceptions import ClosedPoolError, ConnectTimeoutError
-from pip._vendor.urllib3.exceptions import HTTPError as _HTTPError
-from pip._vendor.urllib3.exceptions import InvalidHeader as _InvalidHeader
-from pip._vendor.urllib3.exceptions import (
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import ClosedPoolError, ConnectTimeoutError
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import HTTPError as _HTTPError
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import InvalidHeader as _InvalidHeader
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import (
     LocationValueError,
     MaxRetryError,
     NewConnectionError,
     ProtocolError,
 )
-from pip._vendor.urllib3.exceptions import ProxyError as _ProxyError
-from pip._vendor.urllib3.exceptions import ReadTimeoutError, ResponseError
-from pip._vendor.urllib3.exceptions import SSLError as _SSLError
-from pip._vendor.urllib3.poolmanager import PoolManager, proxy_from_url
-from pip._vendor.urllib3.util import Timeout as TimeoutSauce
-from pip._vendor.urllib3.util import parse_url
-from pip._vendor.urllib3.util.retry import Retry
-from pip._vendor.urllib3.util.ssl_ import create_urllib3_context
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import ProxyError as _ProxyError
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import ReadTimeoutError, ResponseError
+from fetchcode.vcs.pip._vendor.urllib3.exceptions import SSLError as _SSLError
+from fetchcode.vcs.pip._vendor.urllib3.poolmanager import PoolManager, proxy_from_url
+from fetchcode.vcs.pip._vendor.urllib3.util import Timeout as TimeoutSauce
+from fetchcode.vcs.pip._vendor.urllib3.util import parse_url
+from fetchcode.vcs.pip._vendor.urllib3.util.retry import Retry
+from fetchcode.vcs.pip._vendor.urllib3.util.ssl_ import create_urllib3_context
 
 from .auth import _basic_auth_str
 from .compat import basestring, urlparse
@@ -57,7 +57,7 @@ from .utils import (
 )
 
 try:
-    from pip._vendor.urllib3.contrib.socks import SOCKSProxyManager
+    from fetchcode.vcs.pip._vendor.urllib3.contrib.socks import SOCKSProxyManager
 except ImportError:
 
     def SOCKSProxyManager(*args, **kwargs):

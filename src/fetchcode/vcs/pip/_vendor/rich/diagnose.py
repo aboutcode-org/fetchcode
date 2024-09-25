@@ -1,10 +1,10 @@
 import os
 import platform
 
-from pip._vendor.rich import inspect
-from pip._vendor.rich.console import Console, get_windows_console_features
-from pip._vendor.rich.panel import Panel
-from pip._vendor.rich.pretty import Pretty
+from fetchcode.vcs.pip._vendor.rich import inspect
+from fetchcode.vcs.pip._vendor.rich.console import Console, get_windows_console_features
+from fetchcode.vcs.pip._vendor.rich.panel import Panel
+from fetchcode.vcs.pip._vendor.rich.pretty import Pretty
 
 
 def report() -> None:  # pragma: no cover

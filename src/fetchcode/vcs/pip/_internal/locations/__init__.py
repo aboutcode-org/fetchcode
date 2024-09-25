@@ -6,10 +6,10 @@ import sys
 import sysconfig
 from typing import Any, Dict, Generator, Optional, Tuple
 
-from pip._internal.models.scheme import SCHEME_KEYS, Scheme
-from pip._internal.utils.compat import WINDOWS
-from pip._internal.utils.deprecation import deprecated
-from pip._internal.utils.virtualenv import running_under_virtualenv
+from fetchcode.vcs.pip._internal.models.scheme import SCHEME_KEYS, Scheme
+from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
+from fetchcode.vcs.pip._internal.utils.deprecation import deprecated
+from fetchcode.vcs.pip._internal.utils.virtualenv import running_under_virtualenv
 
 from . import _sysconfig
 from .base import (

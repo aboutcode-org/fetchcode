@@ -8,9 +8,9 @@
     :license: BSD, see LICENSE for details.
 """
 
-from pip._vendor.pygments.plugin import find_plugin_styles
-from pip._vendor.pygments.util import ClassNotFound
-from pip._vendor.pygments.styles._mapping import STYLES
+from fetchcode.vcs.pip._vendor.pygments.plugin import find_plugin_styles
+from fetchcode.vcs.pip._vendor.pygments.util import ClassNotFound
+from fetchcode.vcs.pip._vendor.pygments.styles._mapping import STYLES
 
 #: A dictionary of built-in styles, mapping style names to
 #: ``'submodule::classname'`` strings.

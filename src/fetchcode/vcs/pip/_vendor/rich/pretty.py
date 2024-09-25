@@ -25,7 +25,7 @@ from typing import (
     Union,
 )
 
-from pip._vendor.rich.repr import RichReprResult
+from fetchcode.vcs.pip._vendor.rich.repr import RichReprResult
 
 try:
     import attr as _attr_module
@@ -185,7 +185,7 @@ def install(
         expand_all (bool, optional): Expand all containers. Defaults to False.
         max_frames (int): Maximum number of frames to show in a traceback, 0 for no maximum. Defaults to 100.
     """
-    from pip._vendor.rich import get_console
+    from fetchcode.vcs.pip._vendor.rich import get_console
 
     console = console or get_console()
     assert console is not None
@@ -984,7 +984,7 @@ if __name__ == "__main__":  # pragma: no cover
     }
     data["foo"].append(data)  # type: ignore[attr-defined]
 
-    from pip._vendor.rich import print
+    from fetchcode.vcs.pip._vendor.rich import print
 
     print(Pretty(data, indent_guides=True, max_string=20))
 

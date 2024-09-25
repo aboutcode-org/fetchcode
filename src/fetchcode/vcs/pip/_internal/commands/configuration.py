@@ -4,17 +4,17 @@ import subprocess
 from optparse import Values
 from typing import Any, List, Optional
 
-from pip._internal.cli.base_command import Command
-from pip._internal.cli.status_codes import ERROR, SUCCESS
-from pip._internal.configuration import (
+from fetchcode.vcs.pip._internal.cli.base_command import Command
+from fetchcode.vcs.pip._internal.cli.status_codes import ERROR, SUCCESS
+from fetchcode.vcs.pip._internal.configuration import (
     Configuration,
     Kind,
     get_configuration_files,
     kinds,
 )
-from pip._internal.exceptions import PipError
-from pip._internal.utils.logging import indent_log
-from pip._internal.utils.misc import get_prog, write_output
+from fetchcode.vcs.pip._internal.exceptions import PipError
+from fetchcode.vcs.pip._internal.utils.logging import indent_log
+from fetchcode.vcs.pip._internal.utils.misc import get_prog, write_output
 
 logger = logging.getLogger(__name__)
 

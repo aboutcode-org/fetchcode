@@ -2,7 +2,7 @@ import importlib.metadata
 import os
 from typing import Any, Optional, Protocol, Tuple, cast
 
-from pip._vendor.packaging.utils import NormalizedName, canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.utils import NormalizedName, canonicalize_name
 
 
 class BadMetadata(ValueError):

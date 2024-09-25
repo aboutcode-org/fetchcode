@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Callable, Dict, Iterable, List, Union
 if sys.version_info >= (3, 8):
     from typing import Final
 else:
-    from pip._vendor.typing_extensions import Final  # pragma: no cover
+    from fetchcode.vcs.pip._vendor.typing_extensions import Final  # pragma: no cover
 
 from .segment import ControlCode, ControlType, Segment
 
@@ -215,7 +215,7 @@ def escape_control_codes(
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich.console import Console
+    from fetchcode.vcs.pip._vendor.rich.console import Console
 
     console = Console()
     console.print("Look at the title of your terminal window ^")

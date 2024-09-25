@@ -2,7 +2,7 @@ from collections import defaultdict
 from logging import getLogger
 from typing import Any, DefaultDict
 
-from pip._vendor.resolvelib.reporters import BaseReporter
+from fetchcode.vcs.pip._vendor.resolvelib.reporters import BaseReporter
 
 from .base import Candidate, Requirement
 

@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 from typing import FrozenSet, Iterable, Optional, Tuple
 
-from pip._vendor.packaging.specifiers import SpecifierSet
-from pip._vendor.packaging.utils import NormalizedName
-from pip._vendor.packaging.version import Version
+from fetchcode.vcs.pip._vendor.packaging.specifiers import SpecifierSet
+from fetchcode.vcs.pip._vendor.packaging.utils import NormalizedName
+from fetchcode.vcs.pip._vendor.packaging.version import Version
 
-from pip._internal.models.link import Link, links_equivalent
-from pip._internal.req.req_install import InstallRequirement
-from pip._internal.utils.hashes import Hashes
+from fetchcode.vcs.pip._internal.models.link import Link, links_equivalent
+from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
+from fetchcode.vcs.pip._internal.utils.hashes import Hashes
 
 CandidateLookup = Tuple[Optional["Candidate"], Optional[InstallRequirement]]
 

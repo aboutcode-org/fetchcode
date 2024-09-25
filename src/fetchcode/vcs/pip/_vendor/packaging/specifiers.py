@@ -4,8 +4,8 @@
 """
 .. testsetup::
 
-    from pip._vendor.packaging.specifiers import Specifier, SpecifierSet, InvalidSpecifier
-    from pip._vendor.packaging.version import Version
+    from fetchcode.vcs.pip._vendor.packaging.specifiers import Specifier, SpecifierSet, InvalidSpecifier
+    from fetchcode.vcs.pip._vendor.packaging.version import Version
 """
 
 from __future__ import annotations

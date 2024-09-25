@@ -1,8 +1,8 @@
 from typing import Optional
 
-from pip._internal.distributions.base import AbstractDistribution
-from pip._internal.index.package_finder import PackageFinder
-from pip._internal.metadata import BaseDistribution
+from fetchcode.vcs.pip._internal.distributions.base import AbstractDistribution
+from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
+from fetchcode.vcs.pip._internal.metadata import BaseDistribution
 
 
 class InstalledDistribution(AbstractDistribution):

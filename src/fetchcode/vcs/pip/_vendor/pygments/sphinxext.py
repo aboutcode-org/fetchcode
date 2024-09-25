@@ -92,8 +92,8 @@ class PygmentsDoc(Directive):
 
         The columns are the lexer name, the extensions handled by this lexer
         (or "None"), the aliases and a link to the lexer class."""
-        from pip._vendor.pygments.lexers._mapping import LEXERS
-        from pip._vendor.pygments.lexers import find_lexer_class
+        from fetchcode.vcs.pip._vendor.pygments.lexers._mapping import LEXERS
+        from fetchcode.vcs.pip._vendor.pygments.lexers import find_lexer_class
         out = []
 
         table = []
@@ -148,8 +148,8 @@ class PygmentsDoc(Directive):
         return '\n'.join(out)
 
     def document_lexers(self):
-        from pip._vendor.pygments.lexers._mapping import LEXERS
-        from pip._vendor import pygments
+        from fetchcode.vcs.pip._vendor.pygments.lexers._mapping import LEXERS
+        from fetchcode.vcs.pip._vendor import pygments
         import inspect
         import pathlib
 
@@ -213,7 +213,7 @@ class PygmentsDoc(Directive):
         return ''.join(out)
 
     def document_formatters(self):
-        from pip._vendor.pygments.formatters import FORMATTERS
+        from fetchcode.vcs.pip._vendor.pygments.formatters import FORMATTERS
 
         out = []
         for classname, data in sorted(FORMATTERS.items(), key=lambda x: x[0]):
@@ -231,7 +231,7 @@ class PygmentsDoc(Directive):
         return ''.join(out)
 
     def document_filters(self):
-        from pip._vendor.pygments.filters import FILTERS
+        from fetchcode.vcs.pip._vendor.pygments.filters import FILTERS
 
         out = []
         for name, cls in FILTERS.items():

@@ -5,16 +5,16 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, Collection
 
-from pip._vendor.cachecontrol.adapter import CacheControlAdapter
-from pip._vendor.cachecontrol.cache import DictCache
+from fetchcode.vcs.pip._vendor.cachecontrol.adapter import CacheControlAdapter
+from fetchcode.vcs.pip._vendor.cachecontrol.cache import DictCache
 
 if TYPE_CHECKING:
-    from pip._vendor import requests
+    from fetchcode.vcs.pip._vendor import requests
 
-    from pip._vendor.cachecontrol.cache import BaseCache
-    from pip._vendor.cachecontrol.controller import CacheController
-    from pip._vendor.cachecontrol.heuristics import BaseHeuristic
-    from pip._vendor.cachecontrol.serialize import Serializer
+    from fetchcode.vcs.pip._vendor.cachecontrol.cache import BaseCache
+    from fetchcode.vcs.pip._vendor.cachecontrol.controller import CacheController
+    from fetchcode.vcs.pip._vendor.cachecontrol.heuristics import BaseHeuristic
+    from fetchcode.vcs.pip._vendor.cachecontrol.serialize import Serializer
 
 
 def CacheControl(

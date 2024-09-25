@@ -4,30 +4,30 @@ import logging
 import os
 from typing import TYPE_CHECKING, Dict, List, Optional, Set, Tuple, cast
 
-from pip._vendor.packaging.utils import canonicalize_name
-from pip._vendor.resolvelib import BaseReporter, ResolutionImpossible
-from pip._vendor.resolvelib import Resolver as RLResolver
-from pip._vendor.resolvelib.structs import DirectedGraph
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.resolvelib import BaseReporter, ResolutionImpossible
+from fetchcode.vcs.pip._vendor.resolvelib import Resolver as RLResolver
+from fetchcode.vcs.pip._vendor.resolvelib.structs import DirectedGraph
 
-from pip._internal.cache import WheelCache
-from pip._internal.index.package_finder import PackageFinder
-from pip._internal.operations.prepare import RequirementPreparer
-from pip._internal.req.constructors import install_req_extend_extras
-from pip._internal.req.req_install import InstallRequirement
-from pip._internal.req.req_set import RequirementSet
-from pip._internal.resolution.base import BaseResolver, InstallRequirementProvider
-from pip._internal.resolution.resolvelib.provider import PipProvider
-from pip._internal.resolution.resolvelib.reporter import (
+from fetchcode.vcs.pip._internal.cache import WheelCache
+from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
+from fetchcode.vcs.pip._internal.operations.prepare import RequirementPreparer
+from fetchcode.vcs.pip._internal.req.constructors import install_req_extend_extras
+from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
+from fetchcode.vcs.pip._internal.req.req_set import RequirementSet
+from fetchcode.vcs.pip._internal.resolution.base import BaseResolver, InstallRequirementProvider
+from fetchcode.vcs.pip._internal.resolution.resolvelib.provider import PipProvider
+from fetchcode.vcs.pip._internal.resolution.resolvelib.reporter import (
     PipDebuggingReporter,
     PipReporter,
 )
-from pip._internal.utils.packaging import get_requirement
+from fetchcode.vcs.pip._internal.utils.packaging import get_requirement
 
 from .base import Candidate, Requirement
 from .factory import Factory
 
 if TYPE_CHECKING:
-    from pip._vendor.resolvelib.resolvers import Result as RLResult
+    from fetchcode.vcs.pip._vendor.resolvelib.resolvers import Result as RLResult
 
     Result = RLResult[Requirement, Candidate, str]
 

@@ -2096,7 +2096,7 @@ else:
 
         Example::
 
-          from pip._vendor.typing_extensions import LiteralString
+          from fetchcode.vcs.pip._vendor.typing_extensions import LiteralString
 
           def query(sql: LiteralString) -> ...:
               ...
@@ -2141,7 +2141,7 @@ else:
         This can be used to define a function that should never be
         called, or a function that never returns::
 
-            from pip._vendor.typing_extensions import Never
+            from fetchcode.vcs.pip._vendor.typing_extensions import Never
 
             def never_call_me(arg: Never) -> None:
                 pass
@@ -2616,7 +2616,7 @@ else:  # <=3.11
 
         Example:
 
-            from pip._vendor.typing_extensions import dataclass_transform
+            from fetchcode.vcs.pip._vendor.typing_extensions import dataclass_transform
 
             _T = TypeVar("_T")
 
@@ -3291,7 +3291,7 @@ else:
         Examples::
 
             from typing import TypeVar, Generic
-            from pip._vendor.typing_extensions import NamedTuple, TypedDict
+            from fetchcode.vcs.pip._vendor.typing_extensions import NamedTuple, TypedDict
 
             T = TypeVar("T")
             class Foo(Generic[T]): ...

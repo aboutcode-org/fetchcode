@@ -20,11 +20,11 @@ from typing import (
     Union,
 )
 
-from pip._vendor.pygments.lexers import guess_lexer_for_filename
-from pip._vendor.pygments.token import Comment, Keyword, Name, Number, Operator, String
-from pip._vendor.pygments.token import Text as TextToken
-from pip._vendor.pygments.token import Token
-from pip._vendor.pygments.util import ClassNotFound
+from fetchcode.vcs.pip._vendor.pygments.lexers import guess_lexer_for_filename
+from fetchcode.vcs.pip._vendor.pygments.token import Comment, Keyword, Name, Number, Operator, String
+from fetchcode.vcs.pip._vendor.pygments.token import Text as TextToken
+from fetchcode.vcs.pip._vendor.pygments.token import Token
+from fetchcode.vcs.pip._vendor.pygments.util import ClassNotFound
 
 from . import pretty
 from ._loop import loop_last
@@ -392,7 +392,7 @@ class Traceback:
         stacks: List[Stack] = []
         is_cause = False
 
-        from pip._vendor.rich import _IMPORT_CWD
+        from fetchcode.vcs.pip._vendor.rich import _IMPORT_CWD
 
         def safe_str(_object: Any) -> str:
             """Don't allow exceptions from __str__ to propagate."""

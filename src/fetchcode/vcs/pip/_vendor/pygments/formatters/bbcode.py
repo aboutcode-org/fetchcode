@@ -9,8 +9,8 @@
 """
 
 
-from pip._vendor.pygments.formatter import Formatter
-from pip._vendor.pygments.util import get_bool_opt
+from fetchcode.vcs.pip._vendor.pygments.formatter import Formatter
+from fetchcode.vcs.pip._vendor.pygments.util import get_bool_opt
 
 __all__ = ['BBCodeFormatter']
 

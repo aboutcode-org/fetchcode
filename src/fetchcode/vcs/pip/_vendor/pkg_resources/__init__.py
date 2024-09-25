@@ -87,20 +87,20 @@ except ImportError:
     # no write support, probably under GAE
     WRITE_SUPPORT = False
 
-from pip._internal.utils._jaraco_text import (
+from fetchcode.vcs.pip._internal.utils._jaraco_text import (
     yield_lines,
     drop_comment,
     join_continuation,
 )
-from pip._vendor.packaging import markers as _packaging_markers
-from pip._vendor.packaging import requirements as _packaging_requirements
-from pip._vendor.packaging import utils as _packaging_utils
-from pip._vendor.packaging import version as _packaging_version
-from pip._vendor.platformdirs import user_cache_dir as _user_cache_dir
+from fetchcode.vcs.pip._vendor.packaging import markers as _packaging_markers
+from fetchcode.vcs.pip._vendor.packaging import requirements as _packaging_requirements
+from fetchcode.vcs.pip._vendor.packaging import utils as _packaging_utils
+from fetchcode.vcs.pip._vendor.packaging import version as _packaging_version
+from fetchcode.vcs.pip._vendor.platformdirs import user_cache_dir as _user_cache_dir
 
 if TYPE_CHECKING:
     from _typeshed import BytesPath, StrPath, StrOrBytesPath
-    from pip._vendor.typing_extensions import Self
+    from fetchcode.vcs.pip._vendor.typing_extensions import Self
 
 
 # Patch: Remove deprecation warning from vendored pkg_resources.

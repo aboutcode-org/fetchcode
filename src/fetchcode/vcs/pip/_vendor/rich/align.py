@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING, Iterable, Optional
 if sys.version_info >= (3, 8):
     from typing import Literal
 else:
-    from pip._vendor.typing_extensions import Literal  # pragma: no cover
+    from fetchcode.vcs.pip._vendor.typing_extensions import Literal  # pragma: no cover
 
 from .constrain import Constrain
 from .jupyter import JupyterMixin
@@ -288,9 +288,9 @@ class VerticalCenter(JupyterMixin):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich.console import Console, Group
-    from pip._vendor.rich.highlighter import ReprHighlighter
-    from pip._vendor.rich.panel import Panel
+    from fetchcode.vcs.pip._vendor.rich.console import Console, Group
+    from fetchcode.vcs.pip._vendor.rich.highlighter import ReprHighlighter
+    from fetchcode.vcs.pip._vendor.rich.panel import Panel
 
     highlighter = ReprHighlighter()
     console = Console()

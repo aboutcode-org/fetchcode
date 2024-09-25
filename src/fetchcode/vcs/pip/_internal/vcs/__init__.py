@@ -6,7 +6,7 @@ import pip._internal.vcs.bazaar
 import pip._internal.vcs.git
 import pip._internal.vcs.mercurial
 import pip._internal.vcs.subversion  # noqa: F401
-from pip._internal.vcs.versioncontrol import (  # noqa: F401
+from fetchcode.vcs.pip._internal.vcs.versioncontrol import (  # noqa: F401
     RemoteNotFoundError,
     RemoteNotValidError,
     is_url,

@@ -35,8 +35,8 @@ class Styled:
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich import print
-    from pip._vendor.rich.panel import Panel
+    from fetchcode.vcs.pip._vendor.rich import print
+    from fetchcode.vcs.pip._vendor.rich.panel import Panel
 
     panel = Styled(Panel("hello"), "on blue")
     print(panel)

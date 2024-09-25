@@ -8,19 +8,19 @@ import types
 import zlib
 from typing import TYPE_CHECKING, Any, Collection, Mapping
 
-from pip._vendor.requests.adapters import HTTPAdapter
+from fetchcode.vcs.pip._vendor.requests.adapters import HTTPAdapter
 
-from pip._vendor.cachecontrol.cache import DictCache
-from pip._vendor.cachecontrol.controller import PERMANENT_REDIRECT_STATUSES, CacheController
-from pip._vendor.cachecontrol.filewrapper import CallbackFileWrapper
+from fetchcode.vcs.pip._vendor.cachecontrol.cache import DictCache
+from fetchcode.vcs.pip._vendor.cachecontrol.controller import PERMANENT_REDIRECT_STATUSES, CacheController
+from fetchcode.vcs.pip._vendor.cachecontrol.filewrapper import CallbackFileWrapper
 
 if TYPE_CHECKING:
-    from pip._vendor.requests import PreparedRequest, Response
-    from pip._vendor.urllib3 import HTTPResponse
+    from fetchcode.vcs.pip._vendor.requests import PreparedRequest, Response
+    from fetchcode.vcs.pip._vendor.urllib3 import HTTPResponse
 
-    from pip._vendor.cachecontrol.cache import BaseCache
-    from pip._vendor.cachecontrol.heuristics import BaseHeuristic
-    from pip._vendor.cachecontrol.serialize import Serializer
+    from fetchcode.vcs.pip._vendor.cachecontrol.cache import BaseCache
+    from fetchcode.vcs.pip._vendor.cachecontrol.heuristics import BaseHeuristic
+    from fetchcode.vcs.pip._vendor.cachecontrol.serialize import Serializer
 
 
 class CacheControlAdapter(HTTPAdapter):

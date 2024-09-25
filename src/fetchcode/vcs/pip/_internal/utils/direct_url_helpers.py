@@ -1,9 +1,9 @@
 from typing import Optional
 
-from pip._internal.models.direct_url import ArchiveInfo, DirectUrl, DirInfo, VcsInfo
-from pip._internal.models.link import Link
-from pip._internal.utils.urls import path_to_url
-from pip._internal.vcs import vcs
+from fetchcode.vcs.pip._internal.models.direct_url import ArchiveInfo, DirectUrl, DirInfo, VcsInfo
+from fetchcode.vcs.pip._internal.models.link import Link
+from fetchcode.vcs.pip._internal.utils.urls import path_to_url
+from fetchcode.vcs.pip._internal.vcs import vcs
 
 
 def direct_url_as_pep440_direct_reference(direct_url: DirectUrl, name: str) -> str:

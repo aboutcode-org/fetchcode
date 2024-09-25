@@ -15,7 +15,7 @@ packaged CA bundle.
 import os
 
 if "_PIP_STANDALONE_CERT" not in os.environ:
-    from pip._vendor.certifi import where
+    from fetchcode.vcs.pip._vendor.certifi import where
 else:
     def where():
         return os.environ["_PIP_STANDALONE_CERT"]

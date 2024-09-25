@@ -2,16 +2,16 @@ import logging
 from optparse import Values
 from typing import Any, Dict, List
 
-from pip._vendor.packaging.markers import default_environment
-from pip._vendor.rich import print_json
+from fetchcode.vcs.pip._vendor.packaging.markers import default_environment
+from fetchcode.vcs.pip._vendor.rich import print_json
 
 from pip import __version__
-from pip._internal.cli import cmdoptions
-from pip._internal.cli.base_command import Command
-from pip._internal.cli.status_codes import SUCCESS
-from pip._internal.metadata import BaseDistribution, get_environment
-from pip._internal.utils.compat import stdlib_pkgs
-from pip._internal.utils.urls import path_to_url
+from fetchcode.vcs.pip._internal.cli import cmdoptions
+from fetchcode.vcs.pip._internal.cli.base_command import Command
+from fetchcode.vcs.pip._internal.cli.status_codes import SUCCESS
+from fetchcode.vcs.pip._internal.metadata import BaseDistribution, get_environment
+from fetchcode.vcs.pip._internal.utils.compat import stdlib_pkgs
+from fetchcode.vcs.pip._internal.utils.urls import path_to_url
 
 logger = logging.getLogger(__name__)
 

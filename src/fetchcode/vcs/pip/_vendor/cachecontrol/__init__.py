@@ -10,9 +10,9 @@ __author__ = "Eric Larson"
 __email__ = "eric@ionrock.org"
 __version__ = "0.14.0"
 
-from pip._vendor.cachecontrol.adapter import CacheControlAdapter
-from pip._vendor.cachecontrol.controller import CacheController
-from pip._vendor.cachecontrol.wrapper import CacheControl
+from fetchcode.vcs.pip._vendor.cachecontrol.adapter import CacheControlAdapter
+from fetchcode.vcs.pip._vendor.cachecontrol.controller import CacheController
+from fetchcode.vcs.pip._vendor.cachecontrol.wrapper import CacheControl
 
 __all__ = [
     "__author__",

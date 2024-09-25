@@ -8,7 +8,7 @@
     :license: BSD, see LICENSE for details.
 """
 
-from pip._vendor.pygments.formatter import Formatter
+from fetchcode.vcs.pip._vendor.pygments.formatter import Formatter
 
 
 __all__ = ['PangoMarkupFormatter']

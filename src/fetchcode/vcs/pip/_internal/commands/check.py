@@ -2,16 +2,16 @@ import logging
 from optparse import Values
 from typing import List
 
-from pip._internal.cli.base_command import Command
-from pip._internal.cli.status_codes import ERROR, SUCCESS
-from pip._internal.metadata import get_default_environment
-from pip._internal.operations.check import (
+from fetchcode.vcs.pip._internal.cli.base_command import Command
+from fetchcode.vcs.pip._internal.cli.status_codes import ERROR, SUCCESS
+from fetchcode.vcs.pip._internal.metadata import get_default_environment
+from fetchcode.vcs.pip._internal.operations.check import (
     check_package_set,
     check_unsupported,
     create_package_set_from_installed,
 )
-from pip._internal.utils.compatibility_tags import get_supported
-from pip._internal.utils.misc import write_output
+from fetchcode.vcs.pip._internal.utils.compatibility_tags import get_supported
+from fetchcode.vcs.pip._internal.utils.misc import write_output
 
 logger = logging.getLogger(__name__)
 

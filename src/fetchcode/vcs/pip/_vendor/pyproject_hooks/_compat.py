@@ -5,4 +5,4 @@ import sys
 if sys.version_info >= (3, 11):
     import tomllib
 else:
-    from pip._vendor import tomli as tomllib
+    from fetchcode.vcs.pip._vendor import tomli as tomllib

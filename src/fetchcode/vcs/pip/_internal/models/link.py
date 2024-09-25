@@ -18,19 +18,19 @@ from typing import (
     Union,
 )
 
-from pip._internal.utils.deprecation import deprecated
-from pip._internal.utils.filetypes import WHEEL_EXTENSION
-from pip._internal.utils.hashes import Hashes
-from pip._internal.utils.misc import (
+from fetchcode.vcs.pip._internal.utils.deprecation import deprecated
+from fetchcode.vcs.pip._internal.utils.filetypes import WHEEL_EXTENSION
+from fetchcode.vcs.pip._internal.utils.hashes import Hashes
+from fetchcode.vcs.pip._internal.utils.misc import (
     pairwise,
     redact_auth_from_url,
     split_auth_from_netloc,
     splitext,
 )
-from pip._internal.utils.urls import path_to_url, url_to_path
+from fetchcode.vcs.pip._internal.utils.urls import path_to_url, url_to_path
 
 if TYPE_CHECKING:
-    from pip._internal.index.collector import IndexContent
+    from fetchcode.vcs.pip._internal.index.collector import IndexContent
 
 logger = logging.getLogger(__name__)
 
@@ -506,7 +506,7 @@ class Link:
 
     @property
     def is_vcs(self) -> bool:
-        from pip._internal.vcs import vcs
+        from fetchcode.vcs.pip._internal.vcs import vcs
 
         return self.scheme in vcs.all_schemes
 

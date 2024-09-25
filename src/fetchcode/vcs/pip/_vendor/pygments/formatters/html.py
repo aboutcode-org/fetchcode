@@ -14,9 +14,9 @@ import sys
 import os.path
 from io import StringIO
 
-from pip._vendor.pygments.formatter import Formatter
-from pip._vendor.pygments.token import Token, Text, STANDARD_TYPES
-from pip._vendor.pygments.util import get_bool_opt, get_int_opt, get_list_opt
+from fetchcode.vcs.pip._vendor.pygments.formatter import Formatter
+from fetchcode.vcs.pip._vendor.pygments.token import Token, Text, STANDARD_TYPES
+from fetchcode.vcs.pip._vendor.pygments.util import get_bool_opt, get_int_opt, get_list_opt
 
 try:
     import ctags
