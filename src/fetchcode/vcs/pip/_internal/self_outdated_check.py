@@ -9,24 +9,24 @@ import sys
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, Optional
 
-from pip._vendor.packaging.version import Version
-from pip._vendor.packaging.version import parse as parse_version
-from pip._vendor.rich.console import Group
-from pip._vendor.rich.markup import escape
-from pip._vendor.rich.text import Text
+from fetchcode.vcs.pip._vendor.packaging.version import Version
+from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
+from fetchcode.vcs.pip._vendor.rich.console import Group
+from fetchcode.vcs.pip._vendor.rich.markup import escape
+from fetchcode.vcs.pip._vendor.rich.text import Text
 
-from pip._internal.index.collector import LinkCollector
-from pip._internal.index.package_finder import PackageFinder
-from pip._internal.metadata import get_default_environment
-from pip._internal.models.selection_prefs import SelectionPreferences
-from pip._internal.network.session import PipSession
-from pip._internal.utils.compat import WINDOWS
-from pip._internal.utils.entrypoints import (
+from fetchcode.vcs.pip._internal.index.collector import LinkCollector
+from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
+from fetchcode.vcs.pip._internal.metadata import get_default_environment
+from fetchcode.vcs.pip._internal.models.selection_prefs import SelectionPreferences
+from fetchcode.vcs.pip._internal.network.session import PipSession
+from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
+from fetchcode.vcs.pip._internal.utils.entrypoints import (
     get_best_invocation_for_this_pip,
     get_best_invocation_for_this_python,
 )
-from pip._internal.utils.filesystem import adjacent_tmp_file, check_path_owner, replace
-from pip._internal.utils.misc import ensure_dir
+from fetchcode.vcs.pip._internal.utils.filesystem import adjacent_tmp_file, check_path_owner, replace
+from fetchcode.vcs.pip._internal.utils.misc import ensure_dir
 
 _WEEK = datetime.timedelta(days=7)
 

@@ -8,9 +8,9 @@
     :license: BSD, see LICENSE for details.
 """
 
-from pip._vendor.pygments.formatter import Formatter
-from pip._vendor.pygments.token import Comment
-from pip._vendor.pygments.util import get_bool_opt, get_int_opt
+from fetchcode.vcs.pip._vendor.pygments.formatter import Formatter
+from fetchcode.vcs.pip._vendor.pygments.token import Comment
+from fetchcode.vcs.pip._vendor.pygments.util import get_bool_opt, get_int_opt
 
 __all__ = ['SvgFormatter']
 

@@ -7,9 +7,9 @@ from contextlib import contextmanager
 from tempfile import NamedTemporaryFile
 from typing import Any, BinaryIO, Generator, List, Union, cast
 
-from pip._internal.utils.compat import get_path_uid
-from pip._internal.utils.misc import format_size
-from pip._internal.utils.retry import retry
+from fetchcode.vcs.pip._internal.utils.compat import get_path_uid
+from fetchcode.vcs.pip._internal.utils.misc import format_size
+from fetchcode.vcs.pip._internal.utils.retry import retry
 
 
 def check_path_owner(path: str) -> bool:

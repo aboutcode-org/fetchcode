@@ -8,37 +8,37 @@ import re
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, FrozenSet, Iterable, List, Optional, Set, Tuple, Union
 
-from pip._vendor.packaging import specifiers
-from pip._vendor.packaging.tags import Tag
-from pip._vendor.packaging.utils import canonicalize_name
-from pip._vendor.packaging.version import InvalidVersion, _BaseVersion
-from pip._vendor.packaging.version import parse as parse_version
+from fetchcode.vcs.pip._vendor.packaging import specifiers
+from fetchcode.vcs.pip._vendor.packaging.tags import Tag
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.version import InvalidVersion, _BaseVersion
+from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
 
-from pip._internal.exceptions import (
+from fetchcode.vcs.pip._internal.exceptions import (
     BestVersionAlreadyInstalled,
     DistributionNotFound,
     InvalidWheelFilename,
     UnsupportedWheel,
 )
-from pip._internal.index.collector import LinkCollector, parse_links
-from pip._internal.models.candidate import InstallationCandidate
-from pip._internal.models.format_control import FormatControl
-from pip._internal.models.link import Link
-from pip._internal.models.search_scope import SearchScope
-from pip._internal.models.selection_prefs import SelectionPreferences
-from pip._internal.models.target_python import TargetPython
-from pip._internal.models.wheel import Wheel
-from pip._internal.req import InstallRequirement
-from pip._internal.utils._log import getLogger
-from pip._internal.utils.filetypes import WHEEL_EXTENSION
-from pip._internal.utils.hashes import Hashes
-from pip._internal.utils.logging import indent_log
-from pip._internal.utils.misc import build_netloc
-from pip._internal.utils.packaging import check_requires_python
-from pip._internal.utils.unpacking import SUPPORTED_EXTENSIONS
+from fetchcode.vcs.pip._internal.index.collector import LinkCollector, parse_links
+from fetchcode.vcs.pip._internal.models.candidate import InstallationCandidate
+from fetchcode.vcs.pip._internal.models.format_control import FormatControl
+from fetchcode.vcs.pip._internal.models.link import Link
+from fetchcode.vcs.pip._internal.models.search_scope import SearchScope
+from fetchcode.vcs.pip._internal.models.selection_prefs import SelectionPreferences
+from fetchcode.vcs.pip._internal.models.target_python import TargetPython
+from fetchcode.vcs.pip._internal.models.wheel import Wheel
+from fetchcode.vcs.pip._internal.req import InstallRequirement
+from fetchcode.vcs.pip._internal.utils._log import getLogger
+from fetchcode.vcs.pip._internal.utils.filetypes import WHEEL_EXTENSION
+from fetchcode.vcs.pip._internal.utils.hashes import Hashes
+from fetchcode.vcs.pip._internal.utils.logging import indent_log
+from fetchcode.vcs.pip._internal.utils.misc import build_netloc
+from fetchcode.vcs.pip._internal.utils.packaging import check_requires_python
+from fetchcode.vcs.pip._internal.utils.unpacking import SUPPORTED_EXTENSIONS
 
 if TYPE_CHECKING:
-    from pip._vendor.typing_extensions import TypeGuard
+    from fetchcode.vcs.pip._vendor.typing_extensions import TypeGuard
 
 __all__ = ["FormatControl", "BestCandidateResult", "PackageFinder"]
 

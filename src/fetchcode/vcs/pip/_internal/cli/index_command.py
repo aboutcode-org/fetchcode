@@ -12,15 +12,15 @@ import sys
 from optparse import Values
 from typing import TYPE_CHECKING, List, Optional
 
-from pip._vendor import certifi
+from fetchcode.vcs.pip._vendor import certifi
 
-from pip._internal.cli.base_command import Command
-from pip._internal.cli.command_context import CommandContextMixIn
+from fetchcode.vcs.pip._internal.cli.base_command import Command
+from fetchcode.vcs.pip._internal.cli.command_context import CommandContextMixIn
 
 if TYPE_CHECKING:
     from ssl import SSLContext
 
-    from pip._internal.network.session import PipSession
+    from fetchcode.vcs.pip._internal.network.session import PipSession
 
 logger = logging.getLogger(__name__)
 
@@ -37,7 +37,7 @@ def _create_truststore_ssl_context() -> Optional["SSLContext"]:
         return None
 
     try:
-        from pip._vendor import truststore
+        from fetchcode.vcs.pip._vendor import truststore
     except ImportError:
         logger.warning("Disabling truststore because platform isn't supported")
         return None
@@ -86,7 +86,7 @@ class SessionCommandMixin(CommandContextMixIn):
         retries: Optional[int] = None,
         timeout: Optional[int] = None,
     ) -> "PipSession":
-        from pip._internal.network.session import PipSession
+        from fetchcode.vcs.pip._internal.network.session import PipSession
 
         cache_dir = options.cache_dir
         assert not cache_dir or os.path.isabs(cache_dir)
@@ -132,7 +132,7 @@ class SessionCommandMixin(CommandContextMixIn):
 
 
 def _pip_self_version_check(session: "PipSession", options: Values) -> None:
-    from pip._internal.self_outdated_check import pip_self_version_check as check
+    from fetchcode.vcs.pip._internal.self_outdated_check import pip_self_version_check as check
 
     check(session, options)
 

@@ -4,19 +4,19 @@ import shutil
 from optparse import Values
 from typing import List
 
-from pip._internal.cache import WheelCache
-from pip._internal.cli import cmdoptions
-from pip._internal.cli.req_command import RequirementCommand, with_cleanup
-from pip._internal.cli.status_codes import SUCCESS
-from pip._internal.exceptions import CommandError
-from pip._internal.operations.build.build_tracker import get_build_tracker
-from pip._internal.req.req_install import (
+from fetchcode.vcs.pip._internal.cache import WheelCache
+from fetchcode.vcs.pip._internal.cli import cmdoptions
+from fetchcode.vcs.pip._internal.cli.req_command import RequirementCommand, with_cleanup
+from fetchcode.vcs.pip._internal.cli.status_codes import SUCCESS
+from fetchcode.vcs.pip._internal.exceptions import CommandError
+from fetchcode.vcs.pip._internal.operations.build.build_tracker import get_build_tracker
+from fetchcode.vcs.pip._internal.req.req_install import (
     InstallRequirement,
     check_legacy_setup_py_options,
 )
-from pip._internal.utils.misc import ensure_dir, normalize_path
-from pip._internal.utils.temp_dir import TempDirectory
-from pip._internal.wheel_builder import build, should_build_for_wheel_command
+from fetchcode.vcs.pip._internal.utils.misc import ensure_dir, normalize_path
+from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
+from fetchcode.vcs.pip._internal.wheel_builder import build, should_build_for_wheel_command
 
 logger = logging.getLogger(__name__)
 

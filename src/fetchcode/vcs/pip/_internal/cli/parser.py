@@ -8,9 +8,9 @@ import textwrap
 from contextlib import suppress
 from typing import Any, Dict, Generator, List, Optional, Tuple
 
-from pip._internal.cli.status_codes import UNKNOWN_ERROR
-from pip._internal.configuration import Configuration, ConfigurationError
-from pip._internal.utils.misc import redact_auth_from_url, strtobool
+from fetchcode.vcs.pip._internal.cli.status_codes import UNKNOWN_ERROR
+from fetchcode.vcs.pip._internal.configuration import Configuration, ConfigurationError
+from fetchcode.vcs.pip._internal.utils.misc import redact_auth_from_url, strtobool
 
 logger = logging.getLogger(__name__)
 

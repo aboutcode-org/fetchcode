@@ -7,16 +7,16 @@ import logging
 from argparse import ArgumentParser
 from typing import TYPE_CHECKING
 
-from pip._vendor import requests
+from fetchcode.vcs.pip._vendor import requests
 
-from pip._vendor.cachecontrol.adapter import CacheControlAdapter
-from pip._vendor.cachecontrol.cache import DictCache
-from pip._vendor.cachecontrol.controller import logger
+from fetchcode.vcs.pip._vendor.cachecontrol.adapter import CacheControlAdapter
+from fetchcode.vcs.pip._vendor.cachecontrol.cache import DictCache
+from fetchcode.vcs.pip._vendor.cachecontrol.controller import logger
 
 if TYPE_CHECKING:
     from argparse import Namespace
 
-    from pip._vendor.cachecontrol.controller import CacheController
+    from fetchcode.vcs.pip._vendor.cachecontrol.controller import CacheController
 
 
 def setup_logging() -> None:

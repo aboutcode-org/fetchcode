@@ -1,8 +1,8 @@
 import hashlib
 from typing import TYPE_CHECKING, BinaryIO, Dict, Iterable, List, NoReturn, Optional
 
-from pip._internal.exceptions import HashMismatch, HashMissing, InstallationError
-from pip._internal.utils.misc import read_chunks
+from fetchcode.vcs.pip._internal.exceptions import HashMismatch, HashMissing, InstallationError
+from fetchcode.vcs.pip._internal.utils.misc import read_chunks
 
 if TYPE_CHECKING:
     from hashlib import _Hash

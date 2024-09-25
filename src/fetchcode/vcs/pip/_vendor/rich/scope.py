@@ -68,7 +68,7 @@ def render_scope(
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich import print
+    from fetchcode.vcs.pip._vendor.rich import print
 
     print()
 

@@ -4,8 +4,8 @@ import shutil
 import sys
 from typing import List, Optional
 
-from pip._internal.cli.main import main
-from pip._internal.utils.compat import WINDOWS
+from fetchcode.vcs.pip._internal.cli.main import main
+from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
 
 _EXECUTABLE_NAMES = [
     "pip",

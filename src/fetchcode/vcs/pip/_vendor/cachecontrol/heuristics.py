@@ -10,7 +10,7 @@ from email.utils import formatdate, parsedate, parsedate_tz
 from typing import TYPE_CHECKING, Any, Mapping
 
 if TYPE_CHECKING:
-    from pip._vendor.urllib3 import HTTPResponse
+    from fetchcode.vcs.pip._vendor.urllib3 import HTTPResponse
 
 TIME_FMT = "%a, %d %b %Y %H:%M:%S GMT"
 

@@ -4,13 +4,13 @@ from typing import TYPE_CHECKING, Iterable, List
 if sys.version_info >= (3, 8):
     from typing import Literal
 else:
-    from pip._vendor.typing_extensions import Literal  # pragma: no cover
+    from fetchcode.vcs.pip._vendor.typing_extensions import Literal  # pragma: no cover
 
 
 from ._loop import loop_last
 
 if TYPE_CHECKING:
-    from pip._vendor.rich.console import ConsoleOptions
+    from fetchcode.vcs.pip._vendor.rich.console import ConsoleOptions
 
 
 class Box:
@@ -428,8 +428,8 @@ PLAIN_HEADED_SUBSTITUTIONS = {
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich.columns import Columns
-    from pip._vendor.rich.panel import Panel
+    from fetchcode.vcs.pip._vendor.rich.columns import Columns
+    from fetchcode.vcs.pip._vendor.rich.panel import Panel
 
     from . import box as box
     from .console import Console

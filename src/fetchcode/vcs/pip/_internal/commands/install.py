@@ -7,32 +7,32 @@ import site
 from optparse import SUPPRESS_HELP, Values
 from typing import List, Optional
 
-from pip._vendor.packaging.utils import canonicalize_name
-from pip._vendor.rich import print_json
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.rich import print_json
 
-from pip._internal.cache import WheelCache
-from pip._internal.cli import cmdoptions
-from pip._internal.cli.cmdoptions import make_target_python
-from pip._internal.cli.req_command import (
+from fetchcode.vcs.pip._internal.cache import WheelCache
+from fetchcode.vcs.pip._internal.cli import cmdoptions
+from fetchcode.vcs.pip._internal.cli.cmdoptions import make_target_python
+from fetchcode.vcs.pip._internal.cli.req_command import (
     RequirementCommand,
     with_cleanup,
 )
-from pip._internal.cli.status_codes import ERROR, SUCCESS
-from pip._internal.exceptions import CommandError, InstallationError
-from pip._internal.locations import get_scheme
-from pip._internal.metadata import get_environment
-from pip._internal.models.installation_report import InstallationReport
-from pip._internal.operations.build.build_tracker import get_build_tracker
-from pip._internal.operations.check import ConflictDetails, check_install_conflicts
-from pip._internal.req import install_given_reqs
-from pip._internal.req.req_install import (
+from fetchcode.vcs.pip._internal.cli.status_codes import ERROR, SUCCESS
+from fetchcode.vcs.pip._internal.exceptions import CommandError, InstallationError
+from fetchcode.vcs.pip._internal.locations import get_scheme
+from fetchcode.vcs.pip._internal.metadata import get_environment
+from fetchcode.vcs.pip._internal.models.installation_report import InstallationReport
+from fetchcode.vcs.pip._internal.operations.build.build_tracker import get_build_tracker
+from fetchcode.vcs.pip._internal.operations.check import ConflictDetails, check_install_conflicts
+from fetchcode.vcs.pip._internal.req import install_given_reqs
+from fetchcode.vcs.pip._internal.req.req_install import (
     InstallRequirement,
     check_legacy_setup_py_options,
 )
-from pip._internal.utils.compat import WINDOWS
-from pip._internal.utils.filesystem import test_writable_dir
-from pip._internal.utils.logging import getLogger
-from pip._internal.utils.misc import (
+from fetchcode.vcs.pip._internal.utils.compat import WINDOWS
+from fetchcode.vcs.pip._internal.utils.filesystem import test_writable_dir
+from fetchcode.vcs.pip._internal.utils.logging import getLogger
+from fetchcode.vcs.pip._internal.utils.misc import (
     check_externally_managed,
     ensure_dir,
     get_pip_version,
@@ -40,12 +40,12 @@ from pip._internal.utils.misc import (
     warn_if_run_as_root,
     write_output,
 )
-from pip._internal.utils.temp_dir import TempDirectory
-from pip._internal.utils.virtualenv import (
+from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
+from fetchcode.vcs.pip._internal.utils.virtualenv import (
     running_under_virtualenv,
     virtualenv_no_global,
 )
-from pip._internal.wheel_builder import build, should_build_for_install_command
+from fetchcode.vcs.pip._internal.wheel_builder import build, should_build_for_install_command
 
 logger = getLogger(__name__)
 

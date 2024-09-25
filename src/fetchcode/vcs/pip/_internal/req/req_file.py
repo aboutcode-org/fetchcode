@@ -22,14 +22,14 @@ from typing import (
     Tuple,
 )
 
-from pip._internal.cli import cmdoptions
-from pip._internal.exceptions import InstallationError, RequirementsFileParseError
-from pip._internal.models.search_scope import SearchScope
-from pip._internal.utils.encoding import auto_decode
+from fetchcode.vcs.pip._internal.cli import cmdoptions
+from fetchcode.vcs.pip._internal.exceptions import InstallationError, RequirementsFileParseError
+from fetchcode.vcs.pip._internal.models.search_scope import SearchScope
+from fetchcode.vcs.pip._internal.utils.encoding import auto_decode
 
 if TYPE_CHECKING:
-    from pip._internal.index.package_finder import PackageFinder
-    from pip._internal.network.session import PipSession
+    from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
+    from fetchcode.vcs.pip._internal.network.session import PipSession
 
 __all__ = ["parse_requirements"]
 
@@ -536,7 +536,7 @@ def get_file_content(url: str, session: "PipSession") -> Tuple[str, str]:
     # Pip has special support for file:// URLs (LocalFSAdapter).
     if scheme in ["http", "https", "file"]:
         # Delay importing heavy network modules until absolutely necessary.
-        from pip._internal.network.utils import raise_for_status
+        from fetchcode.vcs.pip._internal.network.utils import raise_for_status
 
         resp = session.get(url)
         raise_for_status(resp)

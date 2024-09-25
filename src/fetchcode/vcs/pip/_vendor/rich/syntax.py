@@ -19,11 +19,11 @@ from typing import (
     Union,
 )
 
-from pip._vendor.pygments.lexer import Lexer
-from pip._vendor.pygments.lexers import get_lexer_by_name, guess_lexer_for_filename
-from pip._vendor.pygments.style import Style as PygmentsStyle
-from pip._vendor.pygments.styles import get_style_by_name
-from pip._vendor.pygments.token import (
+from fetchcode.vcs.pip._vendor.pygments.lexer import Lexer
+from fetchcode.vcs.pip._vendor.pygments.lexers import get_lexer_by_name, guess_lexer_for_filename
+from fetchcode.vcs.pip._vendor.pygments.style import Style as PygmentsStyle
+from fetchcode.vcs.pip._vendor.pygments.styles import get_style_by_name
+from fetchcode.vcs.pip._vendor.pygments.token import (
     Comment,
     Error,
     Generic,
@@ -35,10 +35,10 @@ from pip._vendor.pygments.token import (
     Token,
     Whitespace,
 )
-from pip._vendor.pygments.util import ClassNotFound
+from fetchcode.vcs.pip._vendor.pygments.util import ClassNotFound
 
-from pip._vendor.rich.containers import Lines
-from pip._vendor.rich.padding import Padding, PaddingDimensions
+from fetchcode.vcs.pip._vendor.rich.containers import Lines
+from fetchcode.vcs.pip._vendor.rich.padding import Padding, PaddingDimensions
 
 from ._loop import loop_first
 from .cells import cell_len
@@ -926,7 +926,7 @@ if __name__ == "__main__":  # pragma: no cover
     )
     args = parser.parse_args()
 
-    from pip._vendor.rich.console import Console
+    from fetchcode.vcs.pip._vendor.rich.console import Console
 
     console = Console(force_terminal=args.force_color, width=args.width)
 

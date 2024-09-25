@@ -3,17 +3,17 @@ import logging
 import os
 from typing import Container, Dict, Generator, Iterable, List, NamedTuple, Optional, Set
 
-from pip._vendor.packaging.utils import canonicalize_name
-from pip._vendor.packaging.version import InvalidVersion
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.version import InvalidVersion
 
-from pip._internal.exceptions import BadCommand, InstallationError
-from pip._internal.metadata import BaseDistribution, get_environment
-from pip._internal.req.constructors import (
+from fetchcode.vcs.pip._internal.exceptions import BadCommand, InstallationError
+from fetchcode.vcs.pip._internal.metadata import BaseDistribution, get_environment
+from fetchcode.vcs.pip._internal.req.constructors import (
     install_req_from_editable,
     install_req_from_line,
 )
-from pip._internal.req.req_file import COMMENT_RE
-from pip._internal.utils.direct_url_helpers import direct_url_as_pep440_direct_reference
+from fetchcode.vcs.pip._internal.req.req_file import COMMENT_RE
+from fetchcode.vcs.pip._internal.utils.direct_url_helpers import direct_url_as_pep440_direct_reference
 
 logger = logging.getLogger(__name__)
 
@@ -163,7 +163,7 @@ def _get_editable_info(dist: BaseDistribution) -> _EditableInfo:
     assert editable_project_location
     location = os.path.normcase(os.path.abspath(editable_project_location))
 
-    from pip._internal.vcs import RemoteNotFoundError, RemoteNotValidError, vcs
+    from fetchcode.vcs.pip._internal.vcs import RemoteNotFoundError, RemoteNotValidError, vcs
 
     vcs_backend = vcs.get_backend_for_dir(location)
 

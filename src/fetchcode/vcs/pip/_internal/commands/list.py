@@ -3,21 +3,21 @@ import logging
 from optparse import Values
 from typing import TYPE_CHECKING, Generator, List, Optional, Sequence, Tuple, cast
 
-from pip._vendor.packaging.utils import canonicalize_name
-from pip._vendor.packaging.version import Version
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.version import Version
 
-from pip._internal.cli import cmdoptions
-from pip._internal.cli.index_command import IndexGroupCommand
-from pip._internal.cli.status_codes import SUCCESS
-from pip._internal.exceptions import CommandError
-from pip._internal.metadata import BaseDistribution, get_environment
-from pip._internal.models.selection_prefs import SelectionPreferences
-from pip._internal.utils.compat import stdlib_pkgs
-from pip._internal.utils.misc import tabulate, write_output
+from fetchcode.vcs.pip._internal.cli import cmdoptions
+from fetchcode.vcs.pip._internal.cli.index_command import IndexGroupCommand
+from fetchcode.vcs.pip._internal.cli.status_codes import SUCCESS
+from fetchcode.vcs.pip._internal.exceptions import CommandError
+from fetchcode.vcs.pip._internal.metadata import BaseDistribution, get_environment
+from fetchcode.vcs.pip._internal.models.selection_prefs import SelectionPreferences
+from fetchcode.vcs.pip._internal.utils.compat import stdlib_pkgs
+from fetchcode.vcs.pip._internal.utils.misc import tabulate, write_output
 
 if TYPE_CHECKING:
-    from pip._internal.index.package_finder import PackageFinder
-    from pip._internal.network.session import PipSession
+    from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
+    from fetchcode.vcs.pip._internal.network.session import PipSession
 
     class _DistWithLatestInfo(BaseDistribution):
         """Give the distribution object a couple of extra fields.
@@ -145,8 +145,8 @@ class ListCommand(IndexGroupCommand):
         Create a package finder appropriate to this list command.
         """
         # Lazy import the heavy index modules as most list invocations won't need 'em.
-        from pip._internal.index.collector import LinkCollector
-        from pip._internal.index.package_finder import PackageFinder
+        from fetchcode.vcs.pip._internal.index.collector import LinkCollector
+        from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
 
         link_collector = LinkCollector.create(session, options=options)
 

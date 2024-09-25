@@ -5,7 +5,7 @@ from pathlib import Path
 from types import ModuleType
 from typing import ClassVar, Iterable, List, Optional, Type, Union
 
-from pip._vendor.rich._null_file import NullFile
+from fetchcode.vcs.pip._vendor.rich._null_file import NullFile
 
 from . import get_console
 from ._log_render import FormatTimeCallable, LogRender

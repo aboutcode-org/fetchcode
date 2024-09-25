@@ -17,7 +17,7 @@ from typing import (
     Union,
 )
 
-from pip._internal.utils.misc import enum, rmtree
+from fetchcode.vcs.pip._internal.utils.misc import enum, rmtree
 
 logger = logging.getLogger(__name__)
 

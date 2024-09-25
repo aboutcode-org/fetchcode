@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pip._internal.models.format_control import FormatControl
+from fetchcode.vcs.pip._internal.models.format_control import FormatControl
 
 
 # TODO: This needs Python 3.10's improved slots support for dataclasses

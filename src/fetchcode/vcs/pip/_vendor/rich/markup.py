@@ -240,8 +240,8 @@ if __name__ == "__main__":  # pragma: no cover
         ":warning-emoji: [bold red blink] DANGER![/]",
     ]
 
-    from pip._vendor.rich import print
-    from pip._vendor.rich.table import Table
+    from fetchcode.vcs.pip._vendor.rich import print
+    from fetchcode.vcs.pip._vendor.rich.table import Table
 
     grid = Table("Markup", "Result", padding=(0, 1))
 

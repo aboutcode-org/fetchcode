@@ -9,19 +9,19 @@ import traceback
 from optparse import Values
 from typing import List, Optional, Tuple
 
-from pip._vendor.rich import reconfigure
-from pip._vendor.rich import traceback as rich_traceback
+from fetchcode.vcs.pip._vendor.rich import reconfigure
+from fetchcode.vcs.pip._vendor.rich import traceback as rich_traceback
 
-from pip._internal.cli import cmdoptions
-from pip._internal.cli.command_context import CommandContextMixIn
-from pip._internal.cli.parser import ConfigOptionParser, UpdatingDefaultsHelpFormatter
-from pip._internal.cli.status_codes import (
+from fetchcode.vcs.pip._internal.cli import cmdoptions
+from fetchcode.vcs.pip._internal.cli.command_context import CommandContextMixIn
+from fetchcode.vcs.pip._internal.cli.parser import ConfigOptionParser, UpdatingDefaultsHelpFormatter
+from fetchcode.vcs.pip._internal.cli.status_codes import (
     ERROR,
     PREVIOUS_BUILD_DIR_ERROR,
     UNKNOWN_ERROR,
     VIRTUALENV_NOT_FOUND,
 )
-from pip._internal.exceptions import (
+from fetchcode.vcs.pip._internal.exceptions import (
     BadCommand,
     CommandError,
     DiagnosticPipError,
@@ -29,12 +29,12 @@ from pip._internal.exceptions import (
     NetworkConnectionError,
     PreviousBuildDirError,
 )
-from pip._internal.utils.filesystem import check_path_owner
-from pip._internal.utils.logging import BrokenStdoutLoggingError, setup_logging
-from pip._internal.utils.misc import get_prog, normalize_path
-from pip._internal.utils.temp_dir import TempDirectoryTypeRegistry as TempDirRegistry
-from pip._internal.utils.temp_dir import global_tempdir_manager, tempdir_registry
-from pip._internal.utils.virtualenv import running_under_virtualenv
+from fetchcode.vcs.pip._internal.utils.filesystem import check_path_owner
+from fetchcode.vcs.pip._internal.utils.logging import BrokenStdoutLoggingError, setup_logging
+from fetchcode.vcs.pip._internal.utils.misc import get_prog, normalize_path
+from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectoryTypeRegistry as TempDirRegistry
+from fetchcode.vcs.pip._internal.utils.temp_dir import global_tempdir_manager, tempdir_registry
+from fetchcode.vcs.pip._internal.utils.virtualenv import running_under_virtualenv
 
 __all__ = ["Command"]
 

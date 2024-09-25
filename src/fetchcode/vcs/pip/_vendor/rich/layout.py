@@ -26,7 +26,7 @@ from .segment import Segment
 from .style import StyleType
 
 if TYPE_CHECKING:
-    from pip._vendor.rich.tree import Tree
+    from fetchcode.vcs.pip._vendor.rich.tree import Tree
 
 
 class LayoutRender(NamedTuple):
@@ -222,9 +222,9 @@ class Layout:
     @property
     def tree(self) -> "Tree":
         """Get a tree renderable to show layout structure."""
-        from pip._vendor.rich.styled import Styled
-        from pip._vendor.rich.table import Table
-        from pip._vendor.rich.tree import Tree
+        from fetchcode.vcs.pip._vendor.rich.styled import Styled
+        from fetchcode.vcs.pip._vendor.rich.table import Table
+        from fetchcode.vcs.pip._vendor.rich.tree import Tree
 
         def summary(layout: "Layout") -> Table:
             icon = layout.splitter.get_tree_icon()
@@ -416,7 +416,7 @@ class Layout:
 
 
 if __name__ == "__main__":
-    from pip._vendor.rich.console import Console
+    from fetchcode.vcs.pip._vendor.rich.console import Console
 
     console = Console()
     layout = Layout()

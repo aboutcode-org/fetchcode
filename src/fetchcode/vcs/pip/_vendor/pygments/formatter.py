@@ -10,8 +10,8 @@
 
 import codecs
 
-from pip._vendor.pygments.util import get_bool_opt
-from pip._vendor.pygments.styles import get_style_by_name
+from fetchcode.vcs.pip._vendor.pygments.util import get_bool_opt
+from fetchcode.vcs.pip._vendor.pygments.styles import get_style_by_name
 
 __all__ = ['Formatter']
 

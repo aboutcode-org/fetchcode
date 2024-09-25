@@ -13,22 +13,22 @@ from typing import (
     cast,
 )
 
-from pip._vendor.packaging.requirements import Requirement
-from pip._vendor.packaging.utils import NormalizedName, canonicalize_name
-from pip._vendor.packaging.version import Version
-from pip._vendor.packaging.version import parse as parse_version
+from fetchcode.vcs.pip._vendor.packaging.requirements import Requirement
+from fetchcode.vcs.pip._vendor.packaging.utils import NormalizedName, canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.version import Version
+from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
 
-from pip._internal.exceptions import InvalidWheel, UnsupportedWheel
-from pip._internal.metadata.base import (
+from fetchcode.vcs.pip._internal.exceptions import InvalidWheel, UnsupportedWheel
+from fetchcode.vcs.pip._internal.metadata.base import (
     BaseDistribution,
     BaseEntryPoint,
     InfoPath,
     Wheel,
 )
-from pip._internal.utils.misc import normalize_path
-from pip._internal.utils.packaging import get_requirement
-from pip._internal.utils.temp_dir import TempDirectory
-from pip._internal.utils.wheel import parse_wheel, read_wheel_metadata_file
+from fetchcode.vcs.pip._internal.utils.misc import normalize_path
+from fetchcode.vcs.pip._internal.utils.packaging import get_requirement
+from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory
+from fetchcode.vcs.pip._internal.utils.wheel import parse_wheel, read_wheel_metadata_file
 
 from ._compat import (
     BasePath,

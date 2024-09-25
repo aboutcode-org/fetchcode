@@ -10,12 +10,12 @@
 
 import keyword
 
-from pip._vendor.pygments.lexer import DelegatingLexer, RegexLexer, include, \
+from fetchcode.vcs.pip._vendor.pygments.lexer import DelegatingLexer, RegexLexer, include, \
     bygroups, using, default, words, combined, this
-from pip._vendor.pygments.util import get_bool_opt, shebang_matches
-from pip._vendor.pygments.token import Text, Comment, Operator, Keyword, Name, String, \
+from fetchcode.vcs.pip._vendor.pygments.util import get_bool_opt, shebang_matches
+from fetchcode.vcs.pip._vendor.pygments.token import Text, Comment, Operator, Keyword, Name, String, \
     Number, Punctuation, Generic, Other, Error, Whitespace
-from pip._vendor.pygments import unistring as uni
+from fetchcode.vcs.pip._vendor.pygments import unistring as uni
 
 __all__ = ['PythonLexer', 'PythonConsoleLexer', 'PythonTracebackLexer',
            'Python2Lexer', 'Python2TracebackLexer',

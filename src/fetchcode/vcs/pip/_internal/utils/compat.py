@@ -21,7 +21,7 @@ def has_tls() -> bool:
     except ImportError:
         pass
 
-    from pip._vendor.urllib3.util import IS_PYOPENSSL
+    from fetchcode.vcs.pip._vendor.urllib3.util import IS_PYOPENSSL
 
     return IS_PYOPENSSL
 

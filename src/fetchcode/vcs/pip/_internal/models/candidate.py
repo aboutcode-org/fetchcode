@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
-from pip._vendor.packaging.version import Version
-from pip._vendor.packaging.version import parse as parse_version
+from fetchcode.vcs.pip._vendor.packaging.version import Version
+from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
 
-from pip._internal.models.link import Link
+from fetchcode.vcs.pip._internal.models.link import Link
 
 
 @dataclass(frozen=True)

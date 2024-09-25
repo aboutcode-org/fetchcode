@@ -14,18 +14,18 @@ import time
 from email.utils import parsedate_tz
 from typing import TYPE_CHECKING, Collection, Mapping
 
-from pip._vendor.requests.structures import CaseInsensitiveDict
+from fetchcode.vcs.pip._vendor.requests.structures import CaseInsensitiveDict
 
-from pip._vendor.cachecontrol.cache import DictCache, SeparateBodyBaseCache
-from pip._vendor.cachecontrol.serialize import Serializer
+from fetchcode.vcs.pip._vendor.cachecontrol.cache import DictCache, SeparateBodyBaseCache
+from fetchcode.vcs.pip._vendor.cachecontrol.serialize import Serializer
 
 if TYPE_CHECKING:
     from typing import Literal
 
-    from pip._vendor.requests import PreparedRequest
-    from pip._vendor.urllib3 import HTTPResponse
+    from fetchcode.vcs.pip._vendor.requests import PreparedRequest
+    from fetchcode.vcs.pip._vendor.urllib3 import HTTPResponse
 
-    from pip._vendor.cachecontrol.cache import BaseCache
+    from fetchcode.vcs.pip._vendor.cachecontrol.cache import BaseCache
 
 logger = logging.getLogger(__name__)
 

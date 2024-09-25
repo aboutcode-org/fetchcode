@@ -33,12 +33,12 @@ from typing import (
     cast,
 )
 
-from pip._vendor.rich._null_file import NULL_FILE
+from fetchcode.vcs.pip._vendor.rich._null_file import NULL_FILE
 
 if sys.version_info >= (3, 8):
     from typing import Literal, Protocol, runtime_checkable
 else:
-    from pip._vendor.typing_extensions import (
+    from fetchcode.vcs.pip._vendor.typing_extensions import (
         Literal,
         Protocol,
         runtime_checkable,
@@ -1749,7 +1749,7 @@ class Console:
                 in to something that can be JSON encoded. Defaults to None.
             sort_keys (bool, optional): Sort dictionary keys. Defaults to False.
         """
-        from pip._vendor.rich.json import JSON
+        from fetchcode.vcs.pip._vendor.rich.json import JSON
 
         if json is None:
             json_renderable = JSON.from_data(
@@ -2017,8 +2017,8 @@ class Console:
                                 )
 
                         if use_legacy_windows_render:
-                            from pip._vendor.rich._win32_console import LegacyWindowsTerm
-                            from pip._vendor.rich._windows_renderer import legacy_windows_render
+                            from fetchcode.vcs.pip._vendor.rich._win32_console import LegacyWindowsTerm
+                            from fetchcode.vcs.pip._vendor.rich._windows_renderer import legacy_windows_render
 
                             buffer = self._buffer[:]
                             if self.no_color and self._color_system:
@@ -2302,7 +2302,7 @@ class Console:
                 ids). If not set, this defaults to a computed value based on the recorded content.
         """
 
-        from pip._vendor.rich.cells import cell_len
+        from fetchcode.vcs.pip._vendor.rich.cells import cell_len
 
         style_cache: Dict[Style, str] = {}
 

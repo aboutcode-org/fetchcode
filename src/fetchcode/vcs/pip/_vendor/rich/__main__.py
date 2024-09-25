@@ -2,17 +2,17 @@ import colorsys
 import io
 from time import process_time
 
-from pip._vendor.rich import box
-from pip._vendor.rich.color import Color
-from pip._vendor.rich.console import Console, ConsoleOptions, Group, RenderableType, RenderResult
-from pip._vendor.rich.markdown import Markdown
-from pip._vendor.rich.measure import Measurement
-from pip._vendor.rich.pretty import Pretty
-from pip._vendor.rich.segment import Segment
-from pip._vendor.rich.style import Style
-from pip._vendor.rich.syntax import Syntax
-from pip._vendor.rich.table import Table
-from pip._vendor.rich.text import Text
+from fetchcode.vcs.pip._vendor.rich import box
+from fetchcode.vcs.pip._vendor.rich.color import Color
+from fetchcode.vcs.pip._vendor.rich.console import Console, ConsoleOptions, Group, RenderableType, RenderResult
+from fetchcode.vcs.pip._vendor.rich.markdown import Markdown
+from fetchcode.vcs.pip._vendor.rich.measure import Measurement
+from fetchcode.vcs.pip._vendor.rich.pretty import Pretty
+from fetchcode.vcs.pip._vendor.rich.segment import Segment
+from fetchcode.vcs.pip._vendor.rich.style import Style
+from fetchcode.vcs.pip._vendor.rich.syntax import Syntax
+from fetchcode.vcs.pip._vendor.rich.table import Table
+from fetchcode.vcs.pip._vendor.rich.text import Text
 
 
 class ColorBox:
@@ -230,7 +230,7 @@ if __name__ == "__main__":  # pragma: no cover
     print(f"rendered in {pre_cache_taken}ms (cold cache)")
     print(f"rendered in {taken}ms (warm cache)")
 
-    from pip._vendor.rich.panel import Panel
+    from fetchcode.vcs.pip._vendor.rich.panel import Panel
 
     console = Console()
 

@@ -9,8 +9,8 @@ from textwrap import dedent
 from typing import IO, TYPE_CHECKING, Union
 from pathlib import Path
 
-from pip._vendor.cachecontrol.cache import BaseCache, SeparateBodyBaseCache
-from pip._vendor.cachecontrol.controller import CacheController
+from fetchcode.vcs.pip._vendor.cachecontrol.cache import BaseCache, SeparateBodyBaseCache
+from fetchcode.vcs.pip._vendor.cachecontrol.controller import CacheController
 
 if TYPE_CHECKING:
     from datetime import datetime

@@ -7,17 +7,17 @@ from collections import OrderedDict
 from optparse import Values
 from typing import TYPE_CHECKING, Dict, List, Optional, TypedDict
 
-from pip._vendor.packaging.version import parse as parse_version
+from fetchcode.vcs.pip._vendor.packaging.version import parse as parse_version
 
-from pip._internal.cli.base_command import Command
-from pip._internal.cli.req_command import SessionCommandMixin
-from pip._internal.cli.status_codes import NO_MATCHES_FOUND, SUCCESS
-from pip._internal.exceptions import CommandError
-from pip._internal.metadata import get_default_environment
-from pip._internal.models.index import PyPI
-from pip._internal.network.xmlrpc import PipXmlrpcTransport
-from pip._internal.utils.logging import indent_log
-from pip._internal.utils.misc import write_output
+from fetchcode.vcs.pip._internal.cli.base_command import Command
+from fetchcode.vcs.pip._internal.cli.req_command import SessionCommandMixin
+from fetchcode.vcs.pip._internal.cli.status_codes import NO_MATCHES_FOUND, SUCCESS
+from fetchcode.vcs.pip._internal.exceptions import CommandError
+from fetchcode.vcs.pip._internal.metadata import get_default_environment
+from fetchcode.vcs.pip._internal.models.index import PyPI
+from fetchcode.vcs.pip._internal.network.xmlrpc import PipXmlrpcTransport
+from fetchcode.vcs.pip._internal.utils.logging import indent_log
+from fetchcode.vcs.pip._internal.utils.misc import write_output
 
 if TYPE_CHECKING:
 

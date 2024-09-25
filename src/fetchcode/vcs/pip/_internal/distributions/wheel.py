@@ -1,16 +1,16 @@
 from typing import TYPE_CHECKING, Optional
 
-from pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
 
-from pip._internal.distributions.base import AbstractDistribution
-from pip._internal.metadata import (
+from fetchcode.vcs.pip._internal.distributions.base import AbstractDistribution
+from fetchcode.vcs.pip._internal.metadata import (
     BaseDistribution,
     FilesystemWheel,
     get_wheel_distribution,
 )
 
 if TYPE_CHECKING:
-    from pip._internal.index.package_finder import PackageFinder
+    from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
 
 
 class WheelDistribution(AbstractDistribution):

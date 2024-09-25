@@ -8,15 +8,15 @@ import os
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from pip._vendor.packaging.tags import Tag, interpreter_name, interpreter_version
-from pip._vendor.packaging.utils import canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.tags import Tag, interpreter_name, interpreter_version
+from fetchcode.vcs.pip._vendor.packaging.utils import canonicalize_name
 
-from pip._internal.exceptions import InvalidWheelFilename
-from pip._internal.models.direct_url import DirectUrl
-from pip._internal.models.link import Link
-from pip._internal.models.wheel import Wheel
-from pip._internal.utils.temp_dir import TempDirectory, tempdir_kinds
-from pip._internal.utils.urls import path_to_url
+from fetchcode.vcs.pip._internal.exceptions import InvalidWheelFilename
+from fetchcode.vcs.pip._internal.models.direct_url import DirectUrl
+from fetchcode.vcs.pip._internal.models.link import Link
+from fetchcode.vcs.pip._internal.models.wheel import Wheel
+from fetchcode.vcs.pip._internal.utils.temp_dir import TempDirectory, tempdir_kinds
+from fetchcode.vcs.pip._internal.utils.urls import path_to_url
 
 logger = logging.getLogger(__name__)
 

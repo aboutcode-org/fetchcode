@@ -4,7 +4,7 @@
 """
 .. testsetup::
 
-    from pip._vendor.packaging.version import parse, Version
+    from fetchcode.vcs.pip._vendor.packaging.version import parse, Version
 """
 
 from __future__ import annotations

@@ -8,11 +8,11 @@
     :license: BSD, see LICENSE for details.
 """
 
-from pip._vendor.pygments.formatter import Formatter
-from pip._vendor.pygments.token import Keyword, Name, Comment, String, Error, \
+from fetchcode.vcs.pip._vendor.pygments.formatter import Formatter
+from fetchcode.vcs.pip._vendor.pygments.token import Keyword, Name, Comment, String, Error, \
     Number, Operator, Generic, Token, Whitespace
-from pip._vendor.pygments.console import ansiformat
-from pip._vendor.pygments.util import get_choice_opt
+from fetchcode.vcs.pip._vendor.pygments.console import ansiformat
+from fetchcode.vcs.pip._vendor.pygments.util import get_choice_opt
 
 
 __all__ = ['TerminalFormatter']

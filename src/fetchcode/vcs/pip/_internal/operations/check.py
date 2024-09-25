@@ -18,15 +18,15 @@ from typing import (
     Tuple,
 )
 
-from pip._vendor.packaging.requirements import Requirement
-from pip._vendor.packaging.tags import Tag, parse_tag
-from pip._vendor.packaging.utils import NormalizedName, canonicalize_name
-from pip._vendor.packaging.version import Version
+from fetchcode.vcs.pip._vendor.packaging.requirements import Requirement
+from fetchcode.vcs.pip._vendor.packaging.tags import Tag, parse_tag
+from fetchcode.vcs.pip._vendor.packaging.utils import NormalizedName, canonicalize_name
+from fetchcode.vcs.pip._vendor.packaging.version import Version
 
-from pip._internal.distributions import make_distribution_for_install_requirement
-from pip._internal.metadata import get_default_environment
-from pip._internal.metadata.base import BaseDistribution
-from pip._internal.req.req_install import InstallRequirement
+from fetchcode.vcs.pip._internal.distributions import make_distribution_for_install_requirement
+from fetchcode.vcs.pip._internal.metadata import get_default_environment
+from fetchcode.vcs.pip._internal.metadata.base import BaseDistribution
+from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
 
 logger = logging.getLogger(__name__)
 

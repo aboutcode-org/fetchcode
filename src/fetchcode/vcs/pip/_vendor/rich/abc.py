@@ -19,7 +19,7 @@ class RichRenderable(ABC):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich.text import Text
+    from fetchcode.vcs.pip._vendor.rich.text import Text
 
     t = Text()
     print(isinstance(Text, RichRenderable))

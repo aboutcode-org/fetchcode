@@ -87,7 +87,7 @@ class LogRender:
 
 
 if __name__ == "__main__":  # pragma: no cover
-    from pip._vendor.rich.console import Console
+    from fetchcode.vcs.pip._vendor.rich.console import Console
 
     c = Console()
     c.print("[on blue]Hello", justify="right")

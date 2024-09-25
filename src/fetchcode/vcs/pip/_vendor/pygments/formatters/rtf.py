@@ -9,9 +9,9 @@
 """
 
 from collections import OrderedDict
-from pip._vendor.pygments.formatter import Formatter
-from pip._vendor.pygments.style import _ansimap
-from pip._vendor.pygments.util import get_bool_opt, get_int_opt, get_list_opt, surrogatepair
+from fetchcode.vcs.pip._vendor.pygments.formatter import Formatter
+from fetchcode.vcs.pip._vendor.pygments.style import _ansimap
+from fetchcode.vcs.pip._vendor.pygments.util import get_bool_opt, get_int_opt, get_list_opt, surrogatepair
 
 
 __all__ = ['RtfFormatter']

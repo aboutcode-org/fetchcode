@@ -10,28 +10,28 @@ from functools import partial
 from optparse import Values
 from typing import Any, List, Optional, Tuple
 
-from pip._internal.cache import WheelCache
-from pip._internal.cli import cmdoptions
-from pip._internal.cli.index_command import IndexGroupCommand
-from pip._internal.cli.index_command import SessionCommandMixin as SessionCommandMixin
-from pip._internal.exceptions import CommandError, PreviousBuildDirError
-from pip._internal.index.collector import LinkCollector
-from pip._internal.index.package_finder import PackageFinder
-from pip._internal.models.selection_prefs import SelectionPreferences
-from pip._internal.models.target_python import TargetPython
-from pip._internal.network.session import PipSession
-from pip._internal.operations.build.build_tracker import BuildTracker
-from pip._internal.operations.prepare import RequirementPreparer
-from pip._internal.req.constructors import (
+from fetchcode.vcs.pip._internal.cache import WheelCache
+from fetchcode.vcs.pip._internal.cli import cmdoptions
+from fetchcode.vcs.pip._internal.cli.index_command import IndexGroupCommand
+from fetchcode.vcs.pip._internal.cli.index_command import SessionCommandMixin as SessionCommandMixin
+from fetchcode.vcs.pip._internal.exceptions import CommandError, PreviousBuildDirError
+from fetchcode.vcs.pip._internal.index.collector import LinkCollector
+from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
+from fetchcode.vcs.pip._internal.models.selection_prefs import SelectionPreferences
+from fetchcode.vcs.pip._internal.models.target_python import TargetPython
+from fetchcode.vcs.pip._internal.network.session import PipSession
+from fetchcode.vcs.pip._internal.operations.build.build_tracker import BuildTracker
+from fetchcode.vcs.pip._internal.operations.prepare import RequirementPreparer
+from fetchcode.vcs.pip._internal.req.constructors import (
     install_req_from_editable,
     install_req_from_line,
     install_req_from_parsed_requirement,
     install_req_from_req_string,
 )
-from pip._internal.req.req_file import parse_requirements
-from pip._internal.req.req_install import InstallRequirement
-from pip._internal.resolution.base import BaseResolver
-from pip._internal.utils.temp_dir import (
+from fetchcode.vcs.pip._internal.req.req_file import parse_requirements
+from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
+from fetchcode.vcs.pip._internal.resolution.base import BaseResolver
+from fetchcode.vcs.pip._internal.utils.temp_dir import (
     TempDirectory,
     TempDirectoryTypeRegistry,
     tempdir_kinds,

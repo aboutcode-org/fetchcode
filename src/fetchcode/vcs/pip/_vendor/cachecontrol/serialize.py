@@ -6,12 +6,12 @@ from __future__ import annotations
 import io
 from typing import IO, TYPE_CHECKING, Any, Mapping, cast
 
-from pip._vendor import msgpack
-from pip._vendor.requests.structures import CaseInsensitiveDict
-from pip._vendor.urllib3 import HTTPResponse
+from fetchcode.vcs.pip._vendor import msgpack
+from fetchcode.vcs.pip._vendor.requests.structures import CaseInsensitiveDict
+from fetchcode.vcs.pip._vendor.urllib3 import HTTPResponse
 
 if TYPE_CHECKING:
-    from pip._vendor.requests import PreparedRequest
+    from fetchcode.vcs.pip._vendor.requests import PreparedRequest
 
 
 class Serializer:

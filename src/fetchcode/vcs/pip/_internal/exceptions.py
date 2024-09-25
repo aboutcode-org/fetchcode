@@ -15,17 +15,17 @@ import sys
 from itertools import chain, groupby, repeat
 from typing import TYPE_CHECKING, Dict, Iterator, List, Literal, Optional, Union
 
-from pip._vendor.rich.console import Console, ConsoleOptions, RenderResult
-from pip._vendor.rich.markup import escape
-from pip._vendor.rich.text import Text
+from fetchcode.vcs.pip._vendor.rich.console import Console, ConsoleOptions, RenderResult
+from fetchcode.vcs.pip._vendor.rich.markup import escape
+from fetchcode.vcs.pip._vendor.rich.text import Text
 
 if TYPE_CHECKING:
     from hashlib import _Hash
 
-    from pip._vendor.requests.models import Request, Response
+    from fetchcode.vcs.pip._vendor.requests.models import Request, Response
 
-    from pip._internal.metadata import BaseDistribution
-    from pip._internal.req.req_install import InstallRequirement
+    from fetchcode.vcs.pip._internal.metadata import BaseDistribution
+    from fetchcode.vcs.pip._internal.req.req_install import InstallRequirement
 
 logger = logging.getLogger(__name__)
 
@@ -539,7 +539,7 @@ class HashMissing(HashError):
 
     def body(self) -> str:
         # Dodge circular import.
-        from pip._internal.utils.hashes import FAVORITE_HASH
+        from fetchcode.vcs.pip._internal.utils.hashes import FAVORITE_HASH
 
         package = None
         if self.req:
@@ -728,7 +728,7 @@ class ExternallyManagedEnvironment(DiagnosticPipError):
         except KeyError:
             pass
         except (OSError, UnicodeDecodeError, configparser.ParsingError):
-            from pip._internal.utils._log import VERBOSE
+            from fetchcode.vcs.pip._internal.utils._log import VERBOSE
 
             exc_info = logger.isEnabledFor(VERBOSE)
             logger.warning("Failed to read %s", config, exc_info=exc_info)

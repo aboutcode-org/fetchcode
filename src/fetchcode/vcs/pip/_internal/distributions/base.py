@@ -1,11 +1,11 @@
 import abc
 from typing import TYPE_CHECKING, Optional
 
-from pip._internal.metadata.base import BaseDistribution
-from pip._internal.req import InstallRequirement
+from fetchcode.vcs.pip._internal.metadata.base import BaseDistribution
+from fetchcode.vcs.pip._internal.req import InstallRequirement
 
 if TYPE_CHECKING:
-    from pip._internal.index.package_finder import PackageFinder
+    from fetchcode.vcs.pip._internal.index.package_finder import PackageFinder
 
 
 class AbstractDistribution(metaclass=abc.ABCMeta):

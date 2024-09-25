@@ -9,7 +9,7 @@
 """
 
 import sys
-from pip._vendor.pygments.cmdline import main
+from fetchcode.vcs.pip._vendor.pygments.cmdline import main
 
 try:
     sys.exit(main(sys.argv))
