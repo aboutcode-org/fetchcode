@@ -1,6 +1,15 @@
 Changelog
 =========
 
+v0.6.0
+------
+- Add package metadata support for CocoaPods.
+- Report all PyPI package versions even if the corresponding distributions are unavailable
+- Support Python ``3.11`` and ``3.12``, drop ``3.6`` and ``3.7`` support
+- Upgrade vendored pip to 24.2 (This removes the support for pseudo vcs URLs like ``git://``,
+    ``hg://``, ``svn://`` and ``bzr://`` see https://github.com/pypa/pip/pull/9436)
+
+
 v0.5.2
 ------
 - Update link references of ownership from nexB to aboutcode-org
