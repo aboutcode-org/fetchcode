@@ -44,6 +44,7 @@ def fetch_http(url, location):
     `url` URL string saving the content in a file at `location`
     """
     r = requests.get(url)
+
     with open(location, "wb") as f:
         f.write(r.content)
 
@@ -106,3 +107,17 @@ def fetch(url):
         return fetchers.get(scheme)(url, location)
 
     raise Exception("Not a supported/known scheme.")
+
+
+def fetch_json_response(url):
+    """
+    Fetch a JSON response from the given URL and return the parsed JSON data.
+    """
+    response = requests.get(url)
+    if response.status_code != 200:
+        raise Exception(f"Failed to fetch {url}: {response.status_code} {response.reason}")
+
+    try:
+        return response.json()
+    except ValueError as e:
+        raise Exception(f"Failed to parse JSON from {url}: {str(e)}")
