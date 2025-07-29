@@ -42,8 +42,8 @@ class Pypi:
         if not name or not version:
             raise ValueError("Pypi PURL must specify a name and version")
 
-        url = urljoin(cls.base_url, f"{name}/{version}.json")
-
+        url = urljoin(cls.base_url, f"{name}/{version}/json")
+        breakpoint()
         data = fetch_json_response(url)
 
         download_urls = data.get("urls", [{}])
