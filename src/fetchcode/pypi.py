@@ -50,11 +50,8 @@ class Pypi:
 
         if not download_urls:
             raise ValueError(f"No download URLs found for {name} version {version}")
-        
-        download_url = next(
-            (url["url"] for url in download_urls if url.get("url")),
-            None
-        )
+
+        download_url = next((url["url"] for url in download_urls if url.get("url")), None)
 
         if not download_url:
             raise ValueError(f"No download URL found for {name} version {version}")

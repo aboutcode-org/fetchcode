@@ -1,9 +1,10 @@
 import unittest
 from unittest.mock import patch
+
 from fetchcode.pypi import Pypi
 
-class TestGetDownloadURL(unittest.TestCase):
 
+class TestGetDownloadURL(unittest.TestCase):
     @patch("fetchcode.pypi.fetch_json_response")
     def test_valid_purl_returns_download_url(self, mock_fetch_json_response):
         mock_response = {
@@ -19,7 +20,7 @@ class TestGetDownloadURL(unittest.TestCase):
         result = Pypi.get_download_url(purl)
         self.assertEqual(
             result,
-            "https://files.pythonhosted.org/packages/source/r/requests/requests-2.31.0.tar.gz"
+            "https://files.pythonhosted.org/packages/source/r/requests/requests-2.31.0.tar.gz",
         )
 
     @patch("fetchcode.pypi.fetch_json_response")
@@ -54,9 +55,7 @@ class TestGetDownloadURL(unittest.TestCase):
 
     @patch("fetchcode.pypi.fetch_json_response")
     def test_first_url_object_missing_url_key(self, mock_fetch_json_response):
-        mock_fetch_json_response.return_value = {
-            "urls": [{}]
-        }
+        mock_fetch_json_response.return_value = {"urls": [{}]}
         purl = "pkg:pypi/requests@2.31.0"
         with self.assertRaises(ValueError) as context:
             Pypi.get_download_url(purl)
@@ -65,10 +64,7 @@ class TestGetDownloadURL(unittest.TestCase):
     @patch("fetchcode.pypi.fetch_json_response")
     def test_url_fallback_when_multiple_urls_provided(self, mock_fetch_json_response):
         mock_fetch_json_response.return_value = {
-            "urls": [
-                {},
-                {"url": "https://example.com/fallback-url.tar.gz"}
-            ]
+            "urls": [{}, {"url": "https://example.com/fallback-url.tar.gz"}]
         }
 
         purl = "pkg:pypi/requests@2.31.0"
