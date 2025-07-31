@@ -14,6 +14,8 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
+import urllib.parse
+
 from packageurl import PackageURL
 
 from fetchcode import fetch_json_response
@@ -34,8 +36,10 @@ class CPAN:
             return None
 
         try:
-            api = f"https://fastapi.metacpan.org/v1/release/{urllib.parse.quote(p.name)}/{urllib.parse.quote(p.version)}"
-            data = fetch_json_response(api, stream=False, timeout=20)
+            parsed_name = urllib.parse.quote(p.name)
+            parsed_version = urllib.parse.quote(p.version)
+            api = f"https://fastapi.metacpan.org/v1/release/{parsed_name}/{parsed_version}"
+            data = fetch_json_response(url=api)
             url = data.get("download_url") or data.get("archive")
             if url and _http_exists(url):
                 return url
