@@ -18,9 +18,9 @@ from unittest.mock import patch
 
 import pytest
 
-from fetchcode.cran import Cran
+from fetchcode.cran import CRAN
 
-get_download_url = Cran.get_download_url
+get_download_url = CRAN.get_download_url
 
 
 @pytest.fixture
