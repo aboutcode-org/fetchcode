@@ -17,11 +17,13 @@
 from packageurl.contrib.route import NoRouteAvailable
 from packageurl.contrib.route import Router
 
+from fetchcode.composer import Composer
+from fetchcode.cpan import CPAN
+from fetchcode.cran import CRAN
+from fetchcode.huggingface import Huggingface
 from fetchcode.pypi import Pypi
 
-package_registry = [
-    Pypi,
-]
+package_registry = [Pypi, CRAN, CPAN, Huggingface, Composer]
 
 router = Router()
 

@@ -16,31 +16,38 @@
 
 from packageurl import PackageURL
 
-from fetchcode.utils import _http_exists
+from fetchcode import fetch_json_response
 
 
-class CRAN:
+class Huggingface:
     """
-    This class handles CRAN PURLs.
+    This class handles huggingface PURLs.
     """
 
-    purl_pattern = "pkg:cran/.*"
-    base_url = "https://cran.r-project.org"
+    purl_pattern = "pkg:huggingface/.*"
 
     @classmethod
     def get_download_url(cls, purl: str):
         """
-        Resolve a CRAN PURL to a verified, downloadable source tarball URL.
-        Tries current contrib first, then Archive.
+        Return the download URL for a Hugging Face PURL.
         """
         p = PackageURL.from_string(purl)
-        if not p.name or not p.version:
+        if not p.name:
             return None
 
-        current_url = f"{cls.base_url}/src/contrib/{p.name}_{p.version}.tar.gz"
-        if _http_exists(current_url):
-            return current_url
+        revision = p.version or "main"
+        model_id = p.name
+        q = p.qualifiers or {}
 
-        archive_url = f"{cls.base_url}/src/contrib/Archive/{p.name}/{p.name}_{p.version}.tar.gz"
-        if _http_exists(archive_url):
-            return archive_url
+        api_url = f"https://huggingface.co/api/models/{model_id}?revision={revision}"
+        data = fetch_json_response(api_url)
+        siblings = data.get("siblings", [])
+
+        ALLOWED_EXECUTABLE_EXTS = (".bin",)
+
+        for sib in siblings:
+            file_name = sib.get("rfilename")
+            if not file_name.endswith(ALLOWED_EXECUTABLE_EXTS):
+                continue
+            url = f"https://huggingface.co/{model_id}/resolve/{revision}/{file_name}"
+            return url
