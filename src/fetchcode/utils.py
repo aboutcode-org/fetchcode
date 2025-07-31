@@ -243,3 +243,14 @@ def get_first_three_md5_hash_characters(podname):
     create a hash (using md5) of it and take the first three characters."
     """
     return md5_hasher(podname.encode("utf-8")).hexdigest()[0:3]
+
+
+def _http_exists(url: str) -> bool:
+    """
+    Lightweight existence check using a ranged GET so CDNs/servers that ignore HEAD still work.
+    """
+    try:
+        resp = make_head_request(url, headers={"Range": "bytes=0-0"})
+        return resp is not None and resp.status_code in (200, 206)
+    except Exception:
+        return False
