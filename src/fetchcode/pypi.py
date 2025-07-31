@@ -23,7 +23,7 @@ from fetchcode import fetch_json_response
 
 class Pypi:
     """
-    This class handles Cargo PURLs.
+    This class handles Pypi PURLs.
     """
 
     purl_pattern = "pkg:pypi/.*"
