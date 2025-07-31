@@ -20,7 +20,15 @@ from fetchcode.utils import _http_exists
 
 
 class Cran:
-    def get_download_url(purl: str):
+    """
+    This class handles CRAN PURLs.
+    """
+
+    purl_pattern = "pkg:cran/.*"
+    base_url = "https://cran.r-project.org"
+
+    @classmethod
+    def get_download_url(cls, purl: str):
         """
         Resolve a CRAN PURL to a verified, downloadable source tarball URL.
         Tries current contrib first, then Archive.
@@ -29,13 +37,11 @@ class Cran:
         if not p.name or not p.version:
             return None
 
-        current_url = f"https://cran.r-project.org/src/contrib/{p.name}_{p.version}.tar.gz"
+        current_url = f"{cls.base_url}/src/contrib/{p.name}_{p.version}.tar.gz"
         if _http_exists(current_url):
             return current_url
 
-        archive_url = (
-            f"https://cran.r-project.org/src/contrib/Archive/{p.name}/{p.name}_{p.version}.tar.gz"
-        )
+        archive_url = f"{cls.base_url}/src/contrib/Archive/{p.name}/{p.name}_{p.version}.tar.gz"
         if _http_exists(archive_url):
             return archive_url
 
