@@ -36,7 +36,7 @@ class Huggingface:
             return None
 
         revision = p.version or "main"
-        model_id = p.name
+        model_id = f"{p.namespace}/{p.name}" if p.namespace else p.name
         q = p.qualifiers or {}
 
         api_url = f"https://huggingface.co/api/models/{model_id}?revision={revision}"
