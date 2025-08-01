@@ -14,30 +14,33 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
+from unittest.mock import patch
+
+import pytest
 from packageurl.contrib.route import NoRouteAvailable
-from packageurl.contrib.route import Router
 
-from fetchcode.composer import Composer
-from fetchcode.cpan import CPAN
-from fetchcode.cran import CRAN
-from fetchcode.huggingface import Huggingface
-from fetchcode.pypi import Pypi
-
-package_registry = [Pypi, CRAN, CPAN, Huggingface, Composer]
-
-router = Router()
-
-for pkg_class in package_registry:
-    router.append(pattern=pkg_class.purl_pattern, endpoint=pkg_class.get_download_url)
+from fetchcode.download_urls import download_url
+from fetchcode.download_urls import router
 
 
-def download_url(purl):
-    """
-    Return package metadata for a URL or PURL.
-    Return None if there is no URL, or the URL or PURL is not supported.
-    """
-    if purl:
-        try:
-            return router.process(purl)
-        except NoRouteAvailable:
-            return
+def test_right_class_being_called_for_the_purls():
+    purls = [
+        "pkg:pypi/requests@2.31.0",
+        "pkg:cpan/EXAMPLE/Some-Module@1.2.3",
+        "pkg:composer/laravel/framework@10.0.0",
+        "pkg:cran/dplyr@1.0.0",
+    ]
+
+    with patch("fetchcode.download_urls.Router.process") as mock_fetch:
+        for purl in purls:
+            assert download_url(purl) is not None, f"Failed for purl: {purl}"
+
+
+def test_with_invalid_purls():
+    invalid_purls = [
+        "pkg:invalid/requests",
+        "pkg:xyz/dplyr",
+    ]
+    for purl in invalid_purls:
+        with pytest.raises(NoRouteAvailable):
+            router.process(purl)

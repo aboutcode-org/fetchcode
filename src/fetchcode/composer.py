@@ -14,45 +14,44 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
-from urllib.parse import urljoin
-
 from packageurl import PackageURL
 
 from fetchcode import fetch_json_response
 
 
-class Pypi:
-    """
-    This class handles Pypi PURLs.
-    """
+class Composer:
 
-    purl_pattern = "pkg:pypi/.*"
-    base_url = "https://pypi.org/pypi/"
+    purl_pattern = "pkg:composer/.*"
+    base_url = "https://repo.packagist.org"
 
     @classmethod
     def get_download_url(cls, purl):
+
         """
-        Return the download URL for a Pypi PURL.
+        Return the download URL for a Composer PURL.
         """
         purl = PackageURL.from_string(purl)
 
-        name = purl.name
-        version = purl.version
+        if not purl.name or not purl.version:
+            raise ValueError("Composer PURL must specify a name and version")
 
-        if not name or not version:
-            raise ValueError("Pypi PURL must specify a name and version")
+        name = f"{purl.namespace}/{purl.name}" if purl.namespace else purl.name
 
-        url = urljoin(cls.base_url, f"{name}/{version}/json")
+        url = f"{cls.base_url}/p2/{name}.json"
         data = fetch_json_response(url)
 
-        download_urls = data.get("urls", [{}])
+        if "packages" not in data:
+            return
 
-        if not download_urls:
-            raise ValueError(f"No download URLs found for {name} version {version}")
+        if name not in data["packages"]:
+            return
 
-        download_url = next((url["url"] for url in download_urls if url.get("url")), None)
-
-        if not download_url:
-            raise ValueError(f"No download URL found for {name} version {version}")
-
-        return download_url
+        for package in data["packages"][name]:
+            if (
+                package.get("version") == purl.version
+                or package.get("version") == f"v{purl.version}"
+                or package.get("version_normalized") == purl.version
+                or package.get("version_normalized") == f"v{purl.version}"
+            ):
+                download_url = package["dist"].get("url")
+                return download_url
