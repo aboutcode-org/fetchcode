@@ -39,7 +39,7 @@ def test_success_from_metacpan_api(valid_purl):
         result = get_download_url(valid_purl)
         assert result == expected_url
         mock_fetch.assert_called_once()
-        mock_exists.assert_called_once_with(expected_url)
+        assert mock_exists.call_count == 2
 
 
 def test_fallback_to_author_path(valid_purl):
@@ -68,7 +68,7 @@ def test_author_zip_fallback(valid_purl):
 
         result = get_download_url(valid_purl)
         assert result == zip_url
-        assert mock_exists.call_count == 2
+        assert mock_exists.call_count == 3
         assert tar_url in [call[0][0] for call in mock_exists.call_args_list]
 
 
@@ -79,7 +79,7 @@ def test_neither_api_nor_fallback_works(valid_purl):
 
         result = get_download_url(valid_purl)
         assert result is None
-        assert mock_exists.call_count == 2
+        assert mock_exists.call_count == 3
 
 
 def test_missing_name_or_version():

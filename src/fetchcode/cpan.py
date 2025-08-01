@@ -35,23 +35,24 @@ class CPAN:
         if not p.name or not p.version:
             return None
 
-        try:
-            parsed_name = urllib.parse.quote(p.name)
-            parsed_version = urllib.parse.quote(p.version)
-            api = f"https://fastapi.metacpan.org/v1/release/{parsed_name}/{parsed_version}"
+        parsed_name = urllib.parse.quote(p.name)
+        parsed_version = urllib.parse.quote(p.version)
+        api = f"https://fastapi.metacpan.org/v1/release/{parsed_name}/{parsed_version}"
+        if _http_exists(api):
+            # Fetch release data from MetaCPAN API
+            # Example: https://fastapi.metacpan.org/v1/release/Some-Module/1.2.3
             data = fetch_json_response(url=api)
             url = data.get("download_url") or data.get("archive")
             if url and _http_exists(url):
                 return url
-        except Exception:
-            pass
 
         author = p.namespace
-        if author:
-            auth = author.upper()
-            a = auth[0]
-            ab = auth[:2] if len(auth) >= 2 else auth
-            for ext in (".tar.gz", ".zip"):
-                url = f"https://cpan.metacpan.org/authors/id/{a}/{ab}/{auth}/{p.name}-{p.version}{ext}"
-                if _http_exists(url):
-                    return url
+        if not author:
+            return
+        auth = author.upper()
+        a = auth[0]
+        ab = auth[:2] if len(auth) >= 2 else auth
+        for ext in (".tar.gz", ".zip"):
+            url = f"https://cpan.metacpan.org/authors/id/{a}/{ab}/{auth}/{p.name}-{p.version}{ext}"
+            if _http_exists(url):
+                return url
