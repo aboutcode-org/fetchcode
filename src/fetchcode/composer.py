@@ -47,6 +47,11 @@ class Composer:
             return
 
         for package in data["packages"][name]:
-            if package["version"] == purl.version:
+            if (
+                package.get("version") == purl.version
+                or package.get("version") == f"v{purl.version}"
+                or package.get("version_normalized") == purl.version
+                or package.get("version_normalized") == f"v{purl.version}"
+            ):
                 download_url = package["dist"].get("url")
                 return download_url
