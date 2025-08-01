@@ -37,7 +37,7 @@ class Composer:
 
         name = f"{purl.namespace}/{purl.name}" if purl.namespace else purl.name
 
-        url = f"{cls.base_url}/p2/{name}.json "
+        url = f"{cls.base_url}/p2/{name}.json"
         data = fetch_json_response(url)
 
         if "packages" not in data:

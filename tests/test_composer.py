@@ -24,7 +24,7 @@ from fetchcode.composer import Composer
 def test_valid_composer_package_with_namespace():
     purl = "pkg:composer/laravel/framework@10.0.0"
     name = "laravel/framework"
-    expected_url = f"https://repo.packagist.org/p2/{name}.json "
+    expected_url = f"https://repo.packagist.org/p2/{name}.json"
     download_url = "https://github.com/laravel/framework/archive/refs/tags/v10.0.0.zip"
 
     mock_data = {"packages": {name: [{"version": "10.0.0", "dist": {"url": download_url}}]}}
@@ -38,7 +38,7 @@ def test_valid_composer_package_with_namespace():
 def test_valid_composer_package_without_namespace():
     purl = "pkg:composer/some-package@1.0.0"
     name = "some-package"
-    expected_url = f"https://repo.packagist.org/p2/{name}.json "
+    expected_url = f"https://repo.packagist.org/p2/{name}.json"
     download_url = "https://example.org/some-package-1.0.0.zip"
 
     mock_data = {"packages": {name: [{"version": "1.0.0", "dist": {"url": download_url}}]}}
