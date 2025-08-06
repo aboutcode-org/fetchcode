@@ -21,7 +21,9 @@ from mimetypes import MimeTypes
 from urllib.parse import urlparse
 
 import requests
-from packageurl.contrib.purl2url import get_download_url
+from packageurl.contrib import purl2url
+
+from fetchcode.utils import _http_exists
 
 
 class Response:
@@ -90,18 +92,19 @@ def fetch_ftp(url, location):
     return resp
 
 
-def fetch_purl(purl, location=None):
+def resolve_purl(purl):
     """
-    Return a `Response` object built from fetching the content at a PURL based `purl` URL string
-    saving the content in a file at `location`
+    Resolve a Package URL (PURL) to a download URL.
+
+    This function attempts to resolve the PURL using both the purl2url library and
+    the fetchcode.download_urls module. It returns the first valid download URL found.
     """
     from fetchcode.download_urls import download_url as get_download_url_from_fetchcode
 
-    for resolver in (get_download_url, get_download_url_from_fetchcode):
+    for resolver in (purl2url.get_download_url, get_download_url_from_fetchcode):
         url = resolver(purl)
-        if url:
-            return fetch(url=url)
-    return
+        if url and _http_exists(url):
+            return url
 
 
 def fetch(url):
@@ -111,13 +114,16 @@ def fetch(url):
     """
     url_parts = urlparse(url)
     scheme = url_parts.scheme
-    location = None
 
-    if scheme != "pkg":
-        temp = tempfile.NamedTemporaryFile(delete=False)
-        location = temp.name
+    if scheme == "pkg":
+        url = resolve_purl(url)
+        url_parts = urlparse(url)
+        scheme = url_parts.scheme
 
-    fetchers = {"ftp": fetch_ftp, "http": fetch_http, "https": fetch_http, "pkg": fetch_purl}
+    temp = tempfile.NamedTemporaryFile(delete=False)
+    location = temp.name
+
+    fetchers = {"ftp": fetch_ftp, "http": fetch_http, "https": fetch_http}
 
     if scheme in fetchers:
         return fetchers.get(scheme)(url, location)
