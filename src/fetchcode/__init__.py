@@ -21,6 +21,7 @@ from mimetypes import MimeTypes
 from urllib.parse import urlparse
 
 import requests
+from packageurl.contrib.purl2url import get_download_url
 
 
 class Response:
@@ -89,19 +90,34 @@ def fetch_ftp(url, location):
     return resp
 
 
+def fetch_purl(purl, location=None):
+    """
+    Return a `Response` object built from fetching the content at a PURL based `purl` URL string
+    saving the content in a file at `location`
+    """
+    from fetchcode.download_urls import download_url as get_download_url_from_fetchcode
+
+    for resolver in (get_download_url, get_download_url_from_fetchcode):
+        url = resolver(purl)
+        if url:
+            return fetch(url=url)
+    return
+
+
 def fetch(url):
     """
     Return a `Response` object built from fetching the content at the `url` URL string and
     store content at a temporary file.
     """
-
-    temp = tempfile.NamedTemporaryFile(delete=False)
-    location = temp.name
-
     url_parts = urlparse(url)
     scheme = url_parts.scheme
+    location = None
 
-    fetchers = {"ftp": fetch_ftp, "http": fetch_http, "https": fetch_http}
+    if scheme != "purl":
+        temp = tempfile.NamedTemporaryFile(delete=False)
+        location = temp.name
+
+    fetchers = {"ftp": fetch_ftp, "http": fetch_http, "https": fetch_http, "pkg": fetch_purl}
 
     if scheme in fetchers:
         return fetchers.get(scheme)(url, location)
