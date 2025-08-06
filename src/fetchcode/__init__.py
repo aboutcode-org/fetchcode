@@ -113,7 +113,7 @@ def fetch(url):
     scheme = url_parts.scheme
     location = None
 
-    if scheme != "purl":
+    if scheme != "pkg":
         temp = tempfile.NamedTemporaryFile(delete=False)
         location = temp.name
 
