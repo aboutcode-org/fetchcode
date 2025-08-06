@@ -63,3 +63,24 @@ def test_fetch_with_scheme_not_present():
         url = "abc://speedtest/1KB.zip"
         response = fetch(url=url)
         assert "Not a supported/known scheme." == e_info
+
+
+@mock.patch("fetchcode.resolve_url_from_purl")
+@mock.patch("fetchcode.fetch_http")
+def test_fetch_purl(mock_fetch_http, mock_resolve):
+    mock_fetch_http.return_value = "mocked_purl_response"
+    mock_resolve.return_value = ("http://resolved.com/file.tar.gz", "http")
+
+    response = fetch("pkg:pypi/sample@1.0.0")
+
+    assert response == "mocked_purl_response"
+    mock_resolve.assert_called_once()
+    mock_fetch_http.assert_called_once()
+
+
+@mock.patch("fetchcode.get_url_scheme")
+def test_fetch_unsupported_scheme(mock_get_scheme):
+    mock_get_scheme.return_value = "s3"
+
+    with pytest.raises(Exception, match="Not a supported/known scheme"):
+        fetch("s3://bucket/object")

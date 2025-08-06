@@ -96,8 +96,8 @@ def resolve_purl(purl):
     """
     Resolve a Package URL (PURL) to a download URL.
 
-    This function attempts to resolve the PURL using both the purl2url library and
-    the fetchcode.download_urls module. It returns the first valid download URL found.
+    This function attempts to resolve the PURL using first purl2url library and
+    if that fails, it falls back to fetchcode's download_urls module.
     """
     from fetchcode.download_urls import download_url as get_download_url_from_fetchcode
 
@@ -107,18 +107,47 @@ def resolve_purl(purl):
             return url
 
 
+def get_resolved_url(url, scheme):
+    resoltion_by_scheme = {
+        "pkg": resolve_url_from_purl,
+    }
+    resolution_handler = resoltion_by_scheme.get(scheme)
+    if not resolution_handler:
+        raise ValueError(f"Not a supported/known scheme: {scheme}")
+    url, scheme = resolution_handler(url)
+    return url, scheme
+
+
+def resolve_url_from_purl(url):
+    """
+    Resolve a Package URL (PURL) to a valid URL.
+    Raises ValueError if the PURL cannot be resolved.
+    """
+    url = resolve_purl(url)
+    if not url:
+        raise ValueError("Could not resolve PURL to a valid URL.")
+    scheme = get_url_scheme(url)
+    return url, scheme
+
+
+def get_url_scheme(url):
+    """
+    Return the scheme of the given URL.
+    """
+    url_parts = urlparse(url)
+    scheme = url_parts.scheme
+    return scheme
+
+
 def fetch(url):
     """
     Return a `Response` object built from fetching the content at the `url` URL string and
     store content at a temporary file.
     """
-    url_parts = urlparse(url)
-    scheme = url_parts.scheme
+    scheme = get_url_scheme(url)
 
-    if scheme == "pkg":
-        url = resolve_purl(url)
-        url_parts = urlparse(url)
-        scheme = url_parts.scheme
+    if scheme in ["pkg"]:
+        url, scheme = get_resolved_url(url, scheme)
 
     temp = tempfile.NamedTemporaryFile(delete=False)
     location = temp.name
@@ -128,7 +157,7 @@ def fetch(url):
     if scheme in fetchers:
         return fetchers.get(scheme)(url, location)
 
-    raise Exception("Not a supported/known scheme.")
+    raise Exception(f"Not a supported/known scheme: {scheme}.")
 
 
 def fetch_json_response(url):
