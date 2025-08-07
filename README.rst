@@ -72,28 +72,28 @@ Fetch a purl and get a ``fetchcode.fetch.Response`` object back::
 
 Ecosystems supported for fetching a purl from fetchcode:
 
-  - alpm
-  - apk
-  - bitbucket
-  - cargo
-  - composer
-  - conda
-  - cpan
-  - cran
-  - deb
-  - gem
-  - generic
-  - github
-  - golang
-  - hackage
-  - hex
-  - luarocks
-  - maven
-  - npm
-  - nuget
-  - pub
-  - pypi
-  - swift
+- alpm
+- apk
+- bitbucket
+- cargo
+- composer
+- conda
+- cpan
+- cran
+- deb
+- gem
+- generic
+- github
+- golang
+- hackage
+- hex
+- luarocks
+- maven
+- npm
+- nuget
+- pub
+- pypi
+- swift
 
 License
 --------
