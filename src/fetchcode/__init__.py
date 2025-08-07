@@ -134,9 +134,7 @@ def get_url_scheme(url):
     """
     Return the scheme of the given URL.
     """
-    url_parts = urlparse(url)
-    scheme = url_parts.scheme
-    return scheme
+    return urlparse(url).scheme
 
 
 def fetch(url):

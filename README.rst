@@ -59,6 +59,41 @@ Fetch some package metadata and get a ``fetchcode.packagedcode_models.Package`` 
     >>> list(package.info('pkg:rubygems/files'))
     [Package(type='rubygems', namespace=None, name='files', version=None)]
 
+Fetch a purl and get a ``fetchcode.fetch.Response`` object back::
+
+    >>> from fetchcode import fetch
+    >>> f = fetch('pkg:swift/github.com/Alamofire/Alamofire@5.4.3')
+    >>> f.location
+    '/tmp/tmp_cm02xsg'
+    >>> f.content_type
+    'application/zip'
+    >>> f.url
+    'https://github.com/Alamofire/Alamofire/archive/5.4.3.zip'
+
+Ecosystems supported for fetching a purl from fetchcode:
+
+  - alpm
+  - apk
+  - bitbucket
+  - cargo
+  - composer
+  - conda
+  - cpan
+  - cran
+  - deb
+  - gem
+  - generic
+  - github
+  - golang
+  - hackage
+  - hex
+  - luarocks
+  - maven
+  - npm
+  - nuget
+  - pub
+  - pypi
+  - swift
 
 License
 --------
