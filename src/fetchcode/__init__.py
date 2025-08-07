@@ -21,6 +21,9 @@ from mimetypes import MimeTypes
 from urllib.parse import urlparse
 
 import requests
+from packageurl.contrib import purl2url
+
+from fetchcode.utils import _http_exists
 
 
 class Response:
@@ -89,24 +92,70 @@ def fetch_ftp(url, location):
     return resp
 
 
+def resolve_purl(purl):
+    """
+    Resolve a Package URL (PURL) to a download URL.
+
+    This function attempts to resolve the PURL using first purl2url library and
+    if that fails, it falls back to fetchcode's download_urls module.
+    """
+    from fetchcode.download_urls import download_url as get_download_url_from_fetchcode
+
+    for resolver in (purl2url.get_download_url, get_download_url_from_fetchcode):
+        url = resolver(purl)
+        if url and _http_exists(url):
+            return url
+
+
+def get_resolved_url(url, scheme):
+    resoltion_by_scheme = {
+        "pkg": resolve_url_from_purl,
+    }
+    resolution_handler = resoltion_by_scheme.get(scheme)
+    if not resolution_handler:
+        raise ValueError(f"Not a supported/known scheme: {scheme}")
+    url, scheme = resolution_handler(url)
+    return url, scheme
+
+
+def resolve_url_from_purl(url):
+    """
+    Resolve a Package URL (PURL) to a valid URL.
+    Raises ValueError if the PURL cannot be resolved.
+    """
+    url = resolve_purl(url)
+    if not url:
+        raise ValueError("Could not resolve PURL to a valid URL.")
+    scheme = get_url_scheme(url)
+    return url, scheme
+
+
+def get_url_scheme(url):
+    """
+    Return the scheme of the given URL.
+    """
+    return urlparse(url).scheme
+
+
 def fetch(url):
     """
     Return a `Response` object built from fetching the content at the `url` URL string and
     store content at a temporary file.
     """
+    scheme = get_url_scheme(url)
+
+    if scheme in ["pkg"]:
+        url, scheme = get_resolved_url(url, scheme)
 
     temp = tempfile.NamedTemporaryFile(delete=False)
     location = temp.name
-
-    url_parts = urlparse(url)
-    scheme = url_parts.scheme
 
     fetchers = {"ftp": fetch_ftp, "http": fetch_http, "https": fetch_http}
 
     if scheme in fetchers:
         return fetchers.get(scheme)(url, location)
 
-    raise Exception("Not a supported/known scheme.")
+    raise Exception(f"Not a supported/known scheme: {scheme}.")
 
 
 def fetch_json_response(url):

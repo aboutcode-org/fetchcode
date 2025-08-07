@@ -26,7 +26,6 @@ class Composer:
 
     @classmethod
     def get_download_url(cls, purl):
-
         """
         Return the download URL for a Composer PURL.
         """
