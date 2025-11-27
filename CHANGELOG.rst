@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.7.1
+------
+- Update artifact upload version.
+
+
 v0.7.0
 ------
 - Add support to fetch PURLs.
