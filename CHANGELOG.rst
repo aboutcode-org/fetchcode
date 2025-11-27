@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.7.0
+------
+- Add support to fetch PURLs.
+
+
 v0.6.0
 ------
 - Add package metadata support for CocoaPods.
