@@ -115,13 +115,17 @@ TRACE_DEEP = False
 TRACE_ULTRA_DEEP = False
 
 # Supported environments
-PYTHON_VERSIONS = "37", "38", "39", "310"
+PYTHON_VERSIONS = "37", "38", "39", "310", "311", "312", "313", "314"
 
 PYTHON_DOT_VERSIONS_BY_VER = {
     "37": "3.7",
     "38": "3.8",
     "39": "3.9",
     "310": "3.10",
+    "311": "3.11",
+    "312": "3.12",
+    "313": "3.13",
+    "314": "3.14",
 }
 
 
