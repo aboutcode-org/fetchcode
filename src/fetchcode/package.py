@@ -388,7 +388,8 @@ def get_cocoapods_data_from_purl(purl):
 
         gh_repo_owner = None
         gh_repo_name = name
-        podspec_api_url = f"https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs/{hashed_path}/{name}/{tag}/{name}.podspec.json"
+        base_url = "https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs"
+        podspec_api_url = f"{base_url}/{hashed_path}/{name}/{tag}/{name}.podspec.json"
         podspec_api_response = get_response(podspec_api_url)
         podspec_homepage = podspec_api_response.get("homepage")
 
