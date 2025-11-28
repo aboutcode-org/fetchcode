@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v0.8.0
+--------
+- Do not create GH release as draft
+- Add a GitHub workflow to run unit tests
+- Refactor Pypi fetcher class for re-usability
+- Add support for Python 3.13 and 3.14 
+
 v0.7.1
 ------
 - Update artifact upload version.
