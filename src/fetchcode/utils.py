@@ -189,7 +189,7 @@ def make_head_request(url, headers=None):
     try:
         resp = requests.head(url, headers=headers)
         return resp
-    except:
+    except requests.RequestException:
         raise Exception(f"Failed to fetch: {url}")
 
 

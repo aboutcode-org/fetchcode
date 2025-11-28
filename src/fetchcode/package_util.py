@@ -303,7 +303,7 @@ def get_cocoapod_tags(spec, name):
                     data_list.pop(0)
                 return data_list
         return None
-    except:
+    except:  # noqa: E722
         return None
 
 
@@ -338,7 +338,8 @@ def construct_cocoapods_package(
         bug_tracking_url = f"{github_url}/{gh_repo_owner}/{gh_repo_name}/issues"
         code_view_url = f"{github_url}/{gh_repo_owner}/{gh_repo_name}"
 
-    podspec_api_url = f"https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs/{hashed_path}/{name}/{tag}/{name}.podspec.json"
+    base_url = "https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs"
+    podspec_api_url = f"{base_url}/{hashed_path}/{name}/{tag}/{name}.podspec.json"
     podspec_api_response = utils.get_response(podspec_api_url)
     homepage_url = podspec_api_response.get("homepage")
 
