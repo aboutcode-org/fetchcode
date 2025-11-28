@@ -101,15 +101,7 @@ def test_fetch_purl_with_purl2url(mock_fetch_http, mock_http_exists):
 def test_fetch_invalid_purl(mock_fetch_json_response):
     mock_fetch_json_response.return_value = {}
 
-    with pytest.raises(Exception, match="No download URL found for invalid-package version 1.0.0"):
-        fetch("pkg:pypi/invalid-package@1.0.0")
-
-
-@mock.patch("fetchcode.pypi.fetch_json_response")
-def test_fetch_invalid_purl(mock_fetch_json_response):
-    mock_fetch_json_response.return_value = {}
-
-    with pytest.raises(Exception, match="No download URL found for invalid-package version 1.0.0"):
+    with pytest.raises(Exception, match="Could not resolve PURL to a valid URL."):
         fetch("pkg:pypi/invalid-package@1.0.0")
 
 
