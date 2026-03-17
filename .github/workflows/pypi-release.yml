@@ -37,7 +37,7 @@ jobs:
         run: python -m build --sdist --wheel --outdir dist/
 
       - name: Upload built archives
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pypi_archives
           path: dist/*
@@ -51,7 +51,7 @@ jobs:
 
     steps:
       - name: Download built archives
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: pypi_archives
           path: dist
@@ -69,16 +69,17 @@ jobs:
     needs:
       - create-gh-release
     runs-on: ubuntu-24.04
+    environment: pypi-publish
+    permissions:
+      id-token: write
 
     steps:
       - name: Download built archives
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: pypi_archives
-          path: dist
+          path: dist/
 
       - name: Publish to PyPI
-        if: startsWith(github.ref, 'refs/tags')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          password: ${{ secrets.PYPI_API_TOKEN }}
