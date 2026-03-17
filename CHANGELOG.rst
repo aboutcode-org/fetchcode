@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.8.1
+--------
+- Fix package versions for scoped npm packages (https://github.com/aboutcode-org/fetchcode/pull/194)
+- Publish to pypi using trusted publisher (https://github.com/aboutcode-org/fetchcode/pull/195)
+
 v0.8.0
 --------
 - Do not create GH release as draft
