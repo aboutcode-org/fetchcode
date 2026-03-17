@@ -171,7 +171,7 @@ def get_gem_versions_from_purl(purl):
 def get_npm_versions_from_purl(purl):
     """Fetch versions of npm packages from the npm registry API."""
     purl = PackageURL.from_string(purl)
-    url = f"https://registry.npmjs.org/{purl.name}"
+    url = get_npm_registry_url(purl)
     response = get_response(url=url, content_type="json")
     if not response:
         logger.error(f"Failed to fetch {url}")
@@ -545,3 +545,9 @@ def remove_debian_default_epoch(version):
     ''
     """
     return version and version.replace("0:", "")
+
+
+def get_npm_registry_url(purl):
+    """Return registry URL for npm Package-URL."""
+    pkg_name = f"{purl.namespace}/{purl.name}" if purl.namespace else purl.name
+    return f"https://registry.npmjs.org/{pkg_name}"

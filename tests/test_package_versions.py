@@ -20,7 +20,9 @@ from pathlib import Path
 from unittest import mock
 
 import yaml
+from packageurl import PackageURL
 
+from fetchcode.package_versions import get_npm_registry_url
 from fetchcode.package_versions import versions
 
 FETCHCODE_REGEN_TEST_FIXTURES = os.getenv("FETCHCODE_REGEN_TEST_FIXTURES", False)
@@ -85,6 +87,20 @@ def test_get_gem_versions_from_purl(mock_get_response):
     mock_get_response.side_effect = side_effect
     result = list(versions(purl))
     check_results_against_json(result, expected_file)
+
+
+def test_get_npm_registry_url():
+    purl1 = PackageURL.from_string("pkg:npm/%40angular/animation")
+    purl2 = PackageURL.from_string("pkg:npm/core")
+
+    result_url1 = get_npm_registry_url(purl1)
+    result_url2 = get_npm_registry_url(purl2)
+
+    expected_url1 = "https://registry.npmjs.org/@angular/animation"
+    expected_url2 = "https://registry.npmjs.org/core"
+
+    assert result_url1 == expected_url1
+    assert result_url2 == expected_url2
 
 
 @mock.patch("fetchcode.package_versions.get_response")
