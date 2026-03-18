@@ -58,7 +58,8 @@ def versions(purl):
         try:
             return router.process(purl)
         except NoRouteAvailable:
-            return
+            logger.error(f"Unsupported purl: {purl}")
+            raise
 
 
 @dataclasses.dataclass(frozen=True)
@@ -521,7 +522,7 @@ def get_response(url, content_type="json", headers=None):
         logger.error(
             f"HTTP error occurred: {http_err} \n {traceback.format_exc()}",
         )
-        return
+        raise
 
     if content_type == "binary":
         return resp.content
