@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v0.8.2
+--------
+- Use new packagist endpoint to collect composer versions (https://github.com/aboutcode-org/fetchcode/pull/198)
+- Propagate package version collection errors to caller (https://github.com/aboutcode-org/fetchcode/pull/199)
+
 v0.8.1
 --------
 - Fix package versions for scoped npm packages (https://github.com/aboutcode-org/fetchcode/pull/194)
