@@ -240,7 +240,7 @@ def get_composer_versions_from_purl(purl):
         return
 
     pkg = f"{purl.namespace}/{purl.name}"
-    response = get_response(url=f"https://repo.packagist.org/p/{pkg}.json")
+    response = get_response(url=f"https://repo.packagist.org/p2/{pkg}.json")
     if response:
         yield from composer_extract_versions(response, pkg)
 
@@ -407,14 +407,17 @@ def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageV
 
 
 def composer_extract_versions(resp: dict, pkg: str) -> Iterable[PackageVersion]:
-    for version in get_item(resp, "packages", pkg) or []:
-        if "dev" in version:
+    for item in get_item(resp, "packages", pkg) or []:
+        if "dev-" in item:
             continue
 
         # This if statement ensures, that all_versions contains only released versions
         # See https://github.com/composer/composer/blob/44a4429978d1b3c6223277b875762b2930e83e8c/doc/articles/versions.md#tags  # nopep8
         # for explanation of removing 'v'
-        time = get_item(resp, "packages", pkg, version, "time")
+        time = item.get("time")
+        version = item.get("version")
+        if not version:
+            continue
         yield PackageVersion(
             value=cleaned_version(version),
             release_date=dateparser.parse(time) if time else None,
