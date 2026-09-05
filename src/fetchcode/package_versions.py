@@ -456,6 +456,8 @@ def cleaned_version(version):
 
 def nuget_extract_versions(response: dict) -> Iterable[PackageVersion]:
     for entry_group in response.get("items") or []:
+        if "items" not in entry_group and entry_group.get("@id"):
+            entry_group = get_response(url=entry_group["@id"]) or {}
         for entry in entry_group.get("items") or []:
             catalog_entry = entry.get("catalogEntry") or {}
             version = catalog_entry.get("version")
