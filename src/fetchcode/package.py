@@ -122,7 +122,8 @@ def get_npm_data_from_purl(purl):
     base_path = "http://registry.npmjs.org"
     name = purl.name
     version = purl.version
-    api_url = f"{base_path}/{name}"
+    full_name = f"{purl.namespace}/{name}" if purl.namespace else name
+    api_url = f"{base_path}/{full_name}"
 
     response = get_response(api_url)
     vcs_data = response.get("repository") or {}
@@ -136,7 +137,9 @@ def get_npm_data_from_purl(purl):
     versions = response.get("versions", [])
     for num in versions:
         version = versions[num]
-        version_purl = PackageURL(type=purl.type, name=name, version=version.get("version"))
+        version_purl = PackageURL(
+            type=purl.type, namespace=purl.namespace, name=name, version=version.get("version")
+        )
         repository = version.get("repository") or {}
         bugs = response.get("bugs") or {}
         dist = version.get("dist") or {}
