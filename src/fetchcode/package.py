@@ -379,7 +379,7 @@ def get_cocoapods_data_from_purl(purl):
     hashed_path_underscore = hashed_path.replace("/", "_")
     file_prefix = "all_pods_versions_"
     spec = f"{api}/{file_prefix}{hashed_path_underscore}.txt"
-    data_list = get_cocoapod_tags(spec, name)
+    data_list = get_cocoapod_tags(spec, name) or []
 
     for tag in data_list:
         version_purl = PackageURL(type=purl.type, name=name, version=tag)
@@ -391,7 +391,7 @@ def get_cocoapods_data_from_purl(purl):
         base_url = "https://raw.githubusercontent.com/CocoaPods/Specs/master/Specs"
         podspec_api_url = f"{base_url}/{hashed_path}/{name}/{tag}/{name}.podspec.json"
         podspec_api_response = get_response(podspec_api_url)
-        podspec_homepage = podspec_api_response.get("homepage")
+        podspec_homepage = podspec_api_response.get("homepage") or ""
 
         if podspec_homepage.startswith("https://github.com/"):
             podspec_homepage_remove_gh_prefix = podspec_homepage.replace("https://github.com/", "")
