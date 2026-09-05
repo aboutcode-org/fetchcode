@@ -143,7 +143,7 @@ def get_npm_data_from_purl(purl):
         vcs_url = repository.get("url")
         download_url = dist.get("tarball")
         bug_tracking_url = bugs.get("url")
-        declared_license = license
+        declared_license = version.get("license", license)
 
         if purl.version and version_purl.version != purl.version:
             continue
