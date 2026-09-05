@@ -293,28 +293,31 @@ def get_bitbucket_data_from_purl(purl):
     tags_url = tags_url.get("href")
     if not tags_url:
         return []
-    tags_data = get_response(tags_url)
-    tags = tags_data.get("values") or {}
+    while tags_url:
+        tags_data = get_response(tags_url)
+        tags = tags_data.get("values") or {}
 
-    for tag in tags:
-        version = tag.get("name") or ""
-        version_purl = PackageURL(type=purl.type, namespace=namespace, name=name, version=version)
-        download_url = f"{base_path}/{namespace}/{name}/downloads/{name}-{version}.tar.gz"
-        code_view_url = f"{bitbucket_url}/{namespace}/{name}/src/{version}"
+        for tag in tags:
+            version = tag.get("name") or ""
+            version_purl = PackageURL(type=purl.type, namespace=namespace, name=name, version=version)
+            download_url = f"{base_path}/{namespace}/{name}/downloads/{name}-{version}.tar.gz"
+            code_view_url = f"{bitbucket_url}/{namespace}/{name}/src/{version}"
 
-        if purl.version and version_purl.version != purl.version:
-            continue
+            if purl.version and version_purl.version != purl.version:
+                continue
 
-        yield Package(
-            api_url=api_url,
-            bug_tracking_url=bug_tracking_url,
-            code_view_url=code_view_url,
-            download_url=download_url,
-            **version_purl.to_dict(),
-        )
+            yield Package(
+                api_url=api_url,
+                bug_tracking_url=bug_tracking_url,
+                code_view_url=code_view_url,
+                download_url=download_url,
+                **version_purl.to_dict(),
+            )
 
-        if purl.version:
-            break
+            if purl.version:
+                return
+
+        tags_url = tags_data.get("next")
 
 
 @router.route("pkg:rubygems/.*")
