@@ -131,7 +131,7 @@ def _get_github_packages(purl, version_regex, ignored_tag_regex, default_package
 
         download_url = archive_download_url.format(org=purl.namespace, name=purl.name, tag_name=tag)
 
-        date = date.strftime("%Y-%m-%dT%H:%M:%S")
+        date = date.strftime("%Y-%m-%dT%H:%M:%S") if date else None
         package_dict.update(
             {
                 "download_url": download_url,
