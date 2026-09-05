@@ -362,10 +362,8 @@ def construct_cocoapods_package(
         if git_url and not http_url:
             if git_url.endswith(".git") and git_url.startswith("https://github.com/"):
                 gh_path = git_url[:-4]
-                github_tag = source.get("tag")
-                if github_tag and github_tag.startswith("v"):
-                    tag = github_tag
-                download_url = f"{gh_path}/archive/refs/tags/{tag}.tar.gz"
+                github_tag = source.get("tag") or tag
+                download_url = f"{gh_path}/archive/refs/tags/{github_tag}.tar.gz"
                 vcs_url = git_url
         elif git_url:
             vcs_url = git_url
