@@ -250,7 +250,14 @@ def _http_exists(url: str) -> bool:
     Lightweight existence check using a ranged GET so CDNs/servers that ignore HEAD still work.
     """
     try:
-        resp = make_head_request(url, headers={"Range": "bytes=0-0"})
-        return resp is not None and resp.status_code in (200, 206)
+        # A ranged GET rather than a HEAD, as the docstring says: HEAD ignores the
+        # Range header so 206 is never observed on that path, and requests.head
+        # does not follow redirects, so a CDN 302 reads as "missing". Git-LFS
+        # backed files are served exactly that way.
+        resp = requests.get(url, headers={"Range": "bytes=0-0"}, allow_redirects=True, stream=True)
+        try:
+            return resp.status_code in (200, 206)
+        finally:
+            resp.close()
     except Exception:
         return False
