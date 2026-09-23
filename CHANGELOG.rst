@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.8.5
+--------
+- Update pypa gh-action-pypi-publish tag to fixed commit SHA (https://github.com/aboutcode-org/fetchcode/pull/221)
+
 v0.8.4
 --------
 - Update GH release tag to fixed commit SHA (https://github.com/aboutcode-org/fetchcode/pull/219)
