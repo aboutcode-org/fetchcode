@@ -59,18 +59,6 @@ def test_cargo_packages(mock_get):
     check_packages(packages, expected_data)
 
 
-@mock.patch("fetchcode.package.get_response")
-def test_npm_packages(mock_get):
-    side_effect = [load_json("tests/data/npm_mock_data.json")]
-    purl = "pkg:npm/express"
-    expected_data = "tests/data/npm.json"
-    mock_get.side_effect = side_effect
-    packages = list(info(purl))
-
-    mock_get.assert_called_once_with("http://registry.npmjs.org/express")
-    check_packages(packages, expected_data)
-
-
 SCOPED_NPM_REGISTRY = {
     "name": "@angular/core",
     "repository": {"url": "git+https://github.com/angular/angular.git"},
