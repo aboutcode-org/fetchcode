@@ -59,15 +59,85 @@ def test_cargo_packages(mock_get):
     check_packages(packages, expected_data)
 
 
-@mock.patch("fetchcode.package.get_response")
-def test_npm_packages(mock_get):
-    side_effect = [load_json("tests/data/npm_mock_data.json")]
-    purl = "pkg:npm/express"
-    expected_data = "tests/data/npm.json"
-    mock_get.side_effect = side_effect
-    packages = list(info(purl))
+SCOPED_NPM_REGISTRY = {
+    "name": "@angular/core",
+    "repository": {"url": "git+https://github.com/angular/angular.git"},
+    "bugs": {"url": "https://github.com/angular/angular/issues"},
+    "license": "MIT",
+    "homepage": "https://angular.io",
+    "versions": {
+        "1.0.0": {
+            "version": "1.0.0",
+            "repository": {"type": "git", "url": "git+https://github.com/angular/angular.git"},
+            "dist": {"tarball": "https://registry.npmjs.org/@angular/core/-/core-1.0.0.tgz"},
+        },
+        "1.0.1": {
+            "version": "1.0.1",
+            "repository": {"type": "git", "url": "git+https://github.com/angular/angular.git"},
+            "dist": {"tarball": "https://registry.npmjs.org/@angular/core/-/core-1.0.1.tgz"},
+        },
+    },
+}
 
-    check_packages(packages, expected_data)
+
+@mock.patch("fetchcode.package.get_response")
+def test_npm_scoped_packages(mock_get):
+    mock_get.return_value = SCOPED_NPM_REGISTRY
+    packages = list(info("pkg:npm/%40angular/core"))
+
+    mock_get.assert_called_once_with("http://registry.npmjs.org/@angular/core")
+    assert [p.version for p in packages] == ["1.0.0", "1.0.1"]
+    assert all(p.namespace == "@angular" and p.name == "core" for p in packages)
+    assert packages[0].purl == "pkg:npm/%40angular/core@1.0.0"
+    assert packages[0].api_url == "http://registry.npmjs.org/@angular/core"
+    assert packages[0].download_url == "https://registry.npmjs.org/@angular/core/-/core-1.0.0.tgz"
+    assert packages[0].homepage_url == "https://angular.io"
+    assert packages[0].bug_tracking_url == "https://github.com/angular/angular/issues"
+    assert packages[0].vcs_url == "git+https://github.com/angular/angular.git"
+    assert packages[0].declared_license == "MIT"
+
+
+@mock.patch("fetchcode.package.get_response")
+def test_npm_scoped_package_with_version(mock_get):
+    mock_get.return_value = SCOPED_NPM_REGISTRY
+    packages = list(info("pkg:npm/%40angular/core@1.0.1"))
+
+    mock_get.assert_called_once_with("http://registry.npmjs.org/@angular/core")
+    assert len(packages) == 1
+    package = packages[0]
+    assert package.namespace == "@angular"
+    assert package.name == "core"
+    assert package.version == "1.0.1"
+    assert package.purl == "pkg:npm/%40angular/core@1.0.1"
+    assert package.download_url == "https://registry.npmjs.org/@angular/core/-/core-1.0.1.tgz"
+
+
+@mock.patch("fetchcode.package.get_response")
+def test_npm_string_repository_and_bugs(mock_get):
+    mock_get.return_value = {
+        "name": "@babel/core",
+        "repository": "https://github.com/babel/babel.git",
+        "bugs": "https://github.com/babel/babel/issues",
+        "license": "MIT",
+        "homepage": "https://babeljs.io",
+        "versions": {
+            "7.0.0": {
+                "version": "7.0.0",
+                "repository": "https://github.com/babel/babel.git",
+                "bugs": "https://github.com/babel/babel/issues",
+                "dist": {"tarball": "https://registry.npmjs.org/@babel/core/-/core-7.0.0.tgz"},
+            }
+        },
+    }
+    packages = list(info("pkg:npm/%40babel/core@7.0.0"))
+
+    assert len(packages) == 1
+    package = packages[0]
+    assert package.namespace == "@babel"
+    assert package.name == "core"
+    assert package.vcs_url == "https://github.com/babel/babel.git"
+    assert package.bug_tracking_url == "https://github.com/babel/babel/issues"
+    assert package.download_url == "https://registry.npmjs.org/@babel/core/-/core-7.0.0.tgz"
 
 
 @mock.patch("fetchcode.package.get_response")

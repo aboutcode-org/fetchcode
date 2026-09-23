@@ -71,6 +71,21 @@ def get_pypi_codeview_url(project_urls):
     return code_view_url
 
 
+def get_npm_field_url(value):
+    """
+    Return a URL from an npm ``repository`` or ``bugs`` field.
+
+    The registry stores these as either a URL string or an object with a ``url``.
+    """
+    if isinstance(value, str):
+        return value or None
+    if isinstance(value, dict):
+        url = value.get("url")
+        if isinstance(url, str):
+            return url or None
+    return None
+
+
 @router.route("pkg:cargo/.*")
 def get_cargo_data_from_purl(purl):
     """
@@ -121,28 +136,37 @@ def get_npm_data_from_purl(purl):
     purl = PackageURL.from_string(purl)
     base_path = "http://registry.npmjs.org"
     name = purl.name
+    namespace = purl.namespace
+    # Scoped packages are published as @scope/name. Keep namespace and name
+    # separate so the emitted Package PURL stays pkg:npm/%40scope/name.
+    registry_name = f"{namespace}/{name}" if namespace else name
     version = purl.version
-    api_url = f"{base_path}/{name}"
+    api_url = f"{base_path}/{registry_name}"
 
     response = get_response(api_url)
-    vcs_data = response.get("repository") or {}
-    bugs = response.get("bugs") or {}
-    download_url = f"{base_path}/{name}/-/{name}-{version}.tgz" if version else None
-    vcs_url = vcs_data.get("url")
-    bug_tracking_url = bugs.get("url")
+    download_url = f"{base_path}/{registry_name}/-/{name}-{version}.tgz" if version else None
+    vcs_url = get_npm_field_url(response.get("repository"))
+    bug_tracking_url = get_npm_field_url(response.get("bugs"))
     license = response.get("license")
     homepage_url = response.get("homepage")
 
-    versions = response.get("versions", [])
+    versions = response.get("versions") or {}
     for num in versions:
         version = versions[num]
-        version_purl = PackageURL(type=purl.type, name=name, version=version.get("version"))
-        repository = version.get("repository") or {}
-        bugs = response.get("bugs") or {}
+        if not isinstance(version, dict):
+            continue
+        version_purl = PackageURL(
+            type=purl.type,
+            namespace=namespace,
+            name=name,
+            version=version.get("version"),
+        )
         dist = version.get("dist") or {}
-        vcs_url = repository.get("url")
+        if not isinstance(dist, dict):
+            dist = {}
+        vcs_url = get_npm_field_url(version.get("repository"))
         download_url = dist.get("tarball")
-        bug_tracking_url = bugs.get("url")
+        bug_tracking_url = get_npm_field_url(version.get("bugs") or response.get("bugs"))
         declared_license = license
 
         if purl.version and version_purl.version != purl.version:
