@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.8.4
+--------
+- Update GH release tag to fixed commit SHA (https://github.com/aboutcode-org/fetchcode/pull/219)
+
 v0.8.3
 --------
 - Support fetching npm packages with namespaced scopes (https://github.com/aboutcode-org/fetchcode/pull/217)
