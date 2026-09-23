@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v0.8.3
+--------
+- Support fetching npm packages with namespaced scopes (https://github.com/aboutcode-org/fetchcode/pull/217)
+
 v0.8.2
 --------
 - Use new packagist endpoint to collect composer versions (https://github.com/aboutcode-org/fetchcode/pull/198)
