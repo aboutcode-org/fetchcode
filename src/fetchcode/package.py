@@ -144,9 +144,7 @@ def get_npm_data_from_purl(purl):
     api_url = f"{base_path}/{registry_name}"
 
     response = get_response(api_url)
-    download_url = (
-        f"{base_path}/{registry_name}/-/{name}-{version}.tgz" if version else None
-    )
+    download_url = f"{base_path}/{registry_name}/-/{name}-{version}.tgz" if version else None
     vcs_url = get_npm_field_url(response.get("repository"))
     bug_tracking_url = get_npm_field_url(response.get("bugs"))
     license = response.get("license")
