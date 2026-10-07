@@ -499,8 +499,9 @@ def get_pypi_latest_date(downloads):
     latest_date = None
     for download in downloads:
         upload_time = download.get("upload_time_iso_8601")
-        if upload_time:
-            current_date = dateparser.parse(upload_time)
+        if not upload_time:
+            continue
+        current_date = dateparser.parse(upload_time)
         if not latest_date:
             latest_date = current_date
         else:
