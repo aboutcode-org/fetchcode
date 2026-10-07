@@ -297,7 +297,7 @@ def get_cocoapod_tags(spec, name):
         data = response.strip()
         for line in data.splitlines():
             line = line.strip()
-            if line.startswith(name):
+            if line.startswith(name + "/"):
                 data_list = line.split("/")
                 if data_list[0] == name:
                     data_list.pop(0)
