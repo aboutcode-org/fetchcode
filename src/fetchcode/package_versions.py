@@ -409,15 +409,12 @@ def fetch_version_info(version_info: str, escaped_pkg: str) -> Optional[PackageV
 
 def composer_extract_versions(resp: dict, pkg: str) -> Iterable[PackageVersion]:
     for item in get_item(resp, "packages", pkg) or []:
-        if "dev-" in item:
-            continue
-
         # This if statement ensures, that all_versions contains only released versions
         # See https://github.com/composer/composer/blob/44a4429978d1b3c6223277b875762b2930e83e8c/doc/articles/versions.md#tags  # nopep8
         # for explanation of removing 'v'
         time = item.get("time")
         version = item.get("version")
-        if not version:
+        if not version or version.startswith("dev-") or version.endswith("-dev"):
             continue
         yield PackageVersion(
             value=cleaned_version(version),
