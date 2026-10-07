@@ -34,7 +34,7 @@ def fetch_github_tags_gql(purl):
 
         # in case the tag is a signed tag, then the commit info is in target['target']
         if "committedDate" not in target:
-            target = target["target"]
+            target = target.get("target") or {}
 
         committed_date = target.get("committedDate")
         release_date = None
