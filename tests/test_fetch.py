@@ -21,6 +21,7 @@ import pytest
 from fetchcode import fetch
 from fetchcode import resolve_purl
 from fetchcode import resolve_url_from_purl
+from fetchcode import utils
 
 
 @mock.patch("fetchcode.requests.get")
@@ -177,3 +178,19 @@ def test_resolve_purl_using_fetchcode_url_does_not_exists(
     mock_http_exists.return_value = False
     url = resolve_purl("pkg:pypi/example@1.0.0")
     assert url is None
+
+
+@mock.patch("fetchcode.utils.requests.head")
+def test_make_head_requests_follow_redirects(mock_head):
+    response = mock.Mock()
+    mock_head.return_value = response
+
+    url = "https://github.com/Alamofire/Alamofire/archive/5.4.3.zip"
+    headers = {"Range": "bytes=0-0"}
+
+    result = utils.make_head_request(url, headers=headers)
+
+    assert result is response
+    mock_head.assert_called_once_with(
+        url, headers=headers, allow_redirects=True
+    )

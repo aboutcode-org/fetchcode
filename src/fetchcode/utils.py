@@ -187,7 +187,7 @@ def get_text_response(url, headers=None):
 
 def make_head_request(url, headers=None):
     try:
-        resp = requests.head(url, headers=headers)
+        resp = requests.head(url, headers=headers, allow_redirects=True)
         return resp
     except requests.RequestException:
         raise Exception(f"Failed to fetch: {url}")
