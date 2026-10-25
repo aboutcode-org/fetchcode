@@ -80,6 +80,16 @@ def test_get_cargo_versions_from_purl(mock_get_response):
 
 
 @mock.patch("fetchcode.package_versions.get_response")
+def test_get_cargo_versions_from_purl_no_response(mock_get_response):
+    mock_get_response.return_value = None
+    purl = "pkg:cargo/yprox"
+
+    result = list(versions(purl))
+
+    assert result == []
+
+
+@mock.patch("fetchcode.package_versions.get_response")
 def test_get_gem_versions_from_purl(mock_get_response):
     side_effect = [get_json_data(data_location / "gem_mock_data.json")]
     purl = "pkg:gem/ruby-advisory-db-check"

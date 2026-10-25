@@ -136,6 +136,9 @@ def get_cargo_versions_from_purl(purl):
     url = f"https://crates.io/api/v1/crates/{purl.name}"
     response = get_response(url=url, content_type="json", headers={"User-Agent": "pm_bot"})
 
+    if not response:
+        return
+    
     for version_info in response.get("versions"):
         yield PackageVersion(
             value=version_info["num"],
