@@ -151,6 +151,82 @@ def test_pypi_packages(mock_get):
     check_packages(packages, expected_data)
 
 
+@pytest.mark.parametrize(
+    "files, expected_download, expected_source",
+    [
+        (
+            [
+                {"packagetype": "bdist_wheel", "url": "https://example.com/demo.whl"},
+                {"packagetype": "sdist", "url": "https://example.com/demo.tar.gz"},
+            ],
+            "https://example.com/demo.whl",
+            "https://example.com/demo.tar.gz",
+        ),
+        (
+            [
+                {"packagetype": "sdist", "url": "https://example.com/demo.zip"},
+                {"packagetype": "bdist_wheel", "url": "https://example.com/demo.whl"},
+            ],
+            "https://example.com/demo.zip",
+            "https://example.com/demo.zip",
+        ),
+        (
+            [{"packagetype": "sdist", "url": "https://example.com/demo.tar.gz"}],
+            "https://example.com/demo.tar.gz",
+            "https://example.com/demo.tar.gz",
+        ),
+        (
+            [{"packagetype": "bdist_wheel", "url": "https://example.com/demo.whl"}],
+            "https://example.com/demo.whl",
+            None,
+        ),
+        ([{"url": "https://example.com/demo.tar.gz"}], "https://example.com/demo.tar.gz", None),
+        ([{"packagetype": "sdist"}], None, None),
+        ([], None, None),
+    ],
+    ids=["wheel-first", "source-first", "source-only", "wheel-only", "untyped", "no-url", "empty"],
+)
+@mock.patch("fetchcode.package.get_response")
+def test_pypi_source_distribution_url(mock_get, files, expected_download, expected_source):
+    mock_get.return_value = {"releases": {"1.0": files}}
+
+    packages = list(info("pkg:pypi/demo"))
+
+    mock_get.assert_called_once_with("https://pypi.org/pypi/demo/json")
+    assert len(packages) == 1
+    package = packages[0]
+    assert package.purl == "pkg:pypi/demo@1.0"
+    assert package.download_url == expected_download
+    assert package.repository_download_url == expected_source
+    assert package.to_dict()["repository_download_url"] == expected_source
+
+
+@pytest.mark.parametrize("version", [None, "2.0", "3.0"])
+@mock.patch("fetchcode.package.get_response")
+def test_pypi_source_distribution_url_matches_release(mock_get, version):
+    mock_get.return_value = {
+        "releases": {
+            "1.0": [{"packagetype": "sdist", "url": "https://example.com/demo-1.0.tar.gz"}],
+            "2.0": [{"packagetype": "sdist", "url": "https://example.com/demo-2.0.tar.gz"}],
+            "3.0": [],
+        }
+    }
+    purl = "pkg:pypi/demo"
+    if version:
+        purl += f"@{version}"
+
+    packages = list(info(purl))
+
+    expected = [
+        ("1.0", "https://example.com/demo-1.0.tar.gz"),
+        ("2.0", "https://example.com/demo-2.0.tar.gz"),
+        ("3.0", None),
+    ]
+    if version:
+        expected = [item for item in expected if item[0] == version]
+    assert [(p.version, p.repository_download_url) for p in packages] == expected
+
+
 @mock.patch("fetchcode.package.get_response")
 def test_bitbucket_packages(mock_get):
     side_effect = [

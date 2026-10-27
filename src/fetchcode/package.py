@@ -207,17 +207,21 @@ def get_pypi_data_from_purl(purl):
 
     for num in releases:
         version_purl = PackageURL(type=purl.type, name=name, version=num)
-        release = releases.get(num) or [{}]
-        release = release[0]
-        download_url = release.get("url")
         if purl.version and version_purl.version != purl.version:
             continue
+        release_files = releases.get(num) or [{}]
+        download_url = release_files[0].get("url")
+        repository_download_url = next(
+            (file.get("url") for file in release_files if file.get("packagetype") == "sdist"),
+            None,
+        )
         yield Package(
             homepage_url=homepage_url,
             api_url=api_url,
             bug_tracking_url=bug_tracking_url,
             code_view_url=code_view_url,
             download_url=download_url,
+            repository_download_url=repository_download_url,
             declared_license=license,
             **version_purl.to_dict(),
         )
