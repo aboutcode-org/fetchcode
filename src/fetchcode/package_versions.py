@@ -30,6 +30,7 @@ from packageurl import PackageURL
 from packageurl.contrib.route import NoRouteAvailable
 from packageurl.contrib.route import Router
 
+from fetchcode.utils import DEFAULT_TIMEOUT
 from fetchcode.utils import fetch_github_tags_gql
 
 logger = logging.getLogger(__name__)
@@ -515,7 +516,7 @@ def get_response(url, content_type="json", headers=None):
     one of binary, text, yaml or json.
     """
     try:
-        resp = requests.get(url)
+        resp = requests.get(url, timeout=DEFAULT_TIMEOUT)
         resp.raise_for_status()
     except requests.HTTPError as http_err:
         logger.error(f"Error while fetching {url!r}: {resp.status_code!r}")

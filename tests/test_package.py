@@ -200,7 +200,9 @@ def test_tuby_package_with_invalid_url(mock_get):
 @mock.patch("fetchcode.package_util.utils.get_response")
 @mock.patch("fetchcode.package.get_cocoapod_tags")
 @mock.patch("fetchcode.package.get_hashed_path")
+@mock.patch("fetchcode.package.get_response")
 def test_cocoapods_packages(
+    mock_get_podspec,
     mock_get_hashed_path,
     mock_get_cocoapod_tags,
     mock_get_response,
@@ -219,6 +221,9 @@ def test_cocoapods_packages(
     ]
 
     mock_get_response.side_effect = file_json(
+        "tests/data/cocoapods/mock_get_response_side_effect.json"
+    )
+    mock_get_podspec.side_effect = file_json(
         "tests/data/cocoapods/mock_get_response_side_effect.json"
     )
     mock_get_github_rest.return_value = load_json(
@@ -240,7 +245,9 @@ def test_cocoapods_packages(
 @mock.patch("fetchcode.package_util.utils.get_response")
 @mock.patch("fetchcode.package.get_cocoapod_tags")
 @mock.patch("fetchcode.package.get_hashed_path")
+@mock.patch("fetchcode.package.get_response")
 def test_get_cocoapods_data_from_purl(
+    mock_get_podspec,
     mock_get_hashed_path,
     mock_get_cocoapod_tags,
     mock_get_response,
@@ -264,6 +271,9 @@ def test_get_cocoapods_data_from_purl(
     ]
 
     mock_get_response.side_effect = file_json(
+        "tests/data/cocoapods/mock_get_response_side_effect.json"
+    )
+    mock_get_podspec.side_effect = file_json(
         "tests/data/cocoapods/mock_get_response_side_effect.json"
     )
     mock_get_github_rest.return_value = load_json(

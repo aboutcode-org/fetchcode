@@ -23,6 +23,7 @@ from urllib.parse import urlparse
 import requests
 from packageurl.contrib import purl2url
 
+from fetchcode.utils import DEFAULT_TIMEOUT
 from fetchcode.utils import _http_exists
 
 
@@ -46,7 +47,7 @@ def fetch_http(url, location):
     Return a `Response` object built from fetching the content at a HTTP/HTTPS based
     `url` URL string saving the content in a file at `location`
     """
-    r = requests.get(url)
+    r = requests.get(url, timeout=DEFAULT_TIMEOUT)
 
     with open(location, "wb") as f:
         f.write(r.content)
@@ -162,7 +163,7 @@ def fetch_json_response(url):
     """
     Fetch a JSON response from the given URL and return the parsed JSON data.
     """
-    response = requests.get(url)
+    response = requests.get(url, timeout=DEFAULT_TIMEOUT)
     if response.status_code != 200:
         raise Exception(f"Failed to fetch {url}: {response.status_code} {response.reason}")
 

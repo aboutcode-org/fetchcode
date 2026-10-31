@@ -143,9 +143,12 @@ def test_resolve_purl_invalid():
     assert resolve_purl("pkg:invalid/invalid-package@1.0.0") is None
 
 
-def test_resolve_purl_using_purl2url():
+@mock.patch("fetchcode._http_exists")
+def test_resolve_purl_using_purl2url(mock_http_exists):
+    mock_http_exists.return_value = True
     url = resolve_purl("pkg:pub/http@0.13.3")
     assert url == "https://pub.dev/api/archives/http-0.13.3.tar.gz"
+    mock_http_exists.assert_called_once_with("https://pub.dev/api/archives/http-0.13.3.tar.gz")
 
 
 @mock.patch("fetchcode._http_exists")

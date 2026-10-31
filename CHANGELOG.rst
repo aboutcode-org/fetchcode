@@ -1,6 +1,10 @@
 Changelog
 =========
 
+Unreleased
+----------
+- Make unit tests independent of external HTTP services and add default HTTP timeouts (#188).
+
 v0.8.5
 --------
 - Update pypa gh-action-pypi-publish tag to fixed commit SHA (https://github.com/aboutcode-org/fetchcode/pull/221)

@@ -23,6 +23,9 @@ import requests
 from dateutil import parser as dateparser
 from dateutil.parser import ParserError
 
+# Bound connection setup and read inactivity, not the total download duration.
+DEFAULT_TIMEOUT = 30
+
 
 def fetch_github_tags_gql(purl):
     """
@@ -145,7 +148,9 @@ def github_response(graphql_query):
     headers = {"Authorization": f"bearer {gh_token}"}
 
     endpoint = "https://api.github.com/graphql"
-    response = requests.post(endpoint, headers=headers, json=graphql_query).json()
+    response = requests.post(
+        endpoint, headers=headers, json=graphql_query, timeout=DEFAULT_TIMEOUT
+    ).json()
 
     message = response.get("message")
     if message and message == "Bad credentials":
@@ -170,7 +175,7 @@ def get_github_rest(url):
 
 
 def get_response(url, headers=None):
-    resp = requests.get(url, headers=headers)
+    resp = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT)
     if resp.status_code == 200:
         return resp.json()
 
@@ -178,7 +183,7 @@ def get_response(url, headers=None):
 
 
 def get_text_response(url, headers=None):
-    resp = requests.get(url, headers=headers)
+    resp = requests.get(url, headers=headers, timeout=DEFAULT_TIMEOUT)
     if resp.status_code == 200:
         return resp.text
 
@@ -187,7 +192,7 @@ def get_text_response(url, headers=None):
 
 def make_head_request(url, headers=None):
     try:
-        resp = requests.head(url, headers=headers)
+        resp = requests.head(url, headers=headers, timeout=DEFAULT_TIMEOUT)
         return resp
     except requests.RequestException:
         raise Exception(f"Failed to fetch: {url}")

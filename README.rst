@@ -38,9 +38,15 @@ To run test suite use::
 
     pytest -vvs
 
+Unit tests use recorded data and mocks and must run without an internet
+connection. Unexpected HTTP requests fail the test suite.
+
 
 Usage
 --------
+
+HTTP requests use a 30-second timeout for connection setup and read inactivity.
+This is not a limit on the total time needed to download a file.
 
 Fetch a code archive and get a ``fetchcode.fetch.Response`` object back::
 
