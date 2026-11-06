@@ -141,6 +141,56 @@ def test_npm_string_repository_and_bugs(mock_get):
 
 
 @mock.patch("fetchcode.package.get_response")
+def test_npm_package_license_from_selected_release(mock_get):
+    mock_get.return_value = {
+        "name": "example",
+        "license": "Apache-2.0",
+        "versions": {
+            "1.0.0": {
+                "version": "1.0.0",
+                "license": "MIT",
+                "dist": {"tarball": "https://registry.npmjs.org/example/-/example-1.0.0.tgz"},
+            },
+            "1.0.1": {
+                "version": "1.0.1",
+                "license": "Apache-2.0",
+                "dist": {"tarball": "https://registry.npmjs.org/example/-/example-1.0.1.tgz"},
+            },
+            "0.9.0": {
+                "version": "0.9.0",
+                "dist": {"tarball": "https://registry.npmjs.org/example/-/example-0.9.0.tgz"},
+            },
+            "0.8.0": {
+                "version": "0.8.0",
+                "license": None,
+                "dist": {"tarball": "https://registry.npmjs.org/example/-/example-0.8.0.tgz"},
+            },
+        },
+    }
+
+    packages_1_0_0 = list(info("pkg:npm/example@1.0.0"))
+    assert len(packages_1_0_0) == 1
+    assert packages_1_0_0[0].version == "1.0.0"
+    assert packages_1_0_0[0].declared_license == "MIT"
+
+    packages_1_0_1 = list(info("pkg:npm/example@1.0.1"))
+    assert len(packages_1_0_1) == 1
+    assert packages_1_0_1[0].version == "1.0.1"
+    assert packages_1_0_1[0].declared_license == "Apache-2.0"
+
+    packages_0_9_0 = list(info("pkg:npm/example@0.9.0"))
+    assert len(packages_0_9_0) == 1
+    assert packages_0_9_0[0].version == "0.9.0"
+    assert packages_0_9_0[0].declared_license == "Apache-2.0"
+
+    packages_0_8_0 = list(info("pkg:npm/example@0.8.0"))
+    assert len(packages_0_8_0) == 1
+    assert packages_0_8_0[0].version == "0.8.0"
+    assert packages_0_8_0[0].declared_license == "Apache-2.0"
+
+
+
+@mock.patch("fetchcode.package.get_response")
 def test_pypi_packages(mock_get):
     side_effect = [load_json("tests/data/pypi_mock_data.json")]
     purl = "pkg:pypi/flask"
