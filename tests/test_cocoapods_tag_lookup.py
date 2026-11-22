@@ -14,6 +14,9 @@
 # CONDITIONS OF ANY KIND, either express or implied. See the License for the
 # specific language governing permissions and limitations under the License.
 
+import pytest
+
+from fetchcode.package import get_cocoapods_data_from_purl
 from fetchcode.package_util import get_cocoapod_tags
 
 
@@ -24,6 +27,13 @@ def test_cocoapod_tags_skip_packages_with_same_prefix(monkeypatch):
     assert get_cocoapod_tags("https://example.com/versions", "Foo") == ["1.0", "2.0"]
 
 
-def test_cocoapod_tags_return_none_when_only_prefix_matches(monkeypatch):
-    monkeypatch.setattr("fetchcode.utils.get_text_response", lambda url: "FooBar/9.0\n")
-    assert get_cocoapod_tags("https://example.com/versions", "Foo") is None
+@pytest.mark.parametrize("response", ["FooBar/9.0\n", "Bar/1.0\n", ""])
+def test_cocoapod_tags_return_empty_list_when_no_exact_match(monkeypatch, response):
+    monkeypatch.setattr("fetchcode.utils.get_text_response", lambda url: response)
+    assert get_cocoapod_tags("https://example.com/versions", "Foo") == []
+
+
+@pytest.mark.parametrize("response", ["FooBar/9.0\n", "Bar/1.0\n", ""])
+def test_cocoapods_data_yields_no_packages_when_no_exact_match(monkeypatch, response):
+    monkeypatch.setattr("fetchcode.utils.get_text_response", lambda url: response)
+    assert list(get_cocoapods_data_from_purl("pkg:cocoapods/Foo")) == []

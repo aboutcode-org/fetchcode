@@ -302,7 +302,7 @@ def get_cocoapod_tags(spec, name):
                 if data_list[0] == name:
                     data_list.pop(0)
                 return data_list
-        return None
+        return []
     except:  # noqa: E722
         return None
 
