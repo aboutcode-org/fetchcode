@@ -548,7 +548,7 @@ def remove_debian_default_epoch(version):
     >>> remove_debian_default_epoch("")
     ''
     """
-    return version and version.replace("0:", "")
+    return version and version.removeprefix("0:")
 
 
 def get_npm_registry_url(purl):

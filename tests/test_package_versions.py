@@ -19,6 +19,7 @@ import os
 from pathlib import Path
 from unittest import mock
 
+import pytest
 import yaml
 from packageurl import PackageURL
 
@@ -121,6 +122,31 @@ def test_get_deb_versions_from_purl(mock_get_response):
     mock_get_response.side_effect = side_effect
     result = list(versions(purl))
     check_results_against_json(result, expected_file)
+
+
+@pytest.mark.parametrize(
+    "purl, collection_key, version_key",
+    [
+        ("pkg:deb/debian/intercal", "versions", "version"),
+        ("pkg:deb/ubuntu/intercal", "entries", "source_package_version"),
+    ],
+)
+@mock.patch("fetchcode.package_versions.get_response")
+def test_deb_versions_preserve_nonzero_epochs(mock_get_response, purl, collection_key, version_key):
+    mock_get_response.return_value = {
+        collection_key: [
+            {version_key: version}
+            for version in ("30:0.30-6", "10:1.2.3-4", "1:2.5.1-4", "0:1.2.3-4", "1.2.3-4")
+        ]
+    }
+
+    assert [version.value for version in versions(purl)] == [
+        "30:0.30-6",
+        "10:1.2.3-4",
+        "1:2.5.1-4",
+        "1.2.3-4",
+        "1.2.3-4",
+    ]
 
 
 @mock.patch("fetchcode.package_versions.get_response")
